@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Course.Overflow.Global.CourseHome;
+package Course.Overflow.Course.Home;
 
 import Course.Overflow.Global.GLOBAL;
 import java.io.IOException;

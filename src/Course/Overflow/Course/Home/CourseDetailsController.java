@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Course.Overflow.Global.CourseHome;
+package Course.Overflow.Course.Home;
 
 import Course.Overflow.Global.GLOBAL;
 import java.io.IOException;
@@ -84,6 +84,7 @@ public class CourseDetailsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         makeCourseWeek();
         makeReviewBox();
+        addListener();
     }    
 
     public void makeCourseWeek(){
@@ -107,6 +108,18 @@ public class CourseDetailsController implements Initializable {
             }
         }
         
+    }
+
+    private void addListener() {
+        instName.setOnMouseClicked(event->{
+            GLOBAL.PAGE_CTRL.setTeacherDetailsPage();
+        });
+        instPhoto.setOnMouseClicked(event->{
+            GLOBAL.PAGE_CTRL.setTeacherDetailsPage();
+        });
+        topInstName.setOnMouseClicked(event->{
+            GLOBAL.PAGE_CTRL.setTeacherDetailsPage();
+        });
     }
 
 }

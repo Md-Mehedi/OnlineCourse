@@ -6,7 +6,6 @@
 
 package Course.Overflow.Global.Page;
 
-import Course.Overflow.Course.Home.CourseDetailsController;
 import Course.Overflow.Global.GLOBAL;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -17,18 +16,16 @@ import javafx.fxml.FXMLLoader;
  *
  * @author Md Mehedi Hasan
  */
-public class CoursePage extends Page{
+public class TeacherDetailsPage extends Page{
 
     private FXMLLoader loader;
-    private CourseDetailsController pageCtrl;
-    
-    public CoursePage(){
+    public TeacherDetailsPage(){
         try {
-            loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_HOME_LOCATION + "/CourseDetails.fxml"));
+            loader = new FXMLLoader(getClass().getResource(GLOBAL.TEACHER_LOCATION + "/TeacherPreview.fxml"));
             root = loader.load();
-            pageCtrl = loader.<CourseDetailsController>getController();
         } catch (IOException ex) {
-            Logger.getLogger(CoursePage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TeacherDetailsPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
 }

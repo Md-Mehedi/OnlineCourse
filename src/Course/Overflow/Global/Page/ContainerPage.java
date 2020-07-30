@@ -84,7 +84,7 @@ public class ContainerPage {
             headerCtrl.setNotiPane(noti);
         } catch (IOException ex) { Logger.getLogger(ContainerPage.class.getName()).log(Level.SEVERE, null, ex);}
         
-        setHomePage();
+        setTeacherDetailsPage();
     }
     
     public AnchorPane getContainer(){
@@ -100,6 +100,11 @@ public class ContainerPage {
     
     public void setCoursePage(){
         CoursePage page = new CoursePage();
+        setNewPage(page);
+    }
+    
+    public void setTeacherDetailsPage(){
+        TeacherDetailsPage page = new TeacherDetailsPage();
         setNewPage(page);
     }
     

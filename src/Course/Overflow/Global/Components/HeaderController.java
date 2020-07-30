@@ -65,12 +65,16 @@ public class HeaderController implements Initializable {
         leftArrow.setOpacity(0.1);
         rightArrow.setOpacity(0.1);
         leftArrow.setOnMouseClicked((event) -> {
-            ContainerPage.pageIdx--;
-            ContainerPage.loadPage();
+            if(ContainerPage.pageIdx>0){
+                ContainerPage.pageIdx--;
+                ContainerPage.loadPage();
+            }
         });
         rightArrow.setOnMouseClicked((event) -> {
-            ContainerPage.pageIdx++;
-            ContainerPage.loadPage();
+            if(ContainerPage.pageIdx < ContainerPage.pages.size()-1){
+                ContainerPage.pageIdx++;
+                ContainerPage.loadPage();
+        }
         });
     }    
     
