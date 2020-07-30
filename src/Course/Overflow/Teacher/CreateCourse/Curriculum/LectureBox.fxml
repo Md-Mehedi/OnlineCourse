@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="LectureBoxPane" fx:id="lectureBoxPane" focusTraversable="true" prefWidth="832.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Teacher.CreateCourse.Curriculum.LectureBoxController">
+   <children>
+      <VBox layoutX="7.0" layoutY="2.0" style="-fx-spacing: 0;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <AnchorPane>
+               <children>
+                  <HBox id="LectureBoxHeader" alignment="CENTER_LEFT" spacing="15.0" style="-fx-alignment: center-left;" styleClass="header" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" style="-fx-spacing: 0;">
+                           <children>
+                              <CheckBox fx:id="freeAvailableCkB" mnemonicParsing="false" />
+                              <Label text="Lecture:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lectureNo" style="-fx-padding: 0;" text="1">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="9.0" style="-fx-spacing: 15;">
+                           <children>
+                              <FontAwesomeIconView glyphName="FILE_TEXT" size="20" wrappingWidth="12.0">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin></FontAwesomeIconView>
+                              <Label fx:id="lectureNameLabel" style="-fx-padding: 0  5 0 0;" styleClass="title" text="Lecture Name" wrapText="true">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <MaterialDesignIconView id="edit" fx:id="editIcon" glyphName="PENCIL" onMouseClicked="#mouseClicked" size="20">
+                                 <styleClass>
+                                    <String fx:value="opacity0" />
+                                    <String fx:value="cursorHand" />
+                                    <String fx:value="containerHover" />
+                                    <String fx:value="maxScaleHover" />
+                                 </styleClass>
+                              </MaterialDesignIconView>
+                           </children>
+                        </HBox>
+                        <FontAwesomeIconView id="delete" fx:id="deleteIcon" glyphName="TRASH_ALT" onMouseClicked="#mouseClicked" size="20">
+                           <styleClass>
+                              <String fx:value="cursorHand" />
+                              <String fx:value="opacity0" />
+                              <String fx:value="containerHover" />
+                              <String fx:value="maxScaleHover" />
+                           </styleClass>
+                        </FontAwesomeIconView>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="526.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <StackPane>
+                           <children>
+                              <Label id="Contents" fx:id="content" minHeight="40.0" onMouseClicked="#mouseClicked" text="+ Contents">
+                                 <styleClass>
+                                    <String fx:value="contentLabel" />
+                                    <String fx:value="cursorHand" />
+                                    <String fx:value="minScaleHover" />
+                                 </styleClass>
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                              </Label>
+                              <FontAwesomeIconView id="CancelContent" fx:id="cancelContents" glyphName="CLOSE" onMouseClicked="#mouseClicked" size="40" visible="false">
+                                 <styleClass>
+                                    <String fx:value="containerHover" />
+                                    <String fx:value="maxScaleHover" />
+                                    <String fx:value="cursorHand" />
+                                 </styleClass>
+                              </FontAwesomeIconView>
+                           </children>
+                        </StackPane>
+                        <FontAwesomeIconView id="up" fx:id="up" glyphName="ANGLE_DOUBLE_UP" onMouseClicked="#mouseClicked" size="24">
+                           <styleClass>
+                              <String fx:value="containerHover" />
+                              <String fx:value="maxScaleHover" />
+                              <String fx:value="cursorHand" />
+                              <String fx:value="opacity0" />
+                           </styleClass>
+                        </FontAwesomeIconView>
+                        <FontAwesomeIconView id="down" fx:id="down" glyphName="ANGLE_DOUBLE_DOWN" onMouseClicked="#mouseClicked" size="24">
+                           <styleClass>
+                              <String fx:value="containerHover" />
+                              <String fx:value="maxScaleHover" />
+                              <String fx:value="cursorHand" />
+                              <String fx:value="opacity0" />
+                           </styleClass>
+                        </FontAwesomeIconView>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <HBox id="contentBox" fx:id="availableContentContainer">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../../../Global/Global.css" />
+      <URL value="@Curriculum.css" />
+   </stylesheets>
+   <styleClass>
+      <String fx:value="container" />
+      <String fx:value="centerRightWidth" />
+   </styleClass>
+</AnchorPane>

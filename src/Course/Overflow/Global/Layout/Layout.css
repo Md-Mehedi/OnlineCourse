@@ -1,0 +1,107 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 1, 2020, 2:00:38 PM
+    Author     : ASUS
+*/
+
+
+
+/*
+ * Layout CSS 
+ */
+.mainFullWidth{
+    -fx-pref-width: 1435;
+}
+.mainCenterWidth{
+    -fx-pref-width: 1135;
+}
+.mainLeftWidth{
+    -fx-pref-width: 300;
+    -fx-min-width: 85;
+    -fx-max-width: 300;
+}
+.mainFullHeight{
+    -fx-pref-height: 900;
+}
+.mainCenterHeight{
+    -fx-pref-height: 820;
+}
+.mainHeaderHeight, .mainFooterHeight{
+    -fx-pref-height: 40;
+/*    -fx-min-height:  40;
+    -fx-max-height:  40;*/
+}
+.centerPane{
+    -fx-padding: 30 30 30 30;
+}
+
+
+/* Layout - start */
+.mainLeftWidth, #menuContainer{
+    -fx-pref-width: 300;
+    -fx-max-width:  300;
+}
+.mainLeftWidth, #menuContainer, #iconContainer{
+    -fx-min-width: 90;
+}
+#labelContainer Label{
+    -fx-pref-width: 210;
+    -fx-max-width:  210;
+    -fx-min-width: 0;
+    -fx-text-wrap: false;
+}
+#iconContainer Label{
+    -fx-pref-width: 90;
+    -fx-max-width:  90;
+    -fx-min-width:  90;
+}
+#iconContainer>Label, #labelContainer>Label, #runningPane, #iconContainer SVGPath{
+    -fx-pref-height: 75;
+}
+#menuContainer, #iconContainer, #labelContainer{
+    -fx-spacing: 0;
+}
+#runningPane{
+    -fx-pref-width: 10;
+}
+#centerPageContainer > Label{
+    -fx-pref-height: 70;
+}
+/* Layout - end */
+
+#menuContainer, #iconContainer, #labelContainer{
+    -fx-alignment: top-left;
+}
+#iconContainer Label, #labelContainer Label{
+    -fx-text-fill: white;
+}
+#iconContainer FontAwesomeIconView, #iconContainer MaterialIconView, #iconContainer SVGPath{
+    -fx-fill: white;
+}
+#iconContainer Label{
+    -fx-alignment: center;
+}
+#iconContainer FontAwesomeIconView{
+    -fx-font-size: 40;
+}
+.leftMenuHovering{
+    -fx-background-color:#853C64;
+    -fx-font-weight: bold;
+}
+#menuContainer{
+    -fx-background-color: #52143E;
+}
+#runningPane{
+    -fx-background-color: #EC5252;
+}
+#centerPageContainer > Label{
+    -fx-font: 30 "Cooper black";
+}
+#centerPageContainer{
+    -fx-padding: 0 30 30 30;
+    -fx-alignment: center-left;
+}

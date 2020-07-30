@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="container" fx:id="container" styleClass="centerRightWidth" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Teacher.CreateCourse.TargetStudentPage.TargetStudentPageController">
+   <stylesheets>
+      <URL value="@../../../Global/Global.css" />
+      <URL value="@TargetStudentPage.css" />
+   </stylesheets>
+   <children>
+      <VBox layoutX="44.0" layoutY="37.0" style="-fx-spacing: 70;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <Label text="The descriptions you write here will help students decide if your course is the one for them" />
+            <VBox>
+               <children>
+                  <Label text="What will students learn in your course?" />
+                  <VBox fx:id="courseLearningContainer" />
+                  <Label fx:id="addLearning" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" styleClass="addAnswerBtn" text="+ Add an answer" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label text="Are there any course requirements or prerequisites" />
+                  <VBox fx:id="requContainer" />
+                  <Label fx:id="addRequirement" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" styleClass="addAnswerBtn" text="+ Add an answer" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label text="Write down the properties in brief with attractive icons" />
+                  <VBox fx:id="propertiesContainer" />
+                  <Label fx:id="addProperties" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" styleClass="addAnswerBtn" text="+ Add an answer" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

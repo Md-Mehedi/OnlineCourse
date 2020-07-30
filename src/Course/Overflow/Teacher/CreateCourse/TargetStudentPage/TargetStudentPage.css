@@ -1,0 +1,83 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 29, 2020, 4:52:38 PM
+    Author     : ASUS
+*/
+VBox, HBox{
+    -fx-alignment: center-left;
+}
+
+/*
+ * Properties.fxml & AddAnswer.fxml
+ */
+Label{
+    -fx-padding: 0;
+}
+.addAnswerHbox{
+    -fx-spacing: 0;
+}
+StackPane{
+    -fx-background-color: #ccffff;
+}
+.addAnswerHbox Label{
+    -fx-pref-width: 50;
+    -fx-min-width: 50;
+    -fx-max-width: 50;
+    -fx-pref-height: 50;
+    -fx-border-color: #009999;
+    -fx-background-color: #ccffff;
+    -fx-alignment: center;
+}
+.addAnswerHbox TextField{
+    -fx-border-color: #009999;
+    -fx-background-color: #eeffff;
+}
+.addAnswerIconBox{
+    -fx-opacity: 0.1;
+}
+.addAnswerHbox:hover .addAnswerIconBox{
+    -fx-opacity: 1;
+}
+#uploadBtn{
+    -fx-background-color: #009999;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-min-width: 135;
+    -fx-text-alignment: center;
+}
+#iconNameLabel{
+    -fx-min-width: 300;
+}
+
+/*
+ * TargetStudentPage.fxml
+ */
+.addAnswerBtn{
+    -fx-text-fill: #009999;
+    -fx-font-weight: bold;
+    -fx-font-size: 22;
+}
+/*
+ * CreateIconPack.fxml
+ */
+.iconBoxContainer{
+    -fx-background-color: #eeffff;
+    -fx-pref-width: 185;
+    -fx-max-width: 185;
+    -fx-min-width: 185;
+}
+.iconBoxContainer Label{
+    -fx-background-color: #88ffff;
+    -fx-cursor: Hand;
+}
+.iconBoxContainer FontAwesomeIconView{
+    -fx-cursor: hand;
+}
+.iconBoxContainer FontAwesomeIconView:hover{
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+}

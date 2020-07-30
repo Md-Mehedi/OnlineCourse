@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="menuItemEdtContainer" fx:id="container" prefWidth="600.0" styleClass="centerRightWidth" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.TopMenuBar.MenuItemEditorController">
+   <children>
+      <VBox fx:id="mainContainer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox>
+               <children>
+                  <HBox id="idContainer" fx:id="idContainer">
+                     <children>
+                        <Label fx:id="menuTypeLabel" minWidth="114.0" text="Menu item" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="idNum" minWidth="36.0" text="1" HBox.hgrow="NEVER" />
+                     </children>
+                  </HBox>
+                  <HBox styleClass="addAnswerHbox" HBox.hgrow="ALWAYS">
+                     <children>
+                        <HBox style="-fx-spacing: 0;">
+                           <children>
+                              <Label id="uploadBtn" fx:id="selectIconBtn" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" style="-fx-text-alignment: right;" styleClass="cursorHand" text="Select Icon" />
+                              <StackPane fx:id="iconContainer" />
+                           </children>
+                        </HBox>
+                        <TextField fx:id="nameField" HBox.hgrow="ALWAYS" />
+                        <HBox style="-fx-spacing: 0;" styleClass="addAnswerIconBox">
+                           <children>
+                              <Label fx:id="deleteIcon" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" styleClass="cursorHand">
+                                 <graphic>
+                                    <FontAwesomeIconView glyphName="TRASH_ALT" size="25" styleClass="maxScaleHover" />
+                                 </graphic>
+                              </Label>
+                              <Label fx:id="upIcon" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" styleClass="cursorHand">
+                                 <graphic>
+                                    <MaterialDesignIconView glyphName="CHEVRON_DOUBLE_UP" size="30" styleClass="maxScaleHover" />
+                                 </graphic>
+                              </Label>
+                              <Label fx:id="downIcon" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" styleClass="cursorHand">
+                                 <graphic>
+                                    <MaterialDesignIconView glyphName="CHEVRON_DOUBLE_DOWN" size="30" styleClass="maxScaleHover" />
+                                 </graphic>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <VBox fx:id="subContainer" />
+            <HBox style="-fx-alignment: center-right; -fx-padding: 0 5 5 0;">
+               <children>
+                  <ImageView fx:id="addIcon" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#mouseClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../Files/Icon/plus_48px.png" />
+                     </image>
+                     <styleClass>
+                        <String fx:value="minScaleHover" />
+                        <String fx:value="cursorHand" />
+                     </styleClass>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../../Global.css" />
+      <URL value="@TopMenuBar.css" />
+   </stylesheets>
+</AnchorPane>

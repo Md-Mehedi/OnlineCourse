@@ -1,0 +1,41 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 7, 2020, 5:09:55 PM
+    Author     : ASUS
+*/
+VBox, HBox{
+    -fx-alignment: center;
+}
+Label{
+    -fx-font: 25 "Halvetica";
+}
+#container{
+    -fx-pref-width: 800;
+    -fx-pref-height: 500;
+    -fx-padding: 20 0 0 0;
+}
+#topPane>HBox, #BottomPane>SCrollPane>AnchorPane{
+    -fx-padding: 0 20 0 20;
+}
+#topPane{
+    -fx-pref-height: 45;
+}
+#bottomPane{
+    -fx-pref-height: 435;
+}
+#topPane HBox{
+    -fx-spacing: 35;
+    -fx-alignment: center-left;
+}
+#runningPane{
+    -fx-pref-width: 80;
+    -fx-pref-height: 8;
+    -fx-background-color: orange;
+}
+#topPane Label, #centerPane StackPane, #centerPane FontAwesomeIconView{
+    -fx-cursor: hand;
+}

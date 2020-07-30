@@ -1,0 +1,155 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 3, 2020, 6:06:38 PM
+    Author     : ASUS
+*/
+
+Label{
+    -fx-alignment: center-left;
+    -fx-text-alignment: left;
+    -fx-padding: 0;
+}
+#container{
+    -fx-pref-width: 240;
+    -fx-max-width: 240;
+    -fx-min-width: 240;
+    -fx-padding: 0 10 10 10;
+}
+#wrapper{
+    -fx-padding: 5;
+}
+.courseName, .courseTeacher{
+    -fx-pref-width: 220;
+    -fx-max-width:  220;
+    -fx-min-width:  220;
+}
+#container{
+    -fx-pref-height: 340;
+}
+.courseName{
+    -fx-max-height: 120;
+    -fx-text-alignment: left;
+    -fx-font-weight: bold;
+}
+#ratingContainer, #detailsContainer{
+    -fx-alignment: center-left;
+}
+#priceContainer{
+    -fx-alignment: center-right;
+}
+#priceContainer Label{
+    -fx-padding: 0 0 0 20;
+}
+#ratingContainer Label{
+    -fx-padding: 0 0 0 10;
+}
+#container VBox, #container HBox{
+    -fx-spacing: 0;
+}
+.courseTeacher{
+    -fx-font-size: 16;
+    -fx-padding: 5 0 5 0;
+}
+.mainPrice .text{
+    -fx-font-size: 18;
+    -fx-strikethrough: true;
+}
+.ratingTimes{
+    -fx-font-size: 15;
+    -fx-alignment: bottom-left;
+    -fx-padding: 0;
+}
+.deductPrice{
+    -fx-font-size: 22;
+    -fx-font-weight: bold;
+}
+#courseBoxRating > .container{
+    -fx-spacing: 5;
+}
+#courseBoxRating > .container  .button , #courseBoxRating{
+    -fx-pref-height: 20 ;
+    -fx-max-height:  20;
+    -fx-min-height:  20;
+}
+#courseBoxRating > .container  .button {
+    -fx-pref-width: 20 ;
+    -fx-background-size: cover;
+    -fx-padding: 0; 
+}
+#container{
+    -fx-background-color: #eeeeee;
+}
+
+/**
+ ** Carousel 
+ **/
+#carouselContainer{
+    -fx-padding: 10 20 10 20;
+}
+#courseBoxContainer{
+    -fx-alignment: center-left;
+}
+.leftArrow, .rightArrow{
+    -fx-opacity: 0.1;
+}
+.leftArrow:hover, .rightArrow:hover{
+    -fx-opacity: 0.8;
+}
+
+/**
+ ** Notification pane 
+ **/
+#notificationPane{
+    -fx-pref-width: 500;
+    -fx-max-height: 650;
+}
+#notificationPane VBox{
+    -fx-spacing: 0;
+}
+.notification{
+    -fx-pref-width: 480;
+    -fx-border-color:#DDDFE2;
+}
+.notification:hover{
+    -fx-background-color:#DDDDDD;
+}
+.notification TextFlow{
+    -fx-padding: 10;
+    -fx-text-alignment: justify;
+}
+.textNotification TextFlow{
+    -fx-pref-width: 460;
+}
+.picNotification TextFlow{
+    -fx-max-width: 290;
+}
+.unread{
+    -fx-background-color: #EDF2FA;
+}
+/**
+ ** Profile Icon Pop Over 
+ **/
+#popUpContainer{
+    -fx-background-color: white;
+    -fx-pref-width: 380;
+    -fx-alignment: top-left;
+    -fx-padding: 20;
+}
+#popUpContainer > HBox{
+    -fx-border-color: #cccccc;
+    -fx-padding: 5;
+    -fx-alignment: center-left;
+    -fx-spacing: 20;
+    -fx-background-color:#EEEEEE;
+}
+#popUpContainer Label{
+    -fx-font-size: 23;
+    -fx-pref-width: 360;
+}
+#popUpContainer Label:hover{
+    -fx-text-fill: #00cccc;
+}

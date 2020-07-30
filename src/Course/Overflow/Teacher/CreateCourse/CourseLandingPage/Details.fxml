@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+
+<AnchorPane id="AnchorPane" fx:id="container" prefWidth="600.0" styleClass="centerRightWidth" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Teacher.CreateCourse.CourseLandingPage.DetailsController">
+   <children>
+      <VBox layoutX="-104.0" layoutY="101.0" style="-fx-spacing: 30;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <VBox style="-fx-alignment: top-left;">
+               <children>
+                  <Label fx:id="ct" text="Course title" />
+                  <TextField fx:id="courseTitle" promptText="Insert your course title" />
+               </children>
+            </VBox>
+            <VBox style="-fx-alignment: top-left;">
+               <children>
+                  <Label text="Course subtitle" />
+                  <TextField fx:id="courseSubTitle" promptText="Insert your course subtitle" />
+               </children>
+            </VBox>
+            <VBox style="-fx-alignment: top-left;">
+               <children>
+                  <Label text="Course description" />
+                  <TextArea fx:id="courseDescription" promptText="Insert your course description">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></TextArea>
+               </children>
+            </VBox>
+            <VBox style="-fx-alignment: top-left;">
+               <children>
+                  <HBox style="-fx-alignment: center-left;">
+                     <children>
+                        <Label text="What is primarily taught in your course?" />
+                        <FontAwesomeIconView fx:id="taughtInfoIcon" glyphName="INFO_CIRCLE" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" size="20" />
+                     </children>
+                  </HBox>
+                  <TextField fx:id="primTaught" promptText="e.g Landscape Photography" />
+               </children>
+            </VBox>
+            <VBox style="-fx-alignment: top-left;">
+               <children>
+                  <VBox style="-fx-alignment: top-left;">
+                     <children>
+                        <HBox style="-fx-alignment: center-left;">
+                           <children>
+                              <Label text="Course image" />
+                              <FontAwesomeIconView fx:id="imageInfoIcon" glyphName="INFO_CIRCLE" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" size="20" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <ImageView fx:id="courseImage" fitHeight="288.0" fitWidth="512.0" pickOnBounds="true">
+                                 <image>
+                                    <Image url="@../../../Files/Icon/placeholder.png" />
+                                 </image>
+                              </ImageView>
+                              <HBox styleClass="fileUploaderHbox">
+                                 <children>
+                                    <Label fx:id="courseImageLabel" prefHeight="25.0" prefWidth="1045.0" text="No file selected" />
+                                    <Button fx:id="courseImageUpBtn" mnemonicParsing="false" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" style="-fx-border-radius: 0;" text="Upload File" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox style="-fx-alignment: top-left;">
+               <children>
+                  <HBox style="-fx-alignment: center-left;">
+                     <children>
+                        <Label text="Promotional video" />
+                        <FontAwesomeIconView fx:id="videoInfoIcon" glyphName="INFO_CIRCLE" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" size="20" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <StackPane alignment="TOP_LEFT">
+                           <children>
+                              <ImageView fx:id="courseVideoImage" fitHeight="288.0" fitWidth="512.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../Files/Icon/placeholder.png" />
+                                 </image>
+                              </ImageView>
+                              <MediaView fx:id="courseVideoMV" fitHeight="288.0" fitWidth="512.0" />
+                           </children>
+                        </StackPane>
+                        <HBox styleClass="fileUploaderHbox">
+                           <children>
+                              <Label fx:id="courseVideoLabel" prefHeight="25.0" prefWidth="1045.0" text="No file selected" />
+                              <Button fx:id="courseVideoUpBtn" mnemonicParsing="false" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" prefWidth="102.0" text="Upload File" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox style="-fx-alignment: top-left;">
+               <children>
+                  <Label text="Basic info" />
+                  <HBox fx:id="langContainer" style="-fx-alignment: center-left;" styleClass="choiceBoxContainer">
+                     <children>
+                        <ChoiceBox fx:id="languageCB" styleClass="choiceBox" />
+                        <ImageView fx:id="addLangIcon" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../Files/Icon/plus_48px.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox style="-fx-alignment: center-left;" styleClass="choiceBoxContainer">
+                     <children>
+                        <ChoiceBox fx:id="selectLevelCB" styleClass="choiceBox" />
+                        <ChoiceBox fx:id="mainCategoryCB" styleClass="choiceBox" />
+                        <ChoiceBox fx:id="subCategoryCB" styleClass="choiceBox" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../../../Global/Global.css" />
+      <URL value="@CourseLandingPage.css" />
+   </stylesheets>
+</AnchorPane>

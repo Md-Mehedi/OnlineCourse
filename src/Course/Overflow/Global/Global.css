@@ -1,0 +1,148 @@
+
+Button{
+    -fx-cursor: hand;
+}
+Label, Text, TextField, TextArea, DatePicker{
+    /*-fx-font: 20 "open sans,helvetica neue,Helvetica,Arial,sans-serif";*/
+    -fx-font: 20 "sf pro display,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol";
+    -fx-padding: 0 10 0 10;
+    -fx-text-alignment: justify;
+    -fx-wrap-text: true;
+}
+TextArea{
+    -fx-padding: 0;
+}
+VBox, HBox{
+    -fx-alignment: "CENTER";
+    -fx-spacing: 10;
+}
+TextField{
+    -fx-pref-height: 50;
+}
+.bigIcon{
+    -fx-fit-height: 50;
+}
+.smallIcon{
+    -fx-font-size: 20;
+}
+.fullWidth{
+    -fx-pref-width: 1435;
+    -fx-max-width: 1435;
+}
+.leftWidth{
+    -fx-pref-width: 300;
+    -fx-max-width: 300;
+    -fx-min-width: 300;
+}
+.rightWidth{
+    -fx-pref-width: 1;
+    -fx-max-width: 1;
+    -fx-min-width: 0;
+}
+.centerRightWidth{
+    -fx-pref-width: 1055;
+    -fx-max-width: 1055;
+}
+.mainHPadding{
+    -fx-padding: 0 30 0 30;
+}
+.mainVPadding{
+    -fx-padding: 20 0 20 0;
+}
+
+.maxScaleHover:hover{
+    -fx-scale-x: 1.4;
+    -fx-scale-y: 1.4;
+}
+.minScaleHover:hover{
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+.bold{
+    -fx-font-weight: bold;
+}
+.title1,.title2,.title3,.title4,.title5{
+    /*-fx-font-family: "Times new roman";*/
+    -fx-font-weight: bold;
+}
+.title1{
+    -fx-font-size: 45;
+}
+.caption, .title2{
+    -fx-font-size: 40;
+    -fx-font-weight: bold;
+}
+.title3{
+    -fx-font-size: 35;
+}
+.title4{
+    -fx-font-size: 30;
+}
+.title5{
+    -fx-font-size: 25;
+}
+.cursorHand{
+    -fx-cursor: hand;
+}
+
+/*
+ * These 3 lines are CSS for file uploader
+ */
+.fileUploaderHbox{
+    -fx-spacing: 1;
+    -fx-align: center;
+}
+.fileUploaderHbox Label{
+    -fx-pref-width: 1360;
+    -fx-min-height: 40;
+    -fx-max-height: 40;
+    -fx-pref-height: 40;
+    -fx-padding: 0 10 0 10;
+    -fx-border-color: #009999;
+    -fx-border-width: 2;
+    -fx-border-radius: 3;
+}
+.fileUploaderHbox Button{
+    -fx-pref-height: 38;
+    -fx-pref-width: 102;
+    -fx-min-width: 102;
+    -fx-max-width: 102;
+    -fx-background-color: #009999;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-border-radius: 0;
+}
+
+/*
+ * Choice box CSS
+ */
+.choiceBox{
+    -fx-pref-width: 300;
+    -fx-pref-height: 45;
+    -fx-background-color: #ccffff;
+    -fx-border-color: gray;
+    -fx-border-radius: 5;
+    -fx-padding: 0 10 0 10;
+    -fx-alignment: center;   
+}
+.choiceBoxContainer{
+    -fx-spacing: 45;
+}
+.toolTipContainer{
+    -fx-opacity: 1;
+}
+.toolTipContainer VBox{
+    -fx-spacing: 0;
+}
+.toolTipLabel{
+    -fx-text-wrap: true;
+    -fx-font-size: 18;
+    -fx-max-width: 300;
+    -fx-background-color: #ccffff;
+    -fx-padding: 10;
+    -fx-text-alignment: justify;
+    -fx-opacity:1;
+}
+.infoHbox{
+    -fx-spacing: 0;
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane fx:id="container" prefWidth="600.0" styleClass="centerRightWidth" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Teacher.CreateCourse.TargetStudentPage.AddAnswerController">
+   <stylesheets>
+      <URL value="@../../../Global/Global.css" />
+      <URL value="@TargetStudentPage.css" />
+   </stylesheets>
+   <children>
+      <HBox layoutX="152.0" layoutY="122.0" styleClass="addAnswerHbox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TextField fx:id="answerField" prefWidth="1000.0" />
+            <HBox id="addAnswerIconBox" style="-fx-spacing: 0;">
+               <children>
+                  <Label fx:id="deleteIcon" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" styleClass="addAnswerIconBox">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="TRASH_ALT" size="25" styleClass="maxScaleHover" />
+                     </graphic>
+                  </Label>
+                  <Label fx:id="upIcon" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" styleClass="addAnswerIconBox">
+                     <graphic>
+                        <MaterialDesignIconView glyphName="CHEVRON_DOUBLE_UP" size="30" styleClass="maxScaleHover" />
+                     </graphic>
+                  </Label>
+                  <Label fx:id="downIcon" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" styleClass="addAnswerIconBox">
+                     <graphic>
+                        <MaterialDesignIconView glyphName="CHEVRON_DOUBLE_DOWN" size="30" styleClass="maxScaleHover" />
+                     </graphic>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

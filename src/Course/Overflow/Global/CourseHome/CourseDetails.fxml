@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+<?import org.controlsfx.control.Rating?>
+
+<AnchorPane id="AnchorPane" prefWidth="600.0" styleClass="fullWidth" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.CourseHome.CourseDetailsController">
+   <children>
+      <VBox layoutX="36.0" layoutY="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox id="TopHBox" prefWidth="1435.0">
+               <children>
+                  <VBox prefWidth="800.0">
+                     <children>
+                        <Label fx:id="title" styleClass="title1" text="2020 Complete Python Bootcamp: From Zero to Hero in Python" />
+                        <Label fx:id="subTitle" style="-fx-font-weight: none;" styleClass="title5" text="Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!" />
+                        <HBox>
+                           <children>
+                              <Rating prefHeight="0.0" prefWidth="160.0">
+                                 <HBox.margin>
+                                    <Insets top="6.0" />
+                                 </HBox.margin>
+                              </Rating>
+                              <Label fx:id="rating" text="(303,157 ratings)" />
+                              <Label fx:id="numOfStudent" text="1,055,356 students" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label fx:id="topInstName" text="Teacher name">
+                                 <graphic>
+                                    <Label text="Created by :" />
+                                 </graphic>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label fx:id="lastUpdate" text="Last update" />
+                              <Label fx:id="language" text="Language" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets right="60.0" />
+                     </padding>
+                  </VBox>
+                  <VBox id="TopRightBox">
+                     <children>
+                        <StackPane>
+                           <children>
+                              <MediaView fitHeight="200.0" fitWidth="200.0" />
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </StackPane>
+                        <HBox>
+                           <children>
+                              <Label fx:id="price" styleClass="title3" text="Current Price" />
+                              <Label fx:id="mainPrice" style="-fx-font-size: 22;" text="Main Price" />
+                              <Label fx:id="off" style="-fx-font-size: 22;" text="\% off" />
+                           </children>
+                        </HBox>
+                        <Label styleClass="title1" text="Buy now" />
+                        <VBox>
+                           <children>
+                              <Label styleClass="title4" text="This course included" />
+                              <VBox fx:id="properties" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox>
+               <children>
+                  <VBox>
+                     <children>
+                        <Label styleClass="title4" text="What you'll learn" />
+                        <VBox fx:id="courseLearnBox" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label styleClass="title4" text="Course content" />
+                        <VBox fx:id="courseContentBox" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label styleClass="title4" text="Requirement" />
+                        <VBox fx:id="requirementBox" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label styleClass="title4" text="Description" />
+                        <Label fx:id="courseDescription" text="Description" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label styleClass="title4" text="Instructor" />
+                        <VBox>
+                           <children>
+                              <Label fx:id="instName" text="Instructor name" />
+                              <Label fx:id="instShortDes" text="Instructior short description" />
+                              <HBox>
+                                 <children>
+                                    <ImageView fx:id="instPhoto" fitHeight="128.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" />
+                                    <VBox>
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <Label>
+                                                   <graphic>
+                                                      <FontAwesomeIconView glyphName="STAR" size="27" />
+                                                   </graphic>
+                                                </Label>
+                                                <Label fx:id="instRating" style="-fx-font-weight: none;" styleClass="title5" text="Rating" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <Label>
+                                                   <graphic>
+                                                      <FontAwesomeIconView glyphName="PENCIL" size="27" />
+                                                   </graphic>
+                                                </Label>
+                                                <Label fx:id="instReviews" style="-fx-font-weight: none;" styleClass="title5" text="Reviews" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <Label>
+                                                   <graphic>
+                                                      <FontAwesomeIconView glyphName="USERS" size="27" />
+                                                   </graphic>
+                                                </Label>
+                                                <Label fx:id="instStudents" style="-fx-font-weight: none;" styleClass="title5" text="Students" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <Label>
+                                                   <graphic>
+                                                      <FontAwesomeIconView glyphName="FILES_ALT" size="27" />
+                                                   </graphic>
+                                                </Label>
+                                                <Label fx:id="instCourses" style="-fx-font-weight: none;" styleClass="title5" text="Courses" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <VBox VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label fx:id="instDes" maxHeight="1000.0" text="  Jose Marcial Portilla has a BS and MS in Mechanical Engineering from Santa Clara University and years of experience as a professional instructor and trainer for Data Science and programming. He has publications and patents in various fields such as microfluidics, materials science, and data science technologies. Over the course of his career he has developed a skill set in analyzing data and he hopes to use his experience in teaching and data science to help other people learn the power of programming the ability to analyze data, as well as present the data in clear and beautiful visualizations. Currently he works as the Head of Data Science for Pierian Data Inc. and provides in-person data science and python programming training courses to employees working at top companies, including General Electric, Cigna, The New York Times, Credit Suisse, McKinsey and many more. Feel free to contact him on LinkedIn for more information on in-person training sessions or group training sessions in Las Vegas, NV." VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <Label styleClass="title4" text="Reviews" />
+                  <VBox fx:id="reviewsBox" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../Global.css" />
+      <URL value="@CourseHome.css" />
+   </stylesheets>
+</AnchorPane>

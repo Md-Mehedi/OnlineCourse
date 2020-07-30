@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="264.0" styleClass="iconBoxContainer" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Teacher.CreateCourse.TargetStudentPage.CreateIconPackController">
+   <children>
+      <VBox alignment="CENTER" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="8.0">
+         <children>
+            <GridPane alignment="CENTER" vgap="10.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <FontAwesomeIconView glyphName="VIDEO_CAMERA" onMouseClicked="#mouseClicked" size="25" />
+                  <FontAwesomeIconView glyphName="FILE_ALT" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="1" />
+                  <FontAwesomeIconView glyphName="FILE_AUDIO_ALT" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="2" />
+                  <FontAwesomeIconView glyphName="FILE_CODE_ALT" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="3" />
+                  <FontAwesomeIconView glyphName="DESKTOP" onMouseClicked="#mouseClicked" size="25" GridPane.rowIndex="3" />
+                  <FontAwesomeIconView glyphName="MOBILE" onMouseClicked="#mouseClicked" size="30" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <FontAwesomeIconView glyphName="ENVELOPE_ALT" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <FontAwesomeIconView glyphName="GROUP" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <FontAwesomeIconView glyphName="FILTER" onMouseClicked="#mouseClicked" size="25" GridPane.rowIndex="4" />
+                  <FontAwesomeIconView glyphName="PAPERCLIP" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <FontAwesomeIconView glyphName="TROPHY" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <FontAwesomeIconView glyphName="LANGUAGE" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <FontAwesomeIconView glyphName="DATABASE" onMouseClicked="#mouseClicked" size="25" GridPane.rowIndex="5" />
+                  <FontAwesomeIconView glyphName="GRADUATION_CAP" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <FontAwesomeIconView glyphName="COMMENTING" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <FontAwesomeIconView glyphName="PLUS" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                  <FontAwesomeIconView glyphName="FILE_EXCEL_ALT" onMouseClicked="#mouseClicked" size="25" GridPane.rowIndex="1" />
+                  <FontAwesomeIconView glyphName="FILE_WORD_ALT" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <FontAwesomeIconView glyphName="FILE_PDF_ALT" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <FontAwesomeIconView glyphName="FILE_IMAGE_ALT" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <FontAwesomeIconView glyphName="KEYBOARD_ALT" onMouseClicked="#mouseClicked" size="25" GridPane.rowIndex="2" />
+                  <FontAwesomeIconView glyphName="FLASK" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <FontAwesomeIconView glyphName="SHARE_ALT" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <FontAwesomeIconView glyphName="PHONE" onMouseClicked="#mouseClicked" size="25" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+            <Label fx:id="upBtn" alignment="CENTER" onMouseClicked="#mouseClicked" prefHeight="35.0" prefWidth="185.0" styleClass="uploadIconBtn" text="Upload your icon">
+               <font>
+                  <Font name="Arabic Transparent" size="20.0" />
+               </font>
+               <effect>
+                  <DropShadow height="5.0" radius="2.0" width="5.0">
+                     <input>
+                        <InnerShadow height="5.0" radius="2.0" width="5.0" />
+                     </input>
+                  </DropShadow>
+               </effect>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../../../Global/Global.css" />
+      <URL value="@TargetStudentPage.css" />
+   </stylesheets>
+   <effect>
+      <DropShadow height="0.0" offsetY="-1.0" radius="4.5" width="20.0">
+         <input>
+            <InnerShadow height="8.0" radius="3.5" width="8.0" />
+         </input>
+      </DropShadow>
+   </effect>
+</AnchorPane>

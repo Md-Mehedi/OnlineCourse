@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="PDFOutputContainer" fx:id="container" styleClass="centerRightWidth" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Teacher.CreateCourse.Curriculum.PDFShowBoxController">
+   <children>
+      <VBox spacing="20.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <HBox spacing="20.0" style="-fx-alignment: TOP_LEFT;">
+               <children>
+                  <VBox style="-fx-alignment: top-center;">
+                     <children>
+                        <StackPane onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited">
+                           <children>
+                              <ImageView fx:id="pdfThumbView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <VBox id="OpenButtonContainer" fx:id="openBtn" alignment="CENTER" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseReleased="#mouseReleased" opacity="0.1" styleClass="cursorHand">
+                                 <children>
+                                    <ImageView fitHeight="120.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Files/Icon/pdf.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label id="PlayButton" text="Open" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </VBox>
+                  <VBox spacing="30.0" style="-fx-alignment: top-left;">
+                     <children>
+                        <Label fx:id="fileNameLabel" styleClass="title" wrapText="true" />
+                        <VBox spacing="10.0" style="-fx-alignment: top-left;">
+                           <children>
+                              <Label fx:id="descriptionLabel" styleClass="caption" text="Description: " wrapText="true" />
+                              <Label fx:id="description" textAlignment="JUSTIFY" wrapText="true" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <Button id="Edit" fx:id="updateBtn" mnemonicParsing="false" onMouseClicked="#mouseClicked" text="Update">
+                     <styleClass>
+                        <String fx:value="minScaleHover" />
+                        <String fx:value="cursorHand" />
+                     </styleClass></Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../../../Global/Global.css" />
+      <URL value="@Curriculum.css" />
+   </stylesheets>
+</AnchorPane>

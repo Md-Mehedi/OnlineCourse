@@ -1,0 +1,197 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Course.Overflow.Global.Layout;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+
+/**
+ * FXML Controller class
+ *
+ * @author ASUS
+ */
+public class BorderPaneController implements Initializable {
+
+    @FXML
+    private AnchorPane container;
+    @FXML
+    private AnchorPane headerPane;
+    @FXML
+    private AnchorPane leftPane;
+    @FXML
+    private AnchorPane scrollPaneWrapper;
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private AnchorPane centerPane;
+    @FXML
+    private AnchorPane footerPane;
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }
+
+    @FXML
+    private void mouseExited(MouseEvent event) {
+    }
+
+    @FXML
+    private void mouseEntered(MouseEvent event) {
+    }
+
+    public void setCenter(AnchorPane centerPane) {
+        this.centerPane.getChildren().add(centerPane);
+    }
+
+    public void setHeader(AnchorPane headerPane) {
+        this.headerPane.getChildren().add(headerPane);
+    }
+
+    public void setFooter(AnchorPane footerPane) {
+        this.footerPane.getChildren().add(footerPane);
+    }
+
+    public void setLeft(AnchorPane leftPane) {
+        this.leftPane.getChildren().add(leftPane);
+    }
+
+    public void removeCenter() {
+        this.centerPane.getChildren().clear();
+    }
+
+    public void removeHeader() {
+        this.headerPane.getChildren().clear();
+    }
+
+    public void removeFooter() {
+        this.footerPane.getChildren().clear();
+    }
+
+    public void remvoeLeft() {
+        this.leftPane.getChildren().clear();
+    }
+
+    public void setHeaderNull() {
+        Platform.runLater(() -> {
+            leftPane.setPrefHeight(leftPane.getPrefHeight() + headerPane.getPrefHeight());
+            scrollPaneWrapper.setPrefHeight(scrollPaneWrapper.getPrefHeight() + headerPane.getPrefHeight());
+            AnchorPane.setTopAnchor(leftPane, 0.0);
+            AnchorPane.setTopAnchor(scrollPaneWrapper, 0.0);
+            AnchorPane.setTopAnchor(headerPane, -headerPane.getHeight());
+        });
+    }
+
+    public void setFooterNull() {
+        Platform.runLater(() -> {
+            leftPane.setPrefHeight(leftPane.getPrefHeight() + footerPane.getPrefHeight());
+            scrollPaneWrapper.setPrefHeight(scrollPaneWrapper.getPrefHeight() + footerPane.getPrefHeight());
+            AnchorPane.setBottomAnchor(leftPane, 0.0);
+            AnchorPane.setBottomAnchor(scrollPaneWrapper, 0.0);
+            AnchorPane.setBottomAnchor(footerPane, -footerPane.getHeight());
+        });
+    }
+
+    public AnchorPane getContainer() {
+        return container;
+    }
+
+    public AnchorPane getHeaderPane() {
+        return headerPane;
+    }
+
+    public AnchorPane getLeftPane() {
+        return leftPane;
+    }
+
+    public AnchorPane getScrollPaneWrapper() {
+        return scrollPaneWrapper;
+    }
+
+    public ScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    public AnchorPane getCenterPane() {
+        return centerPane;
+    }
+
+    public AnchorPane getFooterPane() {
+        return footerPane;
+    }
+
+    protected void setContainer(AnchorPane container) {
+        this.container = container;
+    }
+
+    protected void setHeaderPane(AnchorPane headerPane) {
+        this.headerPane = headerPane;
+    }
+
+    protected void setLeftPane(AnchorPane leftPane) {
+        this.leftPane = leftPane;
+    }
+
+    protected void setScrollPaneWrapper(AnchorPane scrollPaneWrapper) {
+        this.scrollPaneWrapper = scrollPaneWrapper;
+    }
+
+    protected void setScrollPane(ScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
+    }
+
+    protected void setCenterPane(AnchorPane centerPane) {
+        this.centerPane = centerPane;
+    }
+
+    protected void setFooterPane(AnchorPane footerPane) {
+        this.footerPane = footerPane;
+    }
+
+    public void showFooter() {
+        Platform.runLater(() -> {
+            leftPane.setPrefHeight(leftPane.getPrefHeight() - footerPane.getPrefHeight());
+            scrollPane.setPrefHeight(leftPane.getPrefHeight());
+            scrollPane.setPrefHeight(leftPane.getPrefHeight());
+            AnchorPane.setBottomAnchor(leftPane, footerPane.getPrefHeight());
+            AnchorPane.setBottomAnchor(scrollPaneWrapper, footerPane.getPrefHeight());
+            AnchorPane.setBottomAnchor(footerPane, 0.0);
+        });
+    }
+
+    public void setFooterHeight(double value) {
+        Platform.runLater(()->{
+            footerPane.setPrefHeight(value);
+            showFooter();
+        });
+    }
+    public void showHeader() {
+        Platform.runLater(() -> {
+            leftPane.setPrefHeight(leftPane.getPrefHeight() - headerPane.getPrefHeight());
+            scrollPane.setPrefHeight(leftPane.getPrefHeight());
+            scrollPane.setPrefHeight(leftPane.getPrefHeight());
+            AnchorPane.setTopAnchor(leftPane, headerPane.getPrefHeight());
+            AnchorPane.setTopAnchor(scrollPaneWrapper, headerPane.getPrefHeight());
+            AnchorPane.setTopAnchor(headerPane, 0.0);
+        });
+    }
+
+    public void setHeaderHeight(double value) {
+        Platform.runLater(()->{
+            headerPane.setPrefHeight(value);
+            showHeader();
+        });
+    }
+}

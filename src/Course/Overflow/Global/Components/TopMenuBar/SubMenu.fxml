@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="subMenuContainer" fx:id="container" prefWidth="600.0" styleClass="fullWidth" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.TopMenuBar.SubMenuController">
+   <stylesheets>
+      <URL value="@../../Global.css" />
+      <URL value="@TopMenuBar.css" />
+   </stylesheets>
+   <children>
+      <HBox fx:id="menuContainer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Region HBox.hgrow="ALWAYS" />
+            <VBox>
+               <children>
+                  <FontAwesomeIconView size="60" />
+                  <Label text="Label" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <FontAwesomeIconView size="60" />
+                  <Label text="Label" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <FontAwesomeIconView size="60" />
+                  <Label text="Label" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <FontAwesomeIconView size="60" />
+                  <Label text="Label" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <FontAwesomeIconView size="60" />
+                  <Label text="Label" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <FontAwesomeIconView size="60" />
+                  <Label text="Label" />
+               </children>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

@@ -1,0 +1,23 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+VBox, HBox{
+    -fx-alignment: center-left;
+    -fx-spacing: 0;
+}
+Label{
+    -fx-padding: 5;
+}
+#TopHBox{
+    -fx-background-color: black;
+}
+#TopHBox Label{
+    -fx-text-fill: white;
+}
+#TopRightBox{
+    -fx-background-color: white;
+}
+#TopRightBox Label{
+    -fx-text-fill: black;
+}

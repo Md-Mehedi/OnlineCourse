@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="LinkOutputContainer" fx:id="container" styleClass="centerRightWidth" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Teacher.CreateCourse.Curriculum.LinkOutputBoxController">
+   <children>
+      <VBox spacing="20.0" style="-fx-alignment: Center-left;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <Label id="LinkDetails" fx:id="linkDetails" textAlignment="JUSTIFY" wrapText="true" />
+            <HBox style="-fx-alignment: top-left;">
+               <children>
+                  <Label minWidth="-Infinity" styleClass="bold" text="Source link :" textAlignment="JUSTIFY" wrapText="true" />
+                  <Label id="Link" fx:id="link" onMouseClicked="#mouseClicked" styleClass="link" textAlignment="JUSTIFY" wrapText="true" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <Button id="Edit" fx:id="editBtn" mnemonicParsing="false" onMouseClicked="#mouseClicked" text="Edit">
+                     <styleClass>
+                        <String fx:value="minScaleHover" />
+                        <String fx:value="cursorHand" />
+                     </styleClass></Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../../../Global/Global.css" />
+      <URL value="@Curriculum.css" />
+   </stylesheets>
+</AnchorPane>

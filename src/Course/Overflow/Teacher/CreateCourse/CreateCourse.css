@@ -1,0 +1,39 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 31, 2020, 12:50:37 PM
+    Author     : ASUS
+*/
+
+VBox, HBox{
+    -fx-alignment: center-left;
+}
+Label{
+    -fx-pref-width: 950;
+}
+.tipsContainer{
+    -fx-spacing: 100;
+}
+.mainTopic{
+    -fx-alignment: center;
+    -fx-background-color:  #E8E9EB;
+}
+.mainTopic>Label{
+    -fx-pref-width: 1010;
+}
+.topic{
+    -fx-spacing: 20;
+}
+.topic Label{
+    -fx-padding: 0;
+}
+.topic>HBox{
+    -fx-spacing: 20;
+}
+.topic>VBox{
+    -fx-padding: 0 0 0 50;
+    -fx-spacing: 50;
+}

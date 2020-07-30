@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="WeekBoxPane" fx:id="weekBoxPane" focusTraversable="true" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Teacher.CreateCourse.Curriculum.WeekBoxController">
+   <children>
+      <VBox spacing="10.0" style="-fx-spacing: 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <AnchorPane styleClass="header">
+               <children>
+                  <HBox id="WeekBoxHeader" spacing="5.0" style="-fx-alignment: center-left;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox style="-fx-spacing: 0;">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../Files/Icon/checkmark_48px.png" />
+                                 </image>
+                              </ImageView>
+                              <Label maxWidth="-Infinity" minWidth="-Infinity" text="Week:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="weekNo" style="-fx-padding: 0;" text="1">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox spacing="9.0" style="-fx-alignment: center-left; -fx-spacing: 15;">
+                           <children>
+                              <FontAwesomeIconView glyphName="FILE_TEXT" size="20" wrappingWidth="12.0" />
+                              <Label fx:id="weekNameLabel" style="-fx-padding: 0 10 0 0;" styleClass="title" text="Week name" textAlignment="JUSTIFY" wrapText="true">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </HBox>
+                        <MaterialDesignIconView id="edit" fx:id="editIcon" glyphName="PENCIL" onMouseClicked="#mouseClicked" size="20">
+                           <styleClass>
+                              <String fx:value="containerHover" />
+                              <String fx:value="cursorHand" />
+                              <String fx:value="opacity0" />
+                              <String fx:value="maxScaleHover" />
+                           </styleClass>
+                        </MaterialDesignIconView>
+                        <FontAwesomeIconView id="delete" fx:id="deleteIcon" glyphName="TRASH_ALT" onMouseClicked="#mouseClicked" size="20">
+                           <styleClass>
+                              <String fx:value="cursorHand" />
+                              <String fx:value="opacity0" />
+                              <String fx:value="containerHover" />
+                              <String fx:value="maxScaleHover" />
+                           </styleClass>
+                        </FontAwesomeIconView>
+                     </children>
+                  </HBox>
+                  <HBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <FontAwesomeIconView id="up" fx:id="up" glyphName="ANGLE_DOUBLE_UP" onMouseClicked="#mouseClicked" size="24">
+                           <styleClass>
+                              <String fx:value="containerHover" />
+                              <String fx:value="maxScaleHover" />
+                              <String fx:value="cursorHand" />
+                              <String fx:value="opacity0" />
+                           </styleClass>
+                        </FontAwesomeIconView>
+                        <FontAwesomeIconView id="down" fx:id="down" glyphName="ANGLE_DOUBLE_DOWN" onMouseClicked="#mouseClicked" size="24">
+                           <styleClass>
+                              <String fx:value="containerHover" />
+                              <String fx:value="maxScaleHover" />
+                              <String fx:value="cursorHand" />
+                              <String fx:value="opacity0" />
+                           </styleClass>
+                        </FontAwesomeIconView>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <VBox id="LectureBoxContainer" fx:id="lectureBoxContainer" spacing="30.0" />
+            <HBox id="WeekBoxFooter" style="-fx-alignment: center-right;">
+               <children>
+                  <ImageView id="add" fx:id="addIcon" fitHeight="40.0" fitWidth="50.0" onMouseClicked="#mouseClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../Files/Icon/plus_48px.png" />
+                     </image>
+                     <styleClass>
+                        <String fx:value="cursorHand" />
+                        <String fx:value="opacity0" />
+                        <String fx:value="containerHover" />
+                        <String fx:value="minScaleHover" />
+                     </styleClass>
+                     <HBox.margin>
+                        <Insets bottom="20.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <styleClass>
+      <String fx:value="container" />
+      <String fx:value="centerRightWidth" />
+   </styleClass>
+   <effect>
+      <DropShadow height="5.0" radius="2.0" width="5.0">
+         <input>
+            <InnerShadow />
+         </input>
+      </DropShadow>
+   </effect>
+   <stylesheets>
+      <URL value="@../../../Global/Global.css" />
+      <URL value="@Curriculum.css" />
+   </stylesheets>
+</AnchorPane>

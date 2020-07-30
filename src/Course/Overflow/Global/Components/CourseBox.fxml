@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.Rating?>
+
+<AnchorPane id="wrapper" fx:id="container" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.CourseBoxController">
+   <stylesheets>
+      <URL value="@../Global.css" />
+      <URL value="@Components.css" />
+   </stylesheets>
+   <children>
+      <AnchorPane id="container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox layoutX="10.0" style="-fx-alignment: top-center;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView id="imageView" fx:id="picBox" fitHeight="135.0" fitWidth="240.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Files/Icon/placeholder.png" />
+                     </image>
+                  </ImageView>
+                  <VBox id="detailsContainer" maxHeight="130.0">
+                     <children>
+                        <Label fx:id="title" prefWidth="231.0" styleClass="courseName" text="A new course title remains here (wrritten by Mehedi)j lsdfjlsjfklsf jlsjfs f jkd lj fsjkflsfjjf jfk ljsf ljsdf lajkfl jfk lj jf" />
+                        <Label fx:id="teacher" styleClass="courseTeacher" text="Label" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="268.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <HBox id="ratingContainer">
+                     <children>
+                        <Rating id="courseBoxRating" fx:id="rating" focusTraversable="false" />
+                        <Label fx:id="ratingValue" styleClass="ratingValue" text="2" />
+                        <Label fx:id="numOfRating" styleClass="ratingTimes" text="(100)" />
+                     </children>
+                  </HBox>
+                  <HBox id="priceContainer">
+                     <children>
+                        <Label fx:id="mainPrice" styleClass="mainPrice" text="Label" />
+                        <Label fx:id="offerPrice" styleClass="deductPrice" text="Label" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+         <effect>
+            <DropShadow height="25.0" offsetX="1.0" offsetY="1.0" radius="12.0" spread="0.1" width="25.0" />
+         </effect>
+      </AnchorPane>
+   </children>
+</AnchorPane>

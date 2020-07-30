@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="carouselContainer" fx:id="container" prefWidth="600.0" styleClass="fullWidth" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.CarouselController">
+   <stylesheets>
+      <URL value="@../Global.css" />
+      <URL value="@Components.css" />
+   </stylesheets>
+   <children>
+      <VBox layoutX="20.0" style="-fx-alignment: center-left;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label style="-fx-alignment: center-left; -fx-text-alignment: left; -fx-padding: 0; -fx-font-weight: normal;" styleClass="title3" text="Label" />
+            <AnchorPane>
+               <children>
+                  <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" style="-fx-border-color: transparent;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <content>
+                        <HBox id="courseBoxContainer" fx:id="courseBoxContainer" />
+                     </content>
+                  </ScrollPane>
+                  <HBox prefHeight="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label fx:id="leftArrow" onMouseClicked="#mouseClicked" styleClass="leftArrow">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="ARROW_CIRCLE_LEFT" size="80" />
+                           </graphic>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="1251.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label fx:id="rightArrow" onMouseClicked="#mouseClicked" styleClass="rightArrow">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="ARROW_CIRCLE_RIGHT" size="80" />
+                           </graphic>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

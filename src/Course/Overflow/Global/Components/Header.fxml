@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="header" fx:id="header" prefWidth="600.0" styleClass="fullWidth" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.HeaderController">
+   <stylesheets>
+      <URL value="@../Global.css" />
+      <URL value="@Components.css" />
+   </stylesheets>
+   <children>
+      <HBox layoutX="-15.0" layoutY="14.0" prefHeight="80.0" style="-fx-spacing: 30;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox>
+               <children>
+                  <Label fx:id="leftArrow" styleClass="cursorHand">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="ARROW_LEFT" size="40" />
+                     </graphic>
+                  </Label>
+                  <Label fx:id="rightArrow" styleClass="cursorHand">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="ARROW_RIGHT" size="40" />
+                     </graphic>
+                  </Label>
+               </children>
+            </HBox>
+            <ImageView fx:id="logo" fitHeight="50.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" styleClass="cursorHand">
+               <image>
+                  <Image url="@../../Files/Icon/logo.png" />
+               </image>
+            </ImageView>
+            <HBox HBox.hgrow="ALWAYS">
+               <children>
+                  <Label styleClass="cursorHand">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="SEARCH" size="40" />
+                     </graphic>
+                  </Label>
+                  <JFXTextField fx:id="searchField" text="Search for anything" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Bell MT" size="22.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <Label fx:id="myCourse" styleClass="cursorHand" text="My courses" />
+            <Label styleClass="cursorHand">
+               <graphic>
+                  <FontAwesomeIconView glyphName="HEART_ALT" size="40" />
+               </graphic>
+            </Label>
+            <VBox prefHeight="80.0">
+               <children>
+                  <StackPane fx:id="notificationIcon" alignment="BOTTOM_RIGHT" prefHeight="41.0">
+                     <children>
+                        <Label styleClass="cursorHand">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="BELL_ALT" size="40" />
+                           </graphic>
+                        </Label>
+                        <Label fx:id="notificationNum" maxHeight="37.0" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="15.0" style="-fx-font-weight: bold; -fx-font-size: 30;" text="5" textFill="#ff1e1e">
+                           <effect>
+                              <DropShadow color="WHITE" height="4.0" radius="1.75" spread="1.0" width="5.0" />
+                           </effect>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </children>
+            </VBox>
+            <StackPane fx:id="profile" styleClass="cursorHand">
+               <children>
+                  <Circle fx:id="profileCircle" fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: #9C467F;" />
+                  <Label fx:id="profileName" style="-fx-text-fill: white; -fx-font-weight: bold;" text="MH" />
+               </children>
+            </StackPane>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets left="15.0" right="15.0" />
+   </padding>
+</AnchorPane>

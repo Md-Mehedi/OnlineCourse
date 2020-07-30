@@ -1,0 +1,62 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 25, 2020, 6:05:34 PM
+    Author     : ASUS
+*/
+.container{
+/*    -fx-border-color: black;
+    -fx-border-width: 2px;*/
+}
+#LectureBoxHeader HBox{
+    -fx-spacing: 5;
+}
+.opacity0{
+    -fx-opacity: 0.1;
+}
+.header:hover .headerHover{
+    -fx-opacity: 1;
+}
+.container:hover .containerHover{
+    -fx-opacity: 1;
+}
+.container:hover .cursorHand{
+    -fx-focus-traversable: true;
+}
+#delete{
+    -fx-fill: red;
+}
+#edit{
+    -fx-fill: #007791;
+}
+.contentLabel{
+    -fx-pref-height: 40;
+    -fx-text-fill: #007791;
+    -fx-font: 18 "Calibri";
+    -fx-font-weight: bold;
+    -fx-border-color: #007791;
+    -fx-border-radius: 5px;
+    -fx-border-width: 2px;
+    -fx-background-color: #ffffff;
+}
+#WeekBoxPane{
+    -fx-background-color: #F2F3F5;
+}
+#LectureBoxPane{
+    -fx-background-color: #ccffff;
+}
+#contents{
+    -fx-font: 20 "Comic sans ms";
+}
+#PlayButton{
+    -fx-font: 36 "Calibri";
+}
+#contentBox{
+    -fx-background-color: #99ffff;
+}
+#WeekBoxPane{
+    -fx-background-color:#99ccff;
+}

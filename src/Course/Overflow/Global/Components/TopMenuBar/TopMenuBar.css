@@ -1,0 +1,156 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 11, 2020, 2:42:01 PM
+    Author     : ASUS
+*/
+
+
+/**
+ ** Top menu
+ **/
+#topMenuContainer{
+    -fx-pref-height: 65;
+    -fx-background-image: url("../../../Files/Icon/Leather.jpg");
+    -fx-alignment: center;
+}
+#subMenuContainer{
+    -fx-background-image: url("../../../Files/Icon/Leather.jpg");
+    -fx-border-color: white;
+    -fx-border-style: solid none solid none;
+}
+#topMenuContainer Label, #subMenuContainer Label{
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-padding: 0 10 0 10;
+    -fx-font-size: 22;
+    -fx-text-fill: white;
+}
+#topMenuContainer Icon{
+    -fx-pref-width: 22;
+}
+#subMenuContainer Icon{
+    -fx-max-width: 70;
+    -fx-pref-height: 70;
+}
+#topMenuContainer FontAwesomeIconView, 
+#topMenuContainer SVGPath, 
+#subMenuContainer FontAwesomeIconView,
+#subMenuContainer SVGPath{
+    -fx-fill: white;
+}
+#topMenuContainer > HBox > HBox{
+    -fx-padding: 0 10 0 10;
+}
+#subMenuContainer HBox{
+    -fx-padding: 20 0 20 0;
+}
+#subMenuContainer VBox{
+    -fx-spacing: 10;
+}
+.topMenuuu, #subMenuContainer VBox{
+    -fx-cursor: Hand;
+}
+.topMenuuu:hover HBox{
+    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.1;
+}
+.topMenuuu:hover{
+    -fx-background-color: #4C4B4C;
+}
+#subMenuContainer VBox:hover Label{
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+#subMenuContainer VBox:hover Icon{
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+/**
+ * Admin Menu Editor - Sub menu
+ */
+Label{
+    -fx-padding: 0;
+}
+HBox{
+    -fx-spacing: 0;
+}
+StackPane{
+    -fx-background-color: #ccffff;
+    -fx-border-color: #009999;
+    -fx-min-width: 50;
+    -fx-max-width: 50;
+    -fx-pref-width: 50;
+    -fx-min-height: 50;
+    -fx-max-height: 50;
+    -fx-pref-height: 50;
+    -fx-padding: 10;
+}
+.addAnswerHbox Label{
+    -fx-pref-width: 50;
+    -fx-min-width: 50;
+    -fx-max-width: 50;
+}
+.addAnswerHbox Label, #idContainer Label{
+    -fx-pref-height: 50;
+    -fx-border-color: #009999;
+    -fx-background-color: #ccffff;
+    -fx-alignment: center;
+}
+.addAnswerHbox TextField{
+    -fx-border-color: #009999;
+    -fx-background-color: #eeffff;
+}
+.addAnswerIconBox{
+    -fx-opacity: 0.1;
+}
+.addAnswerHbox:hover .addAnswerIconBox{
+    -fx-opacity: 1;
+}
+#uploadBtn{
+    -fx-background-color: #009999;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-min-width: 135;
+    -fx-text-alignment: center;
+}
+#iconNameLabel{
+    -fx-min-width: 300;
+}
+#idContainer{
+    -fx-spacing: 0;
+    -fx-min-width: 150;
+}
+#idContainer Label{
+    -fx-padding: 0 5 0 5;
+}
+.menuContainerCSS > VBox{
+    -fx-border-color: black;
+    -fx-border-width: 3;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+}
+.menuContainerCSS > VBox > VBox{
+    -fx-padding: 0 0 0 100;
+    -fx-spacing: 10;
+}
+.menuContainerCSS > VBox{
+    -fx-spacing: 20;
+}
+
+/**
+ * Admin Menu Editor - Menu Editor
+ */
+
+#adminMenuEditorContainer > VBox{
+    -fx-alignment: top-left;
+    -fx-padding: 20;
+    -fx-spacing: 35;
+}
+#adminMenuEditorContainer > VBox > HBox{
+    -fx-alignment: center-right;
+}
