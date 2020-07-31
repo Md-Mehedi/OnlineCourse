@@ -74,7 +74,7 @@ public class HeaderController implements Initializable {
             if(ContainerPage.pageIdx < ContainerPage.pages.size()-1){
                 ContainerPage.pageIdx++;
                 ContainerPage.loadPage();
-        }
+            }
         });
     }    
     

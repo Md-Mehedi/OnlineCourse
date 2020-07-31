@@ -5,6 +5,7 @@
  */
 package Course.Overflow.Global.Components;
 
+import Course.Overflow.Global.GLOBAL;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -64,6 +65,9 @@ public class RightMenuPopOverController implements Initializable {
 
     @FXML
     private void mouseClicked(MouseEvent event) {
+        if(event.getSource()==myCourse){
+            GLOBAL.PAGE_CTRL.setMyCoursesPage();
+        }
     }
     
 }

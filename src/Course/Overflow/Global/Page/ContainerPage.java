@@ -84,28 +84,11 @@ public class ContainerPage {
             headerCtrl.setNotiPane(noti);
         } catch (IOException ex) { Logger.getLogger(ContainerPage.class.getName()).log(Level.SEVERE, null, ex);}
         
-        setTeacherDetailsPage();
+        setMyCoursesPage();
     }
     
     public AnchorPane getContainer(){
         return container;
-    }
-    
-    public void setHomePage(){
-        if(page == null){
-            page = new Homepage();
-        }
-        setNewPage(page);
-    }
-    
-    public void setCoursePage(){
-        CoursePage page = new CoursePage();
-        setNewPage(page);
-    }
-    
-    public void setTeacherDetailsPage(){
-        TeacherDetailsPage page = new TeacherDetailsPage();
-        setNewPage(page);
     }
     
     private void setNewPage(Page page){
@@ -131,4 +114,28 @@ public class ContainerPage {
         if(pageIdx==pages.size()-1) headerCtrl.getRightArrow().setOpacity(0.1);
         else headerCtrl.getRightArrow().setOpacity(1);
     }
+    
+    public void setHomePage(){
+        if(page == null){
+            page = new Homepage();
+        }
+        setNewPage(page);
+    }
+    
+    public void setCoursePage(){
+        CoursePage page = new CoursePage();
+        setNewPage(page);
+    }
+    
+    public void setTeacherDetailsPage(){
+        TeacherDetailsPage page = new TeacherDetailsPage();
+        setNewPage(page);
+    }
+    
+    public void setMyCoursesPage() {
+        MyCoursesPage page = new MyCoursesPage();
+        setNewPage(page);
+    }
+    
+
 }

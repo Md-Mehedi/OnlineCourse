@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefWidth="1135.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Layout.PageByPageLayoutController">
+   <children>
+      <VBox layoutX="339.0" layoutY="64.0" style="-fx-spacing: 50;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox style="-fx-alignment: center-right;">
+               <children>
+                  <Label text="Number of items in 1 page" />
+                  <ComboBox fx:id="numOfItemChoiceBox" style="-fx-pref-width: 100; -fx-pref-height: 35;" styleClass="choiceBox" />
+               </children>
+            </HBox>
+            <AnchorPane>
+               <children>
+                  <GridPane fx:id="grid" hgap="45.0" vgap="45.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="250.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+            <HBox id="PageNumHolder" fx:id="pageNumContainer" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="1" />
+                  <Label text="2" />
+                  <Label text="10" />
+                  <Label text="100" />
+                  <Label text="100" />
+                  <Label text="100" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../Global.css" />
+      <URL value="@Layout.css" />
+   </stylesheets>
+</AnchorPane>
