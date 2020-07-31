@@ -42,6 +42,7 @@ public class PageByPageLayoutController implements Initializable {
     int totalPageNums;
 
     int currentPage;
+    int offset;
     ArrayList<GridPane> grids;
     ArrayList<Label> pageNumbers;
 
@@ -52,6 +53,10 @@ public class PageByPageLayoutController implements Initializable {
     @FXML
     private ComboBox<String> numOfItemChoiceBox;
     private ObservableList<String> numOfItemList;
+    @FXML
+    private AnchorPane container;
+    @FXML
+    private Label itemsNumDetails;
 
     /**
      * Initializes the controller class.
@@ -62,8 +67,15 @@ public class PageByPageLayoutController implements Initializable {
         totalItem1page = 12;
         column = 4;
         currentPage = 0;
+        offset = 45;
+    }
+    
+    public void setUpPage(int totalCourse, int column, int offset){
+        this.totalCourse = totalCourse;
+        this.column = column;
+        this.offset = offset;
+        container.setPrefWidth(column*250 + (column-1)*offset);
         readyNumOfItemList();
-
         makePageNumbers();
         loadPage(1);
     }
@@ -114,6 +126,8 @@ public class PageByPageLayoutController implements Initializable {
                 }
             });
         }
+        if(pageNumContainer.getChildren().size()==1) pageNumContainer.setVisible(false);
+        else pageNumContainer.setVisible(true);
     }
 
     private void loadPage(int pageNum) {
@@ -126,6 +140,25 @@ public class PageByPageLayoutController implements Initializable {
             pageNumContainer.getChildren().get(currentPage - 1).setId("selectedPage");
 
             grid.getChildren().clear();
+            grid.setVgap(offset);
+            grid.setHgap(offset);
+            
+            if(totalItem1page*(pageNum-1)+1 != Math.min(totalItem1page*pageNum, totalCourse)){
+                itemsNumDetails.setText("Showing (" +
+                      (totalItem1page * (pageNum - 1)+1) +
+                      " to " +
+                      (Math.min(totalItem1page * pageNum, totalCourse)) +
+                      ") of " +
+                      totalCourse +
+                      " itmes");
+            } 
+            else{
+                itemsNumDetails.setText("Showing " 
+                      + (totalItem1page*(pageNum-1)+1) 
+                      + " of " 
+                      + (totalItem1page*(pageNum-1)+1) 
+                      + (totalItem1page*(pageNum-1)+1==1 ? " item" : " items"));
+            }
             for (int i = totalItem1page * (pageNum - 1); i < Math.min(totalItem1page * pageNum, totalCourse); i++) {
                 //System.out.println(i);
                 try {
@@ -137,14 +170,12 @@ public class PageByPageLayoutController implements Initializable {
                 }
             }
             int n = grid.getChildren().size();
-            if(n<4){
-                grid.setPrefWidth(n*250 + (n-1)*45);
+            if(n<column){
+                grid.setPrefWidth(n*250 + (n-1)*offset);
+            }
+            else{
+                grid.setPrefWidth(column*250 + (column-1)*offset);
             }
         }
-    }
-
-
-    public void setTotalCourse(int totalCourse) {
-        this.totalCourse = totalCourse;
     }
 }

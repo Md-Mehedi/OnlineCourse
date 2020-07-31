@@ -42,6 +42,7 @@ public class MyCoursesPage extends Page{
             loader = new FXMLLoader(getClass().getResource(GLOBAL.LAYOUT_LOCATION + "/PageByPageLayout.fxml"));
             AnchorPane pane = loader.load();
             ctrl = loader.<PageByPageLayoutController>getController();
+            ctrl.setUpPage(41, 4, 45);
             
             container.getChildren().add(pane);
         } catch (IOException ex) {
