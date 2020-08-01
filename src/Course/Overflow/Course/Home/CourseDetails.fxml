@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -170,8 +171,18 @@
                         </VBox>
                      </children>
                   </VBox>
-                  <Label styleClass="title4" text="Reviews" />
-                  <VBox fx:id="reviewsBox" />
+                  <VBox>
+                     <children>
+                        <Label styleClass="title4" text="Reviews" />
+                        <Label fx:id="writeReviewBtn" style="-fx-font-size: 24;" text="Write a review">
+                           <styleClass>
+                              <String fx:value="title4" />
+                              <String fx:value="myButton" />
+                           </styleClass>
+                        </Label>
+                        <VBox fx:id="reviewsBox" />
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>

@@ -146,3 +146,16 @@ TextField{
 .infoHbox{
     -fx-spacing: 0;
 }
+
+/*Button CSS*/
+.myButton{
+    -fx-border-color: #9999ff;
+    -fx-cursor: hand;
+    -fx-background-color:#99ff99;
+    -fx-padding: 3 10 3 10;
+    -fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.8 ), 10, 0, 0, 0 );
+}
+.floaTingPane{
+    /*-fx-border-width: 1;*/
+    -fx-effect: dropshadow(three-pass-box, gray, 20, 0.3, 2, 2);
+}

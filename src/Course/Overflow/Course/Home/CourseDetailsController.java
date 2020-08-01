@@ -5,6 +5,7 @@
  */
 package Course.Overflow.Course.Home;
 
+import Course.Overflow.Course.Contents.ReviewInputBoxController;
 import Course.Overflow.Global.GLOBAL;
 import java.io.IOException;
 import java.net.URL;
@@ -76,6 +77,12 @@ public class CourseDetailsController implements Initializable {
     private VBox properties;
 
     private AnchorPane courseContent;
+    @FXML
+    private Label writeReviewBtn;
+    private FXMLLoader loader;
+    private AnchorPane reviewInputPane;
+    private ReviewInputBoxController reviewInputCtrl;
+    private static boolean isReviewInputBoxAdded = false;
     
     /**
      * Initializes the controller class.
@@ -84,6 +91,7 @@ public class CourseDetailsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         makeCourseWeek();
         makeReviewBox();
+        
         addListener();
     }    
 
@@ -107,7 +115,13 @@ public class CourseDetailsController implements Initializable {
                 Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        try {
+            loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CONTENTS_LOCATION + "/ReviewInputBox.fxml"));
+            reviewInputPane = loader.load();
+            reviewInputCtrl = loader.<ReviewInputBoxController>getController();
+        } catch (IOException ex) {
+            Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void addListener() {
@@ -119,6 +133,9 @@ public class CourseDetailsController implements Initializable {
         });
         topInstName.setOnMouseClicked(event->{
             GLOBAL.PAGE_CTRL.setTeacherDetailsPage();
+        });
+        writeReviewBtn.setOnMouseClicked((event) -> {
+            reviewInputCtrl.show();
         });
     }
 
