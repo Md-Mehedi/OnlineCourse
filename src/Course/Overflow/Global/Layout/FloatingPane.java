@@ -27,10 +27,11 @@ public class FloatingPane {
     public AnchorPane root;
     public AnchorPane backPane;
     public StackPane sPane;
+    private Region region;
 
     public FloatingPane() {
         sPane = new StackPane();
-        Region region = new Region();
+        region = new Region();
         region.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         region.setOpacity(0.5);
         sPane.getChildren().add(region);
@@ -42,6 +43,9 @@ public class FloatingPane {
             root.getChildren().add(sPane);
             sPane.setPrefSize(GLOBAL.WIDTH, GLOBAL.HEIGHT);
             sPane.toBack();
+        });
+        region.setOnMouseClicked(event->{
+            close();
         });
     }
     

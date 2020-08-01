@@ -69,7 +69,7 @@
                               <Label fx:id="off" style="-fx-font-size: 22;" text="\% off" />
                            </children>
                         </HBox>
-                        <Label styleClass="title1" text="Buy now" />
+                        <Label fx:id="buyNowButton" styleClass="title1" text="Buy now" />
                         <VBox>
                            <children>
                               <Label styleClass="title4" text="This course included" />

@@ -6,6 +6,7 @@
 package Course.Overflow.Course.Home;
 
 import Course.Overflow.Course.Contents.ReviewInputBoxController;
+import Course.Overflow.Global.Components.CheckoutPageController;
 import Course.Overflow.Global.GLOBAL;
 import java.io.IOException;
 import java.net.URL;
@@ -83,6 +84,10 @@ public class CourseDetailsController implements Initializable {
     private AnchorPane reviewInputPane;
     private ReviewInputBoxController reviewInputCtrl;
     private static boolean isReviewInputBoxAdded = false;
+    @FXML
+    private Label buyNowButton;
+    private AnchorPane checkoutPane;
+    private CheckoutPageController checkoutCtrl;
     
     /**
      * Initializes the controller class.
@@ -116,9 +121,14 @@ public class CourseDetailsController implements Initializable {
             }
         }
         try {
+            // Review input box added
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CONTENTS_LOCATION + "/ReviewInputBox.fxml"));
             reviewInputPane = loader.load();
             reviewInputCtrl = loader.<ReviewInputBoxController>getController();
+            // Checkout page added
+            loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/CheckoutPage.fxml"));
+            checkoutPane = loader.load();
+            checkoutCtrl = loader.<CheckoutPageController>getController();
         } catch (IOException ex) {
             Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -137,6 +147,10 @@ public class CourseDetailsController implements Initializable {
         writeReviewBtn.setOnMouseClicked((event) -> {
             reviewInputCtrl.show();
         });
+        buyNowButton.setOnMouseClicked((event) -> {
+            checkoutCtrl.show();
+        });
+        
     }
 
 }
