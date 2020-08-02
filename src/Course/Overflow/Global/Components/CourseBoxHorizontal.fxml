@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.Rating?>
+
+<AnchorPane id="CourseBoxHorizontal" fx:id="container" style="-fx-background-color: pink;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.CourseBoxHorizontalController">
+   <stylesheets>
+      <URL value="@../Global.css" />
+      <URL value="@Components.css" />
+   </stylesheets>
+   <children>
+      <HBox fx:id="hContainer" layoutX="53.0" layoutY="21.0" style="-fx-alignment: center-left; -fx-spacing: 25;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <children>
+            <ImageView fx:id="coursePhoto" fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+            <VBox maxWidth="-Infinity" prefWidth="650.0">
+               <children>
+                  <Label fx:id="courseName" styleClass="title6" text="Learn Python Programming Masterclass" />
+                  <Label fx:id="courseShortDesc" style="-fx-text-alignment: justify; -fx-font-size: 16;" text="This Python For Beginners Course Teaches You The Python Language Fast. Includes Python Online Training With Python 3This Python For Beginners Course Teaches You The Python Language Fast. Includes Python Online Training With Python 3" />
+                  <Label fx:id="courseInst" styleClass="title8" text="Tim Buchalka, Jean-Paul Roberts, Tim Buchalka's Learn " />
+                  <HBox>
+                     <children>
+                        <Label fx:id="rating" styleClass="title6" text="4.5" />
+                        <Rating fx:id="ratingStar" />
+                        <Label fx:id="numOfRating" text="(53059)" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label fx:id="numOfLecture" text="391 Lectures" />
+                        <Label fx:id="level" text="All levels" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox style="-fx-alignment: center-right;">
+               <children>
+                  <Label fx:id="curPrice" styleClass="title6" text="18.99" />
+                  <Label fx:id="mainPrice" styleClass="mainPrice" text="120.99" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

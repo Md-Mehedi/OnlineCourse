@@ -153,3 +153,8 @@ Label{
 #popUpContainer Label:hover{
     -fx-text-fill: #00cccc;
 }
+
+/*Course Box Horizontal*/
+#CourseBoxHorizontal VBox, #CourseBoxHorizontal HBox{
+    -fx-alignment: top-left;
+}

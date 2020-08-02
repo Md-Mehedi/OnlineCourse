@@ -61,7 +61,7 @@ TextField{
 .bold{
     -fx-font-weight: bold;
 }
-.title1,.title2,.title3,.title4,.title5{
+.title1,.title2,.title3,.title4,.title5,.title6,.title7,.title8{
     /*-fx-font-family: "Times new roman";*/
     -fx-font-weight: bold;
 }
@@ -80,6 +80,15 @@ TextField{
 }
 .title5{
     -fx-font-size: 25;
+}
+.title6{
+    -fx-font-size: 23;
+}
+.title7{
+    -fx-font-size: 20;
+}
+.title8{
+    -fx-font-size: 18;
 }
 .cursorHand{
     -fx-cursor: hand;
@@ -161,4 +170,62 @@ TextField{
 }
 .outerShadow{
     -fx-effect: dropshadow(three-pass-box, gray, 15, 0.1, 3, 3);
+}
+
+/*Filter CSS*/
+.searchResultPageContainer VBox, .searchResultPageContainer HBox{
+    -fx-alignment: top-left;
+}
+.searchResultPageContainer > HBox{
+    -fx-alignment: center;
+}
+
+.filterContainer, .courseBoxContainer, .filterContainer > VBox{
+    -fx-spacing: 0;
+}
+.filterContainer{
+    -fx-max-width: 250;
+}
+.filterLabel{
+    -fx-pref-height: 50;
+    -fx-background-color:#ccffff;
+    -fx-border-color: black;
+    -fx-alignment: center-left;
+    -fx-padding: 0 10 0 10;
+}
+.filterLabel > Label{
+    -fx-alignment: center-left;
+    -fx-pref-width: 250;
+    -fx-font-size: 20;
+    -fx-padding: 0 5 0 0;
+}
+.subFilterContainer{
+    -fx-background-color:#99ffcc;
+    -fx-padding: 10 10 10 10;
+}
+
+/*Top Left Container*/
+.checkedListVBox{
+    -fx-spacing: 2;
+    -fx-alignment: top-center;
+    -fx-border-color: gray;     
+    -fx-padding: 5 10 30 10;
+}
+.checkedListVBox > Label{
+    -fx-padding: 0;
+}
+.checkedListHbox{
+    -fx-alignment: center-left;
+    -fx-border-color: green;
+    -fx-border-radius: 4;
+    -fx-padding: 0 5 0 5;
+}
+.checkedListHbox:hover{
+    -fx-border-color: red;
+}
+.checkedListHbox:hover Text{
+    -fx-strikethrough: true;
+}
+.checkedListHbox > Label{
+    -fx-padding: 0 0 20 0;
 }

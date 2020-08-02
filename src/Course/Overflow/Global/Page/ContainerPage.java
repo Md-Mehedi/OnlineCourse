@@ -84,7 +84,7 @@ public class ContainerPage {
             headerCtrl.setNotiPane(noti);
         } catch (IOException ex) { Logger.getLogger(ContainerPage.class.getName()).log(Level.SEVERE, null, ex);}
         
-        setCoursePage();
+        setSearchResultPage();
     }
     
     public AnchorPane getContainer(){
@@ -139,6 +139,11 @@ public class ContainerPage {
     
     public void setWishlistPage() {
         CourseListShowPage page = new CourseListShowPage("Wishlist");
+        setNewPage(page);
+    }
+    
+    public void setSearchResultPage() {
+        SearchResultPage page = new SearchResultPage();
         setNewPage(page);
     }
 }

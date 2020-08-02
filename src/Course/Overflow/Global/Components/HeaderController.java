@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
@@ -74,6 +75,11 @@ public class HeaderController implements Initializable {
             if(ContainerPage.pageIdx < ContainerPage.pages.size()-1){
                 ContainerPage.pageIdx++;
                 ContainerPage.loadPage();
+            }
+        });
+        searchField.setOnKeyReleased((event) -> {
+            if(event.getCode()==KeyCode.ENTER){
+                GLOBAL.PAGE_CTRL.setSearchResultPage();
             }
         });
     }    
