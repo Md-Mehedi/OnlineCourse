@@ -7,6 +7,7 @@
 package Course.Overflow.Global.Page;
 
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Layout.PageByPageLayoutController;
 import Course.Overflow.Global.ToolKit;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -37,6 +38,7 @@ public class SearchResultPage extends Page{
     private ArrayList<CheckBox> chceckedCBList; 
     private ArrayList<HBox> chceckedNameBoxList; 
     private ArrayList<VBox> subFilterVBoxList; 
+    private PageByPageLayoutController courseBoxesCtrl;
     
     
     public SearchResultPage(){
@@ -72,13 +74,13 @@ public class SearchResultPage extends Page{
     }
     
     private void readyCourseBoxes() {
-        for(int i=0; i<7; i++){
-            try {
-                loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/CourseBoxHorizontal.fxml"));
-                courseBoxContainer.getChildren().add(loader.load());
-            } catch (IOException ex) {
-                Logger.getLogger(SearchResultPage.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            loader = new FXMLLoader(getClass().getResource(GLOBAL.LAYOUT_LOCATION + "/PageByPageLayout.fxml"));
+            courseBoxContainer.getChildren().add(loader.load());
+            courseBoxesCtrl = loader.<PageByPageLayoutController>getController();
+            courseBoxesCtrl.setUpPage(13);
+        } catch (IOException ex) {
+            Logger.getLogger(SearchResultPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

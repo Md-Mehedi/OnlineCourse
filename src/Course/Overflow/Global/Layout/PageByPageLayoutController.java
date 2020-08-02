@@ -6,6 +6,7 @@
 package Course.Overflow.Global.Layout;
 
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.TeacherPreviewController;
 import java.io.IOException;
 import java.net.URL;
@@ -26,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 /**
@@ -57,10 +59,25 @@ public class PageByPageLayoutController implements Initializable {
     private AnchorPane container;
     @FXML
     private Label itemsNumDetails;
+    @FXML
+    private AnchorPane gridContainer;
+    
+    private VBox vCourseContainer;
 
     /**
      * Initializes the controller class.
      */
+    
+    public enum CourseBoxShowType{
+        Vertical("Vertical"),
+        Grid("Grid");
+        private String name;
+        CourseBoxShowType(String s){
+            this.name = s;
+        }
+    }
+    CourseBoxShowType type;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         totalCourse = 43;
@@ -71,10 +88,28 @@ public class PageByPageLayoutController implements Initializable {
     }
     
     public void setUpPage(int totalCourse, int column, int offset){
+        type = CourseBoxShowType.Grid;
         this.totalCourse = totalCourse;
         this.column = column;
         this.offset = offset;
+        if(!gridContainer.getChildren().contains(grid)){
+            gridContainer.getChildren().add(grid);
+            ToolKit.setAnchor(grid, 0, ToolKit.NULL, 0, 0);
+        }
         container.setPrefWidth(column*250 + (column-1)*offset);
+        readyNumOfItemList();
+        makePageNumbers();
+        loadPage(1);
+    }
+    
+    public void setUpPage(int totalCourse){
+        type = CourseBoxShowType.Vertical;
+        this.totalCourse = totalCourse;
+        gridContainer.getChildren().remove(grid);
+        vCourseContainer = new VBox();
+        gridContainer.getChildren().add(vCourseContainer);
+        ToolKit.setAnchor(vCourseContainer, 0, 0, 0, 0);
+        
         readyNumOfItemList();
         makePageNumbers();
         loadPage(1);
@@ -83,11 +118,16 @@ public class PageByPageLayoutController implements Initializable {
     @SuppressWarnings("unchecked")
     private void readyNumOfItemList() {
         numOfItemList = FXCollections.observableArrayList();
-        numOfItemList.addAll("8", "12", "16", "20", "30", "40");
+        if(type == CourseBoxShowType.Grid){
+            numOfItemList.addAll("8", "12", "16", "20", "30", "40");
+        }
+        else{
+            numOfItemList.addAll("5", "10", "15", "20", "25", "30");
+        }
         numOfItemChoiceBox.setItems(numOfItemList);
         numOfItemChoiceBox.setItems(numOfItemList);
-        numOfItemChoiceBox.setValue("12");
-        totalItem1page = 12;
+        numOfItemChoiceBox.setValue(numOfItemList.get(1));
+        totalItem1page = Integer.parseInt(numOfItemList.get(1));
 
         numOfItemChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             // if the item of the list is changed 
@@ -136,13 +176,8 @@ public class PageByPageLayoutController implements Initializable {
                 pageNumContainer.getChildren().get(currentPage - 1).setId("");
             }
             currentPage = pageNum;
-            System.out.println(currentPage);
             pageNumContainer.getChildren().get(currentPage - 1).setId("selectedPage");
 
-            grid.getChildren().clear();
-            grid.setVgap(offset);
-            grid.setHgap(offset);
-            
             if(totalItem1page*(pageNum-1)+1 != Math.min(totalItem1page*pageNum, totalCourse)){
                 itemsNumDetails.setText("Showing (" +
                       (totalItem1page * (pageNum - 1)+1) +
@@ -159,22 +194,41 @@ public class PageByPageLayoutController implements Initializable {
                       + (totalItem1page*(pageNum-1)+1) 
                       + (totalItem1page*(pageNum-1)+1==1 ? " item" : " items"));
             }
+            
+            // Starting Filling with Course Box
+            String fxmlName = GLOBAL.COMPONENTS_LOCATION + "/CourseBoxHorizontal.fxml";
+            if(type == CourseBoxShowType.Grid){
+                grid.getChildren().clear();
+                grid.setVgap(offset);
+                grid.setHgap(offset);
+                fxmlName = GLOBAL.COMPONENTS_LOCATION + "/CourseBox.fxml";
+            }
+            else{
+                vCourseContainer.getChildren().clear();
+            }
+
             for (int i = totalItem1page * (pageNum - 1); i < Math.min(totalItem1page * pageNum, totalCourse); i++) {
-                //System.out.println(i);
                 try {
-                    loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/CourseBox.fxml"));
+                    loader = new FXMLLoader(getClass().getResource(fxmlName));
                     AnchorPane pane = loader.load();
-                    grid.add(pane, (i - totalItem1page * (pageNum - 1)) % column, (i - totalItem1page * (pageNum - 1)) / column);
+                    if(type == CourseBoxShowType.Grid){
+                        grid.add(pane, (i - totalItem1page * (pageNum - 1)) % column, (i - totalItem1page * (pageNum - 1)) / column);
+                    }
+                    else{
+                        vCourseContainer.getChildren().add(pane);
+                    }
                 } catch (IOException ex) {
                     Logger.getLogger(TeacherPreviewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            int n = grid.getChildren().size();
-            if(n<column){
-                grid.setPrefWidth(n*250 + (n-1)*offset);
-            }
-            else{
-                grid.setPrefWidth(column*250 + (column-1)*offset);
+            if(type == CourseBoxShowType.Grid){
+                int n = grid.getChildren().size();
+                if(n<column){
+                    grid.setPrefWidth(n*250 + (n-1)*offset);
+                }
+                else{
+                    grid.setPrefWidth(column*250 + (column-1)*offset);
+                }
             }
         }
     }

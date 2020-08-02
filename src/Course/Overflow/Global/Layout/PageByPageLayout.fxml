@@ -23,7 +23,7 @@
                   <ComboBox fx:id="numOfItemChoiceBox" style="-fx-pref-width: 100; -fx-pref-height: 35;" styleClass="choiceBox" />
                </children>
             </HBox>
-            <AnchorPane>
+            <AnchorPane fx:id="gridContainer">
                <children>
                   <GridPane fx:id="grid" hgap="45.0" vgap="45.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>

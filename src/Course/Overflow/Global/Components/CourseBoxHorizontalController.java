@@ -5,6 +5,7 @@
  */
 package Course.Overflow.Global.Components;
 
+import Course.Overflow.Global.GLOBAL;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -55,7 +56,9 @@ public class CourseBoxHorizontalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        System.out.println("In Course Box Horizontal");
+        container.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.setCoursePage();
+        });
     }    
     
 }
