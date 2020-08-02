@@ -21,20 +21,20 @@ import javafx.scene.layout.VBox;
  *
  * @author Md Mehedi Hasan
  */
-public class MyCoursesPage extends Page{
+public class CourseListShowPage extends Page{
     private FXMLLoader loader;
     private VBox container;
     private PageByPageLayoutController ctrl;
     
     
-    public MyCoursesPage(){
+    public CourseListShowPage(String title){
         root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
         
         container = new VBox();
         root.getChildren().add(container);
         ToolKit.setAnchor(container, 50, 150, 20, 150);
         
-        Label label = new Label("My courses");
+        Label label = new Label(title);
         container.getChildren().add(label);
         label.getStyleClass().add("title1");
         

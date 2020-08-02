@@ -133,9 +133,12 @@ public class ContainerPage {
     }
     
     public void setMyCoursesPage() {
-        MyCoursesPage page = new MyCoursesPage();
+        CourseListShowPage page = new CourseListShowPage("My courses");
         setNewPage(page);
     }
     
-
+    public void setWishlistPage() {
+        CourseListShowPage page = new CourseListShowPage("Wishlist");
+        setNewPage(page);
+    }
 }

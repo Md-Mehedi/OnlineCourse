@@ -37,7 +37,7 @@ public class RightMenuPopOverController implements Initializable {
     @FXML
     private Label purchaseHistory;
     @FXML
-    private Label wishList;
+    private Label wishlist;
     @FXML
     private Label message;
     @FXML
@@ -68,6 +68,8 @@ public class RightMenuPopOverController implements Initializable {
         if(event.getSource()==myCourse){
             GLOBAL.PAGE_CTRL.setMyCoursesPage();
         }
-    }
-    
+        else if(event.getSource()==wishlist){
+            GLOBAL.PAGE_CTRL.setWishlistPage();
+        }
+    }    
 }

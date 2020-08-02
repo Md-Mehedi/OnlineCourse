@@ -40,7 +40,7 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Label>
-            <Label fx:id="wishList" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="Wishlist">
+            <Label fx:id="wishlist" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="Wishlist">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Label>

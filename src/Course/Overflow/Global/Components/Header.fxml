@@ -49,7 +49,7 @@
                         <FontAwesomeIconView glyphName="SEARCH" size="40" />
                      </graphic>
                   </Label>
-                  <JFXTextField fx:id="searchField" text="Search for anything" HBox.hgrow="ALWAYS">
+                  <JFXTextField fx:id="searchField" promptText="Search for anything" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Bell MT" size="22.0" />
                      </font>
