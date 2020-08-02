@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" fx:id="container" prefHeight="520.0" prefWidth="1003.0" styleClass="floaTingPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.CongratulationFlowPaneController">
+   <stylesheets>
+      <URL value="@../Global.css" />
+      <URL value="@Components.css" />
+   </stylesheets>
+   <children>
+      <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox>
+               <children>
+                  <ImageView fitHeight="520.0" fitWidth="910.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Files/Picture/Congratulation%202.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label styleClass="title2" text="You have successfully own" />
+                  <HBox>
+                     <children>
+                        <ImageView fx:id="coursePhoto" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="courseName" styleClass="title5" text="Course Name" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

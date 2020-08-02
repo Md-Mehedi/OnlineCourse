@@ -28,6 +28,8 @@ public class FloatingPane {
     public AnchorPane backPane;
     public StackPane sPane;
     private Region region;
+    public ScaleTransition showTransition;
+    public ScaleTransition closeTransition;
 
     public FloatingPane() {
         sPane = new StackPane();
@@ -36,6 +38,9 @@ public class FloatingPane {
         region.setOpacity(0.5);
         sPane.getChildren().add(region);
         Platform.runLater(()->{
+            backPane.getStyleClass().add("floatingPane");
+            backPane.setMaxSize(backPane.getPrefWidth(), backPane.getPrefHeight());
+            
             backPane.setScaleX(0);
             backPane.setScaleY(0);
             sPane.getChildren().add(backPane);
@@ -51,18 +56,18 @@ public class FloatingPane {
     
     public void show(){
         sPane.toFront();
-        ScaleTransition t1 = new ScaleTransition(Duration.millis(400), backPane);
-        t1.setToX(1);
-        t1.setToY(1);
-        t1.play();
+        showTransition = new ScaleTransition(Duration.millis(400), backPane);
+        showTransition.setToX(1);
+        showTransition.setToY(1);
+        showTransition.play();
     }
     
     public void close(){
-        ScaleTransition t1 = new ScaleTransition(Duration.millis(300), backPane);
-        t1.setToX(0);
-        t1.setToY(0);
-        t1.play();
-        t1.setOnFinished((event) -> {
+        closeTransition = new ScaleTransition(Duration.millis(300), backPane);
+        closeTransition.setToX(0);
+        closeTransition.setToY(0);
+        closeTransition.play();
+        closeTransition.setOnFinished((event) -> {
             sPane.toBack();
         });
     }

@@ -97,7 +97,7 @@
                         <Region HBox.hgrow="ALWAYS" />
                         <VBox>
                            <children>
-                              <Label fx:id="originalPriceBottom" text="189" />
+                              <Label fx:id="originalPriceBottom" style="-fx-font-size: 20;" styleClass="mainPrice" text="189" />
                               <Label fx:id="discountsPriceBottom" text="19" />
                            </children>
                         </VBox>

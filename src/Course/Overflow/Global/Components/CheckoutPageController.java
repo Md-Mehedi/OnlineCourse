@@ -5,10 +5,15 @@
  */
 package Course.Overflow.Global.Components;
 
+import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.FloatingPane;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -46,6 +51,8 @@ public class CheckoutPageController extends FloatingPane implements Initializabl
     private Label originalPriceBottom;
     @FXML
     private Label discountsPriceBottom;
+    private FXMLLoader loader;
+    private CongratulationFlowPaneController cngCtrl;
 
     /**
      * Initializes the controller class.
@@ -53,13 +60,23 @@ public class CheckoutPageController extends FloatingPane implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         backPane = container;
+        try {
+            loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/CongratulationFlowPane.fxml"));
+            loader.load();
+            cngCtrl = loader.<CongratulationFlowPaneController>getController();
+        } catch (IOException ex) {
+            Logger.getLogger(CheckoutPageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         addListener();
-        
     }    
 
     private void addListener() {
         completeBtn.setOnMouseClicked((event) -> {
             close();
+            closeTransition.setOnFinished((event1) -> {
+                sPane.toBack();
+                cngCtrl.show();
+            });
         });
     }
     
