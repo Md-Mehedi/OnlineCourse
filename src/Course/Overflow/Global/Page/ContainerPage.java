@@ -11,6 +11,7 @@ import Course.Overflow.Global.Components.Notification.NotificationView;
 import Course.Overflow.Global.Components.RightMenuPopOverController;
 import Course.Overflow.Global.Components.TopMenuBar.MenuBar;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Layout.PageByPageLayoutController;
 import Course.Overflow.Global.ToolKit;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -139,6 +140,11 @@ public class ContainerPage {
     
     public void setWishlistPage() {
         CourseListShowPage page = new CourseListShowPage("Wishlist");
+        setNewPage(page);
+    }
+    
+    public void setPurchaseHistoryPage() {
+        CourseListShowPage page = new CourseListShowPage("Your purchase history", PageByPageLayoutController.CourseBoxShowType.Vertical);
         setNewPage(page);
     }
     

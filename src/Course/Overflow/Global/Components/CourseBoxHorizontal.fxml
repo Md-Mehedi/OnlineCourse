@@ -14,10 +14,10 @@
       <URL value="@Components.css" />
    </stylesheets>
    <children>
-      <HBox fx:id="hContainer" layoutX="53.0" layoutY="21.0" style="-fx-alignment: center-left; -fx-spacing: 25;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+      <HBox fx:id="hContainer" layoutX="53.0" layoutY="21.0" style="-fx-alignment: center-left; -fx-spacing: 15;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
          <children>
             <ImageView fx:id="coursePhoto" fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
-            <VBox maxWidth="-Infinity" prefWidth="650.0">
+            <VBox maxWidth="670.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label fx:id="courseName" styleClass="title6" text="Learn Python Programming Masterclass" />
                   <Label fx:id="courseShortDesc" style="-fx-text-alignment: justify; -fx-font-size: 16;" text="This Python For Beginners Course Teaches You The Python Language Fast. Includes Python Online Training With Python 3This Python For Beginners Course Teaches You The Python Language Fast. Includes Python Online Training With Python 3" />
@@ -37,9 +37,9 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox style="-fx-alignment: center-right;">
+            <VBox minWidth="90.0" prefWidth="90.0" style="-fx-alignment: center-right;">
                <children>
-                  <Label fx:id="curPrice" styleClass="title6" text="18.99" />
+                  <Label fx:id="curPrice" styleClass="title6" text="12000" />
                   <Label fx:id="mainPrice" styleClass="mainPrice" text="120.99" />
                </children>
             </VBox>

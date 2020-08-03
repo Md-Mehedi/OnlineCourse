@@ -5,6 +5,8 @@
  */
 package Course.Overflow.Global.Layout;
 
+import Course.Overflow.Global.Components.CourseBoxController;
+import Course.Overflow.Global.Components.CourseBoxHorizontalController;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.TeacherPreviewController;
@@ -63,6 +65,9 @@ public class PageByPageLayoutController implements Initializable {
     private AnchorPane gridContainer;
     
     private VBox vCourseContainer;
+    private ArrayList<CourseBoxHorizontalController> courseHCtrls;
+    private ArrayList<CourseBoxController> courseBCtrls;
+
 
     /**
      * Initializes the controller class.
@@ -85,6 +90,8 @@ public class PageByPageLayoutController implements Initializable {
         column = 4;
         currentPage = 0;
         offset = 45;
+        courseBCtrls = new ArrayList<>();
+        courseHCtrls = new ArrayList<>();
     }
     
     public void setUpPage(int totalCourse, int column, int offset){
@@ -213,9 +220,11 @@ public class PageByPageLayoutController implements Initializable {
                     AnchorPane pane = loader.load();
                     if(type == CourseBoxShowType.Grid){
                         grid.add(pane, (i - totalItem1page * (pageNum - 1)) % column, (i - totalItem1page * (pageNum - 1)) / column);
+                        courseBCtrls.add(loader.getController());
                     }
                     else{
                         vCourseContainer.getChildren().add(pane);
+                        courseHCtrls.add(loader.getController());
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(TeacherPreviewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -229,6 +238,14 @@ public class PageByPageLayoutController implements Initializable {
                 else{
                     grid.setPrefWidth(column*250 + (column-1)*offset);
                 }
+            }
+        }
+    }
+    
+    public void addPurchaseDateColumn() {
+        if(type == CourseBoxShowType.Vertical){
+            for(CourseBoxHorizontalController ctrl : courseHCtrls){
+                ctrl.addPriceAndPurchaseDateColumn();
             }
         }
     }

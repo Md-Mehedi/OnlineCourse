@@ -71,5 +71,8 @@ public class RightMenuPopOverController implements Initializable {
         else if(event.getSource()==wishlist){
             GLOBAL.PAGE_CTRL.setWishlistPage();
         }
+        else if(event.getSource()==purchaseHistory){
+            GLOBAL.PAGE_CTRL.setPurchaseHistoryPage();
+        }
     }    
 }
