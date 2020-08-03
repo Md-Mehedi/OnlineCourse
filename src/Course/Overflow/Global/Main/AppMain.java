@@ -5,10 +5,10 @@ package Course.Overflow.Global.Main;
  * template file, choose ToolKit | Templates and open the template in the editor.
  */
 import Course.Overflow.Global.GLOBAL;
-import Course.Overflow.Global.Page.ContainerPage;
 import Course.Overflow.Teacher.CreateCourse.CreateCourse;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -53,10 +53,10 @@ public class AppMain extends Application {
         System.out.println("FXML is loaded...");
     }
     private void testPage() throws IOException{
-        //pane = (AnchorPane) FXMLLoader.load(getClass().getResource(GLOBAL.COURSE_HOME_LOCATION+ "/CourseDetails.fxml"));
-        ContainerPage page = new ContainerPage();
-        GLOBAL.PAGE_CTRL = page;
-        pane = page.getContainer();
+        pane = (AnchorPane) FXMLLoader.load(getClass().getResource(GLOBAL.MESSAGING_LOCATION+ "/Messenger.fxml"));
+//        ContainerPage page = new ContainerPage();
+//        GLOBAL.PAGE_CTRL = page;
+//        pane = page.getContainer();
         
         ScrollPane sc = new ScrollPane(pane);
         sc.setMaxHeight(800);

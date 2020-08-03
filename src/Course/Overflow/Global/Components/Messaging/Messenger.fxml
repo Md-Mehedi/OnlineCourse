@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.Messaging.MessengerController">
+   <stylesheets>
+      <URL value="@../../Global.css" />
+      <URL value="@Messaging.css" />
+   </stylesheets>
+   <children>
+      <VBox layoutX="32.0" style="-fx-spacing: 0;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <HBox style="-fx-border-style: solid none solid none;">
+               <children>
+                  <Label fx:id="teacherName" styleClass="title5" text="Teacher name" />
+               </children>
+            </HBox>
+            <ScrollPane fx:id="scroll" hbarPolicy="NEVER" nodeOrientation="LEFT_TO_RIGHT" pannable="true" prefWidth="870.0" vvalue="1.0" VBox.vgrow="NEVER">
+               <content>
+                  <AnchorPane>
+                     <children>
+                        <VBox fx:id="messageContainer" style="-fx-spacing: 30; -fx-background-color: #54a7d7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox styleClass="message2">
+                                 <children>
+                                    <Circle fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+                                    <Label text="1.   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." />
+                                    <Circle fill="DODGERBLUE" opacity="0.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+                                 </children>
+                              </HBox>
+                              <HBox styleClass="message1">
+                                 <children>
+                                    <Circle fill="DODGERBLUE" opacity="0.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+                                    <Label text="2.   lsfdjksjfd" />
+                                    <Circle fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+                                 </children>
+                              </HBox>
+                              <HBox styleClass="message2">
+                                 <children>
+                                    <Circle fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+                                    <Label text="3.   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." />
+                                    <Circle fill="DODGERBLUE" opacity="0.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+                                 </children>
+                              </HBox>
+                              <HBox styleClass="message1">
+                                 <children>
+                                    <Circle fill="DODGERBLUE" opacity="0.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+                                    <Label text="4.   lsfdjksjfd" />
+                                    <Circle fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+                                 </children>
+                              </HBox>
+                              <HBox styleClass="message2">
+                                 <children>
+                                    <Circle fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+                                    <Label text="5.   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." />
+                                    <Circle fill="DODGERBLUE" opacity="0.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+                                 </children>
+                              </HBox>
+                              <HBox styleClass="message1">
+                                 <children>
+                                    <Circle fill="DODGERBLUE" opacity="0.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+                                    <ImageView fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../Files/Picture/Message_101_3.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <Circle fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+            <HBox>
+               <children>
+                  <FontAwesomeIconView fx:id="addImageBtn" glyphName="IMAGE" size="40" />
+                  <TextArea fx:id="inputField" prefColumnCount="1" prefHeight="70.0" promptText="Write something to send" HBox.hgrow="ALWAYS" />
+                  <FontAwesomeIconView fx:id="sendBtn" glyphName="SEND_ALT" size="40" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -85,7 +85,7 @@ public class ContainerPage {
             headerCtrl.setNotiPane(noti);
         } catch (IOException ex) { Logger.getLogger(ContainerPage.class.getName()).log(Level.SEVERE, null, ex);}
         
-        setSearchResultPage();
+        setHomePage();
     }
     
     public AnchorPane getContainer(){
@@ -153,4 +153,5 @@ public class ContainerPage {
         SearchResultPage page = new SearchResultPage();
         setNewPage(page);
     }
+    
 }

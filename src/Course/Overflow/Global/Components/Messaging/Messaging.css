@@ -1,0 +1,23 @@
+/*Messanger chat box CSS*/
+.message1, .message2{
+    -fx-alignment: bottom-center;
+    -fx-spacing: 15;
+    -fx-pref-width: 800;
+}
+.message1{
+    -fx-alignment: bottom-right;
+}
+.message2{
+    -fx-alignment: bottom-left;
+}
+.message1 Label, .message2 Label{
+    -fx-padding: 10;
+}
+.message1 Label{
+    -fx-background-color: #c7e4f6;
+    -fx-background-radius: 25 25 0 25;
+}
+.message2 Label{
+    -fx-background-color: #F6F8F6;
+    -fx-background-radius: 25 25 25 0;
+}
