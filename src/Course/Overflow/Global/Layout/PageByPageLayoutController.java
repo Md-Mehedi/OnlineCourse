@@ -10,6 +10,7 @@ import Course.Overflow.Global.Components.CourseBoxHorizontalController;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.TeacherPreviewController;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -67,6 +68,15 @@ public class PageByPageLayoutController implements Initializable {
     private VBox vCourseContainer;
     private ArrayList<CourseBoxHorizontalController> courseHCtrls;
     private ArrayList<CourseBoxController> courseBCtrls;
+    @FXML
+    private FontAwesomeIconView listIcon;
+    @FXML
+    private FontAwesomeIconView gridIcon;
+    @FXML
+    private HBox viewChangerContainer;
+    @FXML
+    private HBox topContainer;
+    private ChangeListener listener;
 
 
     /**
@@ -90,20 +100,51 @@ public class PageByPageLayoutController implements Initializable {
         column = 4;
         currentPage = 0;
         offset = 45;
+        
         courseBCtrls = new ArrayList<>();
         courseHCtrls = new ArrayList<>();
+        vCourseContainer = new VBox();
+        listener = new ChangeListener<Number>() {
+            // if the item of the list is changed 
+            public void changed(ObservableValue ov, Number value, Number new_value) {
+                if(new_value.intValue() != -1)
+                    totalItem1page = (int) Math.ceil(Integer.parseInt(numOfItemList.get(new_value.intValue())));
+                else {
+                    totalItem1page = Integer.parseInt(numOfItemList.get(1));
+                }
+                makePageNumbers();
+                currentPage = 0;
+                loadPage(1);
+            }
+        };
+        numOfItemChoiceBox.getSelectionModel().selectedIndexProperty().addListener(listener);
+    
+        
+        listIcon.setOnMouseClicked((event) -> {
+            if(listIcon.getOpacity()!=1){
+                currentPage = 0;
+                setUpPage(totalCourse);
+            }
+        });
+        gridIcon.setOnMouseClicked((event) -> {
+            if(gridIcon.getOpacity()!=1){
+                currentPage = 0;
+                setUpPage(totalCourse, column, offset);
+            }
+        });
     }
     
     public void setUpPage(int totalCourse, int column, int offset){
         type = CourseBoxShowType.Grid;
+        gridIcon.setOpacity(1);
+        listIcon.setOpacity(0.2);
         this.totalCourse = totalCourse;
         this.column = column;
         this.offset = offset;
         if(!gridContainer.getChildren().contains(grid)){
+            gridContainer.getChildren().remove(vCourseContainer);
             gridContainer.getChildren().add(grid);
-            ToolKit.setAnchor(grid, 0, ToolKit.NULL, 0, 0);
         }
-        container.setPrefWidth(column*250 + (column-1)*offset);
         readyNumOfItemList();
         makePageNumbers();
         loadPage(1);
@@ -111,11 +152,14 @@ public class PageByPageLayoutController implements Initializable {
     
     public void setUpPage(int totalCourse){
         type = CourseBoxShowType.Vertical;
+        gridIcon.setOpacity(0.1);
+        listIcon.setOpacity(1);
         this.totalCourse = totalCourse;
-        gridContainer.getChildren().remove(grid);
-        vCourseContainer = new VBox();
-        gridContainer.getChildren().add(vCourseContainer);
-        ToolKit.setAnchor(vCourseContainer, 0, 0, 0, 0);
+        if(!gridContainer.getChildren().contains(vCourseContainer)){
+            gridContainer.getChildren().remove(grid);
+            gridContainer.getChildren().add(vCourseContainer);
+            ToolKit.setAnchor(vCourseContainer, 0, 0, 0, 0);
+        }
         
         readyNumOfItemList();
         makePageNumbers();
@@ -132,19 +176,11 @@ public class PageByPageLayoutController implements Initializable {
             numOfItemList.addAll("5", "10", "15", "20", "25", "30");
         }
         numOfItemChoiceBox.setItems(numOfItemList);
-        numOfItemChoiceBox.setItems(numOfItemList);
         numOfItemChoiceBox.setValue(numOfItemList.get(1));
         totalItem1page = Integer.parseInt(numOfItemList.get(1));
+        
+        
 
-        numOfItemChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            // if the item of the list is changed 
-            public void changed(ObservableValue ov, Number value, Number new_value) {
-                totalItem1page = (int) Math.ceil(Integer.parseInt(numOfItemList.get(new_value.intValue())));
-                makePageNumbers();
-                currentPage = 0;
-                loadPage(1);
-            }
-        });
     }
     
     private void makePageNumbers() {
@@ -243,10 +279,15 @@ public class PageByPageLayoutController implements Initializable {
     }
     
     public void addPurchaseDateColumn() {
+        stopViewChange();
         if(type == CourseBoxShowType.Vertical){
             for(CourseBoxHorizontalController ctrl : courseHCtrls){
                 ctrl.addPriceAndPurchaseDateColumn();
             }
         }
+    }
+    
+    public void stopViewChange(){
+        topContainer.getChildren().remove(viewChangerContainer);
     }
 }

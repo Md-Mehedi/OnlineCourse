@@ -53,13 +53,15 @@ public class CourseListShowPage extends Page{
             }
             else{
                 ctrl.setUpPage(41);
-                ctrl.addPurchaseDateColumn();
             }
             container.getChildren().add(pane);
         } catch (IOException ex) {
             Logger.getLogger(TeacherDetailsPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-          
     
+    public void makeItPurchaseHistoryPage(){
+        ctrl.addPurchaseDateColumn();
+        ctrl.stopViewChange();
+    }
 }

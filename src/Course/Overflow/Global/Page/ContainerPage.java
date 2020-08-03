@@ -145,6 +145,7 @@ public class ContainerPage {
     
     public void setPurchaseHistoryPage() {
         CourseListShowPage page = new CourseListShowPage("Your purchase history", PageByPageLayoutController.CourseBoxShowType.Vertical);
+        page.makeItPurchaseHistoryPage();
         setNewPage(page);
     }
     

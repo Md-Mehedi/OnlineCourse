@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,12 +17,24 @@
    <children>
       <VBox layoutX="339.0" layoutY="64.0" style="-fx-spacing: 50;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox style="-fx-alignment: center-right;">
+            <HBox fx:id="topContainer" style="-fx-alignment: center-right;">
                <children>
                   <Label fx:id="itemsNumDetails" text="Number of items in 1 page" />
                   <Region HBox.hgrow="ALWAYS" />
                   <Label text="Number of items in 1 page" />
                   <ComboBox fx:id="numOfItemChoiceBox" style="-fx-pref-width: 100; -fx-pref-height: 35;" styleClass="choiceBox" />
+                  <HBox fx:id="viewChangerContainer">
+                     <children>
+                        <FontAwesomeIconView fx:id="listIcon" glyphName="LIST" size="24" style="-fx-cursor: hand;">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin></FontAwesomeIconView>
+                        <FontAwesomeIconView fx:id="gridIcon" glyphName="TH" size="24" style="-fx-cursor: hand;">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin></FontAwesomeIconView>
+                     </children>
+                  </HBox>
                </children>
             </HBox>
             <AnchorPane fx:id="gridContainer">
