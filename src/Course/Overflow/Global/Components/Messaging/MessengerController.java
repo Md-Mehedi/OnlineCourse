@@ -61,8 +61,8 @@ public class MessengerController implements Initializable {
     
     private Image userImage;
     private Image opponentImage;
-
-
+    @FXML
+    private AnchorPane scrollingPane;
     
     public enum MessageType{
         TEXT("TEXT"),
@@ -78,11 +78,12 @@ public class MessengerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         messageContainer.getChildren().clear();
+        GLOBAL.scrollingPane = scrollingPane;
         userImage = new Image(GLOBAL.PICTURE_LOCATION + "/Person 1.jpg");
         opponentImage = new Image(GLOBAL.PICTURE_LOCATION + "/Person 2.jpg");
         addListener();
         
-        makeHugeMessagesByDefault();
+        buildSomeDefaultMessaging();
     }    
     
     private void addListener(){
@@ -131,11 +132,12 @@ public class MessengerController implements Initializable {
         }
         else if(type == MessageType.TEXT){
             lm = new Label();
-            box = new HBox(cl,lm,cr);
             ToolKit.setTooltip(lm, "22 September, 2020 - 12:06 AM", GLOBAL.rootPane);
+            box = new HBox(cl,lm,cr);
         }
         box.getStyleClass().add("message1");
         messageContainer.getChildren().add(box);
+        scroll.setVvalue(1);
     }
     
     private void makeMessage(String text){
@@ -161,7 +163,7 @@ public class MessengerController implements Initializable {
         }
     }
     
-    private void makeHugeMessagesByDefault() {
+    private void buildSomeDefaultMessaging() {
         for(int i=0; i<50; i++){
             int ran;
             String text1 = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s";

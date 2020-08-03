@@ -28,7 +28,7 @@
             </HBox>
             <ScrollPane fx:id="scroll" hbarPolicy="NEVER" nodeOrientation="LEFT_TO_RIGHT" pannable="true" prefWidth="870.0" vvalue="1.0" VBox.vgrow="NEVER">
                <content>
-                  <AnchorPane>
+                  <AnchorPane fx:id="scrollingPane">
                      <children>
                         <VBox fx:id="messageContainer" style="-fx-spacing: 30; -fx-background-color: #54a7d7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>

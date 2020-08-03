@@ -56,5 +56,6 @@ public class GLOBAL {
     public static final double CENTER_RIGHT_WIDTH = 1055;
     public static final double LEFT_WIDTH = 300;
     public static AnchorPane rootPane;
+    public static AnchorPane scrollingPane;
     public static ContainerPage PAGE_CTRL;
 }

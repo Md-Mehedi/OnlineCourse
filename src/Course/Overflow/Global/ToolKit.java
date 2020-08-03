@@ -137,16 +137,25 @@ public class ToolKit {
         contentContainer.setDisable(true);
         return triangle;
     }
+    
+    public static void setUpLocation(FontAwesomeIconView obj, AnchorPane contentContainer, Polygon triangle){
+        contentContainer.toFront();
+        double posX = obj.localToScene(obj.getBoundsInLocal()).getMinX() - contentContainer.getWidth() / 2 + Double.parseDouble(obj.getSize()) / 2;
+        double posY = obj.localToScene(obj.getBoundsInLocal()).getMinY() - contentContainer.getHeight() - tooltipOffset;
+        setTriangleProperly(posY, triangle);
+        triangle.setLayoutX(posX < tooltipOffset ? obj.localToScene(obj.getBoundsInLocal()).getMinX() + Double.parseDouble(obj.getSize()) / 2 - triangleBase / 2 - tooltipOffset : contentContainer.getWidth() / 2 - triangleBase / 2);
+        contentContainer.setLayoutX(posX < tooltipOffset ? tooltipOffset : posX);
+        contentContainer.setLayoutY(posY < tooltipOffset ? obj.localToScene(obj.getBoundsInLocal()).getMaxY() + tooltipOffset : posY);
+    }
 
     private static void setHandler(FontAwesomeIconView obj, AnchorPane contentContainer, Polygon triangle) {
+        obj.setOnScroll((event) -> {
+            setUpLocation(obj, contentContainer, triangle);
+        });
         obj.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                double posX = obj.localToScene(obj.getBoundsInLocal()).getMinX() - contentContainer.getWidth() / 2 + Double.parseDouble(obj.getSize()) / 2;
-                double posY = obj.localToScene(obj.getBoundsInLocal()).getMinY() - contentContainer.getHeight() - tooltipOffset;
-                triangle.setLayoutX(posX < tooltipOffset ? obj.localToScene(obj.getBoundsInLocal()).getMinX() + Double.parseDouble(obj.getSize()) / 2 - triangleBase / 2 - tooltipOffset : contentContainer.getWidth() / 2 - triangleBase / 2);
-                contentContainer.setLayoutX(posX < tooltipOffset ? tooltipOffset : posX);
-                contentContainer.setLayoutY(posY < tooltipOffset ? obj.localToScene(obj.getBoundsInLocal()).getMaxY() + tooltipOffset : posY);
+                setUpLocation(obj, contentContainer, triangle);
                 contentContainer.setVisible(true);
                 contentContainer.setDisable(false);
             }
@@ -173,26 +182,28 @@ public class ToolKit {
         Polygon triangle = toolTipFinalize(content, contentContainer, mainContainer);
         setHandler(obj, contentContainer, triangle);
     }
+    public static void setUpLocation(ImageView obj, AnchorPane contentContainer, Polygon triangle){
+        contentContainer.toFront();
+        double posX = obj.localToScene(obj.getBoundsInLocal()).getMinX() - contentContainer.getWidth() / 2 + obj.getFitWidth() / 2;
+        double posY = obj.localToScene(obj.getBoundsInLocal()).getMinY() - contentContainer.getHeight() - tooltipOffset;
+        setTriangleProperly(posY, triangle);
+        triangle.setLayoutX(posX < tooltipOffset ? obj.localToScene(obj.getBoundsInLocal()).getMinX() + obj.getFitWidth() / 2 - triangleBase / 2 - tooltipOffset : contentContainer.getWidth() / 2 - triangleBase / 2);
+        contentContainer.setLayoutX(posX < tooltipOffset ? tooltipOffset : posX);
+        contentContainer.setLayoutY(posY < tooltipOffset ? obj.localToScene(obj.getBoundsInLocal()).getMaxY() + tooltipOffset : posY);
+    }
 
     private static void setHandler(ImageView obj, AnchorPane contentContainer, Polygon triangle) {
-        obj.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                double posX = obj.localToScene(obj.getBoundsInLocal()).getMinX() - contentContainer.getWidth() / 2 + obj.getFitWidth() / 2;
-                double posY = obj.localToScene(obj.getBoundsInLocal()).getMinY() - contentContainer.getHeight() - tooltipOffset;
-                triangle.setLayoutX(posX < tooltipOffset ? obj.localToScene(obj.getBoundsInLocal()).getMinX() + obj.getFitWidth() / 2 - triangleBase / 2 - tooltipOffset : contentContainer.getWidth() / 2 - triangleBase / 2);
-                contentContainer.setLayoutX(posX < tooltipOffset ? tooltipOffset : posX);
-                contentContainer.setLayoutY(posY < tooltipOffset ? obj.localToScene(obj.getBoundsInLocal()).getMaxY() + tooltipOffset : posY);
-                contentContainer.setVisible(true);
-                contentContainer.setDisable(false);
-            }
+        obj.setOnScroll((event) -> {
+            setUpLocation(obj, contentContainer, triangle);
         });
-        obj.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                contentContainer.setVisible(false);
-                contentContainer.setDisable(true);
-            }
+        obj.setOnMouseEntered((MouseEvent event) -> {
+            setUpLocation(obj, contentContainer, triangle);
+            contentContainer.setVisible(true);
+            contentContainer.setDisable(false);
+        });
+        obj.setOnMouseExited((MouseEvent event) -> {
+            contentContainer.setVisible(false);
+            contentContainer.setDisable(true);
         });
     }
 
@@ -209,19 +220,25 @@ public class ToolKit {
         Polygon triangle = toolTipFinalize(content, contentContainer, mainContainer);
         setHandler(obj, contentContainer, triangle);
     }
+    
+    public static void setUpLocation(Label obj, AnchorPane contentContainer, Polygon triangle){
+        contentContainer.toFront();
+        double posX = obj.localToScene(obj.getBoundsInLocal()).getMinX() - contentContainer.getWidth() / 2 + obj.getWidth() / 2;
+        double posY = obj.localToScene(obj.getBoundsInLocal()).getMinY() - contentContainer.getHeight() - tooltipOffset;
+        setTriangleProperly(posY, triangle);
+        triangle.setLayoutX(posX < tooltipOffset ? obj.localToScene(obj.getBoundsInLocal()).getMinX() + obj.getWidth() / 2 - triangleBase / 2 - tooltipOffset : contentContainer.getWidth() / 2 - triangleBase / 2);
+        contentContainer.setLayoutX(posX < tooltipOffset ? tooltipOffset : posX);
+        contentContainer.setLayoutY(posY < tooltipOffset ? obj.localToScene(obj.getBoundsInLocal()).getMaxY() + tooltipOffset : posY);
+    }
 
     private static void setHandler(Label obj, AnchorPane contentContainer, Polygon triangle) {
-        obj.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                double posX = obj.localToScene(obj.getBoundsInLocal()).getMinX() - contentContainer.getWidth() / 2 + obj.getWidth() / 2;
-                double posY = obj.localToScene(obj.getBoundsInLocal()).getMinY() - contentContainer.getHeight() - tooltipOffset;
-                triangle.setLayoutX(posX < tooltipOffset ? obj.localToScene(obj.getBoundsInLocal()).getMinX() + obj.getWidth() / 2 - triangleBase / 2 - tooltipOffset : contentContainer.getWidth() / 2 - triangleBase / 2);
-                contentContainer.setLayoutX(posX < tooltipOffset ? tooltipOffset : posX);
-                contentContainer.setLayoutY(posY < tooltipOffset ? obj.localToScene(obj.getBoundsInLocal()).getMaxY() + tooltipOffset : posY);
-                contentContainer.setVisible(true);
-                contentContainer.setDisable(false);
-            }
+        obj.setOnScroll((event) -> {
+            setUpLocation(obj, contentContainer, triangle);
+        });
+        obj.setOnMouseEntered((MouseEvent event) -> {
+            setUpLocation(obj, contentContainer, triangle);        
+            contentContainer.setVisible(true);
+            contentContainer.setDisable(false);
         });
         obj.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
@@ -244,6 +261,35 @@ public class ToolKit {
         AnchorPane contentContainer = new AnchorPane();
         Polygon triangle = toolTipFinalize(content, contentContainer, mainContainer);
         setHandler(obj, contentContainer, triangle);
+    }
+    
+    private static void setTriangleProperly(double posY, Polygon triangle) {
+        AnchorPane triangleWrapper = (AnchorPane) triangle.getParent();
+        VBox box = (VBox) triangleWrapper.getParent();
+        if(posY<tooltipOffset){
+            if(box.getChildren().indexOf(triangleWrapper)==1){
+                box.getChildren().remove(triangleWrapper);
+                box.getChildren().add(0, triangleWrapper);
+                triangle.getPoints().clear();
+                triangle.getPoints().addAll(
+                      0.0, 0.0,
+                      triangleBase, 0.0,
+                      triangleBase / 2, -triangleHeight
+                );
+            }
+        }
+        else{
+            if(box.getChildren().indexOf(triangleWrapper)==0){
+                box.getChildren().remove(triangleWrapper);
+                box.getChildren().add(triangleWrapper);
+                triangle.getPoints().clear();
+                triangle.getPoints().addAll(
+                      0.0, 0.0,
+                      triangleBase, 0.0,
+                      triangleBase / 2, triangleHeight
+                );
+            }
+        }
     }
 
     public static void setAnchor(Node node, double topAnchor, double rightAnchor, double bottomAnchor, double leftAnchor) {
