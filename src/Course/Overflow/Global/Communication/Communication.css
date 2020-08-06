@@ -2,7 +2,7 @@
 .message1, .message2{
     -fx-alignment: bottom-center;
     -fx-spacing: 15;
-    -fx-pref-width: 800;
+    -fx-max-width: 730;
 }
 .message1{
     -fx-alignment: bottom-right;

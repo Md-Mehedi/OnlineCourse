@@ -23,7 +23,6 @@ public class FAQ extends Communication{
         addAQA();
     }
     
-    
     private void addAQA(){
         Label q = new Label("Question sldkfjlksdj flksdjf lasjf s;lkfj ;lajs fljlskfj ljf lsjflksjdlfjlashfjkshfkljoiweroi??");
         q.getStyleClass().add("title5");

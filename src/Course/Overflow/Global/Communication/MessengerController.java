@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ * To change this license HEADER, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -85,12 +85,6 @@ public class MessengerController implements Initializable {
         addListener();
         
         buildSomeDefaultMessaging();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-               
-            }
-        });
     }    
     
     private void addListener(){
@@ -128,11 +122,11 @@ public class MessengerController implements Initializable {
     }
     
     private void createAMessageBox(MessageType type){
-        cl = new Circle(40);
-        cr = new Circle(40);
+        cl = new Circle(30);
+        cr = new Circle(30);
         if(type == MessageType.IMAGE){
             iv = new ImageView();
-            iv.setFitWidth(610);
+            iv.setFitWidth(580);
             iv.setPreserveRatio(true);
             ToolKit.setTooltip(iv, "22 September, 2020 - 12:06 AM", GLOBAL.rootPane);
             box = new HBox(cl,iv,cr);

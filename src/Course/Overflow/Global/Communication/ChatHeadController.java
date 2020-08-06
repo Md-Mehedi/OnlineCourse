@@ -46,6 +46,7 @@ public class ChatHeadController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         selectedBox = new HBox();
+        chatBoxContainer.getChildren().clear();
         for(int i=0;i<10;i++)
             makeChatBox();
     }    

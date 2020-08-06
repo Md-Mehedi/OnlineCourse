@@ -36,7 +36,7 @@ and open the template in the editor.
     -fx-max-height:  40;*/
 }
 .centerPane{
-    -fx-padding: 30 30 30 30;
+    /*-fx-padding: 30 30 30 30;*/
 }
 
 
@@ -102,7 +102,7 @@ and open the template in the editor.
     -fx-font: 30 "Cooper black";
 }
 #centerPageContainer{
-    -fx-padding: 0 30 30 30;
+    /*-fx-padding: 0 30 30 30;*/
     -fx-alignment: center-left;
 }
 

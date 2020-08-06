@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ * To change this license HEADER, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -73,6 +73,12 @@ public class RightMenuPopOverController implements Initializable {
         }
         else if(event.getSource()==purchaseHistory){
             GLOBAL.PAGE_CTRL.setPurchaseHistoryPage();
+        }
+        else if(event.getSource()==message){
+            GLOBAL.PAGE_CTRL.setCommunicationPage();
+        }
+        else if(event.getSource()==faq){
+            GLOBAL.PAGE_CTRL.setCommunicationPage();
         }
     }    
 }

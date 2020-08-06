@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ * To change this license HEADER, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -166,5 +166,9 @@ public class HeaderController implements Initializable {
 
     public Label getRightArrow() {
         return rightArrow;
+    }
+    
+    public AnchorPane getRoot(){
+        return header;
     }
 }

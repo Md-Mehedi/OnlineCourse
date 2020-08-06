@@ -1,10 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ * To change this license HEADER, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package Course.Overflow.Global;
 
+import Course.Overflow.Global.Components.HeaderController;
+import Course.Overflow.Global.Components.TopMenuBar.MenuBar;
 import Course.Overflow.Global.Page.ContainerPage;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -58,4 +60,6 @@ public class GLOBAL {
     public static AnchorPane rootPane;
     public static AnchorPane scrollingPane;
     public static ContainerPage PAGE_CTRL;
+    public static HeaderController HEADER;
+    public static MenuBar TOP_MENU_BAR;
 }

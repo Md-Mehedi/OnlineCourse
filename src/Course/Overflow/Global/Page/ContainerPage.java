@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ * To change this license HEADER, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -64,10 +64,12 @@ public class ContainerPage {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/Header.fxml"));
             header = loader.load();
             headerCtrl = loader.<HeaderController>getController();
+            GLOBAL.HEADER = headerCtrl;
             verticalBox.getChildren().add(header);
             
             menuBarCtrl = new MenuBar();
             menuBar = menuBarCtrl.getMenuContainer();
+            GLOBAL.TOP_MENU_BAR = menuBarCtrl;
             verticalBox.getChildren().add(menuBar);
             
             idx = verticalBox.getChildren().size();
@@ -85,7 +87,7 @@ public class ContainerPage {
             headerCtrl.setNotiPane(noti);
         } catch (IOException ex) { Logger.getLogger(ContainerPage.class.getName()).log(Level.SEVERE, null, ex);}
         
-        setHomePage();
+        setCommunicationPage();
     }
     
     public AnchorPane getContainer(){
@@ -151,6 +153,11 @@ public class ContainerPage {
     
     public void setSearchResultPage() {
         SearchResultPage page = new SearchResultPage();
+        setNewPage(page);
+    }
+    
+    public void setCommunicationPage() {
+        CommunicationPage page = new CommunicationPage();
         setNewPage(page);
     }
     

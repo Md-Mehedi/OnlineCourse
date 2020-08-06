@@ -13,53 +13,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane id="AnchorPane" fx:id="root" styleClass="maxHeight" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Communication.MessengerController">
+<AnchorPane id="AnchorPane" fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Communication.MessengerController">
    <stylesheets>
       <URL value="@../Global.css" />
       <URL value="@Communication.css" />
    </stylesheets>
    <children>
-      <VBox layoutX="32.0" style="-fx-spacing: 0;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
+      <VBox layoutX="32.0" style="-fx-spacing: 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox style="-fx-border-style: solid none solid none;">
                <children>
                   <Label fx:id="teacherName" styleClass="title5" text="Teacher name" />
                </children>
             </HBox>
-            <ScrollPane fx:id="scroll" hbarPolicy="NEVER" nodeOrientation="LEFT_TO_RIGHT" pannable="true" prefWidth="870.0" vvalue="1.0" VBox.vgrow="NEVER">
+            <ScrollPane fx:id="scroll" hbarPolicy="NEVER" nodeOrientation="LEFT_TO_RIGHT" pannable="true" prefHeight="2039.0" prefWidth="780.0" vvalue="1.0" VBox.vgrow="NEVER">
                <content>
                   <AnchorPane fx:id="scrollingPane">
                      <children>
                         <VBox fx:id="messageContainer" style="-fx-spacing: 30; -fx-background-color: #54a7d7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox styleClass="message2">
-                                 <children>
-                                    <Circle fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
-                                    <Label text="1.   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." />
-                                    <Circle fill="DODGERBLUE" opacity="0.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
-                                 </children>
-                              </HBox>
-                              <HBox styleClass="message1">
-                                 <children>
-                                    <Circle fill="DODGERBLUE" opacity="0.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
-                                    <Label text="2.   lsfdjksjfd" />
-                                    <Circle fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
-                                 </children>
-                              </HBox>
-                              <HBox styleClass="message2">
-                                 <children>
-                                    <Circle fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
-                                    <Label text="3.   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." />
-                                    <Circle fill="DODGERBLUE" opacity="0.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
-                                 </children>
-                              </HBox>
-                              <HBox styleClass="message1">
-                                 <children>
-                                    <Circle fill="DODGERBLUE" opacity="0.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
-                                    <Label text="4.   lsfdjksjfd" />
-                                    <Circle fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
-                                 </children>
-                              </HBox>
                               <HBox styleClass="message2">
                                  <children>
                                     <Circle fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
@@ -72,7 +44,7 @@
                                     <Circle fill="DODGERBLUE" opacity="0.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
                                     <ImageView fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../Files/Picture/Message_101_3.jpg" />
+                                          <Image url="@../../Files/Picture/Message_101_3.jpg" />
                                        </image>
                                     </ImageView>
                                     <Circle fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
@@ -94,7 +66,7 @@
                   <FontAwesomeIconView fx:id="sendBtn" glyphName="SEND_ALT" size="40" />
                </children>
                <padding>
-                  <Insets top="10.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </padding>
             </HBox>
          </children>

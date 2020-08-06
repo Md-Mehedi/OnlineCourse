@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ * To change this license HEADER, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -7,6 +7,7 @@
 package Course.Overflow.Global.Communication;
 
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.ToolKit;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,9 @@ public class MessagePage {
     public MessagePage(){
         root = new AnchorPane();
         HBox box = new HBox();
+        ToolKit.setAnchor(box, 0, 0, 0, 0);
+        
+        box.setStyle("-fx-spacing: 0; -fx-alignment: top-left;");
         try {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COMMUNICATION_LOCATION + "/ChatHead.fxml"));
             pane = loader.load();
@@ -45,5 +49,9 @@ public class MessagePage {
     
     public AnchorPane getRoot(){
         return root;
+    }
+    
+    public void setPrefHeight(double value){
+        root.setPrefHeight(value);
     }
 }

@@ -5,6 +5,7 @@
  */
 package Course.Overflow.Global.Layout;
 
+import Course.Overflow.Global.GLOBAL;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -22,7 +23,7 @@ import javafx.scene.layout.AnchorPane;
 public class BorderPaneController implements Initializable {
 
     @FXML
-    private AnchorPane container;
+    private AnchorPane root;
     @FXML
     private AnchorPane headerPane;
     @FXML
@@ -41,7 +42,9 @@ public class BorderPaneController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        Platform.runLater(()->{
+            centerPane.setPrefWidth(GLOBAL.WIDTH - leftPane.getPrefWidth());
+        });
     }
 
     @FXML
@@ -68,24 +71,25 @@ public class BorderPaneController implements Initializable {
         this.leftPane.getChildren().add(leftPane);
     }
 
-    public void removeCenter() {
+    public void clearCenter() {
         this.centerPane.getChildren().clear();
     }
 
-    public void removeHeader() {
+    public void clearHeader() {
         this.headerPane.getChildren().clear();
     }
 
-    public void removeFooter() {
+    public void clearFooter() {
         this.footerPane.getChildren().clear();
     }
 
-    public void remvoeLeft() {
+    public void clearLeft() {
         this.leftPane.getChildren().clear();
     }
 
-    public void setHeaderNull() {
+    public void removeHeader() {
         Platform.runLater(() -> {
+            clearHeader();
             leftPane.setPrefHeight(leftPane.getPrefHeight() + headerPane.getPrefHeight());
             scrollPaneWrapper.setPrefHeight(scrollPaneWrapper.getPrefHeight() + headerPane.getPrefHeight());
             AnchorPane.setTopAnchor(leftPane, 0.0);
@@ -94,8 +98,9 @@ public class BorderPaneController implements Initializable {
         });
     }
 
-    public void setFooterNull() {
+    public void removeFooter() {
         Platform.runLater(() -> {
+            clearFooter();
             leftPane.setPrefHeight(leftPane.getPrefHeight() + footerPane.getPrefHeight());
             scrollPaneWrapper.setPrefHeight(scrollPaneWrapper.getPrefHeight() + footerPane.getPrefHeight());
             AnchorPane.setBottomAnchor(leftPane, 0.0);
@@ -104,8 +109,8 @@ public class BorderPaneController implements Initializable {
         });
     }
 
-    public AnchorPane getContainer() {
-        return container;
+    public AnchorPane getRoot() {
+        return root;
     }
 
     public AnchorPane getHeaderPane() {
@@ -133,7 +138,7 @@ public class BorderPaneController implements Initializable {
     }
 
     protected void setContainer(AnchorPane container) {
-        this.container = container;
+        this.root = container;
     }
 
     protected void setHeaderPane(AnchorPane headerPane) {
@@ -193,5 +198,16 @@ public class BorderPaneController implements Initializable {
             headerPane.setPrefHeight(value);
             showHeader();
         });
+    }
+    
+    public void setCenterHeight(double value){
+        Platform.runLater(()->{
+            scrollPaneWrapper.setPrefHeight(value-4);
+            root.setStyle("-fx-pref-height: " + scrollPaneWrapper.getPrefHeight() + ";");
+        });
+    }
+    
+    public double getHeight(){
+        return scrollPaneWrapper.getPrefHeight();
     }
 }

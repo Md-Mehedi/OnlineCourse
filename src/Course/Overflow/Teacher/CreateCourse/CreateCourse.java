@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ * To change this license HEADER, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -41,7 +41,7 @@ public class CreateCourse {
         curriculumPane = FXMLLoader.load(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/Curriculum.fxml"));
         landingPagePane = FXMLLoader.load(getClass().getResource(GLOBAL.COURSE_LANDING_PAGE_LOCATION + "/Details.fxml"));
         pricingPane = FXMLLoader.load(getClass().getResource(GLOBAL.COURSE_PRICING_LOCATION + "/Pricing.fxml"));
-        lsPane.setFooterNull();
+        lsPane.removeFooter();
         
         MenuBar menu = new MenuBar();
         topMenu = menu.getMenuContainer();
@@ -54,7 +54,7 @@ public class CreateCourse {
         lsPane.addContent(landingPagePane, SVG.PROFILE_DETAILS, "Landing page");
         lsPane.addContent(pricingPane, SVG.COST, "Set course price");
         lsPane.setDefaultContent(targetStudentPane);
-        container = lsPane.getContainer();
+        container = lsPane.getRoot();
     }
     public AnchorPane getRootPane(){
         return container;

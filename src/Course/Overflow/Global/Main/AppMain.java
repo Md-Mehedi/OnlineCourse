@@ -1,12 +1,11 @@
 package Course.Overflow.Global.Main;
 
 /*
- * To change this license header, choose License Headers in Project Properties. To change this
+ * To change this license HEADER, choose License Headers in Project Properties. To change this
  * template file, choose ToolKit | Templates and open the template in the editor.
  */
-import Course.Overflow.Global.Communication.Reviews;
 import Course.Overflow.Global.GLOBAL;
-import Course.Overflow.Teacher.CreateCourse.CreateCourse;
+import Course.Overflow.Global.Page.ContainerPage;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -34,8 +33,8 @@ public class AppMain extends Application {
         GLOBAL.stage = primaryStage;
         GLOBAL.rootPane = root;
 
-        CreateCourse mp = new CreateCourse();
-        pane = mp.getRootPane();
+//        CreateCourse mp = new CreateCourse();
+//        pane = mp.getRootPane();
 
 // To show the main app, just toggle the bottom 2 line comments.
         //root.getChildren().add(pane);
@@ -48,6 +47,7 @@ public class AppMain extends Application {
         GLOBAL.HEIGHT = root.getHeight();
         
         primaryStage.setOnCloseRequest((event) -> {
+            //System.out.println(GLOBAL.HEIGHT);
             System.exit(1);
         });
         System.out.println("FXML is loaded...");
@@ -58,14 +58,15 @@ public class AppMain extends Application {
 //        MessagePage mp = new MessagePage();
 //        pane = mp.getRoot();
         
-Reviews fl = new Reviews();
-pane = fl.getRoot();
-//        ContainerPage page = new ContainerPage();
-//        GLOBAL.PAGE_CTRL = page;
-//        pane = page.getContainer();
+        //Reviews fl = new Reviews();
+        //pane = fl.getRoot();
+        ContainerPage page = new ContainerPage();
+        GLOBAL.PAGE_CTRL = page;
+        pane = page.getContainer();
         
         ScrollPane sc = new ScrollPane(pane);
-        sc.setMaxHeight(800);
+        sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        sc.setMaxHeight(900);
         root.getChildren().add(sc);
     }
 

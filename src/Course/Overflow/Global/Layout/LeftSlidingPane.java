@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ * To change this license HEADER, choose License Headers in Project Properties.
  * To change this template file, choose ToolKit | Templates
  * and open the template in the editor.
  */
@@ -17,6 +17,8 @@ import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -71,6 +73,7 @@ public class LeftSlidingPane extends BorderPaneController{
     private AnchorPane selectedPane;
     private AnchorPane runningPane;
     private final String FXML_PATH = GLOBAL.LAYOUT_LOCATION + "/BorderPane.fxml";
+    private VBox centerBox;
 
 
     public enum Type {
@@ -79,12 +82,39 @@ public class LeftSlidingPane extends BorderPaneController{
         NO_HOVER;        
     }
     Type type;
+    
+    /**
+     *
+     * @throws IOException
+     */
+    public LeftSlidingPane(Type type) {
+        loadParentField();
+        addMoreNodes();
+        animTime = new Duration(300);
+        iconToPane = new HashMap<Label, AnchorPane>();
+        paneToIcon = new HashMap<AnchorPane, Label>();
+        nameToPane = new HashMap<Label, AnchorPane>();
+        paneToName = new HashMap<AnchorPane, Label>();
+        setType(type);
+        addEventListenerForMenu();
+        Platform.runLater(()->{
+            setCenterHeight(
+                  GLOBAL.HEIGHT 
+                  - GLOBAL.HEADER.getRoot().getPrefHeight() 
+                  - GLOBAL.TOP_MENU_BAR.getHeight()
+            );
+        });
+    }
 
-    private void loadParentField() throws IOException {
+    private void loadParentField() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML_PATH));
-        loader.load();
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(LeftSlidingPane.class.getName()).log(Level.SEVERE, null, ex);
+        }
         BorderPaneController ctrl = loader.getController();
-        container = ctrl.getContainer();
+        container = ctrl.getRoot();
         headerPane = ctrl.getHeaderPane();
         leftPane = ctrl.getLeftPane();
         scrollPaneWrapper = ctrl.getScrollPaneWrapper();
@@ -119,26 +149,16 @@ public class LeftSlidingPane extends BorderPaneController{
         
         titleLabel = new Label();
         centerContainer = new AnchorPane();
-        VBox centerBox = new VBox(titleLabel,centerContainer);
+        centerBox = new VBox(titleLabel,centerContainer);
         centerBox.setId("centerPageContainer");
         centerPane.getChildren().add(centerBox);
+        ToolKit.setAnchor(centerBox, 0, 0, 0, 0);
+    }
+    
+    public void removeTitleBar(){
+        centerBox.getChildren().remove(titleLabel);
     }
 
-    /**
-     *
-     * @throws IOException
-     */
-    public LeftSlidingPane(Type type) throws IOException {
-        loadParentField();
-        addMoreNodes();
-        animTime = new Duration(300);
-        iconToPane = new HashMap<Label, AnchorPane>();
-        paneToIcon = new HashMap<AnchorPane, Label>();
-        nameToPane = new HashMap<Label, AnchorPane>();
-        paneToName = new HashMap<AnchorPane, Label>();
-        setType(type);
-        addEventListenerForMenu();
-    }
     
     public void setType(Type type) {
         this.type = type;
@@ -268,6 +288,7 @@ public class LeftSlidingPane extends BorderPaneController{
         selectedPane = pane;
         centerContainer.getChildren().clear();
         centerContainer.getChildren().add(selectedPane);
+        ToolKit.setAnchor(selectedPane, 0, 0, 0, 0);
         int idx = (iconContainer.getChildren().contains(paneToIcon.get(pane)) ? iconContainer.getChildren().indexOf(paneToIcon.get(pane)) : labelContainer.getChildren().indexOf(paneToName.get(pane)));
         Label selectedLabel = (Label) labelContainer.getChildren().get(idx);
         titleLabel.setText(selectedLabel.getText());
