@@ -63,6 +63,7 @@ public class MessengerController implements Initializable {
     private Image opponentImage;
     @FXML
     private AnchorPane scrollingPane;
+
     
     public enum MessageType{
         TEXT("TEXT"),
@@ -84,6 +85,12 @@ public class MessengerController implements Initializable {
         addListener();
         
         buildSomeDefaultMessaging();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+               
+            }
+        });
     }    
     
     private void addListener(){
@@ -112,7 +119,7 @@ public class MessengerController implements Initializable {
     }
     
     private void sendAMessage(){
-        if(inputField.getText()!=""){
+        if(!inputField.getText().equalsIgnoreCase("")){
             String text = inputField.getText();
             inputField.clear();
             makeMessage(text);
@@ -182,5 +189,9 @@ public class MessengerController implements Initializable {
                 setUpPersonImage(ran==0 ? true : false);
             }
         }
+    }
+    void loadMessage() {
+        messageContainer.getChildren().clear();
+        buildSomeDefaultMessaging();
     }
 }

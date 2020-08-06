@@ -21,3 +21,32 @@
     -fx-background-color: #F6F8F6;
     -fx-background-radius: 25 25 25 0;
 }
+
+/*Chat Head CSS*/
+.chatBox{
+    -fx-alignment: center-left;
+    -fx-padding: 5 10 5 10;
+    -fx-background-color:#ffffff;
+    -fx-spacing: 0;
+    -fx-pref-width: 350;
+}
+.chatBox:hover{
+    -fx-background-color: #e3e3e3;
+}
+.selectedChatBox{
+    -fx-background-color: #e3e3e3;
+    -fx-background-radius: 25;
+}
+.chatBox > VBox{
+    -fx-alignment: center-left;
+    -fx-spacing: 0;
+}
+.courseName{
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-max-height: 60;
+}
+.teacherName, .lastMessage{
+    -fx-font-size: 17;
+    -fx-pref-height: 30;
+}

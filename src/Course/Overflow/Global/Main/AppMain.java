@@ -4,11 +4,11 @@ package Course.Overflow.Global.Main;
  * To change this license header, choose License Headers in Project Properties. To change this
  * template file, choose ToolKit | Templates and open the template in the editor.
  */
+import Course.Overflow.Global.Components.Messaging.MessagePage;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Teacher.CreateCourse.CreateCourse;
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -53,7 +53,9 @@ public class AppMain extends Application {
         System.out.println("FXML is loaded...");
     }
     private void testPage() throws IOException{
-        pane = (AnchorPane) FXMLLoader.load(getClass().getResource(GLOBAL.MESSAGING_LOCATION+ "/Messenger.fxml"));
+//        pane = (AnchorPane) FXMLLoader.load(getClass().getResource(GLOBAL.MESSAGING_LOCATION+ "/Messenger.fxml"));
+        MessagePage mp = new MessagePage();
+        pane = mp.getRoot();
 //        ContainerPage page = new ContainerPage();
 //        GLOBAL.PAGE_CTRL = page;
 //        pane = page.getContainer();

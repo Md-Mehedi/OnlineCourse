@@ -43,6 +43,9 @@ TextField{
     -fx-pref-width: 1055;
     -fx-max-width: 1055;
 }
+.maxHeight{
+    -fx-max-height: 700;
+}
 .mainHPadding{
     -fx-padding: 0 30 0 30;
 }
