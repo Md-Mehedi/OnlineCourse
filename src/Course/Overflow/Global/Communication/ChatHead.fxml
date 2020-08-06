@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane id="AnchorPane" fx:id="container" styleClass="maxHeight" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.Messaging.ChatHeadController">
+<AnchorPane id="AnchorPane" fx:id="container" styleClass="maxHeight" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Communication.ChatHeadController">
    <children>
       <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="14.0" layoutY="24.0" pannable="true" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -36,7 +36,7 @@
       </ScrollPane>
    </children>
    <stylesheets>
-      <URL value="@../../Global.css" />
-      <URL value="@Messaging.css" />
+      <URL value="@../Global.css" />
+      <URL value="@Communication.css" />
    </stylesheets>
 </AnchorPane>

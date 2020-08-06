@@ -13,10 +13,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane id="AnchorPane" fx:id="root" styleClass="maxHeight" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.Messaging.MessengerController">
+<AnchorPane id="AnchorPane" fx:id="root" styleClass="maxHeight" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Communication.MessengerController">
    <stylesheets>
-      <URL value="@../../Global.css" />
-      <URL value="@Messaging.css" />
+      <URL value="@../Global.css" />
+      <URL value="@Communication.css" />
    </stylesheets>
    <children>
       <VBox layoutX="32.0" style="-fx-spacing: 0;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
@@ -93,6 +93,9 @@
                   <TextArea fx:id="inputField" prefColumnCount="1" prefHeight="70.0" promptText="Write something to send" HBox.hgrow="ALWAYS" />
                   <FontAwesomeIconView fx:id="sendBtn" glyphName="SEND_ALT" size="40" />
                </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
             </HBox>
          </children>
       </VBox>

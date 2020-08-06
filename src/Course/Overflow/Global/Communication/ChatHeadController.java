@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Course.Overflow.Global.Components.Messaging;
+package Course.Overflow.Global.Communication;
 
 import java.net.URL;
 import java.util.ResourceBundle;

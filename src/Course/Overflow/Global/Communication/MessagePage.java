@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Course.Overflow.Global.Components.Messaging;
+package Course.Overflow.Global.Communication;
 
 import Course.Overflow.Global.GLOBAL;
 import java.io.IOException;
@@ -28,11 +28,11 @@ public class MessagePage {
         root = new AnchorPane();
         HBox box = new HBox();
         try {
-            loader = new FXMLLoader(getClass().getResource(GLOBAL.MESSAGING_LOCATION + "/ChatHead.fxml"));
+            loader = new FXMLLoader(getClass().getResource(GLOBAL.COMMUNICATION_LOCATION + "/ChatHead.fxml"));
             pane = loader.load();
             chatHeadCtrl = loader.<ChatHeadController>getController();
             box.getChildren().add(pane);
-            loader = new FXMLLoader(getClass().getResource(GLOBAL.MESSAGING_LOCATION + "/Messenger.fxml"));
+            loader = new FXMLLoader(getClass().getResource(GLOBAL.COMMUNICATION_LOCATION + "/Messenger.fxml"));
             pane = loader.load();
             messengerCtrl = loader.<MessengerController>getController();
             box.getChildren().add(pane);

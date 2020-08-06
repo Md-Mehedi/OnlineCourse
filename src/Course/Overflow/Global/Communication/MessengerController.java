@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Course.Overflow.Global.Components.Messaging;
+package Course.Overflow.Global.Communication;
 
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
