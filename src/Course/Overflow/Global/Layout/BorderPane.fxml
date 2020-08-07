@@ -16,7 +16,7 @@
       <AnchorPane id="Left Pane" fx:id="leftPane" layoutY="424.0" minWidth="85.0" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" prefWidth="200.0" styleClass="mainLeftWidth" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0" />
       <AnchorPane id="Center Pane" fx:id="scrollPaneWrapper" layoutY="424.0" styleClass="mainCenterWidth" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
          <children>
-            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="0.41" maxWidth="-Infinity" minWidth="-Infinity" pannable="true" prefWidth="1035.0" stylesheets="@../Global.css" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="0.41" maxWidth="-Infinity" minWidth="-Infinity" pannable="true" prefWidth="1035.0" stylesheets="@../Global.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
                   <AnchorPane fx:id="centerPane" />
                </content>

@@ -12,9 +12,9 @@
 <?import javafx.scene.shape.Circle?>
 <?import org.controlsfx.control.Rating?>
 
-<AnchorPane id="AnchorPane" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Course.Home.ReviewController">
+<AnchorPane id="AnchorPane" fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Course.Show.ReviewController">
    <children>
-      <VBox layoutX="23.0" layoutY="83.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="container" layoutX="23.0" layoutY="83.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox>
                <children>
@@ -45,8 +45,8 @@
             </HBox>
             <HBox>
                <children>
-                  <Region prefWidth="90.0" />
-                  <Label fx:id="review" text="Text" />
+                  <Region minWidth="90.0" prefWidth="90.0" />
+                  <Label fx:id="review" text="kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri " />
                </children>
             </HBox>
          </children>
@@ -54,6 +54,6 @@
    </children>
    <stylesheets>
       <URL value="@../../Global/Global.css" />
-      <URL value="@CourseHome.css" />
+      <URL value="@CourseShow.css" />
    </stylesheets>
 </AnchorPane>

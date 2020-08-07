@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Course.Overflow.Course.Home;
+package Course.Overflow.Course.Show;
 
 import Course.Overflow.Course.Contents.ReviewInputBoxController;
 import Course.Overflow.Global.Components.CheckoutPageController;
@@ -111,7 +111,7 @@ public class CourseDetailsController implements Initializable {
 
     private void makeReviewBox() {
         for(int i=0;i<5;i++){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_HOME_LOCATION + "/Review.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_SHOW_LOCATION + "/Review.fxml"));
             try {
                 //AnchorPane pane = new AnchorPane();
                 AnchorPane pane = loader.load();

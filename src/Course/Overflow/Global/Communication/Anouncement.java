@@ -6,26 +6,46 @@
 
 package Course.Overflow.Global.Communication;
 
+import Course.Overflow.Course.Show.CourseBoxLittle;
+import Course.Overflow.Global.ToolKit;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
  *
  * @author Md Mehedi Hasan
  */
-public class Anouncement extends Communication{
-    VBox anounContainer;
+public class Anouncement {
+    AnchorPane root;
+    VBox container;
     
     public Anouncement(){
-        anounContainer = bottomContainer;
+        container = new VBox();
+        root = new AnchorPane(container);
+        ToolKit.setAnchor(container, 0, 0, 0, 0);
         
-        addAAnouncement();
+        makeSomeDefaultAnouncemnet();
     }
     
-    public void addAAnouncement(){
+    public VBox getAnounceBox(){
         Label title = new Label("Title... lksd sjf l;sjf kljf lkjr klje weklrj ewrjlewjr lkwejrk lkwejr krj ewjr jweljr llksd sjf l;sjf kljf lkjr klje weklrj ewrjlewjr lkwejrk lkwejr krj ewjr jweljr llksd sjf l;sjf kljf lkjr klje weklrj ewrjlewjr lkwejrk lkwejr krj ewjr jweljr llksd sjf l;sjf kljf lkjr klje weklrj ewrjlewjr lkwejrk lkwejr krj ewjr jweljr llksd sjf l;sjf kljf lkjr klje weklrj ewrjlewjr lkwejrk lkwejr krj ewjr jweljr l");
         title.getStyleClass().add("title5");
         Label anounce = new Label("Title... lksd sjf l;sjf kljf lkjr klje weklrj ewrjlewjr lkwejrk lkwejr krj ewjr jweljr llksd sjf l;sjf kljf lkjr klje weklrj ewrjlewjr lkwejrk lkwejr krj ewjr jweljr llksd sjf l;sjf kljf lkjr klje weklrj ewrjlewjr lkwejrk lkwejr krj ewjr jweljr llksd sjf l;sjf kljf lkjr klje weklrj ewrjlewjr lkwejrk lkwejr krj ewjr jweljr llksd sjf l;sjf kljf lkjr klje weklrj ewrjlewjr lkwejrk lkwejr krj ewjr jweljr l lksd sjf l;sjf kljf lkjr klje weklrj ewrjlewjr lkwejrk lkwejr krj ewjr jweljr l");
-        anounContainer.getChildren().add(new VBox(title, anounce));
+        return (new VBox(title, anounce));
+    }
+
+    private void makeSomeDefaultAnouncemnet() {
+        for(int j=0; j<10; j++){
+            CourseBoxLittle box = new CourseBoxLittle();
+            container.getChildren().add(box);
+            for(int i=0;i<2;i++){
+                box.addData(getAnounceBox());
+            }
+        }
+    }
+    
+    public AnchorPane getRoot(){
+        return root;
     }
 }

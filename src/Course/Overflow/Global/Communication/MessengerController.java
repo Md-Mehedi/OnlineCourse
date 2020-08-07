@@ -178,7 +178,8 @@ public class MessengerController implements Initializable {
             }
             else{
                 ran = (int)(Math.random()*1000)%2;
-                makeMessage(new Image(GLOBAL.PICTURE_LOCATION + "/Message_101_" + (ran==0 ? "2" : "3") + (ran==0 ? ".JPG" : ".jpg")));
+//                makeMessage(new Image(GLOBAL.PICTURE_LOCATION + "/Message_101_" + (ran==0 ? "2" : "3") + (ran==0 ? ".JPG" : ".jpg")));
+                makeMessage(new Image(GLOBAL.PICTURE_LOCATION + "/Congratulation 2.jpg"));
                 ran = (int)(Math.random()*1000)%2;
                 setUpPersonImage(ran==0 ? true : false);
             }

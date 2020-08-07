@@ -1,0 +1,48 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+VBox, HBox{
+    -fx-alignment: center-left;
+    -fx-spacing: 0;
+}
+Label{
+    -fx-padding: 5;
+}
+#TopHBox{
+    -fx-background-color: black;
+}
+#TopHBox Label{
+    -fx-text-fill: white;
+}
+#TopRightBox{
+    -fx-background-color: white;
+}
+#TopRightBox Label{
+    -fx-text-fill: black;
+}
+
+/*Couse HBox CSS*/
+.courseHBox .instName{
+    -fx-font-size: 19;
+}
+.courseHBox .shortDesc{
+    -fx-font-size: 16;
+}
+
+
+/*FAQ Main Box*/
+.courseLittleBox{
+    /*-fx-pref-width: 800;*/
+    -fx-background-color:#ccffcc;
+    -fx-background-radius: 30;
+    -fx-padding: 10;
+}
+.courseLittleBox:hover{
+    -fx-background-color:#99ff99;
+}
+.courseLittleBox VBox, .courseLittleBox HBox{
+    -fx-spacing: 0;
+    -fx-alignment: center-left;
+}
+

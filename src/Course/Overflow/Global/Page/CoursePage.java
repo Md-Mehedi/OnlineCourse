@@ -6,7 +6,7 @@
 
 package Course.Overflow.Global.Page;
 
-import Course.Overflow.Course.Home.CourseDetailsController;
+import Course.Overflow.Course.Show.CourseDetailsController;
 import Course.Overflow.Global.GLOBAL;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -24,7 +24,7 @@ public class CoursePage extends Page{
     
     public CoursePage(){
         try {
-            loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_HOME_LOCATION + "/CourseDetails.fxml"));
+            loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_SHOW_LOCATION + "/CourseDetails.fxml"));
             root = loader.load();
             pageCtrl = loader.<CourseDetailsController>getController();
         } catch (IOException ex) {

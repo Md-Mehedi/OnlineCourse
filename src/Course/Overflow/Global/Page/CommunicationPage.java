@@ -14,12 +14,9 @@ import Course.Overflow.Global.Customize.SVG;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.LeftSlidingPane;
 import Course.Overflow.Global.Layout.LeftSlidingPane.Type;
-import Course.Overflow.Global.ToolKit;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
 /**
  *
@@ -49,7 +46,7 @@ public class CommunicationPage extends Page{
         addFAQPage();
         addReviews();
         addAnouncement();
-        slidingPaneCtrl.setDefaultContent(messengerPane);
+        slidingPaneCtrl.setDefaultContent(faqPane);
     }
 
     private void addMessengerPage() {
@@ -70,17 +67,8 @@ public class CommunicationPage extends Page{
     }
 
     private void addFAQPage() {
-        VBox box = new VBox();
-        faqPane = new AnchorPane();
-        box.setStyle("-fx-background-color: yellow;");
-        box.setAlignment(Pos.CENTER);
-        ToolKit.setAnchor(box, 0, 0, 0, 0);
-        for(int i=0; i<10; i++){
-            faqCtrl = new FAQ();
-            //box.getChildren().add(new Label("lasjflksdj flsjf dsljf "+(i+1)));
-            box.getChildren().add(faqCtrl.getRoot());
-        }
-        faqPane.getChildren().add(box);
+        faqCtrl = new FAQ();
+        faqPane = faqCtrl.getRoot();
         slidingPaneCtrl.addContent(faqPane, SVG.FAQ, "FAQ");
     }
 
