@@ -86,7 +86,7 @@ and open the template in the editor.
     -fx-alignment: center;
 }
 #iconContainer FontAwesomeIconView{
-    -fx-font-size: 40;
+    -glyph-size: 40;
 }
 .leftMenuHovering{
     -fx-background-color:#853C64;

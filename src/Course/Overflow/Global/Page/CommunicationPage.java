@@ -10,15 +10,14 @@ import Course.Overflow.Global.Communication.Anouncement;
 import Course.Overflow.Global.Communication.FAQ;
 import Course.Overflow.Global.Communication.MessagePage;
 import Course.Overflow.Global.Communication.Reviews;
+import Course.Overflow.Global.Customize.SVG;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.LeftSlidingPane;
 import Course.Overflow.Global.Layout.LeftSlidingPane.Type;
 import Course.Overflow.Global.ToolKit;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -51,15 +50,18 @@ public class CommunicationPage extends Page{
         addReviews();
         addAnouncement();
         slidingPaneCtrl.setDefaultContent(messengerPane);
-        
-        
-        slidingPaneCtrl.setHeader(new AnchorPane(new Label("klfjlsd fljas lksjf lsjfk lkfjksfj lksjf sjfk sjdklfj ")));
     }
 
     private void addMessengerPage() {
+        /* 
+         * To setup MessagePage width we need to change 3 width
+         * 1. Scrollpane width from BorderPane.fxml
+         * 2. pref-width from Layout.css
+         * 3. pref-width from Communication.css for ChatHeadBox.
+         */
         messengerPageCtrl = new MessagePage();
         messengerPane = messengerPageCtrl.getRoot();
-        slidingPaneCtrl.addContent(messengerPane, FontAwesomeIcon.ANGLE_DOUBLE_UP, "Messenger");
+        slidingPaneCtrl.addContent(messengerPane, SVG.MESSAGE, "Messenger");
         Platform.runLater(()->{
 //            messengerPageCtrl.setPrefHeight(slidingPaneCtrl.getHeight());
             messengerPageCtrl.setPrefHeight(GLOBAL.HEIGHT - GLOBAL.HEADER.getRoot().getPrefHeight() - GLOBAL.TOP_MENU_BAR.getHeight()-10);
@@ -79,18 +81,18 @@ public class CommunicationPage extends Page{
             box.getChildren().add(faqCtrl.getRoot());
         }
         faqPane.getChildren().add(box);
-        slidingPaneCtrl.addContent(faqPane, FontAwesomeIcon.ANGLE_DOUBLE_UP, "FAQ");
+        slidingPaneCtrl.addContent(faqPane, SVG.FAQ, "FAQ");
     }
 
     private void addReviews() {
         reviewsCtrl = new Reviews();
         reviewsPane = reviewsCtrl.getRoot();
-        slidingPaneCtrl.addContent(reviewsPane, FontAwesomeIcon.ANGLE_DOUBLE_UP, "Reviews");
+        slidingPaneCtrl.addContent(reviewsPane, SVG.REVIEW, "Reviews");
     }
 
     private void addAnouncement() {
         anouncementCtrl = new Anouncement();
         anouncementPane = anouncementCtrl.getRoot();
-        slidingPaneCtrl.addContent(anouncementPane, FontAwesomeIcon.ANGLE_DOUBLE_UP, "Anouncement");
+        slidingPaneCtrl.addContent(anouncementPane, SVG.ANOUNCEMENT, "Anouncement");
     }
 }

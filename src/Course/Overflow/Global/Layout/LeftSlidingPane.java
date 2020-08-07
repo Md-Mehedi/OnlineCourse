@@ -84,8 +84,14 @@ public class LeftSlidingPane extends BorderPaneController{
     Type type;
     
     /**
-     *
-     * @throws IOException
+     *  To make a Left Sliding Pane, You have to - 
+     *  1. Need the type of Sliding in constructor.
+     *  2. removeHeader()
+     *  3. removeFooter()
+     *  4. removeTitleBar() if need to remove Title
+     *  5. finally there need to add getRoot() as a children of main root
+     *  6. Have to add page using addContent()
+     *  7. To show a page at first, have to use setDefaultContent(AnchorPane)
      */
     public LeftSlidingPane(Type type) {
         loadParentField();

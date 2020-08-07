@@ -66,6 +66,7 @@ public class AppMain extends Application {
         
         ScrollPane sc = new ScrollPane(pane);
         sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         sc.setMaxHeight(900);
         root.getChildren().add(sc);
     }

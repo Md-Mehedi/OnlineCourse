@@ -52,6 +52,6 @@ public class MessagePage {
     }
     
     public void setPrefHeight(double value){
-        root.setPrefHeight(value);
+        root.setMaxHeight(value);
     }
 }
