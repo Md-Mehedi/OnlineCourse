@@ -171,8 +171,8 @@ Label{
 .catContainer{
     -fx-background-color: white;
     -fx-spacing: 0;
-    -fx-border-color: black;
-    -fx-border-width: 2;
+    -fx-border-color: #009999;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0.0, 0.0);
 }
 .catContainer > HBox{
     -fx-padding: 0 10 0 10;

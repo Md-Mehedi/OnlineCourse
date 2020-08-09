@@ -66,12 +66,19 @@ public class HeaderController implements Initializable {
 //    public static Label rightArrow;
     @FXML
     private Label categoriesBtn;
+    private FadeTransition catShow;
+    private FadeTransition catHide;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        catShow = new FadeTransition(Duration.millis(200));
+        catShow.setToValue(1);
+        catHide = new FadeTransition(Duration.millis(200));
+        catHide.setToValue(0);
+        
         leftArrow.setOpacity(0.1);
         rightArrow.setOpacity(0.1);
         leftArrow.setOnMouseClicked((event) -> {
@@ -186,6 +193,7 @@ public class HeaderController implements Initializable {
     }
     
     private void addMainCategory(AnchorPane catRoot, VBox mainContainer, int pos){
+        
         Label label = new Label("Main Category "+ pos);
         Region r = new Region();
         FontAwesomeIconView iv = new FontAwesomeIconView(FontAwesomeIcon.ARROW_RIGHT);
@@ -198,32 +206,39 @@ public class HeaderController implements Initializable {
         subCatRoot.getStylesheets().add(GLOBAL.COMPONENTS_LOCATION + "/Components.css");
         ToolKit.setAnchor(subCatContainer, 0, 0, 0, 0);
         int subCatNum = (int) ((Math.random()*100)%15);
+        if(subCatNum == 0) box.getChildren().remove(2);
         for(int i=1;i<=subCatNum;i++){
             addSubCategory(subCatContainer,i);
         }
         subCatContainer.getStyleClass().add("catContainer");
         GLOBAL.rootPane.getChildren().add(subCatRoot);
         subCatRoot.toBack();
+        subCatRoot.setOpacity(0);
         
+        FadeTransition subCatShow = new FadeTransition(Duration.millis(200), subCatRoot);
+        FadeTransition subCatHide = new FadeTransition(Duration.millis(200), subCatRoot);
+        subCatShow.setToValue(1);
+        subCatHide.setToValue(0);
+        subCatHide.setOnFinished((event) -> {
+            subCatRoot.toBack();
+        });
         box.setOnMouseClicked((event) -> {
             GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.SearchResult);
         });
-        
         box.setOnMouseMoved((event) -> {
             subCatRoot.toFront();
-            catRoot.toFront();
-        });
-        subCatRoot.setOnMouseMoved((event) -> {
-            subCatRoot.toFront();
-            catRoot.toFront();
+            subCatShow.play();
         });
         box.setOnMouseExited((event) -> {
-            subCatRoot.toBack();
-            catRoot.toBack();
+            subCatHide.play();
+        });
+        subCatRoot.setOnMouseMoved((event) -> {
+            catHide.stop();
+            subCatHide.stop();
         });
         subCatRoot.setOnMouseExited((event) -> {
-            subCatRoot.toBack();
-            catRoot.toBack();
+            subCatHide.play();
+            catHide.play();
         });
         
         Platform.runLater(()->{
@@ -255,17 +270,26 @@ public class HeaderController implements Initializable {
         catRoot.setLayoutX(categoriesBtn.getLayoutX());
         catRoot.setLayoutY(header.getPrefHeight());
         catRoot.toBack();
+        catRoot.setOpacity(0);
+        
+        catShow.setNode(catRoot);
+        catHide.setNode(catRoot);
+        catHide.setOnFinished((event) -> {
+            catRoot.toBack();
+        });
+        
         categoriesBtn.setOnMouseMoved((event) -> {
             catRoot.toFront();
+            catShow.play();
         });
         categoriesBtn.setOnMouseExited((event) -> {
-            catRoot.toBack();
+            catHide.play();
         });
         catRoot.setOnMouseMoved((event) -> {
-            catRoot.toFront();
+            catHide.stop();
         });
         catRoot.setOnMouseExited((event) -> {
-            catRoot.toBack();
+            catHide.play();
         });
     }
 
