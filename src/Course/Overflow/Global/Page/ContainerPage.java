@@ -31,7 +31,7 @@ public class ContainerPage {
     public static int pageIdx;
 
     
-    private Page curPage;
+    private PageName curPage;
     private AnchorPane container;
     private ScrollPane scroll;
     private static VBox verticalBox;
@@ -46,8 +46,23 @@ public class ContainerPage {
     private AnchorPane wrapper;
     private RightMenuPopOverController profileCtrl;
     private AnchorPane profilePane;
-    private Homepage page;
+    private Page page;
     private static int idx;
+    
+    public enum PageName{
+        Home,
+        Course,
+        TeacherDetails,
+        MyCourse,
+        Wishlist,
+        PurchaseHistory,
+        SearchResult,
+        Messenger,
+        FAQ,
+        Review,
+        Anouncement
+        ;
+    }
 
     public ContainerPage() {
         pages = new ArrayList<>();
@@ -60,6 +75,31 @@ public class ContainerPage {
         ToolKit.setAnchor(verticalBox, 0, 0, 0, 0);
         ToolKit.setAnchor(scroll, 0, 0, 0, 0);        
         
+        createLayout();
+        loadPage(PageName.Messenger);
+    }
+    
+    public AnchorPane getContainer(){
+        return container;
+    }
+    
+    public void loadPage(Page page){
+        verticalBox.getChildren().remove(idx);
+        verticalBox.getChildren().add(idx, page.getRoot());
+        
+        while(pages.size()-1>pageIdx && pageIdx!=-1){
+            pages.remove(pageIdx+1);
+        }
+        pages.add(page);
+        pageIdx++;
+        headerCtrl.getRightArrow().setOpacity(0.1);
+        if(pageIdx!=0){
+            headerCtrl.getLeftArrow().setOpacity(1);
+        }
+    }
+    
+    
+    public void createLayout(){
         try {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/Header.fxml"));
             header = loader.load();
@@ -86,30 +126,9 @@ public class ContainerPage {
             wrapper.getChildren().add(noti);
             headerCtrl.setNotiPane(noti);
         } catch (IOException ex) { Logger.getLogger(ContainerPage.class.getName()).log(Level.SEVERE, null, ex);}
-        
-        setCommunicationPage();
-    }
-    
-    public AnchorPane getContainer(){
-        return container;
-    }
-    
-    private void setNewPage(Page page){
-        verticalBox.getChildren().remove(idx);
-        verticalBox.getChildren().add(idx, page.getRoot());
-        
-        while(pages.size()-1>pageIdx && pageIdx!=-1){
-            pages.remove(pageIdx+1);
-        }
-        pages.add(page);
-        pageIdx++;
-        headerCtrl.getRightArrow().setOpacity(0.1);
-        if(pageIdx!=0){
-            headerCtrl.getLeftArrow().setOpacity(1);
-        }
     }
 
-    public static void loadPage() {
+    public static void loadFromHistory() {
         verticalBox.getChildren().remove(idx);
         verticalBox.getChildren().add(idx,pages.get(pageIdx).getRoot());
         if(pageIdx==0) headerCtrl.getLeftArrow().setOpacity(0.1);
@@ -118,47 +137,25 @@ public class ContainerPage {
         else headerCtrl.getRightArrow().setOpacity(1);
     }
     
-    public void setHomePage(){
-        if(page == null){
-            page = new Homepage();
+    public void loadPage(PageName pageName){
+        switch(pageName){
+            case Home:  
+                if(curPage != PageName.Home){
+                    page = new Homepage();
+                }
+                break;
+            case Course: page = new CoursePage(); break;
+            case TeacherDetails: page = new TeacherDetailsPage(); break;
+            case MyCourse: page = new CourseListShowPage("My courses"); break;
+            case Wishlist: page = new CourseListShowPage("Wishlist"); break;
+            case PurchaseHistory: page = new CourseListShowPage("Your purchase history", PageByPageLayoutController.CourseBoxShowType.Vertical); break;
+            case SearchResult: page = new SearchResultPage(); break;
+            case Messenger: page = new CommunicationPage(PageName.Messenger); break;
+            case FAQ: page = new CommunicationPage(PageName.FAQ); break;
+            case Review: page = new CommunicationPage(PageName.Review); break;
+            case Anouncement: page = new CommunicationPage(PageName.Anouncement); break;
         }
-        setNewPage(page);
+        loadPage(page);
+        curPage = pageName;
     }
-    
-    public void setCoursePage(){
-        CoursePage page = new CoursePage();
-        setNewPage(page);
-    }
-    
-    public void setTeacherDetailsPage(){
-        TeacherDetailsPage page = new TeacherDetailsPage();
-        setNewPage(page);
-    }
-    
-    public void setMyCoursesPage() {
-        CourseListShowPage page = new CourseListShowPage("My courses");
-        setNewPage(page);
-    }
-    
-    public void setWishlistPage() {
-        CourseListShowPage page = new CourseListShowPage("Wishlist");
-        setNewPage(page);
-    }
-    
-    public void setPurchaseHistoryPage() {
-        CourseListShowPage page = new CourseListShowPage("Your purchase history", PageByPageLayoutController.CourseBoxShowType.Vertical);
-        page.makeItPurchaseHistoryPage();
-        setNewPage(page);
-    }
-    
-    public void setSearchResultPage() {
-        SearchResultPage page = new SearchResultPage();
-        setNewPage(page);
-    }
-    
-    public void setCommunicationPage() {
-        CommunicationPage page = new CommunicationPage();
-        setNewPage(page);
-    }
-    
 }

@@ -8,6 +8,7 @@ package Course.Overflow.Course.Show;
 import Course.Overflow.Course.Contents.ReviewInputBoxController;
 import Course.Overflow.Global.Components.CheckoutPageController;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Page.ContainerPage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -136,13 +137,13 @@ public class CourseDetailsController implements Initializable {
 
     private void addListener() {
         instName.setOnMouseClicked(event->{
-            GLOBAL.PAGE_CTRL.setTeacherDetailsPage();
+            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.TeacherDetails);
         });
         instPhoto.setOnMouseClicked(event->{
-            GLOBAL.PAGE_CTRL.setTeacherDetailsPage();
+            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.TeacherDetails);
         });
         topInstName.setOnMouseClicked(event->{
-            GLOBAL.PAGE_CTRL.setTeacherDetailsPage();
+            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.TeacherDetails);
         });
         writeReviewBtn.setOnMouseClicked((event) -> {
             reviewInputCtrl.show();

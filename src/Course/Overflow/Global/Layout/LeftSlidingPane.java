@@ -298,7 +298,9 @@ public class LeftSlidingPane extends BorderPaneController{
         int idx = (iconContainer.getChildren().contains(paneToIcon.get(pane)) ? iconContainer.getChildren().indexOf(paneToIcon.get(pane)) : labelContainer.getChildren().indexOf(paneToName.get(pane)));
         Label selectedLabel = (Label) labelContainer.getChildren().get(idx);
         titleLabel.setText(selectedLabel.getText());
-        new Timeline(new KeyFrame(animTime, new KeyValue(runningPane.layoutYProperty(), iconContainer.getChildren().get(idx).getLayoutY()))).play();
+        Platform.runLater(()->{
+            new Timeline(new KeyFrame(animTime, new KeyValue(runningPane.layoutYProperty(), iconContainer.getChildren().get(idx).getLayoutY()))).play();
+        });
     }
     private void addEventListenerForMenuItem(Label btn, AnchorPane pane){
         btn.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -323,5 +325,9 @@ public class LeftSlidingPane extends BorderPaneController{
                 labelContainer.getChildren().get(idx).getStyleClass().remove("leftMenuHovering");
             }
         });
+    }
+    
+    public void setPage(AnchorPane pane){
+        labelClickTask(pane);
     }
 }

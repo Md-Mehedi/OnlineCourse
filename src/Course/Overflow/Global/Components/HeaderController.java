@@ -68,18 +68,18 @@ public class HeaderController implements Initializable {
         leftArrow.setOnMouseClicked((event) -> {
             if(ContainerPage.pageIdx>0){
                 ContainerPage.pageIdx--;
-                ContainerPage.loadPage();
+                ContainerPage.loadFromHistory();
             }
         });
         rightArrow.setOnMouseClicked((event) -> {
             if(ContainerPage.pageIdx < ContainerPage.pages.size()-1){
                 ContainerPage.pageIdx++;
-                ContainerPage.loadPage();
+                ContainerPage.loadFromHistory();
             }
         });
         searchField.setOnKeyReleased((event) -> {
             if(event.getCode()==KeyCode.ENTER){
-                GLOBAL.PAGE_CTRL.setSearchResultPage();
+                GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.SearchResult);
             }
         });
     }    
@@ -103,7 +103,7 @@ public class HeaderController implements Initializable {
             noti.setLayoutX(header.getWidth() - noti.getWidth());
             
             logo.setOnMouseClicked((event)->{
-                GLOBAL.PAGE_CTRL.setHomePage();
+                GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.Home);
             });
         });
         notificationIcon.setOnMouseClicked((MouseEvent)->{

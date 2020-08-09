@@ -14,6 +14,7 @@ import Course.Overflow.Global.Customize.SVG;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.LeftSlidingPane;
 import Course.Overflow.Global.Layout.LeftSlidingPane.Type;
+import Course.Overflow.Global.Page.ContainerPage.PageName;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -47,6 +48,16 @@ public class CommunicationPage extends Page{
         addReviews();
         addAnouncement();
         slidingPaneCtrl.setDefaultContent(faqPane);
+    }
+    
+    public CommunicationPage(PageName pageName){
+        this();
+        switch(pageName){
+            case Messenger: slidingPaneCtrl.setPage(messengerPane); break;
+            case FAQ: slidingPaneCtrl.setPage(faqPane); break;
+            case Review: slidingPaneCtrl.setPage(reviewsPane); break;
+            case Anouncement: slidingPaneCtrl.setPage(anouncementPane); break;
+        }
     }
 
     private void addMessengerPage() {
