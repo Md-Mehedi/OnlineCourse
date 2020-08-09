@@ -158,3 +158,40 @@ Label{
 #CourseBoxHorizontal VBox, #CourseBoxHorizontal HBox{
     -fx-alignment: top-left;
 }
+
+/*Categories*/
+#categoriesLabel{
+    -fx-font-size: 23;
+    -fx-pref-height: 80;
+    -fx-text-fill: #009999;
+}
+#categoriesLabel:hover{
+    -fx-text-fill: #00cccc;
+}
+.catContainer{
+    -fx-background-color: white;
+    -fx-spacing: 0;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+}
+.catContainer > HBox{
+    -fx-padding: 0 10 0 10;
+    -fx-pref-height: 50;
+    -fx-pref-width: 300;
+    -fx-alignment: CENTER_LEFT;
+}
+.catContainer > HBox:hover{
+    -fx-background-color:#EDF2FA;
+}
+.catContainer > HBox:hover Label{
+    -fx-text-fill:#00cccc;
+}
+.catContainer > HBox:hover FontAwesomeIconView{
+    -fx-fill: #00cccc;
+}
+.catContainer Label{
+    -fx-font-size: 20;
+}
+.catContainer FontAwesomeIconView{
+    -glyph-size: 30;
+}

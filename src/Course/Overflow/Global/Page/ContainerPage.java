@@ -138,6 +138,8 @@ public class ContainerPage {
     }
     
     public void loadPage(PageName pageName){
+        if(curPage == pageName) return;
+        
         switch(pageName){
             case Home:  
                 if(curPage != PageName.Home){
@@ -150,12 +152,14 @@ public class ContainerPage {
             case Wishlist: page = new CourseListShowPage("Wishlist"); break;
             case PurchaseHistory: page = new CourseListShowPage("Your purchase history", PageByPageLayoutController.CourseBoxShowType.Vertical); break;
             case SearchResult: page = new SearchResultPage(); break;
-            case Messenger: page = new CommunicationPage(PageName.Messenger); break;
-            case FAQ: page = new CommunicationPage(PageName.FAQ); break;
-            case Review: page = new CommunicationPage(PageName.Review); break;
-            case Anouncement: page = new CommunicationPage(PageName.Anouncement); break;
+            case Messenger:
+            case FAQ:
+            case Review: 
+            case Anouncement: page = new CommunicationPage(pageName);
+            break;
         }
         loadPage(page);
         curPage = pageName;
+ 
     }
 }

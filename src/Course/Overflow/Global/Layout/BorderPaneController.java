@@ -6,6 +6,7 @@
 package Course.Overflow.Global.Layout;
 
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.ToolKit;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -57,18 +58,22 @@ public class BorderPaneController implements Initializable {
 
     public void setCenter(AnchorPane centerPane) {
         this.centerPane.getChildren().add(centerPane);
+        ToolKit.setAnchor(centerPane, 0, 0, 0, 0);
     }
 
     public void setHeader(AnchorPane headerPane) {
         this.headerPane.getChildren().add(headerPane);
+        ToolKit.setAnchor(headerPane, 0, 0, 0, 0);
     }
 
     public void setFooter(AnchorPane footerPane) {
         this.footerPane.getChildren().add(footerPane);
+        ToolKit.setAnchor(footerPane, 0, 0, 0, 0);
     }
 
     public void setLeft(AnchorPane leftPane) {
         this.leftPane.getChildren().add(leftPane);
+        ToolKit.setAnchor(leftPane, 0, 0, 0, 0);
     }
 
     public void clearCenter() {

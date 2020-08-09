@@ -36,7 +36,7 @@ public class CommunicationPage extends Page{
     private Anouncement anouncementCtrl;
     private AnchorPane anouncementPane;
     
-    public CommunicationPage(){
+    private CommunicationPage(){
         slidingPaneCtrl = new LeftSlidingPane(Type.NO_HOVER);
         slidingPaneCtrl.removeHeader();
         slidingPaneCtrl.removeFooter();
@@ -47,7 +47,7 @@ public class CommunicationPage extends Page{
         addFAQPage();
         addReviews();
         addAnouncement();
-        slidingPaneCtrl.setDefaultContent(faqPane);
+        //slidingPaneCtrl.setDefaultContent(faqPane);
     }
     
     public CommunicationPage(PageName pageName){
@@ -93,5 +93,9 @@ public class CommunicationPage extends Page{
         anouncementCtrl = new Anouncement();
         anouncementPane = anouncementCtrl.getRoot();
         slidingPaneCtrl.addContent(anouncementPane, SVG.ANOUNCEMENT, "Anouncement");
+    }
+    
+    public LeftSlidingPane getSlidingPaneCtrl(){
+        return slidingPaneCtrl;
     }
 }

@@ -8,7 +8,10 @@ package Course.Overflow.Global.Components;
 import Course.Overflow.Global.Components.Notification.NotificationView;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.ContainerPage;
+import Course.Overflow.Global.ToolKit;
 import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
@@ -19,7 +22,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
@@ -57,6 +64,8 @@ public class HeaderController implements Initializable {
     @FXML
     private Label rightArrow;
 //    public static Label rightArrow;
+    @FXML
+    private Label categoriesBtn;
 
     /**
      * Initializes the controller class.
@@ -81,6 +90,9 @@ public class HeaderController implements Initializable {
             if(event.getCode()==KeyCode.ENTER){
                 GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.SearchResult);
             }
+        });
+        Platform.runLater(()->{
+            createCategories();
         });
     }    
     
@@ -157,6 +169,103 @@ public class HeaderController implements Initializable {
                 t.setToValue(1);
                 t.play();
             }
+        });
+    }
+    
+    private void addSubCategory(VBox subCatContainer, int pos){
+        Label label = new Label("Sub Category "+ pos);
+//        Region r = new Region();
+//        FontAwesomeIconView iv = new FontAwesomeIconView(FontAwesomeIcon.ARROW_RIGHT);
+//        HBox box = new HBox(label,r,iv);
+        HBox box = new HBox(label);
+//        HBox.setHgrow(r, Priority.ALWAYS);
+        subCatContainer.getChildren().add(box);
+        box.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.SearchResult);
+        });
+    }
+    
+    private void addMainCategory(AnchorPane catRoot, VBox mainContainer, int pos){
+        Label label = new Label("Main Category "+ pos);
+        Region r = new Region();
+        FontAwesomeIconView iv = new FontAwesomeIconView(FontAwesomeIcon.ARROW_RIGHT);
+        HBox box = new HBox(label,r,iv);
+        HBox.setHgrow(r, Priority.ALWAYS);
+        mainContainer.getChildren().add(box);
+        
+        VBox subCatContainer = new VBox();
+        AnchorPane subCatRoot = new AnchorPane(subCatContainer);
+        subCatRoot.getStylesheets().add(GLOBAL.COMPONENTS_LOCATION + "/Components.css");
+        ToolKit.setAnchor(subCatContainer, 0, 0, 0, 0);
+        int subCatNum = (int) ((Math.random()*100)%15);
+        for(int i=1;i<=subCatNum;i++){
+            addSubCategory(subCatContainer,i);
+        }
+        subCatContainer.getStyleClass().add("catContainer");
+        GLOBAL.rootPane.getChildren().add(subCatRoot);
+        subCatRoot.toBack();
+        
+        box.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.SearchResult);
+        });
+        
+        box.setOnMouseMoved((event) -> {
+            subCatRoot.toFront();
+            catRoot.toFront();
+        });
+        subCatRoot.setOnMouseMoved((event) -> {
+            subCatRoot.toFront();
+            catRoot.toFront();
+        });
+        box.setOnMouseExited((event) -> {
+            subCatRoot.toBack();
+            catRoot.toBack();
+        });
+        subCatRoot.setOnMouseExited((event) -> {
+            subCatRoot.toBack();
+            catRoot.toBack();
+        });
+        
+        Platform.runLater(()->{
+            subCatRoot.setLayoutX(categoriesBtn.getLayoutX() + ((HBox)mainContainer.getChildren().get(0)).getPrefWidth());
+            int mainCatNum = mainContainer.getChildren().size();
+            double itemHeight = ((HBox)mainContainer.getChildren().get(0)).getPrefHeight();
+            if(mainCatNum-pos+1< subCatNum && mainCatNum>subCatNum){
+                subCatRoot.setLayoutY(header.getPrefHeight() + itemHeight*(mainCatNum-subCatNum));
+            }
+            else if(mainCatNum<=subCatNum){
+                subCatRoot.setLayoutY(header.getPrefHeight());
+            }
+            else{
+                subCatRoot.setLayoutY(header.getPrefHeight() + itemHeight*(pos-1));
+            }
+        });
+    }
+    
+    public void createCategories(){
+        VBox catContainer = new VBox();
+        AnchorPane catRoot = new AnchorPane(catContainer);
+        catRoot.getStylesheets().add(GLOBAL.COMPONENTS_LOCATION + "/Components.css");
+        ToolKit.setAnchor(catContainer, 0, 0, 0, 0);
+        for(int i=0; i<10; i++){
+            addMainCategory(catRoot, catContainer,i+1);
+        }
+        catContainer.getStyleClass().add("catContainer");
+        GLOBAL.rootPane.getChildren().add(catRoot);
+        catRoot.setLayoutX(categoriesBtn.getLayoutX());
+        catRoot.setLayoutY(header.getPrefHeight());
+        catRoot.toBack();
+        categoriesBtn.setOnMouseMoved((event) -> {
+            catRoot.toFront();
+        });
+        categoriesBtn.setOnMouseExited((event) -> {
+            catRoot.toBack();
+        });
+        catRoot.setOnMouseMoved((event) -> {
+            catRoot.toFront();
+        });
+        catRoot.setOnMouseExited((event) -> {
+            catRoot.toBack();
         });
     }
 

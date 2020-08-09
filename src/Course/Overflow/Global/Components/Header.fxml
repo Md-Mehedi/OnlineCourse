@@ -42,6 +42,7 @@
                   <Image url="@../../Files/Icon/logo.png" />
                </image>
             </ImageView>
+            <Label id="categoriesLabel" fx:id="categoriesBtn" text="Categories" />
             <HBox HBox.hgrow="ALWAYS">
                <children>
                   <Label styleClass="cursorHand">
