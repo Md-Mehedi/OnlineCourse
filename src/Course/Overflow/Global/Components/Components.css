@@ -179,6 +179,7 @@ Label{
     -fx-pref-height: 50;
     -fx-pref-width: 300;
     -fx-alignment: CENTER_LEFT;
+    -fx-cursor: hand;
 }
 .catContainer > HBox:hover{
     -fx-background-color:#EDF2FA;

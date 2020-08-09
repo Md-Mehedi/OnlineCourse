@@ -6,6 +6,7 @@
 package Course.Overflow.Global.Components;
 
 import Course.Overflow.Global.Components.Notification.NotificationView;
+import Course.Overflow.Global.Customize.MyFadeTransition;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.ContainerPage;
 import Course.Overflow.Global.ToolKit;
@@ -14,7 +15,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -66,19 +66,13 @@ public class HeaderController implements Initializable {
 //    public static Label rightArrow;
     @FXML
     private Label categoriesBtn;
-    private FadeTransition catShow;
-    private FadeTransition catHide;
+    private MyFadeTransition mainCatTransition;
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        catShow = new FadeTransition(Duration.millis(200));
-        catShow.setToValue(1);
-        catHide = new FadeTransition(Duration.millis(200));
-        catHide.setToValue(0);
-        
+    public void initialize(URL url, ResourceBundle rb) {        
         leftArrow.setOpacity(0.1);
         rightArrow.setOpacity(0.1);
         leftArrow.setOnMouseClicked((event) -> {
@@ -106,13 +100,11 @@ public class HeaderController implements Initializable {
     
     public void setNotiPane(AnchorPane noti){
         this.noti = noti;
-        noti.setVisible(false);
         setNotiPanePosition();
     }
     
     public void setProfilePane(AnchorPane profile){
         this.profilePane = profile;
-        profilePane.setVisible(false);
         setProfilePanePosition();
     }
     
@@ -125,33 +117,7 @@ public class HeaderController implements Initializable {
                 GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.Home);
             });
         });
-        notificationIcon.setOnMouseClicked((MouseEvent)->{
-            FadeTransition t = new FadeTransition(Duration.millis(500), noti);
-            if(noti.isVisible()){
-                t.setFromValue(1);
-                t.setToValue(0);
-                t.play();
-                t.setOnFinished((event)->{
-                    noti.setVisible(false);
-                });
-            }
-            else{
-                if(profilePane.isVisible()) profilePane.setVisible(false);
-                noti.setVisible(true);
-                t.setFromValue(0);
-                t.setToValue(1);
-                t.play();
-            }
-        });
-//        notificationIcon.setOnMouseExited((MouseEvent)->{
-//            FadeTransition t = new FadeTransition(Duration.millis(500), noti);
-//            t.setFromValue(1);
-//            t.setToValue(0);
-//            t.play();
-//            t.setOnFinished((event) -> {
-//                noti.setVisible(false);
-//            });
-//        });
+        new MyFadeTransition(notificationIcon, noti);
     }
 
     private void setProfilePanePosition() {
@@ -159,33 +125,13 @@ public class HeaderController implements Initializable {
             profilePane.setLayoutY(header.getHeight());
             profilePane.setLayoutX(header.getWidth() - profilePane.getWidth());
         });
-        profile.setOnMouseClicked((MouseEvent)->{
-            FadeTransition t = new FadeTransition(Duration.millis(500), profilePane);
-            if(profilePane.isVisible()){
-                t.setFromValue(1);
-                t.setToValue(0);
-                t.play();
-                t.setOnFinished((event)->{
-                    profilePane.setVisible(false);
-                });
-            }
-            else{
-                if(noti.isVisible()) noti.setVisible(false);
-                profilePane.setVisible(true);
-                t.setFromValue(0);
-                t.setToValue(1);
-                t.play();
-            }
-        });
+        
+        new MyFadeTransition(profile, profilePane);
     }
     
     private void addSubCategory(VBox subCatContainer, int pos){
         Label label = new Label("Sub Category "+ pos);
-//        Region r = new Region();
-//        FontAwesomeIconView iv = new FontAwesomeIconView(FontAwesomeIcon.ARROW_RIGHT);
-//        HBox box = new HBox(label,r,iv);
         HBox box = new HBox(label);
-//        HBox.setHgrow(r, Priority.ALWAYS);
         subCatContainer.getChildren().add(box);
         box.setOnMouseClicked((event) -> {
             GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.SearchResult);
@@ -200,6 +146,9 @@ public class HeaderController implements Initializable {
         HBox box = new HBox(label,r,iv);
         HBox.setHgrow(r, Priority.ALWAYS);
         mainContainer.getChildren().add(box);
+        box.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.SearchResult);
+        });
         
         VBox subCatContainer = new VBox();
         AnchorPane subCatRoot = new AnchorPane(subCatContainer);
@@ -212,34 +161,8 @@ public class HeaderController implements Initializable {
         }
         subCatContainer.getStyleClass().add("catContainer");
         GLOBAL.rootPane.getChildren().add(subCatRoot);
-        subCatRoot.toBack();
-        subCatRoot.setOpacity(0);
         
-        FadeTransition subCatShow = new FadeTransition(Duration.millis(200), subCatRoot);
-        FadeTransition subCatHide = new FadeTransition(Duration.millis(200), subCatRoot);
-        subCatShow.setToValue(1);
-        subCatHide.setToValue(0);
-        subCatHide.setOnFinished((event) -> {
-            subCatRoot.toBack();
-        });
-        box.setOnMouseClicked((event) -> {
-            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.SearchResult);
-        });
-        box.setOnMouseMoved((event) -> {
-            subCatRoot.toFront();
-            subCatShow.play();
-        });
-        box.setOnMouseExited((event) -> {
-            subCatHide.play();
-        });
-        subCatRoot.setOnMouseMoved((event) -> {
-            catHide.stop();
-            subCatHide.stop();
-        });
-        subCatRoot.setOnMouseExited((event) -> {
-            subCatHide.play();
-            catHide.play();
-        });
+        MyFadeTransition ft = new MyFadeTransition(box, subCatRoot, Duration.millis(200), mainCatTransition.getHide());
         
         Platform.runLater(()->{
             subCatRoot.setLayoutX(categoriesBtn.getLayoutX() + ((HBox)mainContainer.getChildren().get(0)).getPrefWidth());
@@ -261,6 +184,7 @@ public class HeaderController implements Initializable {
         VBox catContainer = new VBox();
         AnchorPane catRoot = new AnchorPane(catContainer);
         catRoot.getStylesheets().add(GLOBAL.COMPONENTS_LOCATION + "/Components.css");
+        mainCatTransition = new MyFadeTransition(categoriesBtn, catRoot, Duration.millis(200));
         ToolKit.setAnchor(catContainer, 0, 0, 0, 0);
         for(int i=0; i<10; i++){
             addMainCategory(catRoot, catContainer,i+1);
@@ -269,28 +193,6 @@ public class HeaderController implements Initializable {
         GLOBAL.rootPane.getChildren().add(catRoot);
         catRoot.setLayoutX(categoriesBtn.getLayoutX());
         catRoot.setLayoutY(header.getPrefHeight());
-        catRoot.toBack();
-        catRoot.setOpacity(0);
-        
-        catShow.setNode(catRoot);
-        catHide.setNode(catRoot);
-        catHide.setOnFinished((event) -> {
-            catRoot.toBack();
-        });
-        
-        categoriesBtn.setOnMouseMoved((event) -> {
-            catRoot.toFront();
-            catShow.play();
-        });
-        categoriesBtn.setOnMouseExited((event) -> {
-            catHide.play();
-        });
-        catRoot.setOnMouseMoved((event) -> {
-            catHide.stop();
-        });
-        catRoot.setOnMouseExited((event) -> {
-            catHide.play();
-        });
     }
 
     public Label getLeftArrow() {

@@ -7,6 +7,7 @@
 package Course.Overflow.Global.Customize;
 
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.util.Duration;
 
@@ -14,16 +15,70 @@ import javafx.util.Duration;
  *
  * @author Md Mehedi Hasan
  */
-public abstract class MyFadeTransition {
-    public FadeTransition transition;
+public class MyFadeTransition {
+    private Node trigger;
+    private Node node;
+    private Duration duration;
+//    private ArrayList<FadeTransition> dependentTransition;
+    private FadeTransition dependentTransition;
+    
+    FadeTransition show;
+    FadeTransition hide;
 
-    public abstract void setOnfinish();
-    public MyFadeTransition(Duration duration, Node node, double toValue) {
-        transition = new FadeTransition(duration, node);
-        transition.setToValue(toValue);
-        transition.setOnFinished((event) -> {
-            setOnfinish();
+    public MyFadeTransition(Node trigger, Node node){
+        this.trigger = trigger;
+        this.node = node;
+        duration = new Duration(50);
+        dependentTransition = new FadeTransition();
+        show = new FadeTransition(duration, node);
+        hide = new FadeTransition(duration, node);
+        
+        show.setToValue(1);
+        hide.setToValue(0);
+        trigger.setStyle(trigger.getStyle() + "-fx-cursor: hand;");
+        node.setOpacity(0);
+        Platform.runLater(() -> {
+            node.toBack();
+            addListener();
         });
-        transition.play();
-    }    
+    }
+
+    public MyFadeTransition(Node trigger, Node node, Duration duration) {
+        this(trigger, node);
+        this.duration = duration;
+    }
+    
+    public MyFadeTransition(Node trigger, Node node, Duration duration, FadeTransition dependentTransition) {
+        this(trigger, node, duration);
+        this.dependentTransition = dependentTransition;
+    }
+
+    private void addListener() {
+        hide.setOnFinished((event) -> {
+            node.toBack();
+        });
+        trigger.setOnMouseMoved((event) -> {
+            node.toFront();
+            show.play();
+        });
+        trigger.setOnMouseExited((event) -> {
+            hide.play();
+        });
+        node.setOnMouseMoved((event) -> {
+            hide.stop();
+            dependentTransition.stop();
+        });
+        node.setOnMouseExited((event) -> {
+            hide.play();
+            dependentTransition.play();
+        });
+    }
+
+    public FadeTransition getShow() {
+        return show;
+    }
+
+    public FadeTransition getHide() {
+        return hide;
+    }
 }
