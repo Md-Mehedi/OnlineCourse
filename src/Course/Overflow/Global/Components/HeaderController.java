@@ -9,6 +9,7 @@ import Course.Overflow.Global.Components.Notification.NotificationView;
 import Course.Overflow.Global.Customize.MyFadeTransition;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.ContainerPage;
+import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.ToolKit;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -89,7 +90,7 @@ public class HeaderController implements Initializable {
         });
         searchField.setOnKeyReleased((event) -> {
             if(event.getCode()==KeyCode.ENTER){
-                GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.SearchResult);
+                GLOBAL.PAGE_CTRL.loadPage(PageName.SearchResult);
             }
         });
         Platform.runLater(()->{
@@ -114,7 +115,7 @@ public class HeaderController implements Initializable {
             noti.setLayoutX(header.getWidth() - noti.getWidth());
             
             logo.setOnMouseClicked((event)->{
-                GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.Home);
+                GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
             });
         });
         new MyFadeTransition(notificationIcon, noti);
@@ -135,7 +136,7 @@ public class HeaderController implements Initializable {
         HBox box = new HBox(label);
         subCatContainer.getChildren().add(box);
         box.setOnMouseClicked((event) -> {
-            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.SearchResult);
+            GLOBAL.PAGE_CTRL.loadPage(PageName.SearchResult);
         });
     }
     
@@ -148,7 +149,7 @@ public class HeaderController implements Initializable {
         HBox.setHgrow(r, Priority.ALWAYS);
         mainContainer.getChildren().add(box);
         box.setOnMouseClicked((event) -> {
-            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.SearchResult);
+            GLOBAL.PAGE_CTRL.loadPage(PageName.SearchResult);
         });
         
         VBox subCatContainer = new VBox();

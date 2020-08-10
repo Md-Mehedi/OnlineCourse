@@ -7,6 +7,7 @@ package Course.Overflow.Teacher;
 
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.PageByPageLayoutController;
+import Course.Overflow.Global.Layout.PageByPageLayoutController.BoxType;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -61,7 +62,7 @@ public class TeacherPreviewController implements Initializable {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.LAYOUT_LOCATION + "/PageByPageLayout.fxml"));
             gridContainer.getChildren().add(loader.load());
             gridCtrl = loader.<PageByPageLayoutController>getController();
-            gridCtrl.setUpPage(13, 3, 22);
+            gridCtrl.setUpPage(BoxType.CourseGrid, 13, 3, 22);
         } catch (IOException ex) {
             Logger.getLogger(TeacherPreviewController.class.getName()).log(Level.SEVERE, null, ex);
         }

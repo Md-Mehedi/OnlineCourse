@@ -6,7 +6,7 @@
 package Course.Overflow.Global.Components;
 
 import Course.Overflow.Global.GLOBAL;
-import Course.Overflow.Global.Page.ContainerPage.PageName;
+import Course.Overflow.Global.Page.PageName;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;

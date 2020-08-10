@@ -14,7 +14,10 @@ import Course.Overflow.Global.Customize.SVG;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.LeftSlidingPane;
 import Course.Overflow.Global.Layout.LeftSlidingPane.Type;
-import Course.Overflow.Global.Page.ContainerPage.PageName;
+import Course.Overflow.Teacher.EnrolledStudentsView;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -24,8 +27,7 @@ import javafx.scene.layout.AnchorPane;
  * @author Md Mehedi Hasan
  */
 public class CommunicationPage extends Page{
-    private AnchorPane page;
-    private LeftSlidingPane slidingPaneCtrl;
+    private static LeftSlidingPane slidingPaneCtrl;
     private FXMLLoader loader;
     private AnchorPane messengerPane;
     private MessagePage messengerPageCtrl;
@@ -35,6 +37,10 @@ public class CommunicationPage extends Page{
     private AnchorPane reviewsPane;
     private Anouncement anouncementCtrl;
     private AnchorPane anouncementPane;
+    private AnchorPane overviewPane;
+    private EnrolledStudentsView studentCtrl;
+    private AnchorPane enrolledStudentPane;
+    private PageName pageName;
     
     private CommunicationPage(){
         slidingPaneCtrl = new LeftSlidingPane(Type.NO_HOVER);
@@ -43,6 +49,8 @@ public class CommunicationPage extends Page{
         slidingPaneCtrl.removeTitleBar();
         root.getChildren().add(slidingPaneCtrl.getRoot());
         
+        addOverviewPage();
+        addStudentPage();
         addMessengerPage();
         addFAQPage();
         addReviews();
@@ -52,11 +60,13 @@ public class CommunicationPage extends Page{
     
     public CommunicationPage(PageName pageName){
         this();
+        this.pageName = pageName;
         switch(pageName){
             case Messenger: slidingPaneCtrl.setPage(messengerPane); break;
             case FAQ: slidingPaneCtrl.setPage(faqPane); break;
             case Review: slidingPaneCtrl.setPage(reviewsPane); break;
             case Anouncement: slidingPaneCtrl.setPage(anouncementPane); break;
+            case EnrolledStudents: slidingPaneCtrl.setPage(enrolledStudentPane); break;
         }
     }
 
@@ -69,9 +79,8 @@ public class CommunicationPage extends Page{
          */
         messengerPageCtrl = new MessagePage();
         messengerPane = messengerPageCtrl.getRoot();
-        slidingPaneCtrl.addContent(messengerPane, SVG.MESSAGE, "Messenger");
+        slidingPaneCtrl.addContent(messengerPane, SVG.MESSAGE, PageName.Messenger);
         Platform.runLater(()->{
-//            messengerPageCtrl.setPrefHeight(slidingPaneCtrl.getHeight());
             messengerPageCtrl.setPrefHeight(GLOBAL.HEIGHT - GLOBAL.HEADER.getRoot().getPrefHeight() - GLOBAL.TOP_MENU_BAR.getHeight()-10);
             System.out.println(messengerPageCtrl.getRoot().getPrefHeight());
         });
@@ -80,22 +89,39 @@ public class CommunicationPage extends Page{
     private void addFAQPage() {
         faqCtrl = new FAQ();
         faqPane = faqCtrl.getRoot();
-        slidingPaneCtrl.addContent(faqPane, SVG.FAQ, "FAQ");
+        slidingPaneCtrl.addContent(faqPane, SVG.FAQ, PageName.FAQ);
     }
 
     private void addReviews() {
         reviewsCtrl = new Reviews();
         reviewsPane = reviewsCtrl.getRoot();
-        slidingPaneCtrl.addContent(reviewsPane, SVG.REVIEW, "Reviews");
+        slidingPaneCtrl.addContent(reviewsPane, SVG.REVIEW, PageName.Review);
     }
 
     private void addAnouncement() {
         anouncementCtrl = new Anouncement();
         anouncementPane = anouncementCtrl.getRoot();
-        slidingPaneCtrl.addContent(anouncementPane, SVG.ANOUNCEMENT, "Anouncement");
+        slidingPaneCtrl.addContent(anouncementPane, SVG.ANOUNCEMENT, PageName.Anouncement);
     }
     
     public LeftSlidingPane getSlidingPaneCtrl(){
         return slidingPaneCtrl;
+    }
+
+    private void addOverviewPage() {
+        try {
+            loader = new FXMLLoader(getClass().getResource(GLOBAL.TEACHER_LOCATION + "/Overview.fxml"));
+            overviewPane = loader.load();
+            slidingPaneCtrl.addContent(overviewPane, SVG.OVERVIEW, PageName.Overview);
+        } catch (IOException ex) {
+            Logger.getLogger(CommunicationPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void addStudentPage(){
+        studentCtrl = new EnrolledStudentsView();
+        enrolledStudentPane = studentCtrl.getRoot();
+        slidingPaneCtrl.addContent(enrolledStudentPane, SVG.ENROLL_STUDENT, PageName.EnrolledStudents);
+        
     }
 }

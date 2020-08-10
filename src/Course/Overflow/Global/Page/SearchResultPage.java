@@ -78,7 +78,7 @@ public class SearchResultPage extends Page{
             loader = new FXMLLoader(getClass().getResource(GLOBAL.LAYOUT_LOCATION + "/PageByPageLayout.fxml"));
             courseBoxContainer.getChildren().add(loader.load());
             courseBoxesCtrl = loader.<PageByPageLayoutController>getController();
-            courseBoxesCtrl.setUpPage(13);
+            courseBoxesCtrl.setUpPage(PageByPageLayoutController.BoxType.CourseVertical, 13);
         } catch (IOException ex) {
             Logger.getLogger(SearchResultPage.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -175,7 +175,4 @@ public class SearchResultPage extends Page{
         }
     }
 
-    private void removeFilter(int idx) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

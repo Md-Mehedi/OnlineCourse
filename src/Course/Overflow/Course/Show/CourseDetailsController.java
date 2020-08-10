@@ -9,6 +9,7 @@ import Course.Overflow.Course.Contents.ReviewInputBoxController;
 import Course.Overflow.Global.Components.CheckoutPageController;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.ContainerPage;
+import Course.Overflow.Global.Page.PageName;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -137,13 +138,13 @@ public class CourseDetailsController implements Initializable {
 
     private void addListener() {
         instName.setOnMouseClicked(event->{
-            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.TeacherDetails);
+            GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
         });
         instPhoto.setOnMouseClicked(event->{
-            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.TeacherDetails);
+            GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
         });
         topInstName.setOnMouseClicked(event->{
-            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.TeacherDetails);
+            GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
         });
         writeReviewBtn.setOnMouseClicked((event) -> {
             reviewInputCtrl.show();

@@ -7,6 +7,7 @@ package Course.Overflow.Global.Components;
 
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.ContainerPage;
+import Course.Overflow.Global.Page.PageName;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -67,19 +68,19 @@ public class RightMenuPopOverController implements Initializable {
     @FXML
     private void mouseClicked(MouseEvent event) {
         if(event.getSource()==myCourse){
-            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.MyCourse);
+            GLOBAL.PAGE_CTRL.loadPage(PageName.MyCourse);
         }
         else if(event.getSource()==wishlist){
-            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.Wishlist);
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Wishlist);
         }
         else if(event.getSource()==purchaseHistory){
-            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.PurchaseHistory);
+            GLOBAL.PAGE_CTRL.loadPage(PageName.PurchaseHistory);
         }
         else if(event.getSource()==message){
-            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.Messenger);
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Messenger);
         }
         else if(event.getSource()==faq){
-            GLOBAL.PAGE_CTRL.loadPage(ContainerPage.PageName.FAQ);
+            GLOBAL.PAGE_CTRL.loadPage(PageName.FAQ);
         }
     }    
 }

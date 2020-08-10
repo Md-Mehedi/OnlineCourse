@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="overviewContainer" fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Teacher.OverviewController">
+   <children>
+      <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <GridPane id="overviewGrid" alignment="CENTER_LEFT" StackPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <VBox>
+                     <children>
+                        <Label text="Total revenue" />
+                        <Label fx:id="revenueField" styleClass="value" text="\$18.79" />
+                     </children>
+                  </VBox>
+                  <Label fx:id="historyBtn" text="See the history" GridPane.columnIndex="1">
+                     <styleClass>
+                        <String fx:value="myButton" />
+                        <String fx:value="button" />
+                     </styleClass>
+                  </Label>
+                  <VBox GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Total enrollments" />
+                        <Label fx:id="enrollmentField" styleClass="value" text="35389" />
+                     </children>
+                  </VBox>
+                  <Label fx:id="enrollStudentBtn" text="See the students" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <styleClass>
+                        <String fx:value="myButton" />
+                        <String fx:value="button" />
+                     </styleClass>
+                  </Label>
+                  <VBox GridPane.rowIndex="2">
+                     <children>
+                        <Label text="Total reviews" />
+                        <Label fx:id="reviewsField" styleClass="value" text="5935793" />
+                     </children>
+                  </VBox>
+                  <Label fx:id="reviewerBtn" text="See the reviews" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <styleClass>
+                        <String fx:value="myButton" />
+                        <String fx:value="button" />
+                     </styleClass>
+                  </Label>
+                  <VBox GridPane.rowIndex="3">
+                     <children>
+                        <Label text="Total rating" />
+                        <Label fx:id="ratingField" styleClass="value" text="3.87" />
+                     </children>
+                  </VBox>
+               </children>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+            </GridPane>
+         </children>
+      </StackPane>
+   </children>
+   <stylesheets>
+      <URL value="@../Global/Global.css" />
+      <URL value="@Teacher.css" />
+   </stylesheets>
+</AnchorPane>

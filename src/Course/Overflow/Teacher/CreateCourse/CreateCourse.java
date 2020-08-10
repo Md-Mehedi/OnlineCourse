@@ -10,6 +10,7 @@ import Course.Overflow.Global.Customize.SVG;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.LeftSlidingPane;
 import Course.Overflow.Global.Layout.LeftSlidingPane.Type;
+import Course.Overflow.Global.Page.PageName;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -47,12 +48,12 @@ public class CreateCourse {
         topMenu = menu.getMenuContainer();
         lsPane.setHeader(topMenu);
 
-        lsPane.addContent(targetStudentPane, SVG.TARGET, "Target your student");
-        lsPane.addContent(videoLectureTipsPane, SVG.VIDEO_CAMERA, "Record your video");
-        lsPane.addContent(curriculumTipsPane, SVG.IDEA_BULB, "Ready for course");
-        lsPane.addContent(curriculumPane, SVG.TASK_LIST, "Set your curriculum");
-        lsPane.addContent(landingPagePane, SVG.PROFILE_DETAILS, "Landing page");
-        lsPane.addContent(pricingPane, SVG.COST, "Set course price");
+        lsPane.addContent(targetStudentPane, SVG.TARGET, PageName.CreateCourseTargetStudent);
+        lsPane.addContent(videoLectureTipsPane, SVG.VIDEO_CAMERA, PageName.CreateCourseRecordVideo);
+        lsPane.addContent(curriculumTipsPane, SVG.IDEA_BULB, PageName.CreateCourseCurriculumTips);
+        lsPane.addContent(curriculumPane, SVG.TASK_LIST, PageName.CreateCourseCurriculum);
+        lsPane.addContent(landingPagePane, SVG.PROFILE_DETAILS, PageName.CreateCourseLanding);
+        lsPane.addContent(pricingPane, SVG.COST, PageName.CreateCoursePricing);
         lsPane.setDefaultContent(targetStudentPane);
         container = lsPane.getRoot();
     }

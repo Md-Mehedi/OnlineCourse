@@ -31,7 +31,7 @@ public class ContainerPage {
     public static int pageIdx;
 
     
-    private PageName curPage;
+    public PageName curPage;
     private AnchorPane container;
     private ScrollPane scroll;
     private static VBox verticalBox;
@@ -49,20 +49,6 @@ public class ContainerPage {
     private Page page;
     private static int idx;
     
-    public enum PageName{
-        Home,
-        Course,
-        TeacherDetails,
-        MyCourse,
-        Wishlist,
-        PurchaseHistory,
-        SearchResult,
-        Messenger,
-        FAQ,
-        Review,
-        Anouncement
-        ;
-    }
 
     public ContainerPage() {
         pages = new ArrayList<>();
@@ -83,10 +69,7 @@ public class ContainerPage {
         return container;
     }
     
-    public void loadPage(Page page){
-        verticalBox.getChildren().remove(idx);
-        verticalBox.getChildren().add(idx, page.getRoot());
-        
+    public void makePageHistory(){
         while(pages.size()-1>pageIdx && pageIdx!=-1){
             pages.remove(pageIdx+1);
         }
@@ -96,6 +79,12 @@ public class ContainerPage {
         if(pageIdx!=0){
             headerCtrl.getLeftArrow().setOpacity(1);
         }
+    }
+    
+    public void loadPage(Page page){
+        verticalBox.getChildren().remove(idx);
+        verticalBox.getChildren().add(idx, page.getRoot());
+        makePageHistory();
     }
     
     
@@ -140,6 +129,7 @@ public class ContainerPage {
     public void loadPage(PageName pageName){
         if(curPage == pageName) return;
         
+        curPage = pageName;
         switch(pageName){
             case Home:  
                 if(curPage != PageName.Home){
@@ -150,8 +140,10 @@ public class ContainerPage {
             case TeacherDetails: page = new TeacherDetailsPage(); break;
             case MyCourse: page = new CourseListShowPage("My courses"); break;
             case Wishlist: page = new CourseListShowPage("Wishlist"); break;
-            case PurchaseHistory: page = new CourseListShowPage("Your purchase history", PageByPageLayoutController.CourseBoxShowType.Vertical); break;
+            case PurchaseHistory: page = new CourseListShowPage("Your purchase history", PageByPageLayoutController.BoxType.CourseVertical); break;
             case SearchResult: page = new SearchResultPage(); break;
+            case Overview:
+            case EnrolledStudents:
             case Messenger:
             case FAQ:
             case Review: 
@@ -159,7 +151,6 @@ public class ContainerPage {
             break;
         }
         loadPage(page);
-        curPage = pageName;
  
     }
 }

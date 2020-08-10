@@ -9,6 +9,7 @@ import Course.Overflow.Global.Customize.SVG;
 import Course.Overflow.Global.Customize.SVGView;
 import Course.Overflow.Global.Customize.ToolTip;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.ToolKit;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -181,7 +182,10 @@ public class LeftSlidingPane extends BorderPaneController{
                 leftPane.toBack();
                 scrollPaneWrapper.setPrefWidth(Width - leftPane.getWidth());
                 scrollPane.setPrefWidth(Width - leftPane.getWidth());
-                AnchorPane.setLeftAnchor(scrollPaneWrapper, leftPane.getWidth());
+                Platform.runLater(()->{
+                    AnchorPane.setLeftAnchor(scrollPaneWrapper, leftPane.getWidth());
+                    //System.out.println(leftPane.getWidth());
+                });
             } else if (type == Type.LEFT_HOVER_CENTER_STATIC) {
                 leftPane.toFront();
                 scrollPaneWrapper.setPrefWidth(Width - leftPane.getMinWidth());
@@ -241,35 +245,35 @@ public class LeftSlidingPane extends BorderPaneController{
         return iconLabel;
     }
     
-    public void addContent(AnchorPane pane, FontAwesomeIcon icon, String paneName){
+    public void addContent(AnchorPane pane, FontAwesomeIcon icon, PageName pageName){
         Label iconLabel = iconWrapper(new FontAwesomeIconView(icon));
-        Label nameLabel = new Label(paneName);
-        addContent(pane, iconLabel, nameLabel);
+        Label nameLabel = new Label(pageName.name);
+        addContent(pane, iconLabel, nameLabel, pageName);
     }
-    public void addContent(AnchorPane pane, SVG svgName, String paneName){
+    public void addContent(AnchorPane pane, SVG svgName, PageName pageName){
         Label iconLabel = iconWrapper(new SVGView(svgName));
-        Label nameLabel = new Label(paneName);
-        addContent(pane, iconLabel, nameLabel);
+        Label nameLabel = new Label(pageName.name);
+        addContent(pane, iconLabel, nameLabel, pageName);
     }
-    public void addContent(AnchorPane pane, MaterialIcon icon, String paneName){
+    public void addContent(AnchorPane pane, MaterialIcon icon, PageName pageName){
         Label iconLabel = iconWrapper(new MaterialIconView(icon));
-        Label nameLabel = new Label(paneName);
-        addContent(pane, iconLabel, nameLabel);
+        Label nameLabel = new Label(pageName.name);
+        addContent(pane, iconLabel, nameLabel, pageName);
     }
-    public void addContent(AnchorPane pane, Image icon, String paneName){
+    public void addContent(AnchorPane pane, Image icon, PageName pageName){
         Label iconLabel = iconWrapper(new ImageView(icon));
-        Label nameLabel = new Label(paneName);
-        addContent(pane, iconLabel, nameLabel);
+        Label nameLabel = new Label(pageName.name);
+        addContent(pane, iconLabel, nameLabel, pageName);
     }
-    private void addContent(AnchorPane pane, Label iconLabel, Label paneName){
+    private void addContent(AnchorPane pane, Label iconLabel, Label paneName, PageName pageName){
         paneToIcon.put(pane, iconLabel);
         iconToPane.put(iconLabel, pane);
         paneToName.put(pane, paneName);
         nameToPane.put(paneName, pane);
         iconContainer.getChildren().add(iconLabel);
         labelContainer.getChildren().add(paneName);
-        addEventListenerForMenuItem(iconLabel,pane);
-        addEventListenerForMenuItem(paneName,pane);
+        addEventListenerForVerticalMenuItem(iconLabel,pane, pageName);
+        addEventListenerForVerticalMenuItem(paneName,pane, pageName);
         runningPane.prefHeightProperty().bind(paneName.heightProperty());
     }
     public void setDefaultContent(AnchorPane defaultPane) {
@@ -302,11 +306,12 @@ public class LeftSlidingPane extends BorderPaneController{
             new Timeline(new KeyFrame(animTime, new KeyValue(runningPane.layoutYProperty(), iconContainer.getChildren().get(idx).getLayoutY()))).play();
         });
     }
-    private void addEventListenerForMenuItem(Label btn, AnchorPane pane){
+    private void addEventListenerForVerticalMenuItem(Label btn, AnchorPane pane, PageName pageName){
         btn.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 labelClickTask(pane);
+                GLOBAL.PAGE_CTRL.curPage = pageName;
             }
         });
         btn.addEventFilter(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
