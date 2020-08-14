@@ -32,6 +32,7 @@ public class GLOBAL {
     public static final String COMPONENTS_LOCATION = GLOBAL_LOCATION + "/Components";
     public static final String TOP_MENU_LOACATION = COMPONENTS_LOCATION + "/TopMenuBar";
     public static final String NOTIFICATION_LOCATION = COMPONENTS_LOCATION + "/Notification";
+    public static final String LOGIN_SIGNUP_LOCATION = COMPONENTS_LOCATION + "/LoginSignup";
 
     public static final String COURSE_SHOW_LOCATION = COURSE_LOCATION + "/Show";
     public static final String COURSE_CONTENTS_LOCATION = COURSE_LOCATION + "/Contents";

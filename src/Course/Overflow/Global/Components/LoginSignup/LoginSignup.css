@@ -1,0 +1,57 @@
+ /*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 6, 2020, 9:38:41 AM
+    Author     : Asus
+*/
+.Button
+{
+    -fx-font: "20";
+    -fx-background-color: red;
+}
+
+.rootHeightWidth{
+    -fx-max-height: 450;
+    -fx-max-width: 760;
+    -fx-pref-height: 450;
+    -fx-pref-width: 760;
+}
+
+.root{
+    -fx-background-color:  #2C323D;
+}
+.root .btn{
+    -fx-pref-height: 45;
+    -fx-padding: 0 30 0 30; 
+    -fx-background-radius: 10; 
+}
+.rightPane{
+    -fx-background-color:  #E79D30;
+    -fx-background-radius: 10;
+}
+.rightPane VBox, .rightPane HBox{
+    -fx-alignment: center;
+}
+.rightPane > VBox{
+    -fx-spacing: 25;
+}
+.rightPane > VBox > VBox{
+    -fx-spacing: 15;
+}
+.leftPane > VBox{
+    -fx-spacing: 70;
+}
+.leftPane > VBox > VBox{
+    -fx-spacing: 30;
+}
+.leftPane > VBox > HBox > VBox{
+    -fx-spacing: 10;
+    -fx-alignment: center-left;
+}
+.subPane{
+    -fx-pref-width: 360;
+    -fx-pref-height: 400;
+}

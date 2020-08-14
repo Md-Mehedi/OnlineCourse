@@ -5,12 +5,13 @@ package Course.Overflow.Global.Main;
  * template file, choose ToolKit | Templates and open the template in the editor.
  */
 import Course.Overflow.Global.GLOBAL;
-import Course.Overflow.Global.Page.ContainerPage;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -32,6 +33,8 @@ public class AppMain extends Application {
         pane = new AnchorPane();
         GLOBAL.stage = primaryStage;
         GLOBAL.rootPane = root;
+        GLOBAL.WIDTH = 1460;
+        GLOBAL.HEIGHT = 900;
 
 //        CreateCourse mp = new CreateCourse();
 //        pane = mp.getRootPane();
@@ -40,34 +43,32 @@ public class AppMain extends Application {
         //root.getChildren().add(pane);
         testPage();
         
-        scene = new Scene(root);
+        scene = new Scene(root,GLOBAL.WIDTH, GLOBAL.HEIGHT);
         primaryStage.setScene(scene);
         primaryStage.show();
-        GLOBAL.WIDTH = root.getWidth();
-        GLOBAL.HEIGHT = root.getHeight();
         
         primaryStage.setOnCloseRequest((event) -> {
-            //System.out.println(GLOBAL.HEIGHT);
+            System.out.println(GLOBAL.HEIGHT);
+            System.out.println(GLOBAL.WIDTH);
             System.exit(1);
         });
         System.out.println("FXML is loaded...");
     }
     private void testPage() throws IOException{
-//        pane = (AnchorPane) FXMLLoader.load(getClass().getResource(GLOBAL.COMMUNICATION_LOCATION+ "/Messenger.fxml"));
+        pane = (AnchorPane) FXMLLoader.load(getClass().getResource(GLOBAL.LOGIN_SIGNUP_LOCATION+ "/Signup.fxml"));
+        StackPane sp = new StackPane(pane);
+        sp.setPrefWidth(GLOBAL.WIDTH);
+        sp.setPrefHeight(GLOBAL.HEIGHT);
+
+//        ContainerPage page = new ContainerPage();
+//        GLOBAL.PAGE_CTRL = page;
+//        pane = page.getContainer();
         
-//        MessagePage mp = new MessagePage();
-//        pane = mp.getRoot();
-        
-        //Reviews fl = new Reviews();
-        //pane = fl.getRoot();
-        ContainerPage page = new ContainerPage();
-        GLOBAL.PAGE_CTRL = page;
-        pane = page.getContainer();
-        
-        ScrollPane sc = new ScrollPane(pane);
+        ScrollPane sc = new ScrollPane(sp);
+        sc.setPrefWidth(GLOBAL.WIDTH);
+        sc.setPrefHeight(GLOBAL.HEIGHT);
         sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        sc.setMaxHeight(900);
+        sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         root.getChildren().add(sc);
     }
 
