@@ -6,7 +6,6 @@
 package Course.Overflow.Global.Components;
 
 import Course.Overflow.Global.GLOBAL;
-import Course.Overflow.Global.Page.ContainerPage;
 import Course.Overflow.Global.Page.PageName;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -81,6 +80,9 @@ public class RightMenuPopOverController implements Initializable {
         }
         else if(event.getSource()==faq){
             GLOBAL.PAGE_CTRL.loadPage(PageName.FAQ);
+        }
+        else if(event.getSource()==signOut){
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
         }
     }    
 }

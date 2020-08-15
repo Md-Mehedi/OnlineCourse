@@ -34,11 +34,12 @@ public class Homepage extends Page{
         ToolKit.setAnchor(verticalBox, 0, 0, 0, 0);
         carousels = new ArrayList<>();
         addCarousels();
+        
+        System.out.println("Home page loaded...");
     }
     
     private void addCarousels() {
-        for(int i=0;i<10;i++){
-            System.out.println(i);
+        for(int i=0;i<3;i++){
             try {
                 loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/Carousel.fxml"));
                 AnchorPane pane = loader.load();

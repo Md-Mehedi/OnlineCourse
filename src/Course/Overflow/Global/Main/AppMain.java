@@ -5,13 +5,13 @@ package Course.Overflow.Global.Main;
  * template file, choose ToolKit | Templates and open the template in the editor.
  */
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Page.ContainerPage;
+import Course.Overflow.Global.Page.PageName;
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -55,21 +55,23 @@ public class AppMain extends Application {
         System.out.println("FXML is loaded...");
     }
     private void testPage() throws IOException{
-        pane = (AnchorPane) FXMLLoader.load(getClass().getResource(GLOBAL.LOGIN_SIGNUP_LOCATION+ "/Signup.fxml"));
-        StackPane sp = new StackPane(pane);
-        sp.setPrefWidth(GLOBAL.WIDTH);
-        sp.setPrefHeight(GLOBAL.HEIGHT);
+//        pane = (AnchorPane) FXMLLoader.load(getClass().getResource(GLOBAL.LOGIN_SIGNUP_LOCATION+ "/Signup.fxml"));
+//        StackPane sp = new StackPane(pane);
+//        sp.setPrefWidth(GLOBAL.WIDTH);
+//        sp.setPrefHeight(GLOBAL.HEIGHT);
 
-//        ContainerPage page = new ContainerPage();
-//        GLOBAL.PAGE_CTRL = page;
-//        pane = page.getContainer();
+ContainerPage page = new ContainerPage(PageName.Login);
+        GLOBAL.PAGE_CTRL = page;
+        pane = page.getContainer();
         
-        ScrollPane sc = new ScrollPane(sp);
+        ScrollPane sc = new ScrollPane(pane);
         sc.setPrefWidth(GLOBAL.WIDTH);
         sc.setPrefHeight(GLOBAL.HEIGHT);
         sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         root.getChildren().add(sc);
+        
+        GLOBAL.rootScroll = sc;
     }
 
     /**

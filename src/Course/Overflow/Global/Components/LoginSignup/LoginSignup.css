@@ -7,9 +7,8 @@ and open the template in the editor.
     Created on : Apr 6, 2020, 9:38:41 AM
     Author     : Asus
 */
-.Button
-{
-    -fx-font: "20";
+.Button{
+    -fx-font-size: 20;
     -fx-background-color: red;
 }
 

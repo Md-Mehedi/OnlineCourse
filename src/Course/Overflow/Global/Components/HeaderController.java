@@ -109,7 +109,7 @@ public class HeaderController implements Initializable {
         setProfilePanePosition();
     }
     
-    private void setNotiPanePosition(){
+    public void setNotiPanePosition(){
         Platform.runLater(()->{
             noti.setLayoutY(header.getHeight());
             noti.setLayoutX(header.getWidth() - noti.getWidth());
@@ -167,7 +167,7 @@ public class HeaderController implements Initializable {
         MyFadeTransition ft = new MyFadeTransition(box, subCatRoot, Duration.millis(200), mainCatTransition.getHide());
         
         Platform.runLater(()->{
-            subCatRoot.setLayoutX(categoriesBtn.getLayoutX() + ((HBox)mainContainer.getChildren().get(0)).getPrefWidth());
+            subCatRoot.setLayoutX(categoriesBtn.getLayoutX() + 300);
             int mainCatNum = mainContainer.getChildren().size();
             double itemHeight = ((HBox)mainContainer.getChildren().get(0)).getPrefHeight();
             if(mainCatNum-pos+1< subCatNum && mainCatNum>subCatNum){
@@ -185,6 +185,8 @@ public class HeaderController implements Initializable {
     public void createCategories(){
         VBox catContainer = new VBox();
         AnchorPane catRoot = new AnchorPane(catContainer);
+        catRoot.setLayoutX(categoriesBtn.getLayoutX());
+        catRoot.setLayoutY(header.getPrefHeight());
         catRoot.getStylesheets().add(GLOBAL.COMPONENTS_LOCATION + "/Components.css");
         mainCatTransition = new MyFadeTransition(categoriesBtn, catRoot, Duration.millis(200));
         ToolKit.setAnchor(catContainer, 0, 0, 0, 0);
@@ -193,8 +195,6 @@ public class HeaderController implements Initializable {
         }
         catContainer.getStyleClass().add("catContainer");
         GLOBAL.rootPane.getChildren().add(catRoot);
-        catRoot.setLayoutX(categoriesBtn.getLayoutX());
-        catRoot.setLayoutY(header.getPrefHeight());
     }
 
     public Label getLeftArrow() {

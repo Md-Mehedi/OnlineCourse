@@ -8,6 +8,7 @@ package Course.Overflow.Global;
 import Course.Overflow.Global.Components.HeaderController;
 import Course.Overflow.Global.Components.TopMenuBar.MenuBar;
 import Course.Overflow.Global.Page.ContainerPage;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -59,6 +60,7 @@ public class GLOBAL {
     public static final double CENTER_RIGHT_WIDTH = 1055;
     public static final double LEFT_WIDTH = 300;
     public static AnchorPane rootPane;
+    public static ScrollPane rootScroll;
     public static AnchorPane scrollingPane;
     public static ContainerPage PAGE_CTRL;
     public static HeaderController HEADER;

@@ -58,7 +58,7 @@ public class CourseListShowPage extends Page{
         } catch (IOException ex) {
             Logger.getLogger(TeacherDetailsPage.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(GLOBAL.PAGE_CTRL.curPage == PageName.PurchaseHistory) ctrl.addPurchaseDateColumn();
+        if(title == "Your purchase history") ctrl.addPurchaseDateColumn();
     }
     
 }

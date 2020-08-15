@@ -29,6 +29,8 @@ public enum PageName {
     , CreateCourseCurriculum("Set your curriculum")
     , CreateCourseLanding("Landing page")
     , CreateCoursePricing("Set course price")
+    , Login()
+    , Signup()
     ;
     public String name;
 

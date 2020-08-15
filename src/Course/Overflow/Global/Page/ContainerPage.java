@@ -51,18 +51,20 @@ public class ContainerPage {
     
 
     public ContainerPage() {
+        this(PageName.Home);
+    }
+    
+    public ContainerPage(PageName pageName){
         pages = new ArrayList<>();
         pageIdx = -1;
         
-        verticalBox = new VBox();
-        wrapper = new AnchorPane(verticalBox);
-        scroll = new ScrollPane(wrapper);
-        container = new AnchorPane(scroll);
-        ToolKit.setAnchor(verticalBox, 0, 0, 0, 0);
-        ToolKit.setAnchor(scroll, 0, 0, 0, 0);        
+        container = new AnchorPane();
+        scroll = new ScrollPane();    
         
-        createLayout();
-        loadPage(PageName.Messenger);
+        if(pageName != PageName.Login && pageName != PageName.Signup){
+            createLayout();
+        }
+        loadPage(pageName);
     }
     
     public AnchorPane getContainer(){
@@ -90,6 +92,14 @@ public class ContainerPage {
     
     public void createLayout(){
         try {
+            verticalBox = new VBox();
+            wrapper = new AnchorPane(verticalBox);
+            scroll = new ScrollPane(wrapper);
+            container.getChildren().clear();
+            container.getChildren().add(scroll);
+            ToolKit.setAnchor(verticalBox, 0, 0, 0, 0);
+            ToolKit.setAnchor(scroll, 0, 0, 0, 0);    
+            
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/Header.fxml"));
             header = loader.load();
             headerCtrl = loader.<HeaderController>getController();
@@ -128,8 +138,10 @@ public class ContainerPage {
     
     public void loadPage(PageName pageName){
         if(curPage == pageName) return;
+        if(!container.getChildren().contains(scroll)){
+            createLayout();
+        }
         
-        curPage = pageName;
         switch(pageName){
             case Home:  
                 if(curPage != PageName.Home){
@@ -147,10 +159,25 @@ public class ContainerPage {
             case Messenger:
             case FAQ:
             case Review: 
-            case Anouncement: page = new CommunicationPage(pageName);
-            break;
+            case Anouncement: page = new CommunicationPage(pageName); break;
+            case Login: loadFXML(GLOBAL.LOGIN_SIGNUP_LOCATION + "/Login.fxml"); break;
+            case Signup: loadFXML(GLOBAL.LOGIN_SIGNUP_LOCATION + "/Signup.fxml"); break;
         }
-        loadPage(page);
- 
+        if(pageName != PageName.Login && pageName != PageName.Signup){
+            loadPage(page);
+        }
+        curPage = pageName;
     }
+
+    private void loadFXML(String fxmlName) {
+        try {
+            container.getChildren().clear();
+            loader = new FXMLLoader(getClass().getResource(fxmlName));
+            AnchorPane pane = loader.load();
+            container.getChildren().add(pane);
+        } catch (IOException ex) {
+            Logger.getLogger(ContainerPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
