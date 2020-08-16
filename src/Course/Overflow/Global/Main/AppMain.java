@@ -60,7 +60,7 @@ public class AppMain extends Application {
 //        sp.setPrefWidth(GLOBAL.WIDTH);
 //        sp.setPrefHeight(GLOBAL.HEIGHT);
 
-ContainerPage page = new ContainerPage(PageName.Login);
+ContainerPage page = new ContainerPage(PageName.ProfileSetting);
         GLOBAL.PAGE_CTRL = page;
         pane = page.getContainer();
         

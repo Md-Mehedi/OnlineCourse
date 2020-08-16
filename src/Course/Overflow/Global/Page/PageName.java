@@ -31,6 +31,7 @@ public enum PageName {
     , CreateCoursePricing("Set course price")
     , Login()
     , Signup()
+    , ProfileSetting()
     ;
     public String name;
 

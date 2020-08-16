@@ -31,7 +31,7 @@ public class MyFadeTransition {
         duration = new Duration(50);
         dependentTransition = new FadeTransition();
         show = new FadeTransition(duration, node);
-        hide = new FadeTransition(duration, node);
+        hide = new FadeTransition(Duration.millis(duration.toMillis()+200), node);
         
         show.setToValue(1);
         hide.setToValue(0);

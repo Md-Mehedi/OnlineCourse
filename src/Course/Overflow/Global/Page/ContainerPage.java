@@ -162,6 +162,7 @@ public class ContainerPage {
             case Anouncement: page = new CommunicationPage(pageName); break;
             case Login: loadFXML(GLOBAL.LOGIN_SIGNUP_LOCATION + "/Login.fxml"); break;
             case Signup: loadFXML(GLOBAL.LOGIN_SIGNUP_LOCATION + "/Signup.fxml"); break;
+            case ProfileSetting: page = new ProfileSettingPage();
         }
         if(pageName != PageName.Login && pageName != PageName.Signup){
             loadPage(page);

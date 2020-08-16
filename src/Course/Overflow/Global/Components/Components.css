@@ -196,3 +196,47 @@ Label{
 .catContainer FontAwesomeIconView{
     -glyph-size: 30;
 }
+
+/*Profile & Settings*/
+.profileSettingRoot HBox, .profileSettingRoot VBox{
+    -fx-alignment: CENTER;
+}
+.profileSetting HBox, .profileSetting VBox{
+}
+.profileSetting > HBox{
+    -fx-alignment: top-center;
+    -fx-spacing: 30;
+}
+.profileSetting > HBox > VBox{
+    -fx-alignment: top-center;
+    -fx-spacing: 30;
+    -fx-pref-width: 400;
+}
+.profileSetting > HBox > .first, .profileSetting ChoiceBox{
+    -fx-pref-width: 350;
+}
+.profileSetting > HBox > .second{
+    -fx-pref-width: 550;
+}
+.fieldContainer{
+    -fx-alignment: center-left;
+    -fx-spacing: 2;
+}
+.fieldContainer > Label{
+    -fx-padding: 0;
+}
+.fieldContainer > HBox{
+    -fx-spacing: 0;
+}
+.fieldContainer > HBox > .disableField{
+    -fx-pref-width: 250;
+}
+.profileSettingRoot JFXButton{
+    -fx-background-color: #009999;
+    -fx-text-fill: white;
+    -fx-font-size: 21;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-pref-height: 50;
+    -fx-pref-width: 120;
+}
