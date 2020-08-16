@@ -12,6 +12,7 @@ import Course.Overflow.Global.Components.RightMenuPopOverController;
 import Course.Overflow.Global.Components.TopMenuBar.MenuBar;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.PageByPageLayoutController;
+import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -143,16 +144,19 @@ public class ContainerPage {
         }
         
         switch(pageName){
-            case Home:  
-                if(curPage != PageName.Home){
-                    page = new Homepage();
-                }
-                break;
+            case Home: page = new Homepage(); break;
             case Course: page = new CoursePage(); break;
             case TeacherDetails: page = new TeacherDetailsPage(); break;
             case MyCourse: page = new CourseListShowPage("My courses"); break;
             case Wishlist: page = new CourseListShowPage("Wishlist"); break;
-            case PurchaseHistory: page = new CourseListShowPage("Your purchase history", PageByPageLayoutController.BoxType.CourseVertical); break;
+            case PurchaseHistory: 
+                if(GLOBAL.ACCOUNT_TYPE == Person.AccountType.Student){
+                    page = new CourseListShowPage("Your purchase history", PageByPageLayoutController.BoxType.CourseVertical);
+                } 
+                else if(GLOBAL.ACCOUNT_TYPE == Person.AccountType.Teacher){
+                    page = new PurchaseHistoryPage();
+                } 
+                break;
             case SearchResult: page = new SearchResultPage(); break;
             case Overview:
             case EnrolledStudents:

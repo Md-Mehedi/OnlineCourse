@@ -7,6 +7,7 @@
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,7 +16,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.LoginSignup.SignupController">
    <children>
@@ -91,6 +91,12 @@
                               </Label>
                               <VBox>
                                  <children>
+                                    <HBox>
+                                       <children>
+                                          <MaterialDesignIconView glyphName="ACCOUNT_MULTIPLE" size="35" />
+                                          <ChoiceBox fx:id="accountType" prefHeight="33.0" prefWidth="160.0" />
+                                       </children>
+                                    </HBox>
                                     <HBox>
                                        <children>
                                           <MaterialDesignIconView glyphName="FILE_DOCUMENT_BOX" size="35" />

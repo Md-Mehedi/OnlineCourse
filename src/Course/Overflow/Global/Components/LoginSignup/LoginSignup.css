@@ -35,7 +35,7 @@ and open the template in the editor.
     -fx-alignment: center;
 }
 .rightPane > VBox{
-    -fx-spacing: 25;
+    -fx-spacing: 10;
 }
 .rightPane > VBox > VBox{
     -fx-spacing: 15;

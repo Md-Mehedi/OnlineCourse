@@ -87,5 +87,8 @@ public class RightMenuPopOverController implements Initializable {
         else if(event.getSource()==setting){
             GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
         }
+        else if(event.getSource()==accountSetting){
+            GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
+        }
     }    
 }

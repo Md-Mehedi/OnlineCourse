@@ -7,15 +7,19 @@ package Course.Overflow.Global.Components.LoginSignup;
 
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.Person;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
@@ -52,13 +56,16 @@ public class SignupController implements Initializable {
     @FXML
     private AnchorPane root;
     private FXMLLoader loader;
+    @FXML
+    private ChoiceBox<String> accountType;
+    private ObservableList<String> numOfItemList;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        setUpAccountTypeChoiceBox();
         addListener();
 
 //        System.out.println("hi");
@@ -188,7 +195,15 @@ public class SignupController implements Initializable {
         });
         signupBtn.setOnMouseClicked((event) -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
+            GLOBAL.ACCOUNT_TYPE = Person.AccountType.valueOf(accountType.getValue());
         });
+    }
+
+    private void setUpAccountTypeChoiceBox() {
+    
+        numOfItemList = FXCollections.observableArrayList();
+        numOfItemList.addAll("Admin", "Student", "Teacher");
+        accountType.setItems(numOfItemList);
     }
 
 }

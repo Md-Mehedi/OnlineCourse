@@ -111,6 +111,43 @@
                   </HBox>
                </children>
             </VBox>
+            <VBox style="-fx-padding: 0 150 0 150;" styleClass="profileSetting">
+               <children>
+                  <Label styleClass="title1" text="Security" />
+                  <HBox>
+                     <children>
+                        <VBox style="-fx-pref-width: -1;" HBox.hgrow="ALWAYS">
+                           <children>
+                              <VBox styleClass="fieldContainer">
+                                 <children>
+                                    <Label text="Email" />
+                                    <TextField fx:id="email" />
+                                 </children>
+                              </VBox>
+                              <VBox styleClass="fieldContainer">
+                                 <children>
+                                    <Label text="Old Password" />
+                                    <TextField fx:id="oldPass" />
+                                 </children>
+                              </VBox>
+                              <VBox styleClass="fieldContainer">
+                                 <children>
+                                    <Label text="New Password" />
+                                    <TextField fx:id="newPass" />
+                                 </children>
+                              </VBox>
+                              <VBox styleClass="fieldContainer">
+                                 <children>
+                                    <Label text="New Password (Again)" />
+                                    <TextField fx:id="newPassAgain" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
             <HBox>
                <children>
                   <JFXButton fx:id="save" text="Save" />

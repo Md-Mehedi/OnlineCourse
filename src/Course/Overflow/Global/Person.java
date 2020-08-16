@@ -12,12 +12,23 @@ package Course.Overflow.Global;
  * @author Md Mehedi Hasan
  */
 public class Person {
+    public enum AccountType{
+        Admin("Admin"), Student("Student"), Teacher("Teacher");
+        
+        String name;
+        private AccountType(String name) {
+            this.name = name;
+        }
+        
+    }
+    
     int id;
     String firstName;
     String lastName;
     String shortDescription;
     String description;
     Language language;
+    AccountType accountType;
 
     public Person(int id, String firstName, String lastName, String shortDescription, String description, Language language) {
         this.id = id;
@@ -50,6 +61,14 @@ public class Person {
 
     public Language getLanguage() {
         return language;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
     }
     
 

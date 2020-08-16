@@ -60,7 +60,15 @@ public class ProfileSettingController implements Initializable {
     private JFXButton save;
     @FXML
     private JFXButton cancel;
-    private ArrayList<CheckBox> selectedLanguage;
+    private ArrayList<Language> selectedLanguage;
+    @FXML
+    private TextField email;
+    @FXML
+    private TextField oldPass;
+    @FXML
+    private TextField newPass;
+    @FXML
+    private TextField newPassAgain;
 
     /**
      * Initializes the controller class.
@@ -83,16 +91,21 @@ public class ProfileSettingController implements Initializable {
             cb.setStyle(cb.getStyle() + "-fx-font-size: 18;");
             cb.setOnMouseClicked((event) -> {
                 if(cb.isSelected()){
-                    selectedLanguage.add(cb);
+                    selectedLanguage.add(l);
                 }
                 else{
-                    selectedLanguage.remove(cb);
+                    selectedLanguage.remove(l);
                 }
                 refreshLanguageString();
             });
         }
         
-        new HoverEffect(language, root);
+        new HoverEffect(language, root) {
+            @Override
+            public void setLocation() {
+                this.defaultLocation();
+            }
+        };
         
         Platform.runLater(()->{
             root.setStyle(
@@ -114,7 +127,7 @@ public class ProfileSettingController implements Initializable {
         String[] languages = new String[selectedLanguage.size()];
         
         for(int i=0; i<selectedLanguage.size(); i++){
-            languages[i] = selectedLanguage.get(i).getText();
+            languages[i] = selectedLanguage.get(i).getName();
         }
         Arrays.sort(languages);
         for(String name : languages){

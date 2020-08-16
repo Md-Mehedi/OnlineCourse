@@ -50,6 +50,8 @@ public class OverviewController implements Initializable {
         enrollStudentBtn.setOnMouseClicked((event) -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.EnrolledStudents);
         });
+        historyBtn.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(PageName.PurchaseHistory);
+        });
     }
-    
 }

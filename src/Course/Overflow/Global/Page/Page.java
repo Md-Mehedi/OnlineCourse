@@ -6,6 +6,7 @@
 
 package Course.Overflow.Global.Page;
 
+import Course.Overflow.Global.GLOBAL;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -17,6 +18,7 @@ public class Page {
     
     public Page(){
         root = new AnchorPane();
+        root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
     }
 
     public AnchorPane getRoot() {

@@ -16,12 +16,14 @@ import javafx.util.Duration;
  *
  * @author Md Mehedi Hasan
  */
-public class HoverEffect {
+public abstract class HoverEffect {
     private Node node;
     private Node trigger;
     private Duration duration;
     private MyFadeTransition transition;
     private FadeTransition dependent;
+    
+    public abstract void setLocation();
 
     public HoverEffect(Node trigger, Node node, Duration duration, FadeTransition dependent) {
         this.trigger = trigger;
@@ -32,14 +34,20 @@ public class HoverEffect {
         
         Platform.runLater(()->{
             GLOBAL.rootPane.getChildren().add(node);
-            Platform.runLater(()->{
-                node.setLayoutX(trigger.localToScene(trigger.getBoundsInLocal()).getMinX());
-                node.setLayoutY(trigger.localToScene(trigger.getBoundsInLocal()).getMaxY()-5);
-                node.setStyle(node.getStyle() + "-fx-padding: 5 0 0 0;");
-            });
+            node.setStyle(node.getStyle() + "-fx-padding: 5 0 0 0;");
         });
-              
+        trigger.setOnMouseEntered((event) -> {
+            setLocation();
+        });
     }
+    
+    public void defaultLocation(){
+        Platform.runLater(()->{
+            node.setLayoutX(trigger.localToScene(trigger.getBoundsInLocal()).getMinX());
+            node.setLayoutY(trigger.localToScene(trigger.getBoundsInLocal()).getMaxY()-5);
+        });
+    }
+    
 
     public HoverEffect(Node trigger, Node node, Duration duration) {
         this(trigger, node, duration, new FadeTransition());

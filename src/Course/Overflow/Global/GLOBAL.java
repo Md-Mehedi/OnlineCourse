@@ -65,4 +65,5 @@ public class GLOBAL {
     public static ContainerPage PAGE_CTRL;
     public static HeaderController HEADER;
     public static MenuBar TOP_MENU_BAR;
+    public static Person.AccountType ACCOUNT_TYPE = Person.AccountType.Student;
 }
