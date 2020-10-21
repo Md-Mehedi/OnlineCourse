@@ -5,6 +5,7 @@
  */
 package Course.Overflow.Global.Components.LoginSignup;
 
+import Course.Overflow.DB;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
@@ -30,7 +31,6 @@ import javafx.scene.layout.AnchorPane;
  */
 public class SignupController implements Initializable {
 
-    private JFXTextField user_name;
     @FXML
     private JFXPasswordField password;
     @FXML
@@ -194,6 +194,10 @@ public class SignupController implements Initializable {
 //            }
         });
         signupBtn.setOnMouseClicked((event) -> {
+            String sql = "INSERT INTO SAMPLE values('" + username.getText() + "', '" + password.getText() +"')";
+            if(DB.execute("sample", "username", username.getText())) return;
+            DB.execute(sql);
+            
             GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
             GLOBAL.ACCOUNT_TYPE = Person.AccountType.valueOf(accountType.getValue());
         });
