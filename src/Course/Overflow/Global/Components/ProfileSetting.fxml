@@ -111,7 +111,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox style="-fx-padding: 0 150 0 150;" styleClass="profileSetting">
+            <VBox fx:id="securityBox" style="-fx-padding: 0 150 0 150;" styleClass="profileSetting">
                <children>
                   <Label styleClass="title1" text="Security" />
                   <HBox>

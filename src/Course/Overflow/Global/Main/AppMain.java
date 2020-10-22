@@ -4,6 +4,7 @@ package Course.Overflow.Global.Main;
  * To change this license HEADER, choose License Headers in Project Properties. To change this
  * template file, choose ToolKit | Templates and open the template in the editor.
  */
+import Course.Overflow.DB;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.ContainerPage;
 import Course.Overflow.Global.Page.PageName;
@@ -26,6 +27,7 @@ public class AppMain extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
+        DB.startConnection();
         complete = true;
         primaryStage.setTitle("Course Overflow");
         primaryStage.getProperties().put("hostServices", this.getHostServices());
@@ -60,7 +62,7 @@ public class AppMain extends Application {
 //        sp.setPrefWidth(GLOBAL.WIDTH);
 //        sp.setPrefHeight(GLOBAL.HEIGHT);
 
-        ContainerPage page = new ContainerPage(PageName.PurchaseHistory);
+        ContainerPage page = new ContainerPage(PageName.Signup);
         GLOBAL.PAGE_CTRL = page;
         pane = page.getContainer();
         
@@ -79,6 +81,7 @@ public class AppMain extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+        DB.closeConnection();
     }
 
 }

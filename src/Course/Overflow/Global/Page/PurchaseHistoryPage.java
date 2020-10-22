@@ -33,6 +33,7 @@ public class PurchaseHistoryPage extends Page{
     private GridPane colorGrid;
 
     public PurchaseHistoryPage() {
+        super(PageName.PurchaseHistory);
         grid = new GridPane();
         colorGrid = new GridPane();
         root.getChildren().add(colorGrid);

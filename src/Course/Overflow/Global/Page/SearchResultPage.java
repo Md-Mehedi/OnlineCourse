@@ -42,6 +42,7 @@ public class SearchResultPage extends Page{
     
     
     public SearchResultPage(){
+        super(PageName.SearchResult);
         root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
         chceckedCBList = new ArrayList<>();
         chceckedNameBoxList = new ArrayList<>();

@@ -82,6 +82,7 @@ public class LoginController implements Initializable {
 //            }
         });
         loginBtn.setOnMouseClicked((event) -> {
+            String sql = "SELECT PASSWORD FROM PERSON WHERE USERNAME = " + username.getText();
             GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
         });
     }

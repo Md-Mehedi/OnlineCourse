@@ -16,4 +16,5 @@ public class Lecture {
     int pos;
     boolean isPreview;
     String type;
+    
 }

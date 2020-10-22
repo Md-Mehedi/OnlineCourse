@@ -8,6 +8,7 @@ package Course.Overflow.Global.Components;
 import Course.Overflow.Global.Customize.HoverEffect;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Language;
+import Course.Overflow.Global.Page.PageName;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ArrayList;
@@ -69,6 +70,8 @@ public class ProfileSettingController implements Initializable {
     private TextField newPass;
     @FXML
     private TextField newPassAgain;
+    @FXML
+    private VBox securityBox;
 
     /**
      * Initializes the controller class.
@@ -139,6 +142,14 @@ public class ProfileSettingController implements Initializable {
             }
         }
         language.setText(text);
+    }
+
+    public void createEnvironmentForSignup() {
+        VBox parent = (VBox) securityBox.getParent();
+        parent.getChildren().remove(securityBox);
+        save.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
+        });
     }
     
 }

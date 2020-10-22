@@ -29,6 +29,7 @@ public class Homepage extends Page{
     
     
     public Homepage(){
+        super(PageName.Home);
         verticalBox = new VBox();
         root.getChildren().add(verticalBox);
         ToolKit.setAnchor(verticalBox, 0, 0, 0, 0);

@@ -20,6 +20,7 @@ public class TeacherDetailsPage extends Page{
 
     private FXMLLoader loader;
     public TeacherDetailsPage(){
+        super(PageName.TeacherDetails);
         try {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.TEACHER_LOCATION + "/TeacherPreview.fxml"));
             root = loader.load();

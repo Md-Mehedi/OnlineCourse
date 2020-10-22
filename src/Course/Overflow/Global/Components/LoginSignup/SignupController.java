@@ -5,10 +5,9 @@
  */
 package Course.Overflow.Global.Components.LoginSignup;
 
-import Course.Overflow.DB;
+import Course.Overflow.Global.Components.ProfileSettingController;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
-import Course.Overflow.Global.Person;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -194,12 +193,14 @@ public class SignupController implements Initializable {
 //            }
         });
         signupBtn.setOnMouseClicked((event) -> {
-            String sql = "INSERT INTO SAMPLE values('" + username.getText() + "', '" + password.getText() +"')";
-            if(DB.execute("sample", "username", username.getText())) return;
-            DB.execute(sql);
+//            String sql = "INSERT INTO SAMPLE values('" + username.getText() + "', '" + password.getText() +"')";
+//            if(DB.execute("sample", "username", username.getText())) return;
+//            DB.execute(sql);
             
-            GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
-            GLOBAL.ACCOUNT_TYPE = Person.AccountType.valueOf(accountType.getValue());
+            //GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
+            ProfileSettingController profSetCtrl =  (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
+            profSetCtrl.createEnvironmentForSignup();
+            // GLOBAL.ACCOUNT_TYPE = Person.AccountType.valueOf(accountType.getValue());
         });
     }
 

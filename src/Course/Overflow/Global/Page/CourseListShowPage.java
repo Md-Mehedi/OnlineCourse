@@ -33,6 +33,7 @@ public class CourseListShowPage extends Page{
     }
     
     public CourseListShowPage(String title, BoxType type){
+        super(PageName.MyCourse);
         this.type = type;
         root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
         

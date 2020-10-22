@@ -84,6 +84,10 @@ public class ContainerPage {
         }
     }
     
+    public PageName getPreviousPageName(){
+        return pages.get(pages.size()-1).getPageName();
+    }
+    
     public void loadPage(Page page){
         verticalBox.getChildren().remove(idx);
         verticalBox.getChildren().add(idx, page.getRoot());
@@ -174,15 +178,17 @@ public class ContainerPage {
         curPage = pageName;
     }
 
-    private void loadFXML(String fxmlName) {
+    public Object loadFXML(String fxmlName) {
         try {
             container.getChildren().clear();
             loader = new FXMLLoader(getClass().getResource(fxmlName));
             AnchorPane pane = loader.load();
             container.getChildren().add(pane);
+            return loader.getController();
         } catch (IOException ex) {
             Logger.getLogger(ContainerPage.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
     
 }

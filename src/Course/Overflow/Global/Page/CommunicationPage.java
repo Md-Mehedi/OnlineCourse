@@ -41,8 +41,9 @@ public class CommunicationPage extends Page{
     private EnrolledStudentsView studentCtrl;
     private AnchorPane enrolledStudentPane;
     private PageName pageName;
-    
-    private CommunicationPage(){
+        
+    public CommunicationPage(PageName pageName){
+        super(pageName);
         slidingPaneCtrl = new LeftSlidingPane(Type.NO_HOVER);
         slidingPaneCtrl.removeHeader();
         slidingPaneCtrl.removeFooter();
@@ -55,11 +56,7 @@ public class CommunicationPage extends Page{
         addFAQPage();
         addReviews();
         addAnouncement();
-        //slidingPaneCtrl.setDefaultContent(faqPane);
-    }
-    
-    public CommunicationPage(PageName pageName){
-        this();
+        
         this.pageName = pageName;
         switch(pageName){
             case Messenger: slidingPaneCtrl.setPage(messengerPane); break;

@@ -23,6 +23,7 @@ public class CoursePage extends Page{
     private CourseDetailsController pageCtrl;
     
     public CoursePage(){
+        super(PageName.Course);
         try {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_SHOW_LOCATION + "/CourseDetails.fxml"));
             root = loader.load();
