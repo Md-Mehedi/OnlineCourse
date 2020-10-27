@@ -70,19 +70,26 @@ public class DB {
         return rs;
     }
     
-    public static boolean execute(String tableName, String fieldName, String value){
-        try {
-            String sql = "SELECT " + fieldName + " From " + tableName + " where " + fieldName + " = '" + value + "'";
-            System.out.println(sql);
-            execute(sql);
-            if(!rs.next()) return false;
-            System.out.println(rs.getString(fieldName));
-            System.out.println(value);
-            System.out.println(rs.getString(fieldName).equals(value));
-            return rs.getString(fieldName).equals(value);
-        } catch (SQLException ex) {
-            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+//    public static boolean execute(String tableName, String fieldName, String value){
+//        try {
+//            String sql = "SELECT " + fieldName + " From " + tableName + " where " + fieldName + " = '" + value + "'";
+//            System.out.println(sql);
+//            execute(sql);
+//            if(!rs.next()) return false;
+//            System.out.println(rs.getString(fieldName));
+//            System.out.println(value);
+//            System.out.println(rs.getString(fieldName).equals(value));
+//            return rs.getString(fieldName).equals(value);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return false;
+//    }
+    
+    public static void execute(String sql, String ... arg){ // Replace # mark with value
+        for(String value : arg){
+            sql = sql.replaceFirst("#", value);
         }
-        return false;
+        execute(sql);
     }
 }
