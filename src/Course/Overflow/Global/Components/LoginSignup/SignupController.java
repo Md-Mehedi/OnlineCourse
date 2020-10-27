@@ -193,7 +193,10 @@ public class SignupController implements Initializable {
 //            }
         });
         signupBtn.setOnMouseClicked((event) -> {
-//            String sql = "INSERT INTO SAMPLE values('" + username.getText() + "', '" + password.getText() +"')";
+//            DB.execute("INSERT INTO SAMPLE values('#', '#')"
+//                  ,username.getText()
+//                  ,password.getText()
+//            );
 //            if(DB.execute("sample", "username", username.getText())) return;
 //            DB.execute(sql);
             
