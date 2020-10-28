@@ -5,6 +5,7 @@
  */
 package Course.Overflow.Global.Components.LoginSignup;
 
+import Course.Overflow.DB;
 import Course.Overflow.Global.Components.ProfileSettingController;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
@@ -193,10 +194,10 @@ public class SignupController implements Initializable {
 //            }
         });
         signupBtn.setOnMouseClicked((event) -> {
-//            DB.execute("INSERT INTO SAMPLE values('#', '#')"
-//                  ,username.getText()
-//                  ,password.getText()
-//            );
+            DB.execute("INSERT INTO SAMPLE values('#', '#')"
+                  ,username.getText()
+                  ,password.getText()
+            );
 //            if(DB.execute("sample", "username", username.getText())) return;
 //            DB.execute(sql);
             
