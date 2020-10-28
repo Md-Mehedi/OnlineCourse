@@ -3,11 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//@Mehedi Hasan vy apni boss
-// shudu boss na onek boro boss
-// Ami boss na vya
-//second update
-// Update Shammya
+
 package Course.Overflow;
 
 import java.sql.Connection;
@@ -92,16 +88,4 @@ public class DB {
         }
         execute(sql);
     }
-    //parle eibar thik kore dekha
-    
-    // New Function Will Be Here...
-    //Tor vul dhorsilam
-    // My new line...
-    
-    // My second update
-    
-    // My 4rd update
-    //5th update
-    
-    // Mehedi 5th update...
 }
