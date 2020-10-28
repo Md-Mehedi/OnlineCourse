@@ -80,6 +80,7 @@ public class ProfileSettingController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         selectedLanguage = new ArrayList<>();
         addLanguage();
+        addListener();
     }    
 
     private void addLanguage() {
@@ -149,6 +150,12 @@ public class ProfileSettingController implements Initializable {
         parent.getChildren().remove(securityBox);
         save.setOnMouseClicked((event) -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
+        });
+    }
+
+    private void addListener() {
+        save.setOnMouseClicked(event ->{
+            
         });
     }
     
