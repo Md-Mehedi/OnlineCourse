@@ -92,6 +92,7 @@ public class DB {
         }
         execute(sql);
     }
+    //parle eibar thik kore dekha
     
     // New Function Will Be Here...
     //Tor vul dhorsilam
