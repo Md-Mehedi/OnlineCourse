@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -41,14 +42,26 @@
                               </VBox>
                               <VBox styleClass="fieldContainer">
                                  <children>
-                                    <Label text="Headline" />
-                                    <TextField fx:id="headline" />
+                                    <Label text="Language" />
+                                    <TextField fx:id="language" editable="false" />
                                  </children>
                               </VBox>
                               <VBox styleClass="fieldContainer">
                                  <children>
-                                    <Label text="Language" />
-                                    <TextField fx:id="language" editable="false" />
+                                    <Label text="Country" />
+                                    <TextField fx:id="country" editable="false" />
+                                 </children>
+                              </VBox>
+                              <VBox styleClass="fieldContainer">
+                                 <children>
+                                    <Label text="Date of birth" />
+                                    <DatePicker fx:id="dob" prefHeight="50.0" prefWidth="360.0" />
+                                 </children>
+                              </VBox>
+                              <VBox styleClass="fieldContainer">
+                                 <children>
+                                    <Label text="About" />
+                                    <TextArea fx:id="about" prefHeight="100.0" />
                                  </children>
                               </VBox>
                            </children>
@@ -57,8 +70,8 @@
                            <children>
                               <VBox styleClass="fieldContainer">
                                  <children>
-                                    <Label text="Biography" />
-                                    <TextArea fx:id="biography" prefHeight="100.0" />
+                                    <Label text="Institution" />
+                                    <TextField fx:id="institution" />
                                  </children>
                               </VBox>
                               <VBox styleClass="fieldContainer">
@@ -72,7 +85,7 @@
                                     <Label text="Facebook" />
                                     <HBox>
                                        <children>
-                                          <TextField disable="true" prefWidth="245.0" styleClass="disableField" text="http://www.facebook.com" />
+                                          <TextField disable="true" prefWidth="245.0" styleClass="disableField" text="http://www.facebook.com/" />
                                           <TextField fx:id="facebook" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
@@ -83,10 +96,27 @@
                                     <Label text="Youtube" />
                                     <HBox>
                                        <children>
-                                          <TextField disable="true" styleClass="disableField" text="http://www.youtube.com" />
+                                          <TextField disable="true" styleClass="disableField" text="http://www.youtube.com/" />
                                           <TextField fx:id="youtube" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox styleClass="fieldContainer">
+                                 <children>
+                                    <Label text="LinkedIn" />
+                                    <HBox>
+                                       <children>
+                                          <TextField disable="true" prefWidth="245.0" styleClass="disableField" text="http://www.linkedin.com/" />
+                                          <TextField fx:id="linkedin" HBox.hgrow="ALWAYS" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox styleClass="fieldContainer">
+                                 <children>
+                                    <Label text="Biography" />
+                                    <TextArea fx:id="biography" prefHeight="100.0" />
                                  </children>
                               </VBox>
                            </children>

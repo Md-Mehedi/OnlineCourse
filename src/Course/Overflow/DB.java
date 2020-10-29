@@ -21,8 +21,8 @@ public class DB {
 
             System.out.println("Driver loaded successfully...");
 
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSE_OVERFLOW", "co");
-             // con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:globaldb", "COURSE_OVERFLOW", "co");
+//            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSE_OVERFLOW", "co");
+              con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:globaldb", "COURSE_OVERFLOW", "co");
             st = con.createStatement();
 
             System.out.println("Connection established");
@@ -53,17 +53,6 @@ public class DB {
         }
     }
 
-    public static ResultSet execute(String sql) {
-        try {
-            System.out.println(sql);
-            rs = st.executeQuery(sql);
-            return rs;
-        } catch (SQLException ex) {
-            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return rs;
-    }
-
 //    public static boolean execute(String tableName, String fieldName, String value){
 //        try {
 //            String sql = "SELECT " + fieldName + " From " + tableName + " where " + fieldName + " = '" + value + "'";
@@ -79,16 +68,52 @@ public class DB {
 //        }
 //        return false;
 //    }
-    public static void execute(String sql, String... arg) { // Replace # mark with value
+    
+    public static ResultSet executeQuery(String sql, String... arg) { // Replace # mark with value
+        System.out.println(sql);
         for (String value : arg) {
             sql = sql.replaceFirst("#", value);
         }
-        execute(sql);
+        
+        try {
+            System.out.println(sql);System.out.println("");
+            rs = st.executeQuery(sql);
+            rs.next();
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+            startConnection();
+        }
+        return rs;
     }
-    public static ResultSet executeRS(String sql, String... arg) { // Replace # mark with value
+    
+    public static boolean execute(String sql, String ... arg) { // Replace # mark with value
+        System.out.println(sql);
         for (String value : arg) {
             sql = sql.replaceFirst("#", value);
         }
-        return execute(sql);
+        
+        try {
+            System.out.println(sql);System.out.println("");
+            return st.execute(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+            startConnection();
+        }
+        return false;
+    }
+    
+    public static Integer generateId(String tableName, String idName){
+        ResultSet rs = executeQuery("SELECT NVL(MAX(#), 0)+1 # FROM #", idName, idName, tableName);
+        try {
+            return rs.getInt(idName);
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    public static Integer generateId(String tableName){
+        return generateId(tableName, "ID");
     }
 }

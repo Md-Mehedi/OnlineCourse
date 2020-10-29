@@ -5,17 +5,13 @@
  */
 package Course.Overflow.Global.Communication;
 
+import Course.Overflow.Files.FileType;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -99,12 +95,9 @@ public class MessengerController implements Initializable {
         addImageBtn.setOnMouseClicked((event) -> {
             FileChooser fc = new FileChooser();
             File file = fc.showOpenDialog(null);
-            String destURL = GLOBAL.ROOT_LOCATION + GLOBAL.PICTURE_LOCATION + "/Message_101_" + file.getName();
-            try {
-                Files.copy(file.toPath(), (new File(destURL)).toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException ex) {
-                Logger.getLogger(MessengerController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
+            
+            String destURL = ToolKit.copyFile(file, FileType.toType("Picture"));
             Image image = new Image((new File(destURL)).toURI().toString());
             
             makeMessage(image);

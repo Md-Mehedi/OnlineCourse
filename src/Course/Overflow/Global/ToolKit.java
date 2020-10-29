@@ -5,11 +5,19 @@
  */
 package Course.Overflow.Global;
 
+import Course.Overflow.DB;
+import Course.Overflow.Files.FileType;
+import Course.Overflow.Global.Communication.MessengerController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -310,12 +318,62 @@ public class ToolKit {
         }
     }
     
-    public static String getCurTime(){
-        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-        Date dateobj = new Date();
-        //System.out.println(df.format(dateobj));
-        
-        return "TO_DATE('" + df.format(dateobj) + "', 'dd/MM/yy hh24:mi:ss')";
+//    public static String getCurTimeForDB(){
+//        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+//        Date dateobj = new Date();
+//        //System.out.println(df.format(dateobj));
+//        
+//        return "TO_DATE('" + df.format(dateobj) + "', 'dd/MM/yy hh24:mi:ss')";
+//    }
+//    
+//    public static String DateFormatDB(){
+//        return "yyyy-mm-dd hh:mm:ss";
+//    }
+    
+    /*
+     * Date Related Functions
+     */
+    public static String dateFormatDB(){
+        return "yyyy-mm-dd hh24:mi:ss";
     }
     
+    public static String dateFormatJAVA(){
+        return "yyyy-MM-dd HH:mm:ss";
+    }
+    
+    public static String getCurTimeDB(){
+        DateFormat df = new SimpleDateFormat(dateFormatJAVA());
+        Date dateobj = new Date();
+        System.out.println(df.format(dateobj));
+        
+        return "TO_DATE('" + df.format(dateobj) + "', '" + dateFormatDB() + "')";
+    }
+    
+    public static Date getCurTime(){
+       return new Date();
+    }
+    
+    public static String makeDateForDB(Date date){
+        SimpleDateFormat df = new SimpleDateFormat(dateFormatJAVA());
+        return "TO_DATE('" + df.format(date) + "', '" + dateFormatDB() + "')";
+    }
+    /*
+     * Date Related Function End
+     */
+    public static String copyFile(File file, FileType type){
+        String destPath = "";
+        switch(type.getType()){
+            case "Picture" : destPath += GLOBAL.PICTURE_LOCATION + "/Picture_" + DB.generateId("FILES").toString() + "_"; break;
+            
+        }
+        destPath += file.getName();
+        
+//        String destURL = GLOBAL.ROOT_LOCATION + GLOBAL.PICTURE_LOCATION + "/Message_101_" + file.getName();
+        try {
+            Files.copy(file.toPath(), (new File(GLOBAL.ROOT_LOCATION + destPath)).toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ex) {
+            Logger.getLogger(MessengerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return destPath; 
+    }
 }
