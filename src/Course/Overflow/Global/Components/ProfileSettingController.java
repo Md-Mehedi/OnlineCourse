@@ -6,12 +6,15 @@
 package Course.Overflow.Global.Components;
 
 import Course.Overflow.DB;
+import Course.Overflow.Files.FileType;
+import Course.Overflow.Files.Files;
 import Course.Overflow.Global.Customize.HoverEffect;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Language;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.ToolKit;
 import com.jfoenix.controls.JFXButton;
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,9 +28,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -87,6 +92,7 @@ public class ProfileSettingController implements Initializable {
     private String username;
     private String password;
     private ArrayList<Language> selectedLanguage;
+    private File photoFile;
     
 
     /**
@@ -166,8 +172,9 @@ public class ProfileSettingController implements Initializable {
         parent.getChildren().remove(securityBox);
         
         save.setOnMouseClicked((event) -> {
-            DB.execute("INSERT INTO PERSON(ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, SIGNUP_DATE, ABOUT) VALUES('#', '#', '#', '#', '#', #, '#')",
-                  username, email.getText(), password, firstName.getText(), lastName.getText(), ToolKit.getCurTime(), biography.getText()                  
+            Files fileDB = new Files(photoFile, FileType.toType("Picture"));
+            DB.execute("INSERT INTO PERSON(ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, SIGNUP_DATE, ABOUT, PHOTO_ID) VALUES('#', '#', '#', '#', '#', #, '#', #)",
+                  username, email.getText(), password, firstName.getText(), lastName.getText(), ToolKit.getCurTimeDB(), biography.getText(), fileDB.getId().toString()
             );
             
             GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
@@ -175,6 +182,14 @@ public class ProfileSettingController implements Initializable {
     }
 
     private void addListener() {
+        upload.setOnMouseClicked((event) -> {
+            FileChooser fc = new FileChooser();
+            fc.setInitialDirectory(new File(GLOBAL.FILE_CHOOSER_DIRECTORY));
+            photoFile = fc.showOpenDialog(null);
+            photo.setImage(new Image(photoFile.toURI().toString()));
+            GLOBAL.FILE_CHOOSER_DIRECTORY = photoFile.getParent();
+        });
+        
         save.setOnMouseClicked(event ->{
             
         });
