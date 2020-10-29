@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Course.Overflow.Global.Components.LoginSignup;
 
 import Course.Overflow.DB;
@@ -13,7 +8,11 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,12 +21,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
  *
- * @author Asus
+ * @author Mehedi,Shammya
  */
 public class SignupController implements Initializable {
 
@@ -45,6 +46,7 @@ public class SignupController implements Initializable {
     private Label pass_strength;
     Boolean press = false;
     int stat = 0;
+    int[] state = new int[]{0, 0, 0, 0};
     @FXML
     private JFXButton loginBtn;
     @FXML
@@ -67,102 +69,17 @@ public class SignupController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         setUpAccountTypeChoiceBox();
         addListener();
-
-//        System.out.println("hi");
-//        password.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//            @Override
-//            public void handle(KeyEvent event) {
-//                System.out.println("check");
-//                
-//                //while (press == false) 
-//                {
-//                    String pass = password.getText().toString();
-//                    for (int i = 0; i < pass.length(); i++) {
-//                        if ((pass.charAt(i) >= 'a' && pass.charAt(i) <= 'z')) {
-//                            stat = 1;
-//                        }
-//                        if ((stat == 1) && (pass.charAt(i) >= 'A' && pass.charAt(i) <= 'Z')) {
-//                            stat = 2;
-//                        }
-//                        if ((stat == 2) && (Character.isDigit(pass.charAt(i)))) {
-//                            stat = 3;
-//                        }
-//                        if ((stat == 3) && (Character.isLetter(pass.charAt(i)))) {
-//                            stat = 4;
-//                        }
-//                    }
-//                    if (stat == 1) {
-//                        pass_strength.setText("poor");
-//                        poor.setStyle("-fx-background-color: red;");
-//                        poor.getStyleClass().add("poor-active");
-//                    }
-//                    if (stat == 2) {
-//                        pass_strength.setText("medium");
-//                        medium.setStyle("-fx-background-color: yellow;");
-//                    }
-//                    if (stat == 3) {
-//                        pass_strength.setText("strong");
-//                        strong.setStyle("-fx-background-color: lightgreen;");
-//                    }
-//                    if (stat == 4) {
-//                        pass_strength.setText("very strong");
-//                        very_strong.setStyle("-fx-background-color: green;");
-//                    }
-//                   
-//                    //System.out.println(pass);
-//                }
-//            }
-//        });
-//                System.out.println("ok1");
-//        Platform.runLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                System.out.println("ok");
-//            }
-//        });
-//                System.out.println("ok2");
-
+        
     }
-
 
     @FXML
     private void TandC_clk(ActionEvent event) {
     }
 
-    @FXML
-    private void pass_clk(ActionEvent event) {
-//        int stat = 0;
-//        while (press == false) {
-//            String pass = user_name.getText().toString();
-//            for (int i = 0; i < pass.length(); i++) {
-//                if ((pass.charAt(i) >= 'a' && pass.charAt(i) <= 'z')) {
-//                    stat = 1;
-//                }
-//                if ((stat == 1) && (pass.charAt(i) >= 'A' && pass.charAt(i) <= 'Z')) {
-//                    stat = 2;
-//                }
-//                if ((stat == 2) && (Character.isDigit(pass.charAt(i)))) {
-//                    stat = 3;
-//                }
-//                if ((stat == 3) && (Character.isLetter(pass.charAt(i)))) {
-//                    stat = 4;
-//                }
-//            }
-//            if (stat == 1) {
-//                pass_strength.setText("poor");
-//            }
-//            if (stat == 2) {
-//                pass_strength.setText("medium");
-//            }
-//            if (stat == 3) {
-//                pass_strength.setText("strong");
-//            }
-//            if (stat == 4) {
-//                pass_strength.setText("very strong");
-//            }
-//            //System.out.println(pass);
-//        }
-//        System.out.println("hahah");
+    private void check_pass_strength(ActionEvent event) {
+
+        //System.out.println(pass);
+        // }
     }
 
     private void addListener() {
@@ -193,27 +110,101 @@ public class SignupController implements Initializable {
 //                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
 //            }
         });
-        signupBtn.setOnMouseClicked((event) -> {
-            DB.execute("INSERT INTO SAMPLE values('#', '#')"
-                  ,username.getText()
-                  ,password.getText()
-            );
+        signupBtn.setOnMouseClicked((event1) -> {
+            if (password.getText().toString() == "") {
+                JOptionPane.showConfirmDialog(null, "Password cannot be empty ! ", "select", JOptionPane.CANCEL_OPTION);
+            } else {
+                press = true;
+                String sql = "SELECT PASSWORD FROM PERSON WHERE ID = '#' AND PASSWORD = '#'";
+                ResultSet rs = DB.executeRS(sql, username.getText(), password.getText());
+                try {
+                    if (rs.next() == true) {
+                        int stat = JOptionPane.showConfirmDialog(null, "You have already signed up! Please Log in ", "select", JOptionPane.CANCEL_OPTION);
+                        //DB.execute("INSERT INTO SAMPLE values('#', '#')", username.getText(), password.getText());
+                        if (stat == 0) {
+                            GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
+                        } else {
+                            email.setText("");
+                            username.setText("");
+                            password.setText("");
+                        }
+
+                    } else {
+                        ProfileSettingController profSetCtrl = (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
+                        profSetCtrl.createEnvironmentForSignup();
+                        profSetCtrl.setUsernamePassword(email.getText(), username.getText(), password.getText());
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(SignupController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
 //            if(DB.execute("sample", "username", username.getText())) return;
 //            DB.execute(sql);
-            
-            //GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
-            ProfileSettingController profSetCtrl =  (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
-            profSetCtrl.createEnvironmentForSignup();
-            profSetCtrl.setUsernamePassword(email.getText(), username.getText(), password.getText());
-            // GLOBAL.ACCOUNT_TYPE = Person.AccountType.valueOf(accountType.getValue());
+                //GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
+                // GLOBAL.ACCOUNT_TYPE = Person.AccountType.valueOf(accountType.getValue());
+            }
+
+        });
+        password.setOnKeyTyped((event2) -> {
+        //String spec_char = "!@#$%^&*()<>,./?;':+=-{[}]|~`\\";
+        // while (press == false) {
+        String pass = password.getText().toString();
+//        for (int i = 0; i < pass.length(); i++) {
+//            if ((pass.charAt(i) >= 'a' && pass.charAt(i) <= 'z')) {
+//                state[0] = 1;
+//            } else if ((state[0] == 1) && (pass.charAt(i) >= 'A' && pass.charAt(i) <= 'Z')) {
+//                state[1] = 1;
+//            } else if ((state[1] == 1) && (Character.isDigit(pass.charAt(i)))) {
+//                state[2] = 1;
+//            } else if ((state[2] == 1) && (spec_char.indexOf(pass.charAt(i)) != -1)) {
+//                state[3] = 1;
+//            }
+//        }
+//        stat = state[0] + state[1] + state[2] + state[3];
+        int len = pass.length();
+        if (len<=2 && len>0) {
+            pass_strength.setText("poor");
+            poor.setStyle(" -fx-background-color: red;");
+            medium.setStyle(" -fx-background-color:  #E79D30;");
+            strong.setStyle(" -fx-background-color:   #E79D30;");
+            very_strong.setStyle(" -fx-background-color:   #E79D30;");
+        } else if (len>2 && len<=4) {
+            pass_strength.setText("medium");
+            medium.setStyle(" -fx-background-color: yellow;");
+            strong.setStyle(" -fx-background-color:   #E79D30;");
+            very_strong.setStyle(" -fx-background-color:   #E79D30;");
+        } else if (len>4 && len<=6) {
+            pass_strength.setText("strong");
+            strong.setStyle(" -fx-background-color: blue;");
+        } else if (len>6) {
+            pass_strength.setText("very strong");
+            very_strong.setStyle(" -fx-background-color: #39FF14;");
+        }
+        else
+        {
+            pass_strength.setText("");
+            poor.setStyle(" -fx-background-color:  #E79D30;");
+            medium.setStyle(" -fx-background-color:  #E79D30;");
+            strong.setStyle(" -fx-background-color:   #E79D30;");
+            very_strong.setStyle(" -fx-background-color:   #E79D30;");
+        }
+        System.out.println("hi");
         });
     }
 
     private void setUpAccountTypeChoiceBox() {
-    
+
         numOfItemList = FXCollections.observableArrayList();
         numOfItemList.addAll("Admin", "Student", "Teacher");
         accountType.setItems(numOfItemList);
+    }
+
+    @FXML
+    private void check_pass_strength(MouseEvent event) {
+    }
+
+    @FXML
+    private void pass_clk(ActionEvent event) {
     }
 
 }
