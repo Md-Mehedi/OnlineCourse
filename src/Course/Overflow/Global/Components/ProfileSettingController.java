@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -42,8 +43,6 @@ public class ProfileSettingController implements Initializable {
     @FXML
     private TextField lastName;
     @FXML
-    private TextField headline;
-    @FXML
     private TextField language;
     @FXML
     private TextArea biography;
@@ -63,7 +62,6 @@ public class ProfileSettingController implements Initializable {
     private JFXButton save;
     @FXML
     private JFXButton cancel;
-    private ArrayList<Language> selectedLanguage;
     @FXML
     private TextField email;
     @FXML
@@ -74,9 +72,21 @@ public class ProfileSettingController implements Initializable {
     private TextField newPassAgain;
     @FXML
     private VBox securityBox;
+    @FXML
+    private TextField country;
+    @FXML
+    private DatePicker dob;
+    @FXML
+    private TextArea about;
+    @FXML
+    private TextField institution;
+    @FXML
+    private TextField linkedin;
+    
     
     private String username;
     private String password;
+    private ArrayList<Language> selectedLanguage;
     
 
     /**
@@ -154,6 +164,7 @@ public class ProfileSettingController implements Initializable {
     public void createEnvironmentForSignup() {
         VBox parent = (VBox) securityBox.getParent();
         parent.getChildren().remove(securityBox);
+        
         save.setOnMouseClicked((event) -> {
             DB.execute("INSERT INTO PERSON(ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, SIGNUP_DATE, ABOUT) VALUES('#', '#', '#', '#', '#', #, '#')",
                   username, email.getText(), password, firstName.getText(), lastName.getText(), ToolKit.getCurTime(), biography.getText()                  

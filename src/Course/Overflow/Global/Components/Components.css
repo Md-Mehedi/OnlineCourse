@@ -229,7 +229,7 @@ Label{
     -fx-spacing: 0;
 }
 .fieldContainer > HBox > .disableField{
-    -fx-pref-width: 250;
+    -fx-pref-width: 260;
 }
 .profileSettingRoot JFXButton{
     -fx-background-color: #009999;
