@@ -78,7 +78,6 @@ public class DB {
         try {
             System.out.println(sql);System.out.println("");
             rs = st.executeQuery(sql);
-            rs.next();
             return rs;
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
@@ -106,6 +105,7 @@ public class DB {
     public static Integer generateId(String tableName, String idName){
         ResultSet rs = executeQuery("SELECT NVL(MAX(#), 0)+1 # FROM #", idName, idName, tableName);
         try {
+            rs.next();
             return rs.getInt(idName);
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);

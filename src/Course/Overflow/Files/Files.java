@@ -31,6 +31,7 @@ public class Files {
     public Files(int id){
         ResultSet rs = DB.executeQuery("SELECT * FROM FILES WHERE ID=#", String.valueOf(id));
         try {
+            rs.next();
             type = new FileType(rs.getInt("TYPE"));
             title = rs.getString("CONTENT");
             uploadTime = new Date(rs.getString("UPLOAD_TIME"));
