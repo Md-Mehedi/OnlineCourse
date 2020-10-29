@@ -7,6 +7,9 @@ package Course.Overflow.Global;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -306,5 +309,13 @@ public class ToolKit {
             AnchorPane.setLeftAnchor(node, leftAnchor);
         }
     }
-
+    
+    public static String getCurTime(){
+        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+        Date dateobj = new Date();
+        //System.out.println(df.format(dateobj));
+        
+        return "TO_DATE('" + df.format(dateobj) + "', 'dd/MM/yy hh24:mi:ss')";
+    }
+    
 }

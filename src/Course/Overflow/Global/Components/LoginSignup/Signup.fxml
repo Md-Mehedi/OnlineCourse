@@ -100,7 +100,7 @@
                                     <HBox>
                                        <children>
                                           <MaterialDesignIconView glyphName="FILE_DOCUMENT_BOX" size="35" />
-                                          <JFXTextField fx:id="fullname" focusColor="#061646" prefHeight="28.0" prefWidth="160.0" promptText="Full name">
+                                          <JFXTextField fx:id="email" focusColor="#061646" prefHeight="28.0" prefWidth="160.0" promptText="E-mail">
                                              <font>
                                                 <Font name="Bell MT Bold" size="17.0" />
                                              </font>

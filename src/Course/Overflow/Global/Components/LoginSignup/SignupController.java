@@ -52,13 +52,13 @@ public class SignupController implements Initializable {
     @FXML
     private JFXButton signupBtn;
     @FXML
-    private JFXTextField fullname;
-    @FXML
     private AnchorPane root;
     private FXMLLoader loader;
     @FXML
     private ChoiceBox<String> accountType;
     private ObservableList<String> numOfItemList;
+    @FXML
+    private JFXTextField email;
 
     /**
      * Initializes the controller class.
@@ -204,6 +204,7 @@ public class SignupController implements Initializable {
             //GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
             ProfileSettingController profSetCtrl =  (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
             profSetCtrl.createEnvironmentForSignup();
+            profSetCtrl.setUsernamePassword(email.getText(), username.getText(), password.getText());
             // GLOBAL.ACCOUNT_TYPE = Person.AccountType.valueOf(accountType.getValue());
         });
     }

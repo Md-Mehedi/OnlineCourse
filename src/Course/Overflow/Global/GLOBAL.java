@@ -59,6 +59,7 @@ public class GLOBAL {
     public static double HEIGHT = 800;
     public static final double CENTER_RIGHT_WIDTH = 1055;
     public static final double LEFT_WIDTH = 300;
+    
     public static AnchorPane rootPane;
     public static ScrollPane rootScroll;
     public static AnchorPane scrollingPane;
