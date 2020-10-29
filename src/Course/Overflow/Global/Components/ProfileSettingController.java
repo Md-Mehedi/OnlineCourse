@@ -5,10 +5,12 @@
  */
 package Course.Overflow.Global.Components;
 
+import Course.Overflow.DB;
 import Course.Overflow.Global.Customize.HoverEffect;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Language;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.ToolKit;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ArrayList;
@@ -72,6 +74,10 @@ public class ProfileSettingController implements Initializable {
     private TextField newPassAgain;
     @FXML
     private VBox securityBox;
+    
+    private String username;
+    private String password;
+    
 
     /**
      * Initializes the controller class.
@@ -149,6 +155,10 @@ public class ProfileSettingController implements Initializable {
         VBox parent = (VBox) securityBox.getParent();
         parent.getChildren().remove(securityBox);
         save.setOnMouseClicked((event) -> {
+            DB.execute("INSERT INTO PERSON(ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, SIGNUP_DATE, ABOUT) VALUES('#', '#', '#', '#', '#', #, '#')",
+                  username, email.getText(), password, firstName.getText(), lastName.getText(), ToolKit.getCurTime(), biography.getText()                  
+            );
+            
             GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
         });
     }
@@ -157,6 +167,12 @@ public class ProfileSettingController implements Initializable {
         save.setOnMouseClicked(event ->{
             
         });
+    }
+    
+    public void setUsernamePassword(String email, String username, String password){
+        this.username = username;
+        this.password = password;
+        this.email.setText(email);
     }
     
 }
