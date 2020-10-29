@@ -1,17 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Course.Overflow.Global.Components.LoginSignup;
 
+import Course.Overflow.DB;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.sql.*;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +21,7 @@ import javafx.scene.layout.Pane;
 /**
  * FXML Controller class
  *
- * @author Asus
+ * @author Kazi wasif Amin
  */
 public class LoginController implements Initializable {
 
@@ -44,14 +43,13 @@ public class LoginController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         addListener();
         Platform.runLater(() -> {
             rootContainer = (Pane) root.getParent();
         });
-    }    
+    }
 
     private void addListener() {
         signUpBtn.setOnMouseClicked((event) -> {
@@ -82,8 +80,23 @@ public class LoginController implements Initializable {
 //            }
         });
         loginBtn.setOnMouseClicked((event) -> {
-            String sql = "SELECT PASSWORD FROM PERSON WHERE USERNAME = " + username.getText();
-            GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
+            String sql = "SELECT PASSWORD FROM PERSON WHERE ID = '#' AND PASSWORD = '#'";
+            try {
+                ResultSet rs = DB.executeRS(sql, username.getText(),password.getText());
+                if(rs.next()== true)
+                {
+                    System.out.println("successfully logged in to "+username.getText()+" account");
+                    GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
+                }
+                else
+                {
+                    System.out.println("invalid userid and password");
+                }
+             
+            } catch (Exception ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         });
     }
 }

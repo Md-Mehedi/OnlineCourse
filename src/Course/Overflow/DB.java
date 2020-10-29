@@ -1,36 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Course.Overflow;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * @author Md Mehedi Hasan
+ * @author Md Mehedi Hasan , Kazi Wasif Amin
  */
 public class DB {
+
     private static Connection con;
     private static ResultSet rs;
     private static Statement st;
-    
-    public static void startConnection(){
+
+    public static void startConnection() {
         try {
             Class.forName("oracle.jdbc.OracleDriver").newInstance();
 //        DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
 
             System.out.println("Driver loaded successfully...");
 
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:globaldb", "COURSE_OVERFLOW", "co");
+            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSE_OVERFLOW", "co");
+             // con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:globaldb", "COURSE_OVERFLOW", "co");
             st = con.createStatement();
 
             System.out.println("Connection established");
@@ -44,18 +36,24 @@ public class DB {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static void closeConnection(){
+
+    public static void closeConnection() {
         try {
-            if(rs!=null) rs.close();
-            if(st!=null) st.close();
-            if(con!=null) con.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (st != null) {
+                st.close();
+            }
+            if (con != null) {
+                con.close();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static ResultSet execute(String sql){
+
+    public static ResultSet execute(String sql) {
         try {
             System.out.println(sql);
             rs = st.executeQuery(sql);
@@ -65,7 +63,7 @@ public class DB {
         }
         return rs;
     }
-    
+
 //    public static boolean execute(String tableName, String fieldName, String value){
 //        try {
 //            String sql = "SELECT " + fieldName + " From " + tableName + " where " + fieldName + " = '" + value + "'";
@@ -81,11 +79,16 @@ public class DB {
 //        }
 //        return false;
 //    }
-    
-    public static void execute(String sql, String ... arg){ // Replace # mark with value
-        for(String value : arg){
+    public static void execute(String sql, String... arg) { // Replace # mark with value
+        for (String value : arg) {
             sql = sql.replaceFirst("#", value);
         }
         execute(sql);
+    }
+    public static ResultSet executeRS(String sql, String... arg) { // Replace # mark with value
+        for (String value : arg) {
+            sql = sql.replaceFirst("#", value);
+        }
+        return execute(sql);
     }
 }
