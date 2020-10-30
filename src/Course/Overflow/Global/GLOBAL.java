@@ -67,5 +67,5 @@ public class GLOBAL {
     public static HeaderController HEADER;
     public static MenuBar TOP_MENU_BAR;
     public static Person.AccountType ACCOUNT_TYPE = Person.AccountType.Student;
-    public static String FILE_CHOOSER_DIRECTORY = "C:\\Users\\ASUS\\Pictures\\Project";
+    public static String FILE_CHOOSER_DIRECTORY = "";
 }
