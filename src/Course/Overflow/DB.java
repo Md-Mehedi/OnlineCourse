@@ -20,9 +20,8 @@ public class DB {
 //        DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
 
             System.out.println("Driver loaded successfully...");
-
-//            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSE_OVERFLOW", "co");
-              con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:globaldb", "COURSE_OVERFLOW", "co");
+           con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSE_OVERFLOW", "co");
+             // con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:globaldb", "COURSE_OVERFLOW", "co");
             st = con.createStatement();
 
             System.out.println("Connection established");
@@ -115,5 +114,19 @@ public class DB {
     
     public static Integer generateId(String tableName){
         return generateId(tableName, "ID");
+    }
+    public  static boolean valueExist(String table,String column,String val)
+    {
+        try {
+            String sql = "SELECT * FROM '#' WHERE '#' = '#' ";
+            ResultSet rs = executeQuery(sql, table,column,val);
+            if(rs.next() == false)
+                return false;
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
     }
 }

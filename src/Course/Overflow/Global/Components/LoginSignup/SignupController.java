@@ -8,11 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -114,31 +110,23 @@ public class SignupController implements Initializable {
             if (password.getText().toString() == "") {
                 JOptionPane.showConfirmDialog(null, "Password cannot be empty ! ", "select", JOptionPane.CANCEL_OPTION);
             } else {
-                press = true;
-                String sql = "SELECT PASSWORD FROM PERSON WHERE ID = '#' AND PASSWORD = '#'";
-                ResultSet rs = DB.executeRS(sql, username.getText(), password.getText());
-                try {
-                    if (rs.next() == true) {
-                        int stat = JOptionPane.showConfirmDialog(null, "You have already signed up! Please Log in ", "select", JOptionPane.CANCEL_OPTION);
-                        //DB.execute("INSERT INTO SAMPLE values('#', '#')", username.getText(), password.getText());
-                        if (stat == 0) {
-                            GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
-                        } else {
-                            email.setText("");
-                            username.setText("");
-                            password.setText("");
-                        }
-
+//                String sql = "SELECT PASSWORD FROM PERSON WHERE ID = '#' AND PASSWORD = '#'";
+//                ResultSet rs = DB.executeQuery(sql, username.getText(), password.getText());
+                if (DB.valueExist("PERSON","EMAIL",email.getText()) == true ||DB.valueExist("PERSON","USERNAME",username.getText()) == true) {
+                    int stat = JOptionPane.showConfirmDialog(null, "You have already signed up! Please Log in ", "select", JOptionPane.CANCEL_OPTION);
+                    //DB.execute("INSERT INTO SAMPLE values('#', '#')", username.getText(), password.getText());
+                    if (stat == 0) {
+                        GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
                     } else {
-                        ProfileSettingController profSetCtrl = (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
-                        profSetCtrl.createEnvironmentForSignup();
-                        profSetCtrl.setUsernamePassword(email.getText(), username.getText(), password.getText());
+                        email.setText("");
+                        username.setText("");
+                        password.setText("");
                     }
-                } catch (SQLException ex) {
-                    Logger.getLogger(SignupController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-//            if(DB.execute("sample", "username", username.getText())) return;
+                } else {
+                    ProfileSettingController profSetCtrl = (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
+                    profSetCtrl.createEnvironmentForSignup();
+                    profSetCtrl.setUsernamePassword(email.getText(), username.getText(), password.getText());
+                }//            if(DB.execute("sample", "username", username.getText())) return;
 //            DB.execute(sql);
                 //GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
                 // GLOBAL.ACCOUNT_TYPE = Person.AccountType.valueOf(accountType.getValue());
@@ -188,7 +176,6 @@ public class SignupController implements Initializable {
             strong.setStyle(" -fx-background-color:   #E79D30;");
             very_strong.setStyle(" -fx-background-color:   #E79D30;");
         }
-        System.out.println("hi");
         });
     }
 
