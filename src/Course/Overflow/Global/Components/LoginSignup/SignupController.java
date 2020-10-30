@@ -65,7 +65,7 @@ public class SignupController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         setUpAccountTypeChoiceBox();
         addListener();
-        
+
     }
 
     @FXML
@@ -112,7 +112,7 @@ public class SignupController implements Initializable {
             } else {
 //                String sql = "SELECT PASSWORD FROM PERSON WHERE ID = '#' AND PASSWORD = '#'";
 //                ResultSet rs = DB.executeQuery(sql, username.getText(), password.getText());
-                if (DB.valueExist("PERSON","EMAIL",email.getText()) == true ||DB.valueExist("PERSON","USERNAME",username.getText()) == true) {
+                if (DB.valueExist("PERSON", "EMAIL", email.getText()) == true || DB.valueExist("PERSON", "USERNAME", username.getText()) == true) {
                     int stat = JOptionPane.showConfirmDialog(null, "You have already signed up! Please Log in ", "select", JOptionPane.CANCEL_OPTION);
                     //DB.execute("INSERT INTO SAMPLE values('#', '#')", username.getText(), password.getText());
                     if (stat == 0) {
@@ -134,9 +134,9 @@ public class SignupController implements Initializable {
 
         });
         password.setOnKeyTyped((event2) -> {
-        //String spec_char = "!@#$%^&*()<>,./?;':+=-{[}]|~`\\";
-        // while (press == false) {
-        String pass = password.getText().toString();
+            //String spec_char = "!@#$%^&*()<>,./?;':+=-{[}]|~`\\";
+            // while (press == false) {
+            String pass = password.getText().toString();
 //        for (int i = 0; i < pass.length(); i++) {
 //            if ((pass.charAt(i) >= 'a' && pass.charAt(i) <= 'z')) {
 //                state[0] = 1;
@@ -149,33 +149,31 @@ public class SignupController implements Initializable {
 //            }
 //        }
 //        stat = state[0] + state[1] + state[2] + state[3];
-        int len = pass.length();
-        if (len<=2 && len>0) {
-            pass_strength.setText("poor");
-            poor.setStyle(" -fx-background-color: red;");
-            medium.setStyle(" -fx-background-color:  #E79D30;");
-            strong.setStyle(" -fx-background-color:   #E79D30;");
-            very_strong.setStyle(" -fx-background-color:   #E79D30;");
-        } else if (len>2 && len<=4) {
-            pass_strength.setText("medium");
-            medium.setStyle(" -fx-background-color: yellow;");
-            strong.setStyle(" -fx-background-color:   #E79D30;");
-            very_strong.setStyle(" -fx-background-color:   #E79D30;");
-        } else if (len>4 && len<=6) {
-            pass_strength.setText("strong");
-            strong.setStyle(" -fx-background-color: blue;");
-        } else if (len>6) {
-            pass_strength.setText("very strong");
-            very_strong.setStyle(" -fx-background-color: #39FF14;");
-        }
-        else
-        {
-            pass_strength.setText("");
-            poor.setStyle(" -fx-background-color:  #E79D30;");
-            medium.setStyle(" -fx-background-color:  #E79D30;");
-            strong.setStyle(" -fx-background-color:   #E79D30;");
-            very_strong.setStyle(" -fx-background-color:   #E79D30;");
-        }
+            int len = pass.length();
+            if (len <= 2 && len > 0) {
+                pass_strength.setText("poor");
+                poor.setStyle(" -fx-background-color: red;");
+                medium.setStyle(" -fx-background-color:  #E79D30;");
+                strong.setStyle(" -fx-background-color:   #E79D30;");
+                very_strong.setStyle(" -fx-background-color:   #E79D30;");
+            } else if (len > 2 && len <= 4) {
+                pass_strength.setText("medium");
+                medium.setStyle(" -fx-background-color: yellow;");
+                strong.setStyle(" -fx-background-color:   #E79D30;");
+                very_strong.setStyle(" -fx-background-color:   #E79D30;");
+            } else if (len > 4 && len <= 6) {
+                pass_strength.setText("strong");
+                strong.setStyle(" -fx-background-color: blue;");
+            } else if (len > 6) {
+                pass_strength.setText("very strong");
+                very_strong.setStyle(" -fx-background-color: #39FF14;");
+            } else {
+                pass_strength.setText("");
+                poor.setStyle(" -fx-background-color:  #E79D30;");
+                medium.setStyle(" -fx-background-color:  #E79D30;");
+                strong.setStyle(" -fx-background-color:   #E79D30;");
+                very_strong.setStyle(" -fx-background-color:   #E79D30;");
+            }
         });
     }
 
