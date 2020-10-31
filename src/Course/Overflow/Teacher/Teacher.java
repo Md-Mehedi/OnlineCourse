@@ -56,6 +56,6 @@ public class Teacher extends Person{
 
     public Teacher(String username, String email, String password, String firstName, String lastName, String about){
         super(username, email, password, firstName, lastName, about);
-        DB.execute("INSERT INTO TEACHER(ID) VALUES('#')", username);
+        DB.execute("INSERT INTO INSTRUCTOR(ID) VALUES('#')", username);
     }
 }
