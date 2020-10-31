@@ -17,7 +17,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -127,46 +126,6 @@ public class SignupController implements Initializable {
 //            }
 //        });
 //                System.out.println("ok2");
-    }
-
-    @FXML
-    private void TandC_clk(ActionEvent event) {
-    }
-
-    @FXML
-    private void pass_clk(ActionEvent event) {
-//        int stat = 0;
-//        while (press == false) {
-//            String pass = user_name.getText().toString();
-//            for (int i = 0; i < pass.length(); i++) {
-//                if ((pass.charAt(i) >= 'a' && pass.charAt(i) <= 'z')) {
-//                    stat = 1;
-//                }
-//                if ((stat == 1) && (pass.charAt(i) >= 'A' && pass.charAt(i) <= 'Z')) {
-//                    stat = 2;
-//                }
-//                if ((stat == 2) && (Character.isDigit(pass.charAt(i)))) {
-//                    stat = 3;
-//                }
-//                if ((stat == 3) && (Character.isLetter(pass.charAt(i)))) {
-//                    stat = 4;
-//                }
-//            }
-//            if (stat == 1) {
-//                pass_strength.setText("poor");
-//            }
-//            if (stat == 2) {
-//                pass_strength.setText("medium");
-//            }
-//            if (stat == 3) {
-//                pass_strength.setText("strong");
-//            }
-//            if (stat == 4) {
-//                pass_strength.setText("very strong");
-//            }
-//            //System.out.println(pass);
-//        }
-//        System.out.println("hahah");
     }
 
     private void addListener() {
