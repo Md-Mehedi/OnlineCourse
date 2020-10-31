@@ -17,6 +17,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -157,33 +158,62 @@ public class SignupController implements Initializable {
 //            }
         });
         signupBtn.setOnMouseClicked((event) -> {
-            if (!accountTypeCB.getSelectionModel().isEmpty()) {
-                if (!username.getText().isEmpty() && !email.getText().isEmpty()) {
-                    if (!password.getText().isEmpty()) {
-                        if (DB.valueExist("PERSON", "EMAIL", email.getText()) != true && DB.valueExist("PERSON", "ID", username.getText()) != true) {
-                            accountType = AccountType.valueOf(accountTypeCB.getValue());
-                            ProfileSettingController profSetCtrl = (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
-                            profSetCtrl.createEnvironmentForSignup(accountType, email.getText(), username.getText(), password.getText());
-                            GLOBAL.ACCOUNT_TYPE = accountType;
-                        } else {
-                            int stat = JOptionPane.showConfirmDialog(null, "The username or email is already taken !\n log in instead ", "select", JOptionPane.CANCEL_OPTION);
-                            if (stat == 0) {
-                                GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
-                            } else {
-                                email.setText("");
-                                username.setText("");
-                                password.setText("");
-                            }
-                        }
-                    } else {
-                        JOptionPane.showConfirmDialog(null, "Password cannot be empty ! ", "select", JOptionPane.CANCEL_OPTION);
-                    }
-                } else {
-                    JOptionPane.showConfirmDialog(null, "username or email cannot be empty ! ", "select", JOptionPane.CANCEL_OPTION);
-                }
-            } else {
+            if(accountTypeCB.getSelectionModel().isEmpty()){
                 JOptionPane.showConfirmDialog(null, "Please select account type ! ", "select", JOptionPane.YES_OPTION);
+                return;
             }
+            if(username.getText().isEmpty() || email.getText().isEmpty()){
+                JOptionPane.showConfirmDialog(null, "username or email cannot be empty ! ", "select", JOptionPane.CANCEL_OPTION);
+                return;
+            }
+            if(password.getText().isEmpty()){
+                JOptionPane.showConfirmDialog(null, "Password cannot be empty ! ", "select", JOptionPane.CANCEL_OPTION);
+                return;
+            }
+            if(DB.valueExist("PERSON", "EMAIL", email.getText()) != true && DB.valueExist("PERSON", "ID", username.getText()) != true){
+                accountType = AccountType.valueOf(accountTypeCB.getValue());
+                ProfileSettingController profSetCtrl = (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
+                profSetCtrl.createEnvironmentForSignup(accountType, email.getText(), username.getText(), password.getText());
+                GLOBAL.ACCOUNT_TYPE = accountType;
+            }
+            else{
+                int stat = JOptionPane.showConfirmDialog(null, "The username or email is already taken !\n log in instead ", "select", JOptionPane.CANCEL_OPTION);
+                if (stat == 0) {
+                    GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
+                } else {
+                    // email username theke jabe... ektu vuler jonno abar type korte dibi ken??
+//                    email.setText("");
+//                    username.setText("");
+                    password.setText("");
+                }
+            }
+//            if (!accountTypeCB.getSelectionModel().isEmpty()) {
+//                if (!username.getText().isEmpty() && !email.getText().isEmpty()) {
+//                    if (!password.getText().isEmpty()) {
+//                        if (DB.valueExist("PERSON", "EMAIL", email.getText()) != true && DB.valueExist("PERSON", "ID", username.getText()) != true) {
+//                            accountType = AccountType.valueOf(accountTypeCB.getValue());
+//                            ProfileSettingController profSetCtrl = (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
+//                            profSetCtrl.createEnvironmentForSignup(accountType, email.getText(), username.getText(), password.getText());
+//                            GLOBAL.ACCOUNT_TYPE = accountType;
+//                        } else {
+//                            int stat = JOptionPane.showConfirmDialog(null, "The username or email is already taken !\n log in instead ", "select", JOptionPane.CANCEL_OPTION);
+//                            if (stat == 0) {
+//                                GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
+//                            } else {
+//                                email.setText("");
+//                                username.setText("");
+//                                password.setText("");
+//                            }
+//                        }
+//                    } else {
+//                        JOptionPane.showConfirmDialog(null, "Password cannot be empty ! ", "select", JOptionPane.CANCEL_OPTION);
+//                    }
+//                } else {
+//                    JOptionPane.showConfirmDialog(null, "username or email cannot be empty ! ", "select", JOptionPane.CANCEL_OPTION);
+//                }
+//            } else {
+//                JOptionPane.showConfirmDialog(null, "Please select account type ! ", "select", JOptionPane.YES_OPTION);
+//            }
            
         });
         password.setOnKeyTyped((event2) -> {
@@ -238,6 +268,14 @@ public class SignupController implements Initializable {
 
     @FXML
     private void check_pass_strength(MouseEvent event) {
+    }
+
+    @FXML
+    private void pass_clk(ActionEvent event) {
+    }
+
+    @FXML
+    private void TandC_clk(ActionEvent event) {
     }
 
 }
