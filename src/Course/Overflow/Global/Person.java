@@ -65,9 +65,9 @@ public class Person {
             this.linkedInURL = rs.getString("LINKEDIN_URL");
             this.signupDate = rs.getDate("SIGNUP_DATE");
             this.about = rs.getString("ABOUT");
-            this.country = new Country(rs.getInt("COUNTRY_ID"));
-            this.photo = new Files(rs.getInt("PHOTO_ID"));
-            this.card = new CreditCard(rs.getInt("CARD_ID"));
+//            this.country = new Country(rs.getInt("COUNTRY_ID"));
+//            this.photo = new Files(rs.getInt("PHOTO_ID"));
+//            this.card = new CreditCard(rs.getInt("CARD_ID"));
             this.youtubeURL = rs.getString("YOUTUBE_URL");
             this.website = rs.getString("WEBSITE");
         } catch (SQLException ex) {
