@@ -20,11 +20,13 @@ public class DB {
 //        DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
 
             System.out.println("Driver loaded successfully...");
-
-           con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSEOVERFLOW_", "co");
-            //con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:globaldb", "COURSE_OVERFLOW", "co");
+            if(System.getProperty("user.name").equals("ASUS")){
+                con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:globaldb", "COURSE_OVERFLOW", "co");
+            }
+            else{
+                con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSEOVERFLOW_", "co");
+            }
             st = con.createStatement();
-
             System.out.println("Connection established");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,22 +54,6 @@ public class DB {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-//    public static boolean execute(String tableName, String fieldName, String value){
-//        try {
-//            String sql = "SELECT " + fieldName + " From " + tableName + " where " + fieldName + " = '" + value + "'";
-//            System.out.println(sql);
-//            execute(sql);
-//            if(!rs.next()) return false;
-//            System.out.println(rs.getString(fieldName));
-//            System.out.println(value);
-//            System.out.println(rs.getString(fieldName).equals(value));
-//            return rs.getString(fieldName).equals(value);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return false;
-//    }
     
     public static ResultSet executeQuery(String sql, String... arg) { // Replace # mark with value
         System.out.println(sql);
