@@ -28,15 +28,19 @@ public class Files {
     Date uploadTime;
     Date lastUpdateTime;
     
-    public Files(int id){
-        ResultSet rs = DB.executeQuery("SELECT * FROM FILES WHERE ID=#", String.valueOf(id));
-        try {
-            type = new FileType(rs.getInt("TYPE"));
-            title = rs.getString("CONTENT");
-            uploadTime = new Date(rs.getString("UPLOAD_TIME"));
-            lastUpdateTime = new Date(rs.getString("LAST_UPDATE"));
-        } catch (SQLException ex) {
-            Logger.getLogger(Files.class.getName()).log(Level.SEVERE, null, ex);
+    public Files(Integer id){
+        this.id = id;
+        if(DB.valueExist("FILES", "ID", id.toString())){
+            ResultSet rs = DB.executeQuery("SELECT * FROM FILES WHERE ID = #", id.toString());
+            try {
+                if(!rs.next()) return;
+                type = new FileType(rs.getInt("TYPE"));
+                title = rs.getString("CONTENT");
+                uploadTime = rs.getDate("UPLOAD_TIME");
+                lastUpdateTime = rs.getDate("LAST_UPDATE");
+            } catch (SQLException ex) {
+                Logger.getLogger(Files.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
@@ -62,8 +66,8 @@ public class Files {
               type.getId().toString(),
               title,
               content,
-              ToolKit.makeDateForDB(uploadTime),
-              ToolKit.makeDateForDB(lastUpdateTime)
+              ToolKit.JDateToDDate(uploadTime),
+              ToolKit.JDateToDDate(lastUpdateTime)
         );
     }
 

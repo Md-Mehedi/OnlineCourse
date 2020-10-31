@@ -7,7 +7,6 @@
 package Course.Overflow.Teacher;
 
 import Course.Overflow.Course.Course;
-import Course.Overflow.Global.Language;
 import Course.Overflow.Global.Person;
 import java.util.ArrayList;
 
@@ -20,8 +19,8 @@ public class Teacher extends Person{
     int numOfReviews;
     ArrayList<Course> courses;
 
-    public Teacher(int id, String firstName, String lastName, String shortDescription, String description, Language language, int numOfStudent, int numOfReviews, ArrayList<Course> courses) {
-        super(id, firstName, lastName, shortDescription, description, language);
+    public Teacher(String username, String email, String password, String firstName, String lastName, String about) {
+        super(username);
         this.numOfStudent = numOfStudent;
         this.numOfReviews = numOfReviews;
         this.courses = courses;

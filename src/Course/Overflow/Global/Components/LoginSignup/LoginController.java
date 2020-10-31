@@ -88,7 +88,20 @@ public class LoginController implements Initializable {
                     System.out.println("successfully logged in to " + username.getText() + " account");
                     GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
                 } else {
-                    JOptionPane.showConfirmDialog(null, "Invalid User ID or Password ! ", "select", JOptionPane.CANCEL_OPTION);
+                    int state = JOptionPane.showConfirmDialog(null, "Invalid User ID or Password ! ", "select", JOptionPane.CANCEL_OPTION);
+                    if (state == 0) {
+                        username.setText("");
+                        password.setText("");
+                    } else {
+                        int state1 = JOptionPane.showConfirmDialog(null, "Do you wish to signup ! ", "select", JOptionPane.CANCEL_OPTION);
+                        if (state1 == 0) {
+                            GLOBAL.PAGE_CTRL.loadPage(PageName.Signup);
+                        } else {
+                            username.setText("");
+                            password.setText("");
+                        }
+
+                    }
                 }
 
             } catch (Exception ex) {

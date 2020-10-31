@@ -214,6 +214,7 @@ Label{
 }
 .profileSetting > HBox > .first, .profileSetting ChoiceBox{
     -fx-pref-width: 350;
+    -fx-pref-height: 50;
 }
 .profileSetting > HBox > .second{
     -fx-pref-width: 550;
@@ -239,4 +240,7 @@ Label{
     -fx-background-radius: 5;
     -fx-pref-height: 50;
     -fx-pref-width: 120;
+}
+.profileSetting ChoiceBox{
+    -fx-padding: 0 10 0 10;
 }

@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -49,19 +50,19 @@
                               <VBox styleClass="fieldContainer">
                                  <children>
                                     <Label text="Country" />
-                                    <TextField fx:id="country" editable="false" />
+                                    <ChoiceBox fx:id="countryCB" prefWidth="150.0" />
+                                 </children>
+                              </VBox>
+                              <VBox styleClass="fieldContainer">
+                                 <children>
+                                    <Label fx:id="eduStatusLabel" text="Educational Status" />
+                                    <ChoiceBox fx:id="eduStatusCB" prefWidth="150.0" />
                                  </children>
                               </VBox>
                               <VBox styleClass="fieldContainer">
                                  <children>
                                     <Label text="Date of birth" />
                                     <DatePicker fx:id="dob" prefHeight="50.0" prefWidth="360.0" />
-                                 </children>
-                              </VBox>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="About" />
-                                    <TextArea fx:id="about" prefHeight="100.0" />
                                  </children>
                               </VBox>
                            </children>
@@ -115,8 +116,8 @@
                               </VBox>
                               <VBox styleClass="fieldContainer">
                                  <children>
-                                    <Label text="Biography" />
-                                    <TextArea fx:id="biography" prefHeight="100.0" />
+                                    <Label text="About" />
+                                    <TextArea fx:id="about" prefHeight="100.0" />
                                  </children>
                               </VBox>
                            </children>
@@ -137,6 +138,37 @@
                      <children>
                         <Label fx:id="imageNameLabel" prefWidth="400.0" text="No file selected" HBox.hgrow="ALWAYS" />
                         <Button fx:id="upload" mnemonicParsing="false" text="Upload Photo" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="securityBox1" style="-fx-padding: 0 150 0 150;" styleClass="profileSetting">
+               <children>
+                  <Label styleClass="title1" text="Credit Card Information" />
+                  <HBox>
+                     <children>
+                        <VBox style="-fx-pref-width: -1;" HBox.hgrow="ALWAYS">
+                           <children>
+                              <VBox styleClass="fieldContainer">
+                                 <children>
+                                    <Label text="Credit Card No" />
+                                    <TextField fx:id="cardNo" />
+                                 </children>
+                              </VBox>
+                              <VBox styleClass="fieldContainer">
+                                 <children>
+                                    <Label text="Name on Card" />
+                                    <TextField fx:id="nameOnCard" />
+                                 </children>
+                              </VBox>
+                              <VBox styleClass="fieldContainer">
+                                 <children>
+                                    <Label text="Expire Date" />
+                                    <DatePicker fx:id="expireDate" prefHeight="50.0" prefWidth="630.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                </children>

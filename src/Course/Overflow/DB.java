@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
+/**3
  *
  * @author Md Mehedi Hasan , Kazi Wasif Amin
  */
@@ -21,7 +21,7 @@ public class DB {
 
             System.out.println("Driver loaded successfully...");
 
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSEOVERFLOW_", "co");
+           con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSEOVERFLOW_", "co");
             //con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:globaldb", "COURSE_OVERFLOW", "co");
             st = con.createStatement();
 
@@ -68,15 +68,16 @@ public class DB {
 //        }
 //        return false;
 //    }
+    
     public static ResultSet executeQuery(String sql, String... arg) { // Replace # mark with value
         System.out.println(sql);
         for (String value : arg) {
             sql = sql.replaceFirst("#", value);
         }
-
+        
         try {
-            System.out.println(sql);
-            System.out.println("");
+            System.out.println(sql);System.out.println("");
+            st = con.createStatement();
             rs = st.executeQuery(sql);
             return rs;
         } catch (SQLException ex) {
@@ -85,16 +86,15 @@ public class DB {
         }
         return rs;
     }
-
-    public static boolean execute(String sql, String... arg) { // Replace # mark with value
+    
+    public static boolean execute(String sql, String ... arg) { // Replace # mark with value
         System.out.println(sql);
         for (String value : arg) {
             sql = sql.replaceFirst("#", value);
         }
-
+        
         try {
-            System.out.println(sql);
-            System.out.println("");
+            System.out.println(sql);System.out.println("");
             return st.execute(sql);
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,8 +102,8 @@ public class DB {
         }
         return false;
     }
-
-    public static Integer generateId(String tableName, String idName) {
+    
+    public static Integer generateId(String tableName, String idName){
         ResultSet rs = executeQuery("SELECT NVL(MAX(#), 0)+1 # FROM #", idName, idName, tableName);
         try {
             rs.next();
@@ -113,15 +113,20 @@ public class DB {
         }
         return 0;
     }
-
-    public static Integer generateId(String tableName) {
+    
+    public static Integer generateId(String tableName){
         return generateId(tableName, "ID");
     }
 
+    
     public static boolean valueExist(String table, String column, String val) {
         try {
-            ResultSet rs = executeQuery("SELECT * FROM # WHERE # = '#' ", table, column, val);
-            return rs.next();
+            String sql = "SELECT * FROM # WHERE # = '#' ";
+            ResultSet rs = executeQuery(sql, table, column, val);
+            if (rs.next() == false) {
+                return false;
+            }
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }

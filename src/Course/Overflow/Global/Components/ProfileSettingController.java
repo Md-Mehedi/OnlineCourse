@@ -5,14 +5,15 @@
  */
 package Course.Overflow.Global.Components;
 
-import Course.Overflow.DB;
-import Course.Overflow.Files.FileType;
-import Course.Overflow.Files.Files;
+import Course.Overflow.Global.Country;
 import Course.Overflow.Global.Customize.HoverEffect;
+import Course.Overflow.Global.Designation;
+import Course.Overflow.Global.EducationalStatus;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Language;
 import Course.Overflow.Global.Page.PageName;
-import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Global.Person;
+import Course.Overflow.Global.Person.AccountType;
 import com.jfoenix.controls.JFXButton;
 import java.io.File;
 import java.net.URL;
@@ -20,10 +21,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -49,7 +53,6 @@ public class ProfileSettingController implements Initializable {
     private TextField lastName;
     @FXML
     private TextField language;
-    @FXML
     private TextArea biography;
     @FXML
     private TextField website;
@@ -78,7 +81,7 @@ public class ProfileSettingController implements Initializable {
     @FXML
     private VBox securityBox;
     @FXML
-    private TextField country;
+    private ChoiceBox<String> countryCB;
     @FXML
     private DatePicker dob;
     @FXML
@@ -91,8 +94,24 @@ public class ProfileSettingController implements Initializable {
     
     private String username;
     private String password;
+    private AccountType accountType;
     private ArrayList<Language> selectedLanguage;
     private File photoFile;
+    @FXML
+    private Label eduStatusLabel;
+    @FXML
+    private ChoiceBox<String> eduStatusCB;
+    
+    private ObservableList<String> eduStatusList;
+    private ObservableList<String> countryList;
+    @FXML
+    private VBox securityBox1;
+    @FXML
+    private TextField cardNo;
+    @FXML
+    private TextField nameOnCard;
+    @FXML
+    private DatePicker expireDate;
     
 
     /**
@@ -102,6 +121,7 @@ public class ProfileSettingController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         selectedLanguage = new ArrayList<>();
         addLanguage();
+        addCountries();
         addListener();
     }    
 
@@ -166,16 +186,52 @@ public class ProfileSettingController implements Initializable {
         }
         language.setText(text);
     }
+    
+    public void readyEducationalStatusOrDesignation(){
+        System.out.println(accountType);
+        eduStatusList = FXCollections.observableArrayList();
+        eduStatusList.add("-- Select --");
+        eduStatusLabel.setText(accountType == AccountType.Student ? "Educational Status" : "Designation");
+        
+        if(accountType == AccountType.Student){
+            ArrayList<EducationalStatus> list = EducationalStatus.getList();
+            for(EducationalStatus es : list){
+                eduStatusList.add(es.getType());
+            }
+            eduStatusCB.setItems(eduStatusList);
+            eduStatusCB.setValue("-- Select --");
+        }
+        else {
+            ArrayList<Designation> list = Designation.getList();
+            for(Designation ds : list){
+                eduStatusList.add(ds.getType());
+            }
+            eduStatusCB.setItems(eduStatusList);
+            eduStatusCB.setValue("-- Select --");
+        }
+    }
 
-    public void createEnvironmentForSignup() {
+    public void createEnvironmentForSignup(AccountType accountType, String email, String username, String password) {
+        this.accountType = accountType;
+        this.username = username;
+        this.password = password;
+        this.email.setText(email);
+        
         VBox parent = (VBox) securityBox.getParent();
         parent.getChildren().remove(securityBox);
+        readyEducationalStatusOrDesignation();
         
         save.setOnMouseClicked((event) -> {
-            Files fileDB = new Files(photoFile, FileType.toType("Picture"));
-            DB.execute("INSERT INTO PERSON(ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, SIGNUP_DATE, ABOUT, PHOTO_ID) VALUES('#', '#', '#', '#', '#', #, '#', #)",
-                  username, email.getText(), password, firstName.getText(), lastName.getText(), ToolKit.getCurTimeDB(), biography.getText(), fileDB.getId().toString()
-            );
+            Person person = Person.insertNew(username, email, password, firstName.getText(), lastName.getText(), about.getText());
+            
+//            Files fileDB = new Files(photoFile, FileType.toType("Picture"));
+//            CreditCard card = CreditCard.insertCreditCard(cardNo.getText(), nameOnCard.getText(), ToolKit.localDateToDate(expireDate.getValue()));
+//            Country country = new Country(this.countryCB.getValue());
+            
+            
+//            DB.execute("INSERT INTO PERSON(ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, SIGNUP_DATE, ABOUT, PHOTO_ID, CARD_ID, COUNTRY_ID) VALUES('#', '#', '#', '#', '#', #, '#', #, #, #)",
+//                  username, this.email.getText(), password, firstName.getText(), lastName.getText(), ToolKit.getCurTimeDB(), about.getText(), fileDB.getId().toString(), card.getId().toString(), country.getId().toString()
+//            );
             
             GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
         });
@@ -189,16 +245,16 @@ public class ProfileSettingController implements Initializable {
             photo.setImage(new Image(photoFile.toURI().toString()));
             GLOBAL.FILE_CHOOSER_DIRECTORY = photoFile.getParent();
         });
-        
-        save.setOnMouseClicked(event ->{
-            
-        });
     }
-    
-    public void setUsernamePassword(String email, String username, String password){
-        this.username = username;
-        this.password = password;
-        this.email.setText(email);
+
+    private void addCountries() {
+        countryList = FXCollections.observableArrayList();
+        countryList.add("-- Select --");
+        ArrayList<Country> list = Country.getList();
+        for(Country cc : list){
+            countryList.add(cc.getType());
+        }
+        countryCB.setItems(countryList);
+        countryCB.setValue("-- Select --");
     }
-    
 }

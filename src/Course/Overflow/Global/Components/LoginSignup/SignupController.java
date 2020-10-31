@@ -1,9 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Course.Overflow.Global.Components.LoginSignup;
 
 import Course.Overflow.DB;
 import Course.Overflow.Global.Components.ProfileSettingController;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.Person.AccountType;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -24,7 +30,7 @@ import javax.swing.JOptionPane;
 /**
  * FXML Controller class
  *
- * @author Mehedi,Shammya
+ * @author Asus
  */
 public class SignupController implements Initializable {
 
@@ -42,7 +48,6 @@ public class SignupController implements Initializable {
     private Label pass_strength;
     Boolean press = false;
     int stat = 0;
-    int[] state = new int[]{0, 0, 0, 0};
     @FXML
     private JFXButton loginBtn;
     @FXML
@@ -52,11 +57,14 @@ public class SignupController implements Initializable {
     @FXML
     private AnchorPane root;
     private FXMLLoader loader;
-    @FXML
-    private ChoiceBox<String> accountType;
     private ObservableList<String> numOfItemList;
     @FXML
     private JFXTextField email;
+    private AccountType accountType;
+    @FXML
+    private ChoiceBox<String> accountTypeCB;
+//    int stat = 0;
+//    int[] state = new int[]{0, 0, 0, 0};
 
     /**
      * Initializes the controller class.
@@ -66,16 +74,101 @@ public class SignupController implements Initializable {
         setUpAccountTypeChoiceBox();
         addListener();
 
+//        System.out.println("hi");
+//        password.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//            @Override
+//            public void handle(KeyEvent event) {
+//                System.out.println("check");
+//                
+//                //while (press == false) 
+//                {
+//                    String pass = password.getText().toString();
+//                    for (int i = 0; i < pass.length(); i++) {
+//                        if ((pass.charAt(i) >= 'a' && pass.charAt(i) <= 'z')) {
+//                            stat = 1;
+//                        }
+//                        if ((stat == 1) && (pass.charAt(i) >= 'A' && pass.charAt(i) <= 'Z')) {
+//                            stat = 2;
+//                        }
+//                        if ((stat == 2) && (Character.isDigit(pass.charAt(i)))) {
+//                            stat = 3;
+//                        }
+//                        if ((stat == 3) && (Character.isLetter(pass.charAt(i)))) {
+//                            stat = 4;
+//                        }
+//                    }
+//                    if (stat == 1) {
+//                        pass_strength.setText("poor");
+//                        poor.setStyle("-fx-background-color: red;");
+//                        poor.getStyleClass().add("poor-active");
+//                    }
+//                    if (stat == 2) {
+//                        pass_strength.setText("medium");
+//                        medium.setStyle("-fx-background-color: yellow;");
+//                    }
+//                    if (stat == 3) {
+//                        pass_strength.setText("strong");
+//                        strong.setStyle("-fx-background-color: lightgreen;");
+//                    }
+//                    if (stat == 4) {
+//                        pass_strength.setText("very strong");
+//                        very_strong.setStyle("-fx-background-color: green;");
+//                    }
+//                   
+//                    //System.out.println(pass);
+//                }
+//            }
+//        });
+//                System.out.println("ok1");
+//        Platform.runLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                System.out.println("ok");
+//            }
+//        });
+//                System.out.println("ok2");
+
     }
+
 
     @FXML
     private void TandC_clk(ActionEvent event) {
     }
 
-    private void check_pass_strength(ActionEvent event) {
-
-        //System.out.println(pass);
-        // }
+    @FXML
+    private void pass_clk(ActionEvent event) {
+//        int stat = 0;
+//        while (press == false) {
+//            String pass = user_name.getText().toString();
+//            for (int i = 0; i < pass.length(); i++) {
+//                if ((pass.charAt(i) >= 'a' && pass.charAt(i) <= 'z')) {
+//                    stat = 1;
+//                }
+//                if ((stat == 1) && (pass.charAt(i) >= 'A' && pass.charAt(i) <= 'Z')) {
+//                    stat = 2;
+//                }
+//                if ((stat == 2) && (Character.isDigit(pass.charAt(i)))) {
+//                    stat = 3;
+//                }
+//                if ((stat == 3) && (Character.isLetter(pass.charAt(i)))) {
+//                    stat = 4;
+//                }
+//            }
+//            if (stat == 1) {
+//                pass_strength.setText("poor");
+//            }
+//            if (stat == 2) {
+//                pass_strength.setText("medium");
+//            }
+//            if (stat == 3) {
+//                pass_strength.setText("strong");
+//            }
+//            if (stat == 4) {
+//                pass_strength.setText("very strong");
+//            }
+//            //System.out.println(pass);
+//        }
+//        System.out.println("hahah");
     }
 
     private void addListener() {
@@ -106,37 +199,31 @@ public class SignupController implements Initializable {
 //                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
 //            }
         });
-        signupBtn.setOnMouseClicked((event1) -> {
+        signupBtn.setOnMouseClicked((event) -> {
             if (password.getText().toString() == "") {
                 JOptionPane.showConfirmDialog(null, "Password cannot be empty ! ", "select", JOptionPane.CANCEL_OPTION);
-            } else {
-//                String sql = "SELECT PASSWORD FROM PERSON WHERE ID = '#' AND PASSWORD = '#'";
-//                ResultSet rs = DB.executeQuery(sql, username.getText(), password.getText());
-                if (DB.valueExist("PERSON", "EMAIL", email.getText()) == true || DB.valueExist("PERSON", "USERNAME", username.getText()) == true) {
-                    int stat = JOptionPane.showConfirmDialog(null, "You have already signed up! Please Log in ", "select", JOptionPane.CANCEL_OPTION);
-                    //DB.execute("INSERT INTO SAMPLE values('#', '#')", username.getText(), password.getText());
-                    if (stat == 0) {
-                        GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
-                    } else {
-                        email.setText("");
-                        username.setText("");
-                        password.setText("");
-                    }
-                } else {
-                    ProfileSettingController profSetCtrl = (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
-                    profSetCtrl.createEnvironmentForSignup();
-                    profSetCtrl.setUsernamePassword(email.getText(), username.getText(), password.getText());
-                }//            if(DB.execute("sample", "username", username.getText())) return;
-//            DB.execute(sql);
-                //GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
-                // GLOBAL.ACCOUNT_TYPE = Person.AccountType.valueOf(accountType.getValue());
             }
-
-        });
+            else if(DB.valueExist("PERSON", "EMAIL", email.getText()) == true || DB.valueExist("PERSON", "ID", username.getText()) == true) {
+                int stat = JOptionPane.showConfirmDialog(null, "You have already signed up! Please Log in ", "select", JOptionPane.CANCEL_OPTION);
+                if (stat == 0) {
+                    GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
+                } else {
+                    email.setText("");
+                    username.setText("");
+                    password.setText("");
+                }
+            } 
+            else {
+                accountType = AccountType.valueOf(accountTypeCB.getValue());
+                ProfileSettingController profSetCtrl =  (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
+                profSetCtrl.createEnvironmentForSignup(accountType, email.getText(), username.getText(), password.getText());
+                GLOBAL.ACCOUNT_TYPE = accountType;
+            }
+            
+        });        
         password.setOnKeyTyped((event2) -> {
             //String spec_char = "!@#$%^&*()<>,./?;':+=-{[}]|~`\\";
             // while (press == false) {
-            String pass = password.getText().toString();
 //        for (int i = 0; i < pass.length(); i++) {
 //            if ((pass.charAt(i) >= 'a' && pass.charAt(i) <= 'z')) {
 //                state[0] = 1;
@@ -149,6 +236,7 @@ public class SignupController implements Initializable {
 //            }
 //        }
 //        stat = state[0] + state[1] + state[2] + state[3];
+            String pass = password.getText().toString();
             int len = pass.length();
             if (len <= 2 && len > 0) {
                 pass_strength.setText("poor");
@@ -178,18 +266,13 @@ public class SignupController implements Initializable {
     }
 
     private void setUpAccountTypeChoiceBox() {
-
         numOfItemList = FXCollections.observableArrayList();
         numOfItemList.addAll("Admin", "Student", "Teacher");
-        accountType.setItems(numOfItemList);
+        accountTypeCB.setItems(numOfItemList);
     }
 
     @FXML
     private void check_pass_strength(MouseEvent event) {
-    }
-
-    @FXML
-    private void pass_clk(ActionEvent event) {
     }
 
 }

@@ -6,7 +6,12 @@
 
 package Course.Overflow.Global;
 
+import Course.Overflow.DB;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,10 +20,12 @@ import java.util.ArrayList;
 public class Language {
     int id;
     String name;
+    String adminId;
 
-    public Language(int id, String name) {
+    public Language(int id, String name, String adminId) {
         this.id = id;
         this.name = name;
+        this.adminId = adminId;
     }
 
     public int getId() {
@@ -30,13 +37,15 @@ public class Language {
     }
     
     public static ArrayList<Language> getList(){
-        //This will be updated with SQL to get list from DATABASE
         ArrayList<Language> list = new ArrayList<>();
-        list.add(new Language(0, "Bangla"));
-        list.add(new Language(1, "English"));
-        list.add(new Language(2, "Hindi"));
-        list.add(new Language(3, "Urdu"));
-        list.add(new Language(4, "Arabic"));
+        ResultSet rs = DB.executeQuery("SELECT * FROM LANGUAGE");
+        try {
+            while(rs.next()){
+                list.add(new Language(rs.getInt("ID"), rs.getString("NAME"), rs.getString("ADMIN_ID")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Language.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return list;
     } 
     
