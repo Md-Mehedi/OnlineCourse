@@ -250,6 +250,8 @@ public class ProfileSettingController implements Initializable {
             person.setFbURL(facebook.getText());
             person.setYoutubeURL(youtube.getText());
             person.setLinkedInURL(linkedin.getText());
+            person.setLanguages(selectedLanguage);
+            
             
             if(cardNo.getText() != "" && nameOnCard.getText() != "" && expireDate.getValue() != null){
                 person.setCard(CreditCard.insertCreditCard(cardNo.getText(), nameOnCard.getText(), ToolKit.localDateToDate(expireDate.getValue())));
