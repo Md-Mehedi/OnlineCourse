@@ -21,7 +21,7 @@ public class DB {
 
             System.out.println("Driver loaded successfully...");
 
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSE_OVERFLOW", "co");
+            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSEOVERFLOW_", "co");
             //con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:globaldb", "COURSE_OVERFLOW", "co");
             st = con.createStatement();
 
