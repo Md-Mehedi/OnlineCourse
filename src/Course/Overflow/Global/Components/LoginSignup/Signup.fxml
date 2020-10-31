@@ -120,7 +120,7 @@
                                     <HBox>
                                        <children>
                                           <MaterialDesignIconView glyphName="SECURITY" size="35" />
-                                          <JFXPasswordField fx:id="password" focusColor="#0f1f4d" onAction="#pass_clk" prefHeight="33.0" prefWidth="160.0" promptText="Password">
+                                          <JFXPasswordField fx:id="password" focusColor="#0f1f4d" onAction="#pass_clk" onMouseClicked="#check_pass_strength" prefHeight="33.0" prefWidth="160.0" promptText="Password">
                                              <font>
                                                 <Font name="Bell MT Bold" size="17.0" />
                                              </font>
@@ -129,9 +129,9 @@
                                     </HBox>
                                     <HBox>
                                        <children>
-                                          <HBox spacing="5.0">
+                                          <HBox prefHeight="30.0" prefWidth="184.0" spacing="5.0">
                                              <children>
-                                                <Label fx:id="poor" prefHeight="1.0" prefWidth="35.0" style="-fx-background-color: #E79D30;">
+                                                <Label fx:id="poor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="35.0" style="-fx-background-color: #E79D30;">
                                                    <font>
                                                       <Font size="5.0" />
                                                    </font>
@@ -139,17 +139,17 @@
                                                       <Insets />
                                                    </opaqueInsets>
                                                 </Label>
-                                                <Label fx:id="medium" prefHeight="1.0" prefWidth="35.0" style="-fx-background-color: #E79D30;">
+                                                <Label fx:id="medium" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="35.0" style="-fx-background-color: #E79D30;">
                                                    <font>
                                                       <Font size="5.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="strong" prefHeight="1.0" prefWidth="35.0" style="-fx-background-color: #E79D30;">
+                                                <Label fx:id="strong" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="35.0" style="-fx-background-color: #E79D30;">
                                                    <font>
                                                       <Font size="5.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="very_strong" prefHeight="1.0" prefWidth="35.0" style="-fx-background-color: #E79D30;">
+                                                <Label fx:id="very_strong" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="35.0" style="-fx-background-color: #E79D30;">
                                                    <font>
                                                       <Font size="5.0" />
                                                    </font>
@@ -159,7 +159,7 @@
                                                 <Insets />
                                              </opaqueInsets>
                                           </HBox>
-                                          <Label fx:id="pass_strength" alignment="CENTER" prefHeight="21.0" prefWidth="90.0" textAlignment="CENTER" />
+                                          <Label fx:id="pass_strength" alignment="CENTER" prefHeight="30.0" prefWidth="126.0" textAlignment="CENTER" />
                                        </children>
                                     </HBox>
                                  </children>

@@ -5,6 +5,7 @@
  */
 package Course.Overflow.Global.Components.LoginSignup;
 
+import Course.Overflow.DB;
 import Course.Overflow.Global.Components.ProfileSettingController;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
@@ -22,7 +23,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -60,6 +63,8 @@ public class SignupController implements Initializable {
     private AccountType accountType;
     @FXML
     private ChoiceBox<String> accountTypeCB;
+//    int stat = 0;
+//    int[] state = new int[]{0, 0, 0, 0};
 
     /**
      * Initializes the controller class.
@@ -195,17 +200,68 @@ public class SignupController implements Initializable {
 //            }
         });
         signupBtn.setOnMouseClicked((event) -> {
-//            DB.execute("INSERT INTO SAMPLE values('#', '#')"
-//                  ,username.getText()
-//                  ,password.getText()
-//            );
-            accountType = AccountType.valueOf(accountTypeCB.getValue());
+            if (password.getText().toString() == "") {
+                JOptionPane.showConfirmDialog(null, "Password cannot be empty ! ", "select", JOptionPane.CANCEL_OPTION);
+            }
+            else if(DB.valueExist("PERSON", "EMAIL", email.getText()) == true || DB.valueExist("PERSON", "USERNAME", username.getText()) == true) {
+                int stat = JOptionPane.showConfirmDialog(null, "You have already signed up! Please Log in ", "select", JOptionPane.CANCEL_OPTION);
+                if (stat == 0) {
+                    GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
+                } else {
+                    email.setText("");
+                    username.setText("");
+                    password.setText("");
+                }
+            } 
+            else {
+                accountType = AccountType.valueOf(accountTypeCB.getValue());
+                ProfileSettingController profSetCtrl =  (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
+                profSetCtrl.createEnvironmentForSignup(accountType, email.getText(), username.getText(), password.getText());
+                GLOBAL.ACCOUNT_TYPE = accountType;
+            }
             
-            //GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
-            ProfileSettingController profSetCtrl =  (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
-            profSetCtrl.createEnvironmentForSignup(accountType, email.getText(), username.getText(), password.getText());
-
-            // GLOBAL.ACCOUNT_TYPE = Person.AccountType.valueOf(accountType.getValue());
+        });        
+        password.setOnKeyTyped((event2) -> {
+            //String spec_char = "!@#$%^&*()<>,./?;':+=-{[}]|~`\\";
+            // while (press == false) {
+//        for (int i = 0; i < pass.length(); i++) {
+//            if ((pass.charAt(i) >= 'a' && pass.charAt(i) <= 'z')) {
+//                state[0] = 1;
+//            } else if ((state[0] == 1) && (pass.charAt(i) >= 'A' && pass.charAt(i) <= 'Z')) {
+//                state[1] = 1;
+//            } else if ((state[1] == 1) && (Character.isDigit(pass.charAt(i)))) {
+//                state[2] = 1;
+//            } else if ((state[2] == 1) && (spec_char.indexOf(pass.charAt(i)) != -1)) {
+//                state[3] = 1;
+//            }
+//        }
+//        stat = state[0] + state[1] + state[2] + state[3];
+            String pass = password.getText().toString();
+            int len = pass.length();
+            if (len <= 2 && len > 0) {
+                pass_strength.setText("poor");
+                poor.setStyle(" -fx-background-color: red;");
+                medium.setStyle(" -fx-background-color:  #E79D30;");
+                strong.setStyle(" -fx-background-color:   #E79D30;");
+                very_strong.setStyle(" -fx-background-color:   #E79D30;");
+            } else if (len > 2 && len <= 4) {
+                pass_strength.setText("medium");
+                medium.setStyle(" -fx-background-color: yellow;");
+                strong.setStyle(" -fx-background-color:   #E79D30;");
+                very_strong.setStyle(" -fx-background-color:   #E79D30;");
+            } else if (len > 4 && len <= 6) {
+                pass_strength.setText("strong");
+                strong.setStyle(" -fx-background-color: blue;");
+            } else if (len > 6) {
+                pass_strength.setText("very strong");
+                very_strong.setStyle(" -fx-background-color: #39FF14;");
+            } else {
+                pass_strength.setText("");
+                poor.setStyle(" -fx-background-color:  #E79D30;");
+                medium.setStyle(" -fx-background-color:  #E79D30;");
+                strong.setStyle(" -fx-background-color:   #E79D30;");
+                very_strong.setStyle(" -fx-background-color:   #E79D30;");
+            }
         });
     }
 
@@ -213,6 +269,10 @@ public class SignupController implements Initializable {
         numOfItemList = FXCollections.observableArrayList();
         numOfItemList.addAll("Admin", "Student", "Teacher");
         accountTypeCB.setItems(numOfItemList);
+    }
+
+    @FXML
+    private void check_pass_strength(MouseEvent event) {
     }
 
 }

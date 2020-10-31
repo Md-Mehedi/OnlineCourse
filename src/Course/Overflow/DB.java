@@ -117,10 +117,15 @@ public class DB {
         return generateId(tableName, "ID");
     }
 
-    public static boolean valueExist(String table, String field, String value) {
-        ResultSet rs = executeQuery("SELECT * FROM # WHERE # = '#'", table, field, value);
+    
+    public static boolean valueExist(String table, String column, String val) {
         try {
-            return rs.next();
+            String sql = "SELECT * FROM # WHERE '#' = '#' ";
+            ResultSet rs = executeQuery(sql, table, column, val);
+            if (rs.next() == false) {
+                return false;
+            }
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
