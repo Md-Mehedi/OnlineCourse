@@ -203,7 +203,7 @@ public class SignupController implements Initializable {
             if (password.getText().toString() == "") {
                 JOptionPane.showConfirmDialog(null, "Password cannot be empty ! ", "select", JOptionPane.CANCEL_OPTION);
             }
-            else if(DB.valueExist("PERSON", "EMAIL", email.getText()) == true || DB.valueExist("PERSON", "USERNAME", username.getText()) == true) {
+            else if(DB.valueExist("PERSON", "EMAIL", email.getText()) == true || DB.valueExist("PERSON", "ID", username.getText()) == true) {
                 int stat = JOptionPane.showConfirmDialog(null, "You have already signed up! Please Log in ", "select", JOptionPane.CANCEL_OPTION);
                 if (stat == 0) {
                     GLOBAL.PAGE_CTRL.loadPage(PageName.Login);

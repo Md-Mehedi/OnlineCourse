@@ -22,7 +22,7 @@ public class DB {
             System.out.println("Driver loaded successfully...");
 
 //            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSE_OVERFLOW", "co");
-              con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:globaldb", "COURSE_OVERFLOW", "co");
+            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:globaldb", "COURSE_OVERFLOW", "co");
             st = con.createStatement();
 
             System.out.println("Connection established");
@@ -77,6 +77,7 @@ public class DB {
         
         try {
             System.out.println(sql);System.out.println("");
+            st = con.createStatement();
             rs = st.executeQuery(sql);
             return rs;
         } catch (SQLException ex) {
@@ -120,7 +121,7 @@ public class DB {
     
     public static boolean valueExist(String table, String column, String val) {
         try {
-            String sql = "SELECT * FROM # WHERE '#' = '#' ";
+            String sql = "SELECT * FROM # WHERE # = '#' ";
             ResultSet rs = executeQuery(sql, table, column, val);
             if (rs.next() == false) {
                 return false;
