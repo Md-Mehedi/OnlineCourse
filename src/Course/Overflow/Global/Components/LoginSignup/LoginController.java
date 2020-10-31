@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -82,17 +83,27 @@ public class LoginController implements Initializable {
         loginBtn.setOnMouseClicked((event) -> {
             String sql = "SELECT PASSWORD FROM PERSON WHERE ID = '#' AND PASSWORD = '#'";
             try {
-                ResultSet rs = DB.executeQuery(sql, username.getText(),password.getText());
-                if(rs.next()== true)
-                {
-                    System.out.println("successfully logged in to "+username.getText()+" account");
+                ResultSet rs = DB.executeQuery(sql, username.getText(), password.getText());
+                if (rs.next() == true) {
+                    System.out.println("successfully logged in to " + username.getText() + " account");
                     GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
+                } else {
+                    int state = JOptionPane.showConfirmDialog(null, "Invalid User ID or Password ! ", "select", JOptionPane.CANCEL_OPTION);
+                    if (state == 0) {
+                        username.setText("");
+                        password.setText("");
+                    } else {
+                        int state1 = JOptionPane.showConfirmDialog(null, "Do you wish to signup ! ", "select", JOptionPane.CANCEL_OPTION);
+                        if (state1 == 0) {
+                            GLOBAL.PAGE_CTRL.loadPage(PageName.Signup);
+                        } else {
+                            username.setText("");
+                            password.setText("");
+                        }
+
+                    }
                 }
-                else
-                {
-                    System.out.println("invalid userid and password");
-                }
-             
+
             } catch (Exception ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }

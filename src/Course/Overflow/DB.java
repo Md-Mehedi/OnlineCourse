@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
+/**3
  *
  * @author Md Mehedi Hasan , Kazi Wasif Amin
  */
@@ -21,8 +21,8 @@ public class DB {
 
             System.out.println("Driver loaded successfully...");
 
-//            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSE_OVERFLOW", "co");
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:globaldb", "COURSE_OVERFLOW", "co");
+           con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSEOVERFLOW_", "co");
+            //con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:globaldb", "COURSE_OVERFLOW", "co");
             st = con.createStatement();
 
             System.out.println("Connection established");
