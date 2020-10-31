@@ -7,6 +7,8 @@
 package Course.Overflow.Student;
 
 import Course.Overflow.Course.Course;
+import Course.Overflow.DB;
+import Course.Overflow.Global.EducationalStatus;
 import Course.Overflow.Global.Person;
 import java.util.ArrayList;
 
@@ -15,15 +17,24 @@ import java.util.ArrayList;
  * @author Md Mehedi Hasan
  */
 public class Student extends Person{
+    private EducationalStatus eduStatus;
     ArrayList<Course> courses;
-
-    
-    public Student(String username, String email, String password, String firstName, String lastName, String about){
-        super(username);
-        this.courses = courses;
-    }
 
     public ArrayList<Course> getCourses() {
         return courses;
     }    
+
+    public EducationalStatus getEduStatus() {
+        return eduStatus;
+    }
+
+    public void setEduStatus(EducationalStatus eduStatus) {
+        this.eduStatus = eduStatus;
+        DB.execute("UPDATE STUDENT SET EDU_STATUS_ID = #", eduStatus.getId().toString());
+    }
+    
+    public Student(String username, String email, String password, String firstName, String lastName, String about){
+        super(username, email, password, firstName, lastName, about);
+        DB.execute("INSERT INTO STUDENT(ID) VALUES('#')", username);
+    }
 }

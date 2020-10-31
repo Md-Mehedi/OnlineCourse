@@ -34,6 +34,18 @@ public class Designation {
         }
     }
     
+    public Designation(String type){
+        this.type = type;
+        ResultSet rs = DB.executeQuery("SELECT * FROM DESIGNATION WHERE TYPE = '#'", type);
+        try {
+            if(!rs.next()) return;
+            id = rs.getInt("ID");
+            adminId = rs.getString("ADMIN_ID");
+        } catch (SQLException ex) {
+            Logger.getLogger(Designation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public Designation(Integer id, String type, String adminId){
         this.id = id;
         this.type = type;

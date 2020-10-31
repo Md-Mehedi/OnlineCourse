@@ -27,8 +27,7 @@ public class Person {
         String name;
         private AccountType(String name) {
             this.name = name;
-        }
-        
+        }        
     }
     
     AccountType accountType;
@@ -75,10 +74,164 @@ public class Person {
         }
     }
     
-    public static Person insertNew(String username, String email, String password, String firstName, String lastName, String about){
+    public Person(String username, String email, String password, String firstName, String lastName, String about){
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.about = about;
+        
         DB.execute("INSERT INTO PERSON(ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, SIGNUP_DATE, ABOUT)"
               + " VALUES('#', '#', '#', '#', '#', #, '#')"
               , username, email, password, firstName, lastName, ToolKit.getCurTimeDB(), about);
-        return new Person(username);
+        // return new Person(username);
     }    
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+        DB.execute("UPDATE PERSON SET PASSWORD = '#' WHERE ID = '#'", password, username);
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+        DB.execute("UPDATE PERSON SET FIRST_NAME = '#' WHERE ID = '#'", firstName, username);
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+        DB.execute("UPDATE PERSON SET LAST_NAME = '#' WHERE ID = '#'", lastName, username);
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+        DB.execute("UPDATE PERSON SET DOB = # WHERE ID = '#'", ToolKit.JDateToDDate(dob), username);
+    }
+
+    public String getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(String institution) {
+        this.institution = institution;
+        DB.execute("UPDATE PERSON SET INSTITUTION = '#' WHERE ID = '#'", institution, username);
+    }
+
+    public String getFbURL() {
+        return fbURL;
+    }
+
+    public void setFbURL(String fbURL) {
+        this.fbURL = fbURL;
+        DB.execute("UPDATE PERSON SET FB_URL = '#' WHERE ID = '#'", fbURL, username);
+    }
+
+    public String getLinkedInURL() {
+        return linkedInURL;
+    }
+
+    public void setLinkedInURL(String linkedInURL) {
+        this.linkedInURL = linkedInURL;
+        DB.execute("UPDATE PERSON SET LINKEDIN_URL = '#' WHERE ID = '#'", linkedInURL, username);
+    }
+
+    public Date getSignupDate() {
+        return signupDate;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+        DB.execute("UPDATE PERSON SET ABOUT = '#' WHERE ID = '#'", about, username);
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+        DB.execute("UPDATE PERSON SET COUNTRY_ID = '#' WHERE ID = '#'", country.getId().toString(), username);
+    }
+
+    public Files getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Files photo) {
+        this.photo = photo;
+        DB.execute("UPDATE PERSON SET PHOTO_ID = '#' WHERE ID = '#'", photo.getId().toString(), username);
+    }
+
+    public CreditCard getCard() {
+        return card;
+    }
+
+    public void setCard(CreditCard card) {
+        this.card = card;
+        DB.execute("UPDATE PERSON SET CARD_ID = '#' WHERE ID = '#'", card.getId().toString(), username);
+    }
+
+    public String getYoutubeURL() {
+        return youtubeURL;
+    }
+
+    public void setYoutubeURL(String youtubeURL) {
+        this.youtubeURL = youtubeURL;
+        DB.execute("UPDATE PERSON SET YOUTUBE_URL = '#' WHERE ID = '#'", youtubeURL, username);
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+        DB.execute("UPDATE PERSON SET WEBSITE = '#' WHERE ID = '#'", website, username);
+    }
+
+    public ArrayList<Language> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(ArrayList<Language> languages) {
+        this.languages = languages;
+    }
+    
+    
 }
