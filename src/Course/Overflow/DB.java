@@ -120,12 +120,8 @@ public class DB {
 
     public static boolean valueExist(String table, String column, String val) {
         try {
-            String sql = "SELECT * FROM # WHERE '#' = '#' ";
-            ResultSet rs = executeQuery(sql, table, column, val);
-            if (rs.next() == false) {
-                return false;
-            }
-            return true;
+            ResultSet rs = executeQuery("SELECT * FROM # WHERE # = '#' ", table, column, val);
+            return rs.next();
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
