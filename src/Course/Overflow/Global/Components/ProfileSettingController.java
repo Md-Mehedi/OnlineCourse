@@ -5,7 +5,10 @@
  */
 package Course.Overflow.Global.Components;
 
+import Course.Overflow.Files.FileType;
+import Course.Overflow.Files.Files;
 import Course.Overflow.Global.Country;
+import Course.Overflow.Global.CreditCard;
 import Course.Overflow.Global.Customize.HoverEffect;
 import Course.Overflow.Global.Designation;
 import Course.Overflow.Global.EducationalStatus;
@@ -14,6 +17,9 @@ import Course.Overflow.Global.Language;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.Person.AccountType;
+import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Student.Student;
+import Course.Overflow.Teacher.Teacher;
 import com.jfoenix.controls.JFXButton;
 import java.io.File;
 import java.net.URL;
@@ -104,6 +110,8 @@ public class ProfileSettingController implements Initializable {
     
     private ObservableList<String> eduStatusList;
     private ObservableList<String> countryList;
+    private Person person;
+    
     @FXML
     private VBox securityBox1;
     @FXML
@@ -222,7 +230,36 @@ public class ProfileSettingController implements Initializable {
         readyEducationalStatusOrDesignation();
         
         save.setOnMouseClicked((event) -> {
-            Person person = Person.insertNew(username, email, password, firstName.getText(), lastName.getText(), about.getText());
+            switch(accountType){
+                case Student:
+                    person = new Student(username, email, password, firstName.getText(), lastName.getText(), about.getText());
+                    if(eduStatusCB.getValue() != "-- Select --") ((Student)person).setEduStatus(new EducationalStatus(eduStatusCB.getValue()));
+                    break;
+                case Teacher:
+                    person = new Teacher(username, email, password, firstName.getText(), lastName.getText(), about.getText());
+                    if(eduStatusCB.getValue() != "-- Select --") ((Teacher)person).setDesignation(new Designation(eduStatusCB.getValue()));
+                    break;
+//                case Admin:     person = (Admin) person; break;
+            }
+            if(countryCB.getValue() != "-- Select --"){
+                person.setCountry(new Country(countryCB.getValue()));
+            }
+            person.setDob(ToolKit.localDateToDate(dob.getValue()));
+            person.setInstitution(institution.getText());
+            person.setWebsite(website.getText());
+            person.setFbURL(facebook.getText());
+            person.setYoutubeURL(youtube.getText());
+            person.setLinkedInURL(linkedin.getText());
+            
+            if(cardNo.getText() != "" && nameOnCard.getText() != "" && expireDate.getValue() != null){
+                person.setCard(CreditCard.insertCreditCard(cardNo.getText(), nameOnCard.getText(), ToolKit.localDateToDate(expireDate.getValue())));
+            } else {
+                // Show jFrame for error of credit card...
+            }
+            
+            if(photoFile != null){
+                person.setPhoto(new Files(photoFile, FileType.toType("Picture")));
+            }
             
 //            Files fileDB = new Files(photoFile, FileType.toType("Picture"));
 //            CreditCard card = CreditCard.insertCreditCard(cardNo.getText(), nameOnCard.getText(), ToolKit.localDateToDate(expireDate.getValue()));
@@ -242,8 +279,14 @@ public class ProfileSettingController implements Initializable {
             FileChooser fc = new FileChooser();
             fc.setInitialDirectory(new File(GLOBAL.FILE_CHOOSER_DIRECTORY));
             photoFile = fc.showOpenDialog(null);
-            photo.setImage(new Image(photoFile.toURI().toString()));
-            GLOBAL.FILE_CHOOSER_DIRECTORY = photoFile.getParent();
+            if(photoFile != null){
+                imageNameLabel.setText(photoFile.getName());
+                photo.setImage(new Image(photoFile.toURI().toString()));
+                GLOBAL.FILE_CHOOSER_DIRECTORY = photoFile.getParent();
+            }
+            else{
+                imageNameLabel.setText("");
+            }
         });
     }
 

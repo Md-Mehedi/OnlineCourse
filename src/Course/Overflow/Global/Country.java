@@ -46,7 +46,7 @@ public class Country {
         this.name = name;
         ResultSet rs = DB.executeQuery("SELECT * FROM COUNTRY WHERE NAME = '#'", name);
         try {
-            rs.next();
+            if(!rs.next()) {System.out.println("Conuntry is not exist..."); return;};
             id = rs.getInt("ID");
             adminId = rs.getString("ADMIN_ID");
         } catch (SQLException ex) {

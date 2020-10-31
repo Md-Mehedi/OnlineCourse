@@ -34,6 +34,18 @@ public class EducationalStatus {
         }
     }
     
+    public EducationalStatus(String type){
+        this.type = type;
+        ResultSet rs = DB.executeQuery("SELECT * FROM EDUCATIONAL_STATUS WHERE TYPE = '#'", type);
+        try {
+            if(!rs.next()) return;
+            id = rs.getInt("ID");
+            adminId = rs.getString("ADMIN_ID");
+        } catch (SQLException ex) {
+            Logger.getLogger(EducationalStatus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public EducationalStatus(Integer id, String type, String adminId){
         this.id = id;
         this.type = type;
