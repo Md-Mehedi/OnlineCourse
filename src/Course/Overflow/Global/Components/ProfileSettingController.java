@@ -47,7 +47,7 @@ import javafx.stage.FileChooser;
 /**
  * FXML Controller class
  *
- * @author ASUS
+ * @author Mehedi
  */
 public class ProfileSettingController implements Initializable {
 

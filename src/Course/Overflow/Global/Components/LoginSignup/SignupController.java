@@ -127,9 +127,7 @@ public class SignupController implements Initializable {
 //            }
 //        });
 //                System.out.println("ok2");
-
     }
-
 
     @FXML
     private void TandC_clk(ActionEvent event) {
@@ -200,27 +198,35 @@ public class SignupController implements Initializable {
 //            }
         });
         signupBtn.setOnMouseClicked((event) -> {
-            if (password.getText().toString() == "") {
-                JOptionPane.showConfirmDialog(null, "Password cannot be empty ! ", "select", JOptionPane.CANCEL_OPTION);
-            }
-            else if(DB.valueExist("PERSON", "EMAIL", email.getText()) == true || DB.valueExist("PERSON", "ID", username.getText()) == true) {
-                int stat = JOptionPane.showConfirmDialog(null, "You have already signed up! Please Log in ", "select", JOptionPane.CANCEL_OPTION);
-                if (stat == 0) {
-                    GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
+            if (!accountTypeCB.getSelectionModel().isEmpty()) {
+                if (!username.getText().isEmpty() && !email.getText().isEmpty()) {
+                    if (!password.getText().isEmpty()) {
+                        if (DB.valueExist("PERSON", "EMAIL", email.getText()) != true && DB.valueExist("PERSON", "ID", username.getText()) != true) {
+                            accountType = AccountType.valueOf(accountTypeCB.getValue());
+                            ProfileSettingController profSetCtrl = (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
+                            profSetCtrl.createEnvironmentForSignup(accountType, email.getText(), username.getText(), password.getText());
+                            GLOBAL.ACCOUNT_TYPE = accountType;
+                        } else {
+                            int stat = JOptionPane.showConfirmDialog(null, "The username or email is already taken !\n log in instead ", "select", JOptionPane.CANCEL_OPTION);
+                            if (stat == 0) {
+                                GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
+                            } else {
+                                email.setText("");
+                                username.setText("");
+                                password.setText("");
+                            }
+                        }
+                    } else {
+                        JOptionPane.showConfirmDialog(null, "Password cannot be empty ! ", "select", JOptionPane.CANCEL_OPTION);
+                    }
                 } else {
-                    email.setText("");
-                    username.setText("");
-                    password.setText("");
+                    JOptionPane.showConfirmDialog(null, "username or email cannot be empty ! ", "select", JOptionPane.CANCEL_OPTION);
                 }
-            } 
-            else {
-                accountType = AccountType.valueOf(accountTypeCB.getValue());
-                ProfileSettingController profSetCtrl =  (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
-                profSetCtrl.createEnvironmentForSignup(accountType, email.getText(), username.getText(), password.getText());
-                GLOBAL.ACCOUNT_TYPE = accountType;
+            } else {
+                JOptionPane.showConfirmDialog(null, "Please select account type ! ", "select", JOptionPane.YES_OPTION);
             }
-            
-        });        
+           
+        });
         password.setOnKeyTyped((event2) -> {
             //String spec_char = "!@#$%^&*()<>,./?;':+=-{[}]|~`\\";
             // while (press == false) {
@@ -238,7 +244,7 @@ public class SignupController implements Initializable {
 //        stat = state[0] + state[1] + state[2] + state[3];
             String pass = password.getText().toString();
             int len = pass.length();
-            if (len <= 2 && len > 0) {
+            if (len <= 2 && len >= 0) {
                 pass_strength.setText("poor");
                 poor.setStyle(" -fx-background-color: red;");
                 medium.setStyle(" -fx-background-color:  #E79D30;");
@@ -267,7 +273,7 @@ public class SignupController implements Initializable {
 
     private void setUpAccountTypeChoiceBox() {
         numOfItemList = FXCollections.observableArrayList();
-        numOfItemList.addAll("Admin", "Student", "Teacher");
+        numOfItemList.addAll("Student", "Teacher");
         accountTypeCB.setItems(numOfItemList);
     }
 
