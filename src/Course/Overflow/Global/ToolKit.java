@@ -64,8 +64,8 @@ public class ToolKit {
                 Text text = new Text(currText);
                 text.setFont(ta.getFont()); // Set the same font, so the size is the same
                 double height = text.getLayoutBounds().getHeight()// This big is the Text in the TextField
-                      + ta.getPadding().getTop() + ta.getPadding().getBottom()// Add the padding of the TextField
-                      + 200d; // Add some spacing
+                        + ta.getPadding().getTop() + ta.getPadding().getBottom()// Add the padding of the TextField
+                        + 200d; // Add some spacing
                 ta.setPrefHeight(height); // Set the width
                 ta.positionCaret(ta.getCaretPosition()); // If you remove this line, it flashes a little bit
             });
@@ -86,15 +86,15 @@ public class ToolKit {
         FileChooser fc = new FileChooser();
         if (fileType == "video") {
             fc.getExtensionFilters().addAll(
-                  new FileChooser.ExtensionFilter("Video files", "*.mp4", "*.3gp")
+                    new FileChooser.ExtensionFilter("Video files", "*.mp4", "*.3gp")
             );
         } else if (fileType == "pdf") {
             fc.getExtensionFilters().add(
-                  new FileChooser.ExtensionFilter("PDF files", "*.pdf")
+                    new FileChooser.ExtensionFilter("PDF files", "*.pdf")
             );
         } else if (fileType == "image") {
             fc.getExtensionFilters().addAll(
-                  new FileChooser.ExtensionFilter("Image files", "*.jpeg", "*.jpg", "*.bmp", "*.png", "*.gif")
+                    new FileChooser.ExtensionFilter("Image files", "*.jpeg", "*.jpg", "*.bmp", "*.png", "*.gif")
             );
         }
         return fc.showOpenDialog(null);
@@ -120,16 +120,16 @@ public class ToolKit {
         contentContainer.getStyleClass().add("toolTipContainer");
         contentContainer.setDisable(true);
         contentContainer.setStyle(""
-              + "-fx-stroke: black;"
+                + "-fx-stroke: black;"
         );
         Polygon triangle = new Polygon();
         triangle.getPoints().addAll(
-              0.0, 0.0,
-              triangleBase, 0.0,
-              triangleBase / 2, triangleHeight
+                0.0, 0.0,
+                triangleBase, 0.0,
+                triangleBase / 2, triangleHeight
         );
         triangle.setStyle(""
-              + "-fx-fill: #ccffff;"
+                + "-fx-fill: #ccffff;"
         );
         AnchorPane triangleWrapper = new AnchorPane(triangle);
         VBox box = new VBox(content, triangleWrapper);
@@ -151,8 +151,8 @@ public class ToolKit {
         contentContainer.setDisable(true);
         return triangle;
     }
-    
-    public static void setUpLocation(FontAwesomeIconView obj, AnchorPane contentContainer, Polygon triangle){
+
+    public static void setUpLocation(FontAwesomeIconView obj, AnchorPane contentContainer, Polygon triangle) {
         contentContainer.toFront();
         double posX = obj.localToScene(obj.getBoundsInLocal()).getMinX() - contentContainer.getWidth() / 2 + Double.parseDouble(obj.getSize()) / 2;
         double posY = obj.localToScene(obj.getBoundsInLocal()).getMinY() - contentContainer.getHeight() - tooltipOffset;
@@ -196,7 +196,8 @@ public class ToolKit {
         Polygon triangle = toolTipFinalize(content, contentContainer, mainContainer);
         setHandler(obj, contentContainer, triangle);
     }
-    public static void setUpLocation(ImageView obj, AnchorPane contentContainer, Polygon triangle){
+
+    public static void setUpLocation(ImageView obj, AnchorPane contentContainer, Polygon triangle) {
         contentContainer.toFront();
         double posX = obj.localToScene(obj.getBoundsInLocal()).getMinX() - contentContainer.getWidth() / 2 + obj.getFitWidth() / 2;
         double posY = obj.localToScene(obj.getBoundsInLocal()).getMinY() - contentContainer.getHeight() - tooltipOffset;
@@ -234,8 +235,8 @@ public class ToolKit {
         Polygon triangle = toolTipFinalize(content, contentContainer, mainContainer);
         setHandler(obj, contentContainer, triangle);
     }
-    
-    public static void setUpLocation(Label obj, AnchorPane contentContainer, Polygon triangle){
+
+    public static void setUpLocation(Label obj, AnchorPane contentContainer, Polygon triangle) {
         contentContainer.toFront();
         double posX = obj.localToScene(obj.getBoundsInLocal()).getMinX() - contentContainer.getWidth() / 2 + obj.getWidth() / 2;
         double posY = obj.localToScene(obj.getBoundsInLocal()).getMinY() - contentContainer.getHeight() - tooltipOffset;
@@ -250,7 +251,7 @@ public class ToolKit {
             setUpLocation(obj, contentContainer, triangle);
         });
         obj.setOnMouseEntered((MouseEvent event) -> {
-            setUpLocation(obj, contentContainer, triangle);        
+            setUpLocation(obj, contentContainer, triangle);
             contentContainer.setVisible(true);
             contentContainer.setDisable(false);
         });
@@ -276,31 +277,30 @@ public class ToolKit {
         Polygon triangle = toolTipFinalize(content, contentContainer, mainContainer);
         setHandler(obj, contentContainer, triangle);
     }
-    
+
     private static void setTriangleProperly(double posY, Polygon triangle) {
         AnchorPane triangleWrapper = (AnchorPane) triangle.getParent();
         VBox box = (VBox) triangleWrapper.getParent();
-        if(posY<tooltipOffset){
-            if(box.getChildren().indexOf(triangleWrapper)==1){
+        if (posY < tooltipOffset) {
+            if (box.getChildren().indexOf(triangleWrapper) == 1) {
                 box.getChildren().remove(triangleWrapper);
                 box.getChildren().add(0, triangleWrapper);
                 triangle.getPoints().clear();
                 triangle.getPoints().addAll(
-                      0.0, 0.0,
-                      triangleBase, 0.0,
-                      triangleBase / 2, -triangleHeight
+                        0.0, 0.0,
+                        triangleBase, 0.0,
+                        triangleBase / 2, -triangleHeight
                 );
             }
-        }
-        else{
-            if(box.getChildren().indexOf(triangleWrapper)==0){
+        } else {
+            if (box.getChildren().indexOf(triangleWrapper) == 0) {
                 box.getChildren().remove(triangleWrapper);
                 box.getChildren().add(triangleWrapper);
                 triangle.getPoints().clear();
                 triangle.getPoints().addAll(
-                      0.0, 0.0,
-                      triangleBase, 0.0,
-                      triangleBase / 2, triangleHeight
+                        0.0, 0.0,
+                        triangleBase, 0.0,
+                        triangleBase / 2, triangleHeight
                 );
             }
         }
@@ -320,7 +320,7 @@ public class ToolKit {
             AnchorPane.setLeftAnchor(node, leftAnchor);
         }
     }
-    
+
 //    public static String getCurTimeForDB(){
 //        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 //        Date dateobj = new Date();
@@ -332,63 +332,85 @@ public class ToolKit {
 //    public static String DateFormatDB(){
 //        return "yyyy-mm-dd hh:mm:ss";
 //    }
-    
     /*
      * Date Related Functions
      */
-    public static String dateFormatDB(){
+    public static String dateFormatDB() {
         return "yyyy-mm-dd hh24:mi:ss";
     }
-    
-    public static String dateFormatJAVA(){
+
+    public static String dateFormatJAVA() {
         return "yyyy-MM-dd HH:mm:ss";
     }
-    
-    public static String getCurTimeDB(){
+
+    public static String getCurTimeDB() {
         DateFormat df = new SimpleDateFormat(dateFormatJAVA());
         Date dateobj = new Date();
         System.out.println(df.format(dateobj));
-        
+
         return "TO_DATE('" + df.format(dateobj) + "', '" + dateFormatDB() + "')";
     }
-    
-    public static Date getCurTime(){
-       return new Date();
+
+    public static Date getCurTime() {
+        return new Date();
     }
-    
-    public static String JDateToDDate(Date date){
-        System.out.println("makeDateForDB : "+date.toString());
+
+    public static String JDateToDDate(Date date) {
+        System.out.println("makeDateForDB : " + date.toString());
         SimpleDateFormat df = new SimpleDateFormat(dateFormatJAVA());
         return "TO_DATE('" + df.format(date) + "', '" + dateFormatDB() + "')";
     }
-    
+
     public static Date makeDateForJAVA(java.sql.Date date) {
         Date jDate = date;
         return jDate;
     }
-    
-    public static Date localDateToDate(LocalDate lDate){
+
+    public static Date localDateToDate(LocalDate lDate) {
         Instant instant = Instant.from(lDate.atStartOfDay(ZoneId.systemDefault()));
         return Date.from(instant);
     }
+
     /*
      * Date Related Function End
      */
-    public static String copyFile(File file, FileType type){
+    public static String copyFile(File file, FileType type) {
         String destPath = "";
-        switch(type.getType()){
-            case "Picture" : destPath += GLOBAL.PICTURE_LOCATION + "/Picture_" + DB.generateId("FILES").toString() + "_"; break;
-            
+        switch (type.getType()) {
+            case "Picture":
+                destPath += GLOBAL.PICTURE_LOCATION + "/Picture_" + DB.generateId("FILES").toString() + "_";
+                break;
+
         }
         destPath += file.getName();
-        
+
 //        String destURL = GLOBAL.ROOT_LOCATION + GLOBAL.PICTURE_LOCATION + "/Message_101_" + file.getName();
         try {
             Files.copy(file.toPath(), (new File(GLOBAL.ROOT_LOCATION + destPath)).toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ex) {
             Logger.getLogger(MessengerController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return destPath; 
+        return destPath;
     }
 
+    public static boolean isValidString(String str) {
+        char[] ch = str.toCharArray();
+        int len = str.length();
+        for (int i = 0; i < len; i++) {
+            if (ch[i] == '\\' || ch[i] == '\"' || ch[i] == '\'' || ch[i] == ';') {
+                return false;
+            }
+        }
+        return true;
+    }
+    public static boolean isSpaceMiddle(String str)
+    {
+        char[] ch = str.toCharArray();
+        int len = str.length();
+        for (int i = 0; i < len; i++) {
+            if(ch[i]==' ')
+                return true;
+        }
+        return false;
+    }
 }
