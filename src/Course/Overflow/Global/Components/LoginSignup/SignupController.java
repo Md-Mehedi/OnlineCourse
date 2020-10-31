@@ -5,10 +5,10 @@
  */
 package Course.Overflow.Global.Components.LoginSignup;
 
-import Course.Overflow.DB;
 import Course.Overflow.Global.Components.ProfileSettingController;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.Person.AccountType;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -54,11 +54,12 @@ public class SignupController implements Initializable {
     @FXML
     private AnchorPane root;
     private FXMLLoader loader;
-    @FXML
-    private ChoiceBox<String> accountType;
     private ObservableList<String> numOfItemList;
     @FXML
     private JFXTextField email;
+    private AccountType accountType;
+    @FXML
+    private ChoiceBox<String> accountTypeCB;
 
     /**
      * Initializes the controller class.
@@ -194,26 +195,24 @@ public class SignupController implements Initializable {
 //            }
         });
         signupBtn.setOnMouseClicked((event) -> {
-            DB.execute("INSERT INTO SAMPLE values('#', '#')"
-                  ,username.getText()
-                  ,password.getText()
-            );
-//            if(DB.execute("sample", "username", username.getText())) return;
-//            DB.execute(sql);
+//            DB.execute("INSERT INTO SAMPLE values('#', '#')"
+//                  ,username.getText()
+//                  ,password.getText()
+//            );
+            accountType = AccountType.valueOf(accountTypeCB.getValue());
             
             //GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
             ProfileSettingController profSetCtrl =  (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
-            profSetCtrl.createEnvironmentForSignup();
-            profSetCtrl.setUsernamePassword(email.getText(), username.getText(), password.getText());
+            profSetCtrl.createEnvironmentForSignup(accountType, email.getText(), username.getText(), password.getText());
+
             // GLOBAL.ACCOUNT_TYPE = Person.AccountType.valueOf(accountType.getValue());
         });
     }
 
     private void setUpAccountTypeChoiceBox() {
-    
         numOfItemList = FXCollections.observableArrayList();
         numOfItemList.addAll("Admin", "Student", "Teacher");
-        accountType.setItems(numOfItemList);
+        accountTypeCB.setItems(numOfItemList);
     }
 
 }

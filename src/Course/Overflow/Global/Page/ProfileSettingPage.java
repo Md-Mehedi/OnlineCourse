@@ -26,9 +26,9 @@ public class ProfileSettingPage extends Page{
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml"));
             root = loader.load();
             proSetCtrl = loader.<ProfileSettingController>getController();
-            if(GLOBAL.PAGE_CTRL.getPreviousPageName() == PageName.Signup){
-                proSetCtrl.createEnvironmentForSignup();
-            };
+//            if(GLOBAL.PAGE_CTRL.getPreviousPageName() == PageName.Signup){
+//                proSetCtrl.createEnvironmentForSignup();
+//            };
         } catch (IOException ex) {
             Logger.getLogger(TeacherDetailsPage.class.getName()).log(Level.SEVERE, null, ex);
         }

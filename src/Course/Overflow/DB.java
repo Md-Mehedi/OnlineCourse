@@ -116,4 +116,14 @@ public class DB {
     public static Integer generateId(String tableName){
         return generateId(tableName, "ID");
     }
+
+    public static boolean valueExist(String table, String field, String value) {
+        ResultSet rs = executeQuery("SELECT * FROM # WHERE # = '#'", table, field, value);
+        try {
+            return rs.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

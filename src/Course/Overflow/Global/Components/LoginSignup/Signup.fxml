@@ -94,7 +94,7 @@
                                     <HBox>
                                        <children>
                                           <MaterialDesignIconView glyphName="ACCOUNT_MULTIPLE" size="35" />
-                                          <ChoiceBox fx:id="accountType" prefHeight="33.0" prefWidth="160.0" />
+                                          <ChoiceBox fx:id="accountTypeCB" prefHeight="33.0" prefWidth="160.0" />
                                        </children>
                                     </HBox>
                                     <HBox>

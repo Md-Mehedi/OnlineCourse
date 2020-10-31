@@ -15,6 +15,9 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -353,9 +356,20 @@ public class ToolKit {
        return new Date();
     }
     
-    public static String makeDateForDB(Date date){
+    public static String JDateToDDate(Date date){
+        System.out.println("makeDateForDB : "+date.toString());
         SimpleDateFormat df = new SimpleDateFormat(dateFormatJAVA());
         return "TO_DATE('" + df.format(date) + "', '" + dateFormatDB() + "')";
+    }
+    
+    public static Date makeDateForJAVA(java.sql.Date date) {
+        Date jDate = date;
+        return jDate;
+    }
+    
+    public static Date localDateToDate(LocalDate lDate){
+        Instant instant = Instant.from(lDate.atStartOfDay(ZoneId.systemDefault()));
+        return Date.from(instant);
     }
     /*
      * Date Related Function End
@@ -376,4 +390,5 @@ public class ToolKit {
         }
         return destPath; 
     }
+
 }
