@@ -11,6 +11,7 @@ import Course.Overflow.DB;
 import Course.Overflow.Global.EducationalStatus;
 import Course.Overflow.Global.Person;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -33,8 +34,8 @@ public class Student extends Person{
         DB.execute("UPDATE STUDENT SET EDU_STATUS_ID = #", eduStatus.getId().toString());
     }
     
-    public Student(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about){
-        super(accountType, username, email, password, firstName, lastName, about);
+    public Student(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about, Date date){
+        super(accountType, username, email, password, firstName, lastName, about, date);
         DB.execute("INSERT INTO STUDENT(ID) VALUES('#')", username);
     }
 }

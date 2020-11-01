@@ -11,6 +11,7 @@ import Course.Overflow.DB;
 import Course.Overflow.Global.Designation;
 import Course.Overflow.Global.Person;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -54,8 +55,8 @@ public class Teacher extends Person{
         this.courses = courses;
     }
 
-    public Teacher(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about){
-        super(accountType, username, email, password, firstName, lastName, about);
+    public Teacher(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about, Date dob){
+        super(accountType, username, email, password, firstName, lastName, about, dob);
         DB.execute("INSERT INTO INSTRUCTOR(ID) VALUES('#')", username);
     }
 }

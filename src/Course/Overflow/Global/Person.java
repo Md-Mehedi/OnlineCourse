@@ -75,7 +75,7 @@ public class Person {
         }
     }
     
-    public Person(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about){
+    public Person(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about, Date dob){
         this.accountType = accountType;
         this.username = username;
         this.email = email;
@@ -83,10 +83,11 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
         this.about = about;
+        this.dob = dob;
         
-        DB.execute("INSERT INTO PERSON(ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, SIGNUP_DATE, ABOUT)"
-              + " VALUES('#', '#', '#', '#', '#', #, '#')"
-              , username, email, password, firstName, lastName, ToolKit.getCurTimeDB(), about);
+        DB.execute("INSERT INTO PERSON(ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, SIGNUP_DATE, ABOUT, DOB)"
+              + " VALUES('#', '#', '#', '#', '#', #, '#', #)"
+              , username, email, password, firstName, lastName, ToolKit.getCurTimeDB(), about, ToolKit.JDateToDDate(dob));
         // return new Person(username);
     }    
     
