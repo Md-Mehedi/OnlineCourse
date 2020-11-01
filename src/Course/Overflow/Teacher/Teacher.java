@@ -54,8 +54,8 @@ public class Teacher extends Person{
         this.courses = courses;
     }
 
-    public Teacher(String username, String email, String password, String firstName, String lastName, String about){
-        super(username, email, password, firstName, lastName, about);
+    public Teacher(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about){
+        super(accountType, username, email, password, firstName, lastName, about);
         DB.execute("INSERT INTO INSTRUCTOR(ID) VALUES('#')", username);
     }
 }

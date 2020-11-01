@@ -21,6 +21,7 @@ import java.util.logging.Logger;
  * @author Md Mehedi Hasan
  */
 public class Person {
+
     public enum AccountType{
         Admin("Admin"), Student("Student"), Teacher("Teacher");
         
@@ -64,9 +65,9 @@ public class Person {
             this.linkedInURL = rs.getString("LINKEDIN_URL");
             this.signupDate = rs.getDate("SIGNUP_DATE");
             this.about = rs.getString("ABOUT");
-            this.country = new Country(rs.getInt("COUNTRY_ID"));
-            this.photo = new Files(rs.getInt("PHOTO_ID"));
-            this.card = new CreditCard(rs.getInt("CARD_ID"));
+            if(rs.getInt("COUNTRY_ID") != 0) this.country = new Country(rs.getInt("COUNTRY_ID"));
+            if(rs.getInt("PHOTO_ID") != 0) this.photo = new Files(rs.getInt("PHOTO_ID"));
+            if(rs.getInt("CARD_ID") != 0) this.card = new CreditCard(rs.getInt("CARD_ID"));
             this.youtubeURL = rs.getString("YOUTUBE_URL");
             this.website = rs.getString("WEBSITE");
         } catch (SQLException ex) {
@@ -74,7 +75,8 @@ public class Person {
         }
     }
     
-    public Person(String username, String email, String password, String firstName, String lastName, String about){
+    public Person(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about){
+        this.accountType = accountType;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -87,6 +89,29 @@ public class Person {
               , username, email, password, firstName, lastName, ToolKit.getCurTimeDB(), about);
         // return new Person(username);
     }    
+    
+    
+    public static Person validUser(String username, String password) {
+        ResultSet rs = DB.executeQuery("SELECT ID FROM PERSON WHERE ID = '#' AND PASSWORD = '#'", username, password);
+        try {
+            if(rs.next()){
+                return new Person(username);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    
+    
+    
+    
+    
+    /*
+     * Getter and Setter...
+     */
 
     public AccountType getAccountType() {
         return accountType;

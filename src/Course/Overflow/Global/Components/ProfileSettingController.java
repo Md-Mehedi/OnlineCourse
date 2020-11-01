@@ -232,11 +232,11 @@ public class ProfileSettingController implements Initializable {
         save.setOnMouseClicked((event) -> {
             switch(accountType){
                 case Student:
-                    person = new Student(username, email, password, firstName.getText(), lastName.getText(), about.getText());
+                    person = new Student(accountType, username, email, password, firstName.getText(), lastName.getText(), about.getText());
                     if(eduStatusCB.getValue() != "-- Select --") ((Student)person).setEduStatus(new EducationalStatus(eduStatusCB.getValue()));
                     break;
                 case Teacher:
-                    person = new Teacher(username, email, password, firstName.getText(), lastName.getText(), about.getText());
+                    person = new Teacher(accountType, username, email, password, firstName.getText(), lastName.getText(), about.getText());
                     if(eduStatusCB.getValue() != "-- Select --") ((Teacher)person).setDesignation(new Designation(eduStatusCB.getValue()));
                     break;
 //                case Admin:     person = (Admin) person; break;
@@ -272,7 +272,11 @@ public class ProfileSettingController implements Initializable {
 //                  username, this.email.getText(), password, firstName.getText(), lastName.getText(), ToolKit.getCurTimeDB(), about.getText(), fileDB.getId().toString(), card.getId().toString(), country.getId().toString()
 //            );
             
+            GLOBAL.USER = person;
             GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
+        });
+        cancel.setOnMouseClicked(event -> {
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
         });
     }
 

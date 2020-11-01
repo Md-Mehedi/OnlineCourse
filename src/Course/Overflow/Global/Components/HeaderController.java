@@ -14,12 +14,14 @@ import Course.Overflow.Global.ToolKit;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -28,6 +30,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
@@ -76,6 +79,14 @@ public class HeaderController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {        
         leftArrow.setOpacity(0.1);
         rightArrow.setOpacity(0.1);
+        loadProfilePhoto();
+        addListener();
+        Platform.runLater(()->{
+            createCategories();
+        });
+    }    
+    
+    public void addListener(){
         leftArrow.setOnMouseClicked((event) -> {
             if(ContainerPage.pageIdx>0){
                 ContainerPage.pageIdx--;
@@ -93,10 +104,7 @@ public class HeaderController implements Initializable {
                 GLOBAL.PAGE_CTRL.loadPage(PageName.SearchResult);
             }
         });
-        Platform.runLater(()->{
-            createCategories();
-        });
-    }    
+    }
     
     
     public void setNotiPane(AnchorPane noti){
@@ -207,5 +215,20 @@ public class HeaderController implements Initializable {
     
     public AnchorPane getRoot(){
         return header;
+    }
+
+    private void loadProfilePhoto() {
+        if(GLOBAL.USER.getPhoto() != null){
+            if(profile.getChildren().contains(profileName)) profile.getChildren().remove(profileName);
+            File photoFile = new File(ToolKit.makeAbsoluteLocation(GLOBAL.USER.getPhoto().getContent()));
+            Image photo = new Image(photoFile.toURI().toString());
+            profileCircle.setFill(new ImagePattern(photo));
+        }
+        else {
+            if(!profile.getChildren().contains(profileName)) profile.getChildren().add(profileName);
+            String firstName = GLOBAL.USER.getFirstName();
+            String lastName = GLOBAL.USER.getLastName();
+            profileName.setText((firstName.substring(0, 1) + lastName.substring(0, 1)).toUpperCase());
+        }
     }
 }

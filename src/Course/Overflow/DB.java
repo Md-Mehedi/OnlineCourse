@@ -21,9 +21,11 @@ public class DB {
 
             System.out.println("Driver loaded successfully...");
             if(System.getProperty("user.name").equals("ASUS")){
+                System.out.println("USER : MEHEDI");
                 con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:globaldb", "COURSE_OVERFLOW", "co");
             }
             else{
+                System.out.println("USER : SHAMMYA");
                 con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSEOVERFLOW_", "co");
             }
             st = con.createStatement();

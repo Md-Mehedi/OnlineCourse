@@ -51,9 +51,9 @@ public class ContainerPage {
     private static int idx;
     
 
-    public ContainerPage() {
-        this(PageName.Home);
-    }
+//    public ContainerPage() {
+//        this(PageName.Home);
+//    }
     
     public ContainerPage(PageName pageName){
         pages = new ArrayList<>();
@@ -143,7 +143,8 @@ public class ContainerPage {
     
     public void loadPage(PageName pageName){
         if(curPage == pageName) return;
-        if(!container.getChildren().contains(scroll)){
+        if(!container.getChildren().contains(scroll) && pageName != PageName.Signup && pageName != PageName.Login){
+            System.out.println(pageName);
             createLayout();
         }
         
@@ -154,10 +155,10 @@ public class ContainerPage {
             case MyCourse: page = new CourseListShowPage("My courses"); break;
             case Wishlist: page = new CourseListShowPage("Wishlist"); break;
             case PurchaseHistory: 
-                if(GLOBAL.ACCOUNT_TYPE == Person.AccountType.Student){
+                if(GLOBAL.USER.getAccountType() == Person.AccountType.Student){
                     page = new CourseListShowPage("Your purchase history", PageByPageLayoutController.BoxType.CourseVertical);
                 } 
-                else if(GLOBAL.ACCOUNT_TYPE == Person.AccountType.Teacher){
+                else if(GLOBAL.USER.getAccountType() == Person.AccountType.Teacher){
                     page = new PurchaseHistoryPage();
                 } 
                 break;

@@ -1,13 +1,12 @@
 package Course.Overflow.Global.Components.LoginSignup;
 
-import Course.Overflow.DB;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.Person;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,11 +80,12 @@ public class LoginController implements Initializable {
 //            }
         });
         loginBtn.setOnMouseClicked((event) -> {
-            String sql = "SELECT PASSWORD FROM PERSON WHERE ID = '#' AND PASSWORD = '#'";
             try {
-                ResultSet rs = DB.executeQuery(sql, username.getText(), password.getText());
-                if (rs.next() == true) {
+                Person person = Person.validUser(username.getText(), password.getText());
+                if (person != null) {
                     System.out.println("successfully logged in to " + username.getText() + " account");
+                    
+                    GLOBAL.USER = person;
                     GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
                 } else {
                     int state = JOptionPane.showConfirmDialog(null, "Invalid User ID or Password ! ", "select", JOptionPane.CANCEL_OPTION);

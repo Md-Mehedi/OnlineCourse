@@ -83,8 +83,8 @@
             </VBox>
             <StackPane fx:id="profile" styleClass="cursorHand">
                <children>
-                  <Circle fx:id="profileCircle" fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: #9C467F;" />
-                  <Label fx:id="profileName" style="-fx-text-fill: white; -fx-font-weight: bold;" text="MH" />
+                  <Circle fx:id="profileCircle" fill="#9c467f" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Label fx:id="profileName" style="-fx-text-fill: white; -fx-font-weight: bold;" text="AA" />
                </children>
             </StackPane>
          </children>

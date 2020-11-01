@@ -176,7 +176,6 @@ public class SignupController implements Initializable {
                                 accountType = AccountType.valueOf(accountTypeCB.getValue());
                                 ProfileSettingController profSetCtrl = (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
                                 profSetCtrl.createEnvironmentForSignup(accountType, em, un, pwd);
-                                GLOBAL.ACCOUNT_TYPE = accountType;
                             } else {
                                 int stat = JOptionPane.showConfirmDialog(null, "The username or email is already taken !\n log in instead ", "select", JOptionPane.CANCEL_OPTION);
                                 if (stat == 0) {

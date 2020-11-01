@@ -33,8 +33,8 @@ public class Student extends Person{
         DB.execute("UPDATE STUDENT SET EDU_STATUS_ID = #", eduStatus.getId().toString());
     }
     
-    public Student(String username, String email, String password, String firstName, String lastName, String about){
-        super(username, email, password, firstName, lastName, about);
+    public Student(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about){
+        super(accountType, username, email, password, firstName, lastName, about);
         DB.execute("INSERT INTO STUDENT(ID) VALUES('#')", username);
     }
 }

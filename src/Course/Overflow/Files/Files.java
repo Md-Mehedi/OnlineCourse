@@ -30,17 +30,16 @@ public class Files {
     
     public Files(Integer id){
         this.id = id;
-        if(DB.valueExist("FILES", "ID", id.toString())){
-            ResultSet rs = DB.executeQuery("SELECT * FROM FILES WHERE ID = #", id.toString());
-            try {
-                if(!rs.next()) return;
-                type = new FileType(rs.getInt("TYPE"));
-                title = rs.getString("CONTENT");
-                uploadTime = rs.getDate("UPLOAD_TIME");
-                lastUpdateTime = rs.getDate("LAST_UPDATE");
-            } catch (SQLException ex) {
-                Logger.getLogger(Files.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        ResultSet rs = DB.executeQuery("SELECT * FROM FILES WHERE ID = #", id.toString());
+        try {
+            if(!rs.next()) return;
+            type = new FileType(rs.getInt("TYPE"));
+            title = rs.getString("TITLE");
+            content = rs.getString("CONTENT");
+            uploadTime = rs.getDate("UPLOAD_TIME");
+            lastUpdateTime = rs.getDate("LAST_UPDATE");
+        } catch (SQLException ex) {
+            Logger.getLogger(Files.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

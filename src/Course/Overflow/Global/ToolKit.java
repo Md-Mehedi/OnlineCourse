@@ -413,4 +413,8 @@ public class ToolKit {
         }
         return false;
     }
+    
+    public static String makeAbsoluteLocation(String location){
+        return GLOBAL.ROOT_LOCATION + location;
+    }
 }
