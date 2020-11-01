@@ -43,6 +43,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -96,8 +97,7 @@ public class ProfileSettingController implements Initializable {
     private TextField institution;
     @FXML
     private TextField linkedin;
-    
-    
+
     private String username;
     private String password;
     private AccountType accountType;
@@ -107,11 +107,11 @@ public class ProfileSettingController implements Initializable {
     private Label eduStatusLabel;
     @FXML
     private ChoiceBox<String> eduStatusCB;
-    
+
     private ObservableList<String> eduStatusList;
     private ObservableList<String> countryList;
     private Person person;
-    
+
     @FXML
     private VBox securityBox1;
     @FXML
@@ -120,7 +120,6 @@ public class ProfileSettingController implements Initializable {
     private TextField nameOnCard;
     @FXML
     private DatePicker expireDate;
-    
 
     /**
      * Initializes the controller class.
@@ -131,47 +130,46 @@ public class ProfileSettingController implements Initializable {
         addLanguage();
         addCountries();
         addListener();
-    }    
+    }
 
     private void addLanguage() {
         ArrayList<Language> list = Language.getList();
         VBox container = new VBox();
         AnchorPane root = new AnchorPane(container);
         root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
-        
-        for(Language l : list){
+
+        for (Language l : list) {
             CheckBox cb = new CheckBox(l.getName());
             container.getChildren().add(cb);
             cb.setStyle(cb.getStyle() + "-fx-font-size: 18;");
             cb.setOnMouseClicked((event) -> {
-                if(cb.isSelected()){
+                if (cb.isSelected()) {
                     selectedLanguage.add(l);
-                }
-                else{
+                } else {
                     selectedLanguage.remove(l);
                 }
                 refreshLanguageString();
             });
         }
-        
+
         new HoverEffect(language, root) {
             @Override
             public void setLocation() {
                 this.defaultLocation();
             }
         };
-        
-        Platform.runLater(()->{
+
+        Platform.runLater(() -> {
             root.setStyle(
-                  root.getStyle()
-                  + "-fx-background-color: white;"
-                  + "-fx-pref-width: 350;"
+                    root.getStyle()
+                    + "-fx-background-color: white;"
+                    + "-fx-pref-width: 350;"
             );
             System.out.println(language.getPrefWidth() + 100);
             container.setStyle(
-                  container.getStyle()
-                  + "-fx-alignment: center-left;"
-                  + "-fx-spacing: 5; "
+                    container.getStyle()
+                    + "-fx-alignment: center-left;"
+                    + "-fx-spacing: 5; "
             );
         });
     }
@@ -179,39 +177,37 @@ public class ProfileSettingController implements Initializable {
     private void refreshLanguageString() {
         String text = "";
         String[] languages = new String[selectedLanguage.size()];
-        
-        for(int i=0; i<selectedLanguage.size(); i++){
+
+        for (int i = 0; i < selectedLanguage.size(); i++) {
             languages[i] = selectedLanguage.get(i).getName();
         }
         Arrays.sort(languages);
-        for(String name : languages){
-            if(text == ""){
+        for (String name : languages) {
+            if (text == "") {
                 text = name;
-            }
-            else{
+            } else {
                 text += ", " + name;
             }
         }
         language.setText(text);
     }
-    
-    public void readyEducationalStatusOrDesignation(){
+
+    public void readyEducationalStatusOrDesignation() {
         System.out.println(accountType);
         eduStatusList = FXCollections.observableArrayList();
         eduStatusList.add("-- Select --");
         eduStatusLabel.setText(accountType == AccountType.Student ? "Educational Status" : "Designation");
-        
-        if(accountType == AccountType.Student){
+
+        if (accountType == AccountType.Student) {
             ArrayList<EducationalStatus> list = EducationalStatus.getList();
-            for(EducationalStatus es : list){
+            for (EducationalStatus es : list) {
                 eduStatusList.add(es.getType());
             }
             eduStatusCB.setItems(eduStatusList);
             eduStatusCB.setValue("-- Select --");
-        }
-        else {
+        } else {
             ArrayList<Designation> list = Designation.getList();
-            for(Designation ds : list){
+            for (Designation ds : list) {
                 eduStatusList.add(ds.getType());
             }
             eduStatusCB.setItems(eduStatusList);
@@ -224,24 +220,48 @@ public class ProfileSettingController implements Initializable {
         this.username = username;
         this.password = password;
         this.email.setText(email);
-        
+
         VBox parent = (VBox) securityBox.getParent();
         parent.getChildren().remove(securityBox);
         readyEducationalStatusOrDesignation();
-        
+
         save.setOnMouseClicked((event) -> {
-            switch(accountType){
+            boolean flag = (firstName.getText().trim().isEmpty()) | (lastName.getText().trim().isEmpty());
+            if (flag) {
+                JOptionPane.showConfirmDialog(null, "The first name or last name cannot be empty ", "select", JOptionPane.CANCEL_OPTION);
+                return;
+            }
+            flag = (!ToolKit.isValidString(firstName.getText().trim())) | (!ToolKit.isValidString(lastName.getText().trim()));
+            if (flag) {
+                JOptionPane.showConfirmDialog(null, "The first name or last name cannot contain \\ ,\",\' characters ", "select", JOptionPane.CANCEL_OPTION);
+                return;
+            }
+            flag = (about.getText().trim().isEmpty()) | (!ToolKit.isValidString(about.getText().trim()));
+            if (flag) {
+                JOptionPane.showConfirmDialog(null, "Please write something about you ! \n avoid \' , \\ and \" characters  ", "select", JOptionPane.CANCEL_OPTION);
+                return;
+            }
+            if (dob.getValue() == null) {
+                JOptionPane.showConfirmDialog(null, "Pleas Write or Select your date of birth !", "select", JOptionPane.CANCEL_OPTION);
+                return;
+            }
+
+            switch (accountType) {
                 case Student:
                     person = new Student(username, email, password, firstName.getText(), lastName.getText(), about.getText());
-                    if(eduStatusCB.getValue() != "-- Select --") ((Student)person).setEduStatus(new EducationalStatus(eduStatusCB.getValue()));
+                    if (eduStatusCB.getValue() != "-- Select --") {
+                        ((Student) person).setEduStatus(new EducationalStatus(eduStatusCB.getValue()));
+                    }
                     break;
                 case Teacher:
                     person = new Teacher(username, email, password, firstName.getText(), lastName.getText(), about.getText());
-                    if(eduStatusCB.getValue() != "-- Select --") ((Teacher)person).setDesignation(new Designation(eduStatusCB.getValue()));
+                    if (eduStatusCB.getValue() != "-- Select --") {
+                        ((Teacher) person).setDesignation(new Designation(eduStatusCB.getValue()));
+                    }
                     break;
 //                case Admin:     person = (Admin) person; break;
             }
-            if(countryCB.getValue() != "-- Select --"){
+            if (countryCB.getValue() != "-- Select --") {
                 person.setCountry(new Country(countryCB.getValue()));
             }
             person.setDob(ToolKit.localDateToDate(dob.getValue()));
@@ -251,27 +271,23 @@ public class ProfileSettingController implements Initializable {
             person.setYoutubeURL(youtube.getText());
             person.setLinkedInURL(linkedin.getText());
             person.setLanguages(selectedLanguage);
-            
-            
-            if(cardNo.getText() != "" && nameOnCard.getText() != "" && expireDate.getValue() != null){
+
+            if (cardNo.getText() != "" && nameOnCard.getText() != "" && expireDate.getValue() != null) {
                 person.setCard(CreditCard.insertCreditCard(cardNo.getText(), nameOnCard.getText(), ToolKit.localDateToDate(expireDate.getValue())));
             } else {
                 // Show jFrame for error of credit card...
             }
-            
-            if(photoFile != null){
+
+            if (photoFile != null) {
                 person.setPhoto(new Files(photoFile, FileType.toType("Picture")));
             }
-            
+
 //            Files fileDB = new Files(photoFile, FileType.toType("Picture"));
 //            CreditCard card = CreditCard.insertCreditCard(cardNo.getText(), nameOnCard.getText(), ToolKit.localDateToDate(expireDate.getValue()));
 //            Country country = new Country(this.countryCB.getValue());
-            
-            
 //            DB.execute("INSERT INTO PERSON(ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, SIGNUP_DATE, ABOUT, PHOTO_ID, CARD_ID, COUNTRY_ID) VALUES('#', '#', '#', '#', '#', #, '#', #, #, #)",
 //                  username, this.email.getText(), password, firstName.getText(), lastName.getText(), ToolKit.getCurTimeDB(), about.getText(), fileDB.getId().toString(), card.getId().toString(), country.getId().toString()
 //            );
-            
             GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
         });
     }
@@ -281,22 +297,25 @@ public class ProfileSettingController implements Initializable {
             FileChooser fc = new FileChooser();
             fc.setInitialDirectory(new File(GLOBAL.FILE_CHOOSER_DIRECTORY));
             photoFile = fc.showOpenDialog(null);
-            if(photoFile != null){
+            if (photoFile != null) {
                 imageNameLabel.setText(photoFile.getName());
                 photo.setImage(new Image(photoFile.toURI().toString()));
                 GLOBAL.FILE_CHOOSER_DIRECTORY = photoFile.getParent();
-            }
-            else{
+            } else {
                 imageNameLabel.setText("");
             }
         });
+        save.setOnMouseClicked((event) -> {
+
+        });
+
     }
 
     private void addCountries() {
         countryList = FXCollections.observableArrayList();
         countryList.add("-- Select --");
         ArrayList<Country> list = Country.getList();
-        for(Country cc : list){
+        for (Country cc : list) {
             countryList.add(cc.getType());
         }
         countryCB.setItems(countryList);
