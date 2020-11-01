@@ -142,7 +142,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="securityBox1" style="-fx-padding: 0 150 0 150;" styleClass="profileSetting">
+            <VBox fx:id="securityBox1" maxWidth="930.0" prefWidth="930.0" style="-fx-padding: 0 150 0 150;" styleClass="profileSetting">
                <children>
                   <Label styleClass="title1" text="Credit Card Information" />
                   <HBox>
@@ -164,7 +164,11 @@
                               <VBox styleClass="fieldContainer">
                                  <children>
                                     <Label text="Expire Date" />
-                                    <DatePicker fx:id="expireDate" prefHeight="50.0" prefWidth="630.0" />
+                                    <AnchorPane>
+                                       <children>
+                                          <DatePicker fx:id="expireDate" prefHeight="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
                                  </children>
                               </VBox>
                            </children>
@@ -173,7 +177,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="securityBox" style="-fx-padding: 0 150 0 150;" styleClass="profileSetting">
+            <VBox fx:id="securityBox" maxWidth="930.0" prefWidth="930.0" style="-fx-padding: 0 150 0 150;" styleClass="profileSetting">
                <children>
                   <Label styleClass="title1" text="Security" />
                   <HBox>

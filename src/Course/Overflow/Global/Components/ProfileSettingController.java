@@ -306,7 +306,7 @@ public class ProfileSettingController implements Initializable {
             }
         });
         save.setOnMouseClicked((event) -> {
-
+            
         });
 
     }
