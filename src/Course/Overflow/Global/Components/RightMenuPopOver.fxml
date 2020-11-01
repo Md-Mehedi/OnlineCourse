@@ -18,12 +18,12 @@
                   <StackPane>
                      <children>
                         <Circle fx:id="imageCircle" fill="#a11fff" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                        <Label fx:id="imageLabel" style="-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: white; -fx-pref-width: 80; -fx-alignment: center;" text="MH" />
+                        <Label fx:id="imageLabel" style="-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: white; -fx-pref-width: 80; -fx-alignment: center;" text="AA" />
                      </children>
                   </StackPane>
                   <VBox>
                      <children>
-                        <Label fx:id="name" text="Label" />
+                        <Label fx:id="username" text="Label" />
                         <Label fx:id="email" text="Label" />
                      </children>
                   </VBox>

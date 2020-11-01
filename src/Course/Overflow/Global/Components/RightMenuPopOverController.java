@@ -7,13 +7,17 @@ package Course.Overflow.Global.Components;
 
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.ToolKit;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 /**
@@ -30,7 +34,7 @@ public class RightMenuPopOverController implements Initializable {
     @FXML
     private Label imageLabel;
     @FXML
-    private Label name;
+    private Label username;
     @FXML
     private Label email;
     @FXML
@@ -54,6 +58,7 @@ public class RightMenuPopOverController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        addDetails();
     }    
 
     @FXML
@@ -91,4 +96,17 @@ public class RightMenuPopOverController implements Initializable {
             GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
         }
     }    
+
+    private void addDetails() {
+        username.setText(GLOBAL.USER.getUsername());
+        email.setText(GLOBAL.USER.getEmail());
+        if(GLOBAL.USER.getPhoto() != null){
+            Image image = new Image(new File(ToolKit.makeAbsoluteLocation(GLOBAL.USER.getPhoto().getContent())).toURI().toString());
+            imageCircle.setFill(new ImagePattern(image));
+            imageLabel.setText("");
+        }
+        else{
+            imageLabel.setText(ToolKit.userShortName());
+        }
+    }
 }

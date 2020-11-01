@@ -417,4 +417,10 @@ public class ToolKit {
     public static String makeAbsoluteLocation(String location){
         return GLOBAL.ROOT_LOCATION + location;
     }
+    
+    public static String userShortName(){
+        String firstName = GLOBAL.USER.getFirstName();
+        String lastName = GLOBAL.USER.getLastName();
+        return (firstName.substring(0, 1) + lastName.substring(0, 1)).toUpperCase();
+    }
 }
