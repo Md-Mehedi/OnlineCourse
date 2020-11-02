@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Course.Overflow.Global.Components;
 
+import Course.Overflow.DB;
 import Course.Overflow.Files.FileType;
 import Course.Overflow.Files.Files;
 import Course.Overflow.Global.Country;
@@ -130,7 +126,28 @@ public class ProfileSettingController implements Initializable {
         addLanguage();
         addCountries();
         addListener();
+        loadData();
     }
+    private void loadData()
+    {
+        if(GLOBAL.USER!=null)
+            {
+                Person ps = GLOBAL.USER;
+                firstName.setText(ps.getFirstName());
+                lastName.setText(ps.getLastName());
+                institution.setText(ps.getInstitution());
+                website.setText(ps.getWebsite());
+                facebook.setText(ps.getFbURL());
+                linkedin.setText(ps.getLinkedInURL());
+                youtube.setText(ps.getYoutubeURL());
+                about.setText(ps.getAbout());
+                photo.setImage(ps.getImage());
+                cardNo.setText(ps.getCard().getCardNo());
+                countryCB.setValue(ps.getCountry().getName());
+                
+            }
+    }
+    
 
     private void addLanguage() {
         ArrayList<Language> list = Language.getList();
@@ -226,6 +243,13 @@ public class ProfileSettingController implements Initializable {
         readyEducationalStatusOrDesignation();
 
         save.setOnMouseClicked((event) -> {
+
+            boolean registered = DB.valueExist("PERSON", "ID", username);
+            if(registered)
+            {
+                
+            }
+
             boolean flag = (firstName.getText().trim().isEmpty()) | (lastName.getText().trim().isEmpty());
             if (flag) {
                 JOptionPane.showConfirmDialog(null, "The first name or last name cannot be empty ", "select", JOptionPane.CANCEL_OPTION);
@@ -249,11 +273,15 @@ public class ProfileSettingController implements Initializable {
             switch (accountType) {
                 case Student:
                     person = new Student(accountType, username, email, password, firstName.getText(), lastName.getText(), about.getText(), ToolKit.localDateToDate(dob.getValue()));
-                    if (eduStatusCB.getValue() != "-- Select --") ((Student) person).setEduStatus(new EducationalStatus(eduStatusCB.getValue()));
+                    if (eduStatusCB.getValue() != "-- Select --") {
+                        ((Student) person).setEduStatus(new EducationalStatus(eduStatusCB.getValue()));
+                    }
                     break;
                 case Teacher:
                     person = new Teacher(accountType, username, email, password, firstName.getText(), lastName.getText(), about.getText(), ToolKit.localDateToDate(dob.getValue()));
-                    if(eduStatusCB.getValue() != "-- Select --") ((Teacher)person).setDesignation(new Designation(eduStatusCB.getValue()));
+                    if (eduStatusCB.getValue() != "-- Select --") {
+                        ((Teacher) person).setDesignation(new Designation(eduStatusCB.getValue()));
+                    }
                     break;
 //                case Admin:     person = (Admin) person; break;
             }
@@ -306,7 +334,7 @@ public class ProfileSettingController implements Initializable {
             }
         });
         save.setOnMouseClicked((event) -> {
-
+            
         });
 
     }
@@ -316,7 +344,7 @@ public class ProfileSettingController implements Initializable {
         countryList.add("-- Select --");
         ArrayList<Country> list = Country.getList();
         for (Country cc : list) {
-            countryList.add(cc.getType());
+            countryList.add(cc.getName());
         }
         countryCB.setItems(countryList);
         countryCB.setValue("-- Select --");

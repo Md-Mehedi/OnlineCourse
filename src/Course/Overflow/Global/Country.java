@@ -71,7 +71,7 @@ public class Country {
         return id;
     }
 
-    public String getType() {
+    public String getName() {
         return name;
     }
 

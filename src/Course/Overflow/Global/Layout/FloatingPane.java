@@ -1,8 +1,4 @@
-/*
- * To change this license HEADER, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package Course.Overflow.Global.Layout;
 
@@ -71,6 +67,9 @@ public class FloatingPane {
             sPane.toBack();
         });
     }
-    
+    public void setAnchorPane(AnchorPane pane)
+    {
+        this.backPane = pane;
+    }  
     
 }

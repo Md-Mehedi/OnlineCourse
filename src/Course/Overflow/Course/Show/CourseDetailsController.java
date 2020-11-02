@@ -8,7 +8,6 @@ package Course.Overflow.Course.Show;
 import Course.Overflow.Course.Contents.ReviewInputBoxController;
 import Course.Overflow.Global.Components.CheckoutPageController;
 import Course.Overflow.Global.GLOBAL;
-import Course.Overflow.Global.Page.ContainerPage;
 import Course.Overflow.Global.Page.PageName;
 import java.io.IOException;
 import java.net.URL;

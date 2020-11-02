@@ -32,6 +32,7 @@ public enum PageName {
     , Login()
     , Signup()
     , ProfileSetting()
+    , FrogetPassword()
     ;
     public String name;
 

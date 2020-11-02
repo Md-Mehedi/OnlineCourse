@@ -1,11 +1,13 @@
 package Course.Overflow.Global.Components.LoginSignup;
 
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Layout.FloatingPane;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -34,11 +36,13 @@ public class LoginController implements Initializable {
     @FXML
     private JFXButton loginBtn;
     @FXML
-    private JFXButton forgetPassBtn;
-    @FXML
     private AnchorPane root;
     private FXMLLoader loader;
     private Pane rootContainer;
+    @FXML
+    private JFXButton forgetPass;
+    private ForgetPasswordController forgetPassCtrl;
+    private FloatingPane fp;
 
     /**
      * Initializes the controller class.
@@ -49,6 +53,14 @@ public class LoginController implements Initializable {
         Platform.runLater(() -> {
             rootContainer = (Pane) root.getParent();
         });
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.LOGIN_SIGNUP_LOCATION + "/ForgetPassword.fxml"));
+            AnchorPane pane = loader.load();
+            fp = new FloatingPane();
+            fp.setAnchorPane(pane);
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void addListener() {
@@ -84,7 +96,7 @@ public class LoginController implements Initializable {
                 Person person = Person.validUser(username.getText(), password.getText());
                 if (person != null) {
                     System.out.println("successfully logged in to " + username.getText() + " account");
-                    
+
                     GLOBAL.USER = person;
                     GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
                 } else {
@@ -109,5 +121,9 @@ public class LoginController implements Initializable {
             }
 
         });
+        forgetPass.setOnMouseClicked((event) -> {
+            fp.show();
+        });
+
     }
 }

@@ -111,10 +111,7 @@ public class DB {
         try {
             String sql = "SELECT * FROM # WHERE # = '#' ";
             ResultSet rs = executeQuery(sql, table, column, val);
-            if (rs.next() == false) {
-                return false;
-            }
-            return true;
+            return rs.next();
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
