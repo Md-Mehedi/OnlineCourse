@@ -27,6 +27,18 @@ public class Language {
         this.name = name;
         this.adminId = adminId;
     }
+    
+    public Language(Integer id){
+        try {
+            this.id = id;
+            ResultSet rs = DB.executeQuery("SELECT * FROM LANGUAGE WHERE ID = #", id.toString());
+            if(!rs.next()) return;
+            this.name = rs.getString("NAME");
+            this.adminId = rs.getString("ADMIN_ID");
+        } catch (SQLException ex) {
+            Logger.getLogger(Language.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public Integer getId() {
         return id;

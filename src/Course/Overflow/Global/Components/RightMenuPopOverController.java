@@ -7,6 +7,7 @@ package Course.Overflow.Global.Components;
 
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
 import java.io.File;
 import java.net.URL;
@@ -98,10 +99,11 @@ public class RightMenuPopOverController implements Initializable {
     }    
 
     private void addDetails() {
-        username.setText(GLOBAL.USER.getUsername());
-        email.setText(GLOBAL.USER.getEmail());
-        if(GLOBAL.USER.getPhoto() != null){
-            Image image = new Image(new File(ToolKit.makeAbsoluteLocation(GLOBAL.USER.getPhoto().getContent())).toURI().toString());
+        Person person = ToolKit.getCurrentPerson();
+        username.setText(person.getUsername());
+        email.setText(person.getEmail());
+        if(person.getPhoto() != null){
+            Image image = new Image(new File(ToolKit.makeAbsoluteLocation(person.getPhoto().getContent())).toURI().toString());
             imageCircle.setFill(new ImagePattern(image));
             imageLabel.setText("");
         }

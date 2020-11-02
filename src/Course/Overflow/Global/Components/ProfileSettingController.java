@@ -20,6 +20,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -105,7 +106,8 @@ public class ProfileSettingController implements Initializable {
 
     private ObservableList<String> eduStatusList;
     private ObservableList<String> countryList;
-    private Person person;
+    private Student student;
+    private Teacher teacher;
 
     @FXML
     private VBox securityBox1;
@@ -115,38 +117,77 @@ public class ProfileSettingController implements Initializable {
     private TextField nameOnCard;
     @FXML
     private DatePicker expireDate;
+    private HashMap<Integer, CheckBox> checkBoxes;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        accountType = GLOBAL.ACCOUNT_TYPE;
         selectedLanguage = new ArrayList<>();
+        checkBoxes = new HashMap<>();
+        readyEducationalStatusOrDesignation();
         addLanguage();
         addCountries();
         addListener();
         loadData();
+        
     }
-    private void loadData()
-    {
-        if(GLOBAL.USER!=null)
-            {
-                Person ps = GLOBAL.USER;
-                firstName.setText(ps.getFirstName());
-                lastName.setText(ps.getLastName());
-                institution.setText(ps.getInstitution());
-                website.setText(ps.getWebsite());
-                facebook.setText(ps.getFbURL());
-                linkedin.setText(ps.getLinkedInURL());
-                youtube.setText(ps.getYoutubeURL());
-                about.setText(ps.getAbout());
+
+    private void loadData() {
+        Person ps = ToolKit.getCurrentPerson();
+        System.out.println("loaddata"+ps.getAccountType());
+        if (ps != null) {
+            firstName.setText(ps.getFirstName());
+            lastName.setText(ps.getLastName());
+            institution.setText(ps.getInstitution());
+            website.setText(ps.getWebsite());
+            facebook.setText(ps.getFbURL());
+            linkedin.setText(ps.getLinkedInURL());
+            youtube.setText(ps.getYoutubeURL());
+            about.setText(ps.getAbout());
+            email.setText(ps.getEmail());
+            if(ps.getDob() != null) dob.setValue(ToolKit.DateToLocalDate(ps.getDob()));
+            if (ps.getImage() != null) {
                 photo.setImage(ps.getImage());
-                cardNo.setText(ps.getCard().getCardNo());
-                countryCB.setValue(ps.getCountry().getName());
-                
             }
+            if(ps.getCard()!=null)
+            {
+                cardNo.setText(ps.getCard().getCardNo());
+                nameOnCard.setText(ps.getCard().getNameOnCard());
+                expireDate.setValue(ToolKit.DateToLocalDate(ps.getCard().getExpireDate()));
+            }
+            if (ps.getCountry() != null) {
+                countryCB.setValue(ps.getCountry().getName());
+            }
+            if(ps.getAccountType()==AccountType.Student)
+            {
+                System.out.println("inside"+GLOBAL.STUDENT.getEduStatus().getType());
+                eduStatusCB.setValue(GLOBAL.STUDENT.getEduStatus().getType());
+            }
+            if(ps.getAccountType()==AccountType.Teacher)
+            {
+                System.out.println("inside"+GLOBAL.TEACHER.getDesignation().getType());
+                eduStatusCB.setValue(GLOBAL.TEACHER.getDesignation().getType());
+            }
+            for(Language l : ps.getLanguages()){
+                CheckBox cb = checkBoxes.get(l.getId());
+                cb.setSelected(true);
+                selectedLanguage.add(l);
+                cb.setOnMouseClicked((event) -> {
+                    if(cb.isSelected() == false){
+                        if(selectedLanguage.contains(l)) selectedLanguage.remove(l);
+                    }
+                    else{
+                        if(!selectedLanguage.contains(l)) selectedLanguage.add(l);
+                    }
+                    refreshLanguageString();
+                });
+            }
+            refreshLanguageString();
+        }
     }
-    
 
     private void addLanguage() {
         ArrayList<Language> list = Language.getList();
@@ -156,6 +197,10 @@ public class ProfileSettingController implements Initializable {
 
         for (Language l : list) {
             CheckBox cb = new CheckBox(l.getName());
+            checkBoxes.put(l.getId(), cb);
+            //System.out.println(checkBoxes.get(l.getId()));
+            //checkBoxes.get(l.getId()).setSelected(true);
+            
             container.getChildren().add(cb);
             cb.setStyle(cb.getStyle() + "-fx-font-size: 18;");
             cb.setOnMouseClicked((event) -> {
@@ -209,8 +254,9 @@ public class ProfileSettingController implements Initializable {
     }
 
     public void readyEducationalStatusOrDesignation() {
-        System.out.println(accountType);
+        //System.out.println(accountType);
         eduStatusList = FXCollections.observableArrayList();
+        eduStatusList.clear();
         eduStatusList.add("-- Select --");
         eduStatusLabel.setText(accountType == AccountType.Student ? "Educational Status" : "Designation");
 
@@ -231,8 +277,8 @@ public class ProfileSettingController implements Initializable {
         }
     }
 
-    public void createEnvironmentForSignup(AccountType accountType, String email, String username, String password) {
-        this.accountType = accountType;
+    public void createEnvironmentForSignup(String email, String username, String password) {
+        this.accountType = GLOBAL.ACCOUNT_TYPE;
         this.username = username;
         this.password = password;
         this.email.setText(email);
@@ -265,19 +311,22 @@ public class ProfileSettingController implements Initializable {
 
             switch (accountType) {
                 case Student:
-                    person = new Student(accountType, username, email, password, firstName.getText(), lastName.getText(), about.getText(), ToolKit.localDateToDate(dob.getValue()));
+                    student = new Student(accountType, username, email, password, firstName.getText(), lastName.getText(), about.getText(), ToolKit.localDateToDate(dob.getValue()));
                     if (eduStatusCB.getValue() != "-- Select --") {
-                        ((Student) person).setEduStatus(new EducationalStatus(eduStatusCB.getValue()));
+                        student.setEduStatus(new EducationalStatus(eduStatusCB.getValue()));
                     }
+                    GLOBAL.STUDENT = student;
                     break;
                 case Teacher:
-                    person = new Teacher(accountType, username, email, password, firstName.getText(), lastName.getText(), about.getText(), ToolKit.localDateToDate(dob.getValue()));
+                    teacher = new Teacher(accountType, username, email, password, firstName.getText(), lastName.getText(), about.getText(), ToolKit.localDateToDate(dob.getValue()));
                     if (eduStatusCB.getValue() != "-- Select --") {
-                        ((Teacher) person).setDesignation(new Designation(eduStatusCB.getValue()));
+                        teacher.setDesignation(new Designation(eduStatusCB.getValue()));
                     }
+                    GLOBAL.TEACHER = teacher;
                     break;
 //                case Admin:     person = (Admin) person; break;
             }
+            Person person = ToolKit.getCurrentPerson();
             if (countryCB.getValue() != "-- Select --") {
                 person.setCountry(new Country(countryCB.getValue()));
             }
@@ -305,7 +354,6 @@ public class ProfileSettingController implements Initializable {
 //            DB.execute("INSERT INTO PERSON(ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, SIGNUP_DATE, ABOUT, PHOTO_ID, CARD_ID, COUNTRY_ID) VALUES('#', '#', '#', '#', '#', #, '#', #, #, #)",
 //                  username, this.email.getText(), password, firstName.getText(), lastName.getText(), ToolKit.getCurTimeDB(), about.getText(), fileDB.getId().toString(), card.getId().toString(), country.getId().toString()
 //            );
-            GLOBAL.USER = person;
             GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
         });
         cancel.setOnMouseClicked(event -> {
@@ -327,7 +375,7 @@ public class ProfileSettingController implements Initializable {
             }
         });
         save.setOnMouseClicked((event) -> {
-            
+
         });
 
     }

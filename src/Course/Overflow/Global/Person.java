@@ -68,6 +68,23 @@ public class Person {
             if(rs.getInt("CARD_ID") != 0) this.card = new CreditCard(rs.getInt("CARD_ID"));
             this.youtubeURL = rs.getString("YOUTUBE_URL");
             this.website = rs.getString("WEBSITE");
+            loadLanguages();
+        } catch (SQLException ex) {
+            Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            rs = DB.executeQuery("SELECT ID FROM STUDENT WHERE ID = '#'", username);
+            if(rs.next()){
+                accountType = AccountType.Student;
+            }
+            rs = DB.executeQuery("SELECT ID FROM TEACHER WHERE ID = '#'", username);
+            if(rs.next()){
+                accountType = AccountType.Teacher;
+            }
+            rs = DB.executeQuery("SELECT ID FROM ADMIN WHERE ID = '#'", username);
+            if(rs.next()){
+                accountType = AccountType.Admin;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,6 +106,20 @@ public class Person {
         // return new Person(username);
     }    
     
+    private void loadLanguages(){
+        languages = new ArrayList<>();
+        String sql = "SELECT LANGUAGE_ID FROM PERSON_LANGUAGE WHERE PERSON_ID = '#'";
+        ResultSet rs = DB.executeQuery(sql, username);
+        try {
+            while(rs.next())
+            {
+                languages.add(new Language(rs.getInt("LANGUAGE_ID")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     
     public static Person validUser(String username, String password) {
         ResultSet rs = DB.executeQuery("SELECT ID FROM PERSON WHERE ID = '#' AND PASSWORD = '#'", username, password);
@@ -270,7 +301,9 @@ public class Person {
     }
     
     public Image getImage(){
-        return new Image(new File(ToolKit.makeAbsoluteLocation(photo.getContent())).toURI().toString());
+        if(photo != null){
+            return new Image(new File(ToolKit.makeAbsoluteLocation(photo.getContent())).toURI().toString());     
+        }
+        return null;
     }
-    
 }

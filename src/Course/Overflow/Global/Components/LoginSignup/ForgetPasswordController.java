@@ -1,7 +1,6 @@
 package Course.Overflow.Global.Components.LoginSignup;
 
 import Course.Overflow.DB;
-import Course.Overflow.Global.Layout.FloatingPane;
 import Course.Overflow.Global.ToolKit;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -34,9 +33,7 @@ public class ForgetPasswordController implements Initializable {
     private AnchorPane rootpanefp;
     @FXML
     private Label message;
-    
-    @FXML
-    private JFXButton refresh;
+
 
     public ForgetPasswordController() {
 
@@ -48,10 +45,10 @@ public class ForgetPasswordController implements Initializable {
         addListener();
     }
 
-    public void showWindow() {
-        FloatingPane fp = new FloatingPane();
-        fp.setAnchorPane(rootpanefp);
-        fp.show();
+    public void RefreshWindow() {
+        username.setText("");
+        dob.setValue(null);
+        message.setText("");
     }
 
     void addListener() {
@@ -62,32 +59,20 @@ public class ForgetPasswordController implements Initializable {
             } else {
                 String sql = "SELECT ID , DOB,PASSWORD FROM PERSON WHERE ID = '#' AND DOB = # ";
                 System.out.println(sql);
-                ResultSet rs = DB.executeQuery(sql,username.getText(),ToolKit.JDateToDDate(ToolKit.localDateToDate(dob.getValue())));
+                ResultSet rs = DB.executeQuery(sql, username.getText(), ToolKit.JDateToDDate(ToolKit.localDateToDate(dob.getValue())));
                 try {
-                    if(rs.next())
-                    {
-                        
-                        String msg = "Your password is "+ rs.getString("PASSWORD");
+                    if (rs.next()) {
+
+                        String msg = "Your password is " + rs.getString("PASSWORD");
                         message.setText(msg);
-                    }
-                    else
-                    {
+                    } else {
                         message.setText("Please enter valid username and date of birth !");
-                        return ;
+                        return;
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(ForgetPasswordController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        });
-        
-        refresh.setOnMouseClicked((event)->{
-        
-            username.setText("");
-            dob.setValue(null);
-            message.setText("");
-            //GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
-
         });
 
     }

@@ -370,6 +370,10 @@ public class ToolKit {
         Instant instant = Instant.from(lDate.atStartOfDay(ZoneId.systemDefault()));
         return Date.from(instant);
     }
+    
+    public static LocalDate DateToLocalDate(Date date) {
+        return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+    }
 
     /*
      * Date Related Function End
@@ -419,8 +423,18 @@ public class ToolKit {
     }
     
     public static String userShortName(){
-        String firstName = GLOBAL.USER.getFirstName();
-        String lastName = GLOBAL.USER.getLastName();
+        Person person = getCurrentPerson();
+        String firstName = person.getFirstName();
+        String lastName = person.getLastName();
         return (firstName.substring(0, 1) + lastName.substring(0, 1)).toUpperCase();
+    }
+    
+    public static Person getCurrentPerson(){
+        switch(GLOBAL.ACCOUNT_TYPE){
+            case Teacher: return GLOBAL.TEACHER; 
+            case Student : return GLOBAL.STUDENT;
+            case Admin: return GLOBAL.ADMIN;
+        }
+        return null;
     }
 }

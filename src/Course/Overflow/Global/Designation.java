@@ -28,6 +28,7 @@ public class Designation {
         try {
             if(!rs.next()) return;
             type = rs.getString("TYPE");
+            System.out.println(type);
             adminId = rs.getString("ADMIN_ID");
         } catch (SQLException ex) {
             Logger.getLogger(Designation.class.getName()).log(Level.SEVERE, null, ex);

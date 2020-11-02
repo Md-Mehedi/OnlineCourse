@@ -1,9 +1,12 @@
 package Course.Overflow.Global.Components.LoginSignup;
 
+import Course.Overflow.Admin.Admin;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.FloatingPane;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
+import Course.Overflow.Student.Student;
+import Course.Overflow.Teacher.Teacher;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -49,7 +52,7 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        addListener();
+
         Platform.runLater(() -> {
             rootContainer = (Pane) root.getParent();
         });
@@ -58,9 +61,12 @@ public class LoginController implements Initializable {
             AnchorPane pane = loader.load();
             fp = new FloatingPane();
             fp.setAnchorPane(pane);
+            forgetPassCtrl = loader.<ForgetPasswordController>getController();
+            System.out.println(forgetPassCtrl);
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        addListener();
     }
 
     private void addListener() {
@@ -96,8 +102,18 @@ public class LoginController implements Initializable {
                 Person person = Person.validUser(username.getText(), password.getText());
                 if (person != null) {
                     System.out.println("successfully logged in to " + username.getText() + " account");
-
-                    GLOBAL.USER = person;
+                    if(Student.exist(username.getText())){
+                        GLOBAL.ACCOUNT_TYPE = Person.AccountType.Student;
+                        GLOBAL.STUDENT = new Student(username.getText());
+                    }
+                    else if(Teacher.exist(username.getText())){
+                        GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
+                        GLOBAL.TEACHER = new Teacher(username.getText());
+                    }
+                    else if(Admin.exist(username.getText())){
+                        GLOBAL.ACCOUNT_TYPE = Person.AccountType.Admin;
+                        GLOBAL.ADMIN = new Admin(username.getText());
+                    }
                     GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
                 } else {
                     int state = JOptionPane.showConfirmDialog(null, "Invalid User ID or Password ! ", "select", JOptionPane.CANCEL_OPTION);
@@ -122,7 +138,9 @@ public class LoginController implements Initializable {
 
         });
         forgetPass.setOnMouseClicked((event) -> {
+            forgetPassCtrl.RefreshWindow();
             fp.show();
+            //ForgetPasswordController.message.setText("");
         });
 
     }

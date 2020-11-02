@@ -10,6 +10,7 @@ import Course.Overflow.Global.Customize.MyFadeTransition;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.ContainerPage;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -218,17 +219,19 @@ public class HeaderController implements Initializable {
     }
 
     private void loadProfilePhoto() {
-        if(GLOBAL.USER.getPhoto() != null){
+        Person person = ToolKit.getCurrentPerson();
+        System.out.println(person);
+        if(person.getPhoto() != null){
+            System.out.println(person.getAccountType());
+            System.out.println(person.getPhoto().getContent());
             if(profile.getChildren().contains(profileName)) profile.getChildren().remove(profileName);
-            File photoFile = new File(ToolKit.makeAbsoluteLocation(GLOBAL.USER.getPhoto().getContent()));
+            File photoFile = new File(ToolKit.makeAbsoluteLocation(person.getPhoto().getContent()));
             Image photo = new Image(photoFile.toURI().toString());
             profileCircle.setFill(new ImagePattern(photo));
         }
         else {
             if(!profile.getChildren().contains(profileName)) profile.getChildren().add(profileName);
-            String firstName = GLOBAL.USER.getFirstName();
-            String lastName = GLOBAL.USER.getLastName();
-            profileName.setText((firstName.substring(0, 1) + lastName.substring(0, 1)).toUpperCase());
+            profileName.setText(ToolKit.userShortName());
         }
     }
 }

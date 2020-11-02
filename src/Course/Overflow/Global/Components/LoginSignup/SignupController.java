@@ -61,7 +61,6 @@ public class SignupController implements Initializable {
     private ObservableList<String> numOfItemList;
     @FXML
     private JFXTextField email;
-    private AccountType accountType;
     @FXML
     private ChoiceBox<String> accountTypeCB;
 //    int stat = 0;
@@ -159,6 +158,7 @@ public class SignupController implements Initializable {
 //            }
         });
         signupBtn.setOnMouseClicked((event) -> {
+            
             String em = email.getText().trim();
             String un = username.getText().trim();
             String pwd = password.getText().trim();
@@ -173,9 +173,9 @@ public class SignupController implements Initializable {
                     if (!un.isEmpty() && !em.isEmpty()) {
                         if (!pwd.isEmpty()) {
                             if (DB.valueExist("PERSON", "EMAIL", em) != true && DB.valueExist("PERSON", "ID", un) != true) {
-                                accountType = AccountType.valueOf(accountTypeCB.getValue());
+                                GLOBAL.ACCOUNT_TYPE = AccountType.valueOf(accountTypeCB.getValue());
                                 ProfileSettingController profSetCtrl = (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
-                                profSetCtrl.createEnvironmentForSignup(accountType, em, un, pwd);
+                                profSetCtrl.createEnvironmentForSignup(em, un, pwd);
                             } else {
                                 int stat = JOptionPane.showConfirmDialog(null, "The username or email is already taken !\n log in instead ", "select", JOptionPane.CANCEL_OPTION);
                                 if (stat == 0) {

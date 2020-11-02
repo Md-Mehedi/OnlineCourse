@@ -1,9 +1,13 @@
 
 package Course.Overflow.Global;
 
+import Course.Overflow.Admin.Admin;
 import Course.Overflow.Global.Components.HeaderController;
 import Course.Overflow.Global.Components.TopMenuBar.MenuBar;
 import Course.Overflow.Global.Page.ContainerPage;
+import Course.Overflow.Global.Person.AccountType;
+import Course.Overflow.Student.Student;
+import Course.Overflow.Teacher.Teacher;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -62,6 +66,10 @@ public class GLOBAL {
     public static ContainerPage PAGE_CTRL;
     public static HeaderController HEADER;
     public static MenuBar TOP_MENU_BAR;
-    public static Person USER;
+    public static AccountType ACCOUNT_TYPE;
+    public static Student STUDENT;
+    public static Teacher TEACHER;
+    public static Admin ADMIN;
+//    public static Admin ADMIN;
     public static String FILE_CHOOSER_DIRECTORY = "C:";
 }

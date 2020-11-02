@@ -1,8 +1,4 @@
-/*
- * To change this license HEADER, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Course.Overflow.Global.Page;
 
 import Course.Overflow.Global.Components.HeaderController;
@@ -181,9 +177,9 @@ public class ContainerPage {
                 page = new CourseListShowPage("Wishlist");
                 break;
             case PurchaseHistory:
-                if (GLOBAL.USER.getAccountType() == Person.AccountType.Student) {
+                if (GLOBAL.ACCOUNT_TYPE == Person.AccountType.Student) {
                     page = new CourseListShowPage("Your purchase history", PageByPageLayoutController.BoxType.CourseVertical);
-                } else if (GLOBAL.USER.getAccountType() == Person.AccountType.Teacher) {
+                } else if (GLOBAL.ACCOUNT_TYPE == Person.AccountType.Teacher) {
                     page = new PurchaseHistoryPage();
                 }
                 break;
