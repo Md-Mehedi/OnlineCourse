@@ -1,6 +1,5 @@
 package Course.Overflow.Global.Components;
 
-import Course.Overflow.DB;
 import Course.Overflow.Files.FileType;
 import Course.Overflow.Files.Files;
 import Course.Overflow.Global.Country;
@@ -243,12 +242,6 @@ public class ProfileSettingController implements Initializable {
         readyEducationalStatusOrDesignation();
 
         save.setOnMouseClicked((event) -> {
-
-            boolean registered = DB.valueExist("PERSON", "ID", username);
-            if(registered)
-            {
-                
-            }
 
             boolean flag = (firstName.getText().trim().isEmpty()) | (lastName.getText().trim().isEmpty());
             if (flag) {
