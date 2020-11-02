@@ -40,9 +40,9 @@ public class AppMain extends Application {
 
 //        CreateCourse mp = new CreateCourse();
 //        pane = mp.getRootPane();
+//        root.getChildren().add(pane);
 
 // To show the main app, just toggle the bottom 2 line comments.
-        //root.getChildren().add(pane);
         testPage();
         
         scene = new Scene(root,GLOBAL.WIDTH, GLOBAL.HEIGHT);
