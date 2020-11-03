@@ -137,6 +137,7 @@ public class ProfileSettingController implements Initializable {
 
     private void loadData() {
         Person ps = ToolKit.getCurrentPerson();
+        //System.out.println("loaddata"+ps.getAccountType());
         if (ps != null) {
             firstName.setText(ps.getFirstName());
             lastName.setText(ps.getLastName());
@@ -153,19 +154,21 @@ public class ProfileSettingController implements Initializable {
             }
             if(ps.getCard()!=null)
             {
+            System.out.println("card");
                 cardNo.setText(ps.getCard().getCardNo());
+            System.out.println("card");
                 nameOnCard.setText(ps.getCard().getNameOnCard());
                 expireDate.setValue(ToolKit.DateToLocalDate(ps.getCard().getExpireDate()));
             }
             if (ps.getCountry() != null) {
                 countryCB.setValue(ps.getCountry().getName());
             }
-            if(ps.getAccountType()==AccountType.Student)
+            if(ps.getAccountType()==AccountType.Student && GLOBAL.STUDENT.getEduStatus()!=null)
             {
                 System.out.println("inside"+GLOBAL.STUDENT.getEduStatus().getType());
                 eduStatusCB.setValue(GLOBAL.STUDENT.getEduStatus().getType());
             }
-            if(ps.getAccountType()==AccountType.Teacher)
+            if(ps.getAccountType()==AccountType.Teacher && GLOBAL.TEACHER.getDesignation()!=null)
             {
                 System.out.println("inside"+GLOBAL.TEACHER.getDesignation().getType());
                 eduStatusCB.setValue(GLOBAL.TEACHER.getDesignation().getType());

@@ -50,7 +50,7 @@ public class Student extends Person{
         ResultSet rs = DB.executeQuery(sql, username);
         try {
             rs.next();
-            eduStatus = new  EducationalStatus(rs.getInt("EDU_STATUS_ID"));
+            if(rs.getInt("EDU_STATUS_ID")!=0) eduStatus = new  EducationalStatus(rs.getInt("EDU_STATUS_ID"));
         } catch (SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
         }
