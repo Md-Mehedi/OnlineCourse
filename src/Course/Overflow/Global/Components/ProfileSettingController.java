@@ -137,7 +137,6 @@ public class ProfileSettingController implements Initializable {
 
     private void loadData() {
         Person ps = ToolKit.getCurrentPerson();
-        System.out.println("loaddata"+ps.getAccountType());
         if (ps != null) {
             firstName.setText(ps.getFirstName());
             lastName.setText(ps.getLastName());
