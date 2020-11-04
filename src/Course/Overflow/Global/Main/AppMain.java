@@ -47,11 +47,11 @@ public class AppMain extends Application {
             CreateCourse mp = new CreateCourse();
             pane = mp.getRootPane();
             root.getChildren().add(pane);
-//            mehediTestPage();
         }
         else{
             System.out.println("USER : SHAMMYA");
-            shammyaTestPage();
+            mehediTestPage();
+//            shammyaTestPage();
         }
         
         scene = new Scene(root,GLOBAL.WIDTH, GLOBAL.HEIGHT);
