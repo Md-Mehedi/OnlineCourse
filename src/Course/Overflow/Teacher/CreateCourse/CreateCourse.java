@@ -35,7 +35,7 @@ public class CreateCourse {
     private AnchorPane topMenu;
 
     public CreateCourse() throws IOException {
-        lsPane = new LeftSlidingPane(Type.NO_HOVER);
+        lsPane = new LeftSlidingPane(Type.LEFT_HOVER_CENTER_STATIC);
         targetStudentPane = FXMLLoader.load(getClass().getResource(GLOBAL.COURSE_TARGET_STUDENT_PAGE + "/TargetStudentPage.fxml"));
         videoLectureTipsPane = FXMLLoader.load(getClass().getResource(GLOBAL.CREATE_COURSE_LOCATION + "/VideoLectureTips.fxml"));
         curriculumTipsPane = FXMLLoader.load(getClass().getResource(GLOBAL.CREATE_COURSE_LOCATION + "/CourseCurriculumTips.fxml"));
@@ -53,6 +53,10 @@ public class CreateCourse {
         lsPane.addContent(curriculumTipsPane, SVG.IDEA_BULB, PageName.CreateCourseCurriculumTips);
         lsPane.addContent(curriculumPane, SVG.TASK_LIST, PageName.CreateCourseCurriculum);
         lsPane.addContent(landingPagePane, SVG.PROFILE_DETAILS, PageName.CreateCourseLanding);
+        lsPane.addContent(pricingPane, SVG.COST, PageName.CreateCoursePricing);
+        lsPane.addContent(pricingPane, SVG.COST, PageName.CreateCoursePricing);
+        lsPane.addContent(pricingPane, SVG.COST, PageName.CreateCoursePricing);
+        lsPane.addContent(pricingPane, SVG.COST, PageName.CreateCoursePricing);
         lsPane.addContent(pricingPane, SVG.COST, PageName.CreateCoursePricing);
         lsPane.setDefaultContent(targetStudentPane);
         container = lsPane.getRoot();

@@ -8,7 +8,7 @@ package Course.Overflow.Global.Components;
 import Course.Overflow.Global.Components.Notification.NotificationView;
 import Course.Overflow.Global.Customize.MyFadeTransition;
 import Course.Overflow.Global.GLOBAL;
-import Course.Overflow.Global.Page.ContainerPage;
+import Course.Overflow.Global.Page.PageController;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
@@ -89,15 +89,15 @@ public class HeaderController implements Initializable {
     
     public void addListener(){
         leftArrow.setOnMouseClicked((event) -> {
-            if(ContainerPage.pageIdx>0){
-                ContainerPage.pageIdx--;
-                ContainerPage.loadFromHistory();
+            if(PageController.pageIdx>0){
+                PageController.pageIdx--;
+                PageController.loadFromHistory();
             }
         });
         rightArrow.setOnMouseClicked((event) -> {
-            if(ContainerPage.pageIdx < ContainerPage.pages.size()-1){
-                ContainerPage.pageIdx++;
-                ContainerPage.loadFromHistory();
+            if(PageController.pageIdx < PageController.pages.size()-1){
+                PageController.pageIdx++;
+                PageController.loadFromHistory();
             }
         });
         searchField.setOnKeyReleased((event) -> {

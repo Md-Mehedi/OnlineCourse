@@ -4,7 +4,7 @@ package Course.Overflow.Global;
 import Course.Overflow.Admin.Admin;
 import Course.Overflow.Global.Components.HeaderController;
 import Course.Overflow.Global.Components.TopMenuBar.MenuBar;
-import Course.Overflow.Global.Page.ContainerPage;
+import Course.Overflow.Global.Page.PageController;
 import Course.Overflow.Global.Person.AccountType;
 import Course.Overflow.Student.Student;
 import Course.Overflow.Teacher.Teacher;
@@ -63,7 +63,7 @@ public class GLOBAL {
     public static AnchorPane rootPane;
     public static ScrollPane rootScroll;
     public static AnchorPane scrollingPane;
-    public static ContainerPage PAGE_CTRL;
+    public static PageController PAGE_CTRL;
     public static HeaderController HEADER;
     public static MenuBar TOP_MENU_BAR;
     public static AccountType ACCOUNT_TYPE;

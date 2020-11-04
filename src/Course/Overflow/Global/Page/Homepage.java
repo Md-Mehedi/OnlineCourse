@@ -47,7 +47,7 @@ public class Homepage extends Page{
                 verticalBox.getChildren().add(pane);
                 carousels.add(loader.<CarouselController>getController());
             } catch (IOException ex) {
-                    Logger.getLogger(ContainerPage.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

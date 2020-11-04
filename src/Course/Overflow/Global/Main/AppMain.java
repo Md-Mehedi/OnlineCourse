@@ -6,11 +6,13 @@ package Course.Overflow.Global.Main;
  */
 import Course.Overflow.DB;
 import Course.Overflow.Global.GLOBAL;
-import Course.Overflow.Global.Page.ContainerPage;
+import Course.Overflow.Global.Page.PageController;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Teacher.CreateCourse.CreateCourse;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -38,12 +40,19 @@ public class AppMain extends Application {
         GLOBAL.WIDTH = 1460;
         GLOBAL.HEIGHT = 900;
 
-//        CreateCourse mp = new CreateCourse();
-//        pane = mp.getRootPane();
-//        root.getChildren().add(pane);
 
 // To show the main app, just toggle the bottom 2 line comments.
-        testPage();
+        if(System.getProperty("user.name").equals("ASUS")){
+            System.out.println("USER : MEHEDI");
+            CreateCourse mp = new CreateCourse();
+            pane = mp.getRootPane();
+            root.getChildren().add(pane);
+//            mehediTestPage();
+        }
+        else{
+            System.out.println("USER : SHAMMYA");
+            shammyaTestPage();
+        }
         
         scene = new Scene(root,GLOBAL.WIDTH, GLOBAL.HEIGHT);
         primaryStage.setScene(scene);
@@ -56,15 +65,10 @@ public class AppMain extends Application {
         });
         System.out.println("FXML is loaded...");
     }
-    private void testPage() throws IOException{
-//        pane = (AnchorPane) FXMLLoader.load(getClass().getResource(GLOBAL.LOGIN_SIGNUP_LOCATION+ "/Signup.fxml"));
-//        StackPane sp = new StackPane(pane);
-//        sp.setPrefWidth(GLOBAL.WIDTH);
-//        sp.setPrefHeight(GLOBAL.HEIGHT);
-
-        ContainerPage page = new ContainerPage(PageName.Signup);
-        GLOBAL.PAGE_CTRL = page;
-        pane = page.getContainer();
+    private void mehediTestPage() throws IOException{
+        PageController pageCtrl = new PageController(PageName.Signup);
+        GLOBAL.PAGE_CTRL = pageCtrl;
+        pane = pageCtrl.getContainer();
         
         ScrollPane sc = new ScrollPane(pane);
         sc.setPrefWidth(GLOBAL.WIDTH);
@@ -82,6 +86,13 @@ public class AppMain extends Application {
     public static void main(String[] args) {
         launch(args);
         DB.closeConnection();
+    }
+
+    private void shammyaTestPage() {
+        Button button = new Button();
+        AnchorPane pane = new AnchorPane(button);
+        
+        root.getChildren().add(pane);
     }
 
 }

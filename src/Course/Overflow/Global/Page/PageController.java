@@ -22,7 +22,7 @@ import javafx.scene.layout.VBox;
  *
  * @author Md Mehedi Hasan
  */
-public class ContainerPage {
+public class PageController {
 
     public static ArrayList<Page> pages;
     public static int pageIdx;
@@ -45,10 +45,10 @@ public class ContainerPage {
     private Page page;
     private static int idx;
 
-//    public ContainerPage() {
+//    public PageController() {
 //        this(PageName.Home);
 //    }
-    public ContainerPage(PageName pageName) {
+    public PageController(PageName pageName) {
         pages = new ArrayList<>();
         pageIdx = -1;
 
@@ -132,7 +132,7 @@ public class ContainerPage {
             wrapper.getChildren().add(noti);
             headerCtrl.setNotiPane(noti);
         } catch (IOException ex) {
-            Logger.getLogger(ContainerPage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -217,7 +217,7 @@ public class ContainerPage {
             container.getChildren().add(pane);
             return loader.getController();
         } catch (IOException ex) {
-            Logger.getLogger(ContainerPage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

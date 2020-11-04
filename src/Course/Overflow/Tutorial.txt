@@ -26,3 +26,23 @@ https://stackoverflow.com/questions/19322471/how-can-i-do-arraylist-of-methods
 For Date Format
 https://www.tutorialspoint.com/java/java_date_time.htm
 
+Admin:
+    1.Language update:
+        Current language list show with 2 icon delete
+        There should be a + icon to add new language
+    2.Country update:
+        Current country list show with 2 icon update and delete
+        There should be a + icon to add new country
+    -- You can use only one fxml to maintain those functionality.
+    3.Category update:
+        Current main category list show with 3 icon update, delete and show sub category
+        There should be a + icon to add new category
+            sub category list will show after pressing show sub category icon from main category
+            There should be a + icon to add new sub category
+    4.User list show
+        Showing 2 table with all info of student and teacher
+    5.Show a list of un-approved courses    
+    6.Purchase  History  
+
+        
+        
