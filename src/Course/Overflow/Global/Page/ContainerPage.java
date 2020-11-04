@@ -78,7 +78,7 @@ public class ContainerPage {
     }
 
     public PageName getPreviousPageName() {
-        return pages.get(pages.size() - 1).getPageName();
+        return pages.get(pages.size() - 2).getPageName();
     }
 
     public void loadPage(Page page) {

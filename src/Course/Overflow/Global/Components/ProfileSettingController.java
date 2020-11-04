@@ -124,7 +124,10 @@ public class ProfileSettingController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        clearPassword();
         accountType = GLOBAL.ACCOUNT_TYPE;
+        student = GLOBAL.STUDENT;
+        teacher = GLOBAL.TEACHER;
         selectedLanguage = new ArrayList<>();
         checkBoxes = new HashMap<>();
         readyEducationalStatusOrDesignation();
@@ -132,7 +135,12 @@ public class ProfileSettingController implements Initializable {
         addCountries();
         addListener();
         loadData();
-
+    }
+    
+    private void clearPassword(){
+        oldPass.setText("");
+        newPass.setText("");
+        newPassAgain.setText("");
     }
 
     private void loadData() {
@@ -298,28 +306,15 @@ public class ProfileSettingController implements Initializable {
             switch (accountType) {
                 case Student:
                     student = new Student(accountType, username, email, password, firstName.getText(), lastName.getText(), about.getText(), ToolKit.localDateToDate(dob.getValue()));
-                    if (eduStatusCB.getValue() != "-- Select --") {
-                        student.setEduStatus(new EducationalStatus(eduStatusCB.getValue()));
-                    }
                     GLOBAL.STUDENT = student;
                     break;
                 case Teacher:
                     teacher = new Teacher(accountType, username, email, password, firstName.getText(), lastName.getText(), about.getText(), ToolKit.localDateToDate(dob.getValue()));
-                    if (eduStatusCB.getValue() != "-- Select --") {
-                        teacher.setDesignation(new Designation(eduStatusCB.getValue()));
-                    }
                     GLOBAL.TEACHER = teacher;
                     break;
 //                case Admin:     person = (Admin) person; break;
             }
             setPersonInformations();
-
-//            Files fileDB = new Files(photoFile, FileType.toType("Picture"));
-//            CreditCard card = CreditCard.insertCreditCard(cardNo.getText(), nameOnCard.getText(), ToolKit.localDateToDate(expireDate.getValue()));
-//            Country country = new Country(this.countryCB.getValue());
-//            DB.execute("INSERT INTO PERSON(ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, SIGNUP_DATE, ABOUT, PHOTO_ID, CARD_ID, COUNTRY_ID) VALUES('#', '#', '#', '#', '#', #, '#', #, #, #)",
-//                  username, this.email.getText(), password, firstName.getText(), lastName.getText(), ToolKit.getCurTimeDB(), about.getText(), fileDB.getId().toString(), card.getId().toString(), country.getId().toString()
-//            );
             GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
         });
         cancel.setOnMouseClicked(event -> {
@@ -331,11 +326,12 @@ public class ProfileSettingController implements Initializable {
         upload.setOnMouseClicked((event) -> {
             FileChooser fc = new FileChooser();
             fc.setInitialDirectory(new File(GLOBAL.FILE_CHOOSER_DIRECTORY));
-            photoFile = fc.showOpenDialog(null);
-            if (photoFile != null) {
-                imageNameLabel.setText(photoFile.getName());
-                photo.setImage(new Image(photoFile.toURI().toString()));
-                GLOBAL.FILE_CHOOSER_DIRECTORY = photoFile.getParent();
+            File chosenFile = fc.showOpenDialog(null);
+            if(photoFile==null && chosenFile!=null) photoFile = chosenFile;
+            if (chosenFile != null) {
+                imageNameLabel.setText(chosenFile.getName());
+                photo.setImage(new Image(chosenFile.toURI().toString()));
+                GLOBAL.FILE_CHOOSER_DIRECTORY = chosenFile.getParent();
             } else {
                 imageNameLabel.setText("");
             }
@@ -344,7 +340,13 @@ public class ProfileSettingController implements Initializable {
             if (!checkConditions()) {
                 return;
             }
-
+            setPersonInformations();
+            GLOBAL.PAGE_CTRL.loadPage(GLOBAL.PAGE_CTRL.getPreviousPageName());
+            clearPassword();
+        });
+        cancel.setOnMouseClicked(event ->{
+            GLOBAL.PAGE_CTRL.loadPage(GLOBAL.PAGE_CTRL.getPreviousPageName());
+            clearPassword();
         });
 
     }
@@ -377,29 +379,46 @@ public class ProfileSettingController implements Initializable {
             return false;
         }
         if (dob.getValue() == null) {
-            JOptionPane.showConfirmDialog(null, "Pleas Write or Select your date of birth !", "select", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showConfirmDialog(null, "Please Write or Select your date of birth !", "select", JOptionPane.CANCEL_OPTION);
             return false;
         }
-        boolean a = cardNo.getText()!="";
-        boolean b = nameOnCard.getText() != "";
+        if(!ToolKit.isOnlyNumber(cardNo.getText())){
+            JOptionPane.showConfirmDialog(null, "Card number contains only digits!", "select", JOptionPane.OK_OPTION);
+            return false;
+        }
+        boolean a = !cardNo.getText().equals("");
+        boolean b = !nameOnCard.getText().equals("");
         boolean c = expireDate.getValue() != null;
-        if ((a & b & c) || (!a & !b & !c)){
+        if (!((a & b & c) || (!a & !b & !c))){
             JOptionPane.showConfirmDialog(null, "Please provide all informations of credit card  !", "select", JOptionPane.OK_OPTION);
             return false;
+        }
+        a = !oldPass.getText().equals("");
+        b = !newPass.getText().equals("");
+        c = !newPassAgain.getText().equals("");
+        if (!((a & b & c) || (!a & !b & !c))){
+            JOptionPane.showConfirmDialog(null, "Please fill up all password field!", "select", JOptionPane.OK_OPTION);
+            return false;
+        }
+        if(!newPass.getText().equals(newPassAgain.getText())){
+            JOptionPane.showConfirmDialog(null, "New password is not matching!", "select", JOptionPane.OK_OPTION);
+            return false;
+        }
+        if(!oldPass.getText().equals("")){
+            Person per = Person.validUser(ToolKit.getCurrentPerson().getUsername(), oldPass.getText());
+            if(per==null){
+                JOptionPane.showConfirmDialog(null, "ভুল পাসোয়ার্ড দাও কেন?", "select", JOptionPane.OK_OPTION);
+                return false;
+            }
         }
         return true;
     }
 
     private void setPersonInformations() {
         Person person = ToolKit.getCurrentPerson();
-        if (countryCB.getValue() != "-- Select --") {
-            person.setCountry(new Country(countryCB.getValue()));
-        } else {
-            person.setCountry(null);
-        }
         person.setFirstName(firstName.getText());
         person.setLastName(lastName.getText());
-        //person.setE
+        person.setAbout(about.getText());
         person.setDob(ToolKit.localDateToDate(dob.getValue()));
         person.setInstitution(institution.getText());
         person.setWebsite(website.getText());
@@ -408,12 +427,39 @@ public class ProfileSettingController implements Initializable {
         person.setLinkedInURL(linkedin.getText());
         person.setLanguages(selectedLanguage);
 
-        if (cardNo.getText() != "" && nameOnCard.getText() != "" && expireDate.getValue() != null) {
-            person.setCard(CreditCard.insertCreditCard(cardNo.getText(), nameOnCard.getText(), ToolKit.localDateToDate(expireDate.getValue())));
+        if (!countryCB.getValue().equals("-- Select --")) {
+            person.setCountry(new Country(countryCB.getValue()));
+        } else {
+            person.setCountry(null);
         }
-
+        if(!cardNo.getText().equals("")){
+            if(person.getCard() == null) person.setCard(CreditCard.insertCreditCard(cardNo.getText(), nameOnCard.getText(), ToolKit.localDateToDate(expireDate.getValue())));
+            else{
+                CreditCard card = person.getCard();
+                card.setCardNo(cardNo.getText());
+                card.setNameOnCard(nameOnCard.getText());
+                card.setExpireDate(ToolKit.localDateToDate(expireDate.getValue()));
+            }
+        }
+        else if(person.getCard() != null){
+            person.setCard(null);
+        }
         if (photoFile != null) {
             person.setPhoto(new Files(photoFile, FileType.toType("Picture")));
+        }
+        switch(accountType){
+            case Student:   
+                if (!eduStatusCB.getValue().equals("-- Select --")) {
+                    student.setEduStatus(new EducationalStatus(eduStatusCB.getValue()));
+                }
+                break;
+            case Teacher:
+                if (!eduStatusCB.getValue().equals("-- Select --")) {
+                    teacher.setDesignation(new Designation(eduStatusCB.getValue()));
+                }
+        }
+        if(!oldPass.getText().equals("")){
+            ToolKit.getCurrentPerson().setPassword(newPass.getText());
         }
     }
 }

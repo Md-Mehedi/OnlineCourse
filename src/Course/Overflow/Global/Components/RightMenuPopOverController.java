@@ -72,22 +72,22 @@ public class RightMenuPopOverController implements Initializable {
 
     @FXML
     private void mouseClicked(MouseEvent event) {
-        if(event.getSource()==myCourse){
-            GLOBAL.PAGE_CTRL.loadPage(PageName.MyCourse);
-        }
-        else if(event.getSource()==wishlist){
-            GLOBAL.PAGE_CTRL.loadPage(PageName.Wishlist);
-        }
-        else if(event.getSource()==purchaseHistory){
-            GLOBAL.PAGE_CTRL.loadPage(PageName.PurchaseHistory);
-        }
-        else if(event.getSource()==message){
-            GLOBAL.PAGE_CTRL.loadPage(PageName.Messenger);
-        }
-        else if(event.getSource()==faq){
-            GLOBAL.PAGE_CTRL.loadPage(PageName.FAQ);
-        }
-        else if(event.getSource()==signOut){
+//        if(event.getSource()==myCourse){
+//            GLOBAL.PAGE_CTRL.loadPage(PageName.MyCourse);
+//        }
+//        else if(event.getSource()==wishlist){
+//            GLOBAL.PAGE_CTRL.loadPage(PageName.Wishlist);
+//        }
+//        else if(event.getSource()==purchaseHistory){
+//            GLOBAL.PAGE_CTRL.loadPage(PageName.PurchaseHistory);
+//        }
+//        else if(event.getSource()==message){
+//            GLOBAL.PAGE_CTRL.loadPage(PageName.Messenger);
+//        }
+//        else if(event.getSource()==faq){
+//            GLOBAL.PAGE_CTRL.loadPage(PageName.FAQ);
+//        }
+        if(event.getSource()==signOut){
             GLOBAL.ACCOUNT_TYPE = null;
             GLOBAL.STUDENT = null;
             GLOBAL.TEACHER = null;

@@ -68,4 +68,26 @@ public class CreditCard {
         return expireDate;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
+        DB.execute("UPDATE CREDIT_CARD SET CARD_NO = '#' WHERE ID = '#'", cardNo, id.toString());
+    }
+
+    public void setNameOnCard(String nameOnCard) {
+        this.nameOnCard = nameOnCard;
+        DB.execute("UPDATE CREDIT_CARD SET NAME_ON_CARD = '#' WHERE ID = '#'", nameOnCard, id.toString());
+    }
+
+    public void setExpireDate(Date expireDate) {
+        this.expireDate = expireDate;
+        DB.execute("UPDATE CREDIT_CARD SET EXPIRE_DATE = # WHERE ID = '#'", ToolKit.JDateToDDate(expireDate), id.toString());
+    }
+    
+    public void deleteCard(){
+        DB.execute("DELETE FROM CREDIT_CARD WHERE ID = #", id.toString());
+    }
 }

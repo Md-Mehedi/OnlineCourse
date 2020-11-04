@@ -5,8 +5,6 @@
  */
 package Course.Overflow.Global.Components;
 
-import Course.Overflow.Global.GLOBAL;
-import Course.Overflow.Global.Page.PageName;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
@@ -59,7 +57,7 @@ public class CourseBoxController implements Initializable {
             }
         });
         container.setOnMouseClicked((event)->{
-            GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
+            //GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
         });
     }    
     

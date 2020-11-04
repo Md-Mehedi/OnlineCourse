@@ -83,7 +83,7 @@ public class HeaderController implements Initializable {
         loadProfilePhoto();
         addListener();
         Platform.runLater(()->{
-            createCategories();
+            //createCategories();
         });
     }    
     
@@ -102,7 +102,7 @@ public class HeaderController implements Initializable {
         });
         searchField.setOnKeyReleased((event) -> {
             if(event.getCode()==KeyCode.ENTER){
-                GLOBAL.PAGE_CTRL.loadPage(PageName.SearchResult);
+                //GLOBAL.PAGE_CTRL.loadPage(PageName.SearchResult);
             }
         });
     }

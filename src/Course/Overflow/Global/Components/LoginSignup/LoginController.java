@@ -138,8 +138,8 @@ public class LoginController implements Initializable {
 
         });
         forgetPass.setOnMouseClicked((event) -> {
-            forgetPassCtrl.RefreshWindow();
-            fp.show();
+//            forgetPassCtrl.RefreshWindow();
+//            fp.show();
             //ForgetPasswordController.message.setText("");
         });
 

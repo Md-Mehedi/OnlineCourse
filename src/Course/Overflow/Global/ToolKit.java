@@ -437,4 +437,24 @@ public class ToolKit {
         }
         return null;
     }
+    
+    public static boolean isOnlyCharacter(String s) {
+        if(s==null || s.isEmpty()) return true;
+        for (char c : s.toCharArray()) {
+            if (Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public static boolean isOnlyNumber(String s) {
+        if(s==null || s.isEmpty()) return true;
+        for (char c : s.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

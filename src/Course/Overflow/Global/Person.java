@@ -167,9 +167,10 @@ public class Person {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-        DB.execute("UPDATE PERSON SET PASSWORD = '#' WHERE ID = '#'", password, username);
+    public void setPassword(String password) {HashPassword hp = new HashPassword();
+        this.password = hp.hash(password);
+        System.out.println(this.password);
+        DB.execute("UPDATE PERSON SET PASSWORD = '" + this.password + "' WHERE ID = '#'", username);
     }
 
     public String getFirstName() {
@@ -263,6 +264,7 @@ public class Person {
     }
 
     public void setCard(CreditCard card) {
+        if(this.card != null) this.card.deleteCard();
         this.card = card;
         DB.execute("UPDATE PERSON SET CARD_ID = '#' WHERE ID = '#'", card.getId().toString(), username);
     }
