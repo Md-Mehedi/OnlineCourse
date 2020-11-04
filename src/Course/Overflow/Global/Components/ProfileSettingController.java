@@ -157,6 +157,7 @@ public class ProfileSettingController implements Initializable {
             }
             if (ps.getCard() != null) {
                 cardNo.setText(ps.getCard().getCardNo());
+            System.out.println("card");
                 nameOnCard.setText(ps.getCard().getNameOnCard());
                 expireDate.setValue(ToolKit.DateToLocalDate(ps.getCard().getExpireDate()));
             }
