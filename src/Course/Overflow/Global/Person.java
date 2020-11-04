@@ -91,19 +91,20 @@ public class Person {
     }
     
     public Person(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about, Date dob){
+        HashPassword hp = new HashPassword();
+        this.password = hp.hash(password);
+        System.out.println(this.password);
         this.accountType = accountType;
         this.username = username;
         this.email = email;
-        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.about = about;
         this.dob = dob;
-        
+                
         DB.execute("INSERT INTO PERSON(ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, SIGNUP_DATE, ABOUT, DOB)"
-              + " VALUES('#', '#', '#', '#', '#', #, '#', #)"
-              , username, email, password, firstName, lastName, ToolKit.getCurTimeDB(), about, ToolKit.JDateToDDate(dob));
-        // return new Person(username);
+              + " VALUES('#', '#', '" + this.password + "', '#', '#', #, '#', #)"
+              , username, email, firstName, lastName, ToolKit.getCurTimeDB(), about, ToolKit.JDateToDDate(dob));
     }    
     
     private void loadLanguages(){
@@ -122,9 +123,12 @@ public class Person {
     }
     
     public static Person validUser(String username, String password) {
-        ResultSet rs = DB.executeQuery("SELECT ID FROM PERSON WHERE ID = '#' AND PASSWORD = '#'", username, password);
+        HashPassword hp = new HashPassword();
+        ResultSet rs = DB.executeQuery("SELECT PASSWORD FROM PERSON WHERE ID = '#'", username);
         try {
-            if(rs.next()){
+            if(!rs.next()) return null;
+            String found = rs.getString("PASSWORD");
+            if(hp.authenticate(password, found)){
                 return new Person(username);
             }
         } catch (SQLException ex) {
@@ -241,7 +245,8 @@ public class Person {
 
     public void setCountry(Country country) {
         this.country = country;
-        DB.execute("UPDATE PERSON SET COUNTRY_ID = '#' WHERE ID = '#'", country.getId().toString(), username);
+        if(country!=null) DB.execute("UPDATE PERSON SET COUNTRY_ID = '#' WHERE ID = '#'", country.getId().toString(), username);
+        else DB.execute("UPDATE PERSON SET COUNTRY_ID = NULL WHERE ID = '#'", username);
     }
 
     public Files getPhoto() {
@@ -293,6 +298,9 @@ public class Person {
             }
         } catch (SQLException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(languages.size() == 0){
+            return;
         }
         for(Language lang : languages){
             Integer id = DB.generateId("PERSON_LANGUAGE");

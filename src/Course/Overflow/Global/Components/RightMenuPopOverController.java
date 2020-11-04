@@ -88,6 +88,9 @@ public class RightMenuPopOverController implements Initializable {
             GLOBAL.PAGE_CTRL.loadPage(PageName.FAQ);
         }
         else if(event.getSource()==signOut){
+            GLOBAL.ACCOUNT_TYPE = null;
+            GLOBAL.STUDENT = null;
+            GLOBAL.TEACHER = null;
             GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
         }
         else if(event.getSource()==setting){

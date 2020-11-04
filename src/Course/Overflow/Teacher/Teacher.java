@@ -72,7 +72,7 @@ public class Teacher extends Person{
         ResultSet rs = DB.executeQuery(sql, username);
         try {
             rs.next();
-            designation = new  Designation(rs.getInt("DESIGNATION_ID"));
+            if(rs.getInt("DESIGNATION_ID")!=0) designation = new  Designation(rs.getInt("DESIGNATION_ID"));
         } catch (SQLException ex) {
             Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
         }
