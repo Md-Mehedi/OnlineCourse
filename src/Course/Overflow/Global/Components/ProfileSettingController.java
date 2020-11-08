@@ -432,6 +432,7 @@ public class ProfileSettingController implements Initializable {
         } else {
             person.setCountry(null);
         }
+        
         if(!cardNo.getText().equals("")){
             if(person.getCard() == null) person.setCard(CreditCard.insertCreditCard(cardNo.getText(), nameOnCard.getText(), ToolKit.localDateToDate(expireDate.getValue())));
             else{
@@ -444,9 +445,11 @@ public class ProfileSettingController implements Initializable {
         else if(person.getCard() != null){
             person.setCard(null);
         }
+        
         if (photoFile != null) {
             person.setPhoto(new Files(photoFile, FileType.toType("Picture")));
         }
+        
         switch(accountType){
             case Student:   
                 if (!eduStatusCB.getValue().equals("-- Select --")) {

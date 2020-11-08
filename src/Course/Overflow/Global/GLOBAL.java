@@ -39,6 +39,7 @@ public class GLOBAL {
     public static final String COURSE_CONTENTS_LOCATION = COURSE_LOCATION + "/Contents";
 
     public static final String ICON_LOCATION = HOME_LOCATION + "/Files/Icon";
+    public static final String SVG_LOCATION = HOME_LOCATION + "/Files/SVG";
     public static final String PDF_LOCATION = HOME_LOCATION + "/Files/PDF";
     public static final String PICTURE_LOCATION = HOME_LOCATION + "/Files/Picture";
     public static final String VIDEO_LOCATION = HOME_LOCATION + "/Files/Video";

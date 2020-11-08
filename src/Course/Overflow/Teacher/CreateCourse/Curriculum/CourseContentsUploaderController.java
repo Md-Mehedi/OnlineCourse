@@ -5,7 +5,10 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
+import Course.Overflow.Files.FileType;
+import Course.Overflow.Files.Files;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.ContentsListBoxController.LectureType;
 import com.qoppa.pdf.PDFException;
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +43,7 @@ public class CourseContentsUploaderController implements Initializable {
       private Button cancelBtn;
       
       private LectureBoxController parent;
-      private String type;
+      private LectureType type;
       private File file;
       private boolean isNew;
       private File oldFile;
@@ -59,7 +62,7 @@ public class CourseContentsUploaderController implements Initializable {
             Object src = event.getSource();
             if(src == chooseFileBtn){
                   FileChooser fc = new FileChooser();
-                  if(type == "video") fc.getExtensionFilters().addAll(
+                  if(type == LectureType.VIDEO) fc.getExtensionFilters().addAll(
                         new FileChooser.ExtensionFilter("MP4 Files","*.mp4"),
                         new FileChooser.ExtensionFilter("3gp Files","*.3gp")
                   );
@@ -75,14 +78,14 @@ public class CourseContentsUploaderController implements Initializable {
                   if(isNew == false && src!=uploadBtn){
                         file = oldFile;
                   }
-                  if(type == "video"){
+                  if(type == LectureType.VIDEO){
                         FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/VideoShowBox.fxml"));
                         pane = loader.load();
                         VideoShowBoxController ctrl = loader.getController();
                         ctrl.setParent(parent);
                         ctrl.setFile(file);
                         ctrl.setDescription(description.getText());
-                  } else if(type == "pdf"){
+                  } else if(type == LectureType.PDF){
                         FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/PDFShowBox.fxml"));
                         pane = loader.load();
                         PDFShowBoxController ctrl = loader.getController();
@@ -100,7 +103,7 @@ public class CourseContentsUploaderController implements Initializable {
             } 
       }
       
-      public void setParent(LectureBoxController parent, String type, boolean isNew){
+      public void setParent(LectureBoxController parent, LectureType type, boolean isNew){
             this.parent = parent;
             this.type = type;
             this.isNew = isNew;
@@ -114,6 +117,12 @@ public class CourseContentsUploaderController implements Initializable {
       
       public void setDescription(String description){
             this.description.setText(description);
+      }
+      
+      public Files uploadToDB(){
+          if(type == LectureType.VIDEO) return new Files(file, FileType.toType("Video"), description.getText());
+          if(type == LectureType.PDF) return new Files(file, FileType.toType("PDF"), description.getText());
+          return null;
       }
       
 }

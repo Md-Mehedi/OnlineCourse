@@ -384,7 +384,12 @@ public class ToolKit {
             case "Picture":
                 destPath += GLOBAL.PICTURE_LOCATION + "/Picture_" + DB.generateId("FILES").toString() + "_";
                 break;
-
+            case "Video":
+                destPath += GLOBAL.VIDEO_LOCATION + "/Video_" + DB.generateId("FILES").toString() + "_";
+                break;
+            case "PDF":
+                destPath += GLOBAL.PDF_LOCATION + "/PDF_" + DB.generateId("FILES").toString() + "_";
+                break;
         }
         destPath += file.getName();
 
@@ -456,5 +461,13 @@ public class ToolKit {
             }
         }
         return true;
+    }
+    
+    public static String JBoolToDBool(boolean b){
+        return (b ? "T" : "F");
+    }
+    
+    public static boolean DBoolToJBool(String b){
+        return (b.equals("T") ? true : false);
     }
 }

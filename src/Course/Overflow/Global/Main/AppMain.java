@@ -8,7 +8,9 @@ import Course.Overflow.DB;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageController;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.Person;
 import Course.Overflow.Teacher.CreateCourse.CreateCourse;
+import Course.Overflow.Teacher.Teacher;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -35,35 +37,40 @@ public class AppMain extends Application {
         primaryStage.getProperties().put("hostServices", this.getHostServices());
         root = new AnchorPane();
         pane = new AnchorPane();
-        GLOBAL.stage = primaryStage;
-        GLOBAL.rootPane = root;
         GLOBAL.WIDTH = 1460;
         GLOBAL.HEIGHT = 900;
 
 
 // To show the main app, just toggle the bottom 2 line comments.
         if(System.getProperty("user.name").equals("ASUS")){
-            System.out.println("USER : MEHEDI");
-            CreateCourse mp = new CreateCourse();
-            pane = mp.getRootPane();
-            root.getChildren().add(pane);
+            int Testing = 1;
+            if(Testing == 1){
+                System.out.println("USER : MEHEDI");
+                GLOBAL.TEACHER = new Teacher("MehediHasan");
+                GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
+
+                CreateCourse mp = new CreateCourse();
+                pane = mp.getRootPane();
+                root.getChildren().add(pane);
+            }
+            else mehediTestPage();
         }
         else{
             System.out.println("USER : SHAMMYA");
-            mehediTestPage();
-//            shammyaTestPage();
+            shammyaTestPage();
         }
         
+        GLOBAL.stage = primaryStage;
+        GLOBAL.rootPane = root;
         scene = new Scene(root,GLOBAL.WIDTH, GLOBAL.HEIGHT);
         primaryStage.setScene(scene);
         primaryStage.show();
+        System.out.println("FXML is loaded...");
         
         primaryStage.setOnCloseRequest((event) -> {
-            System.out.println(GLOBAL.HEIGHT);
-            System.out.println(GLOBAL.WIDTH);
+            DB.closeConnection();
             System.exit(1);
         });
-        System.out.println("FXML is loaded...");
     }
     private void mehediTestPage() throws IOException{
         PageController pageCtrl = new PageController(PageName.Signup);
@@ -90,7 +97,7 @@ public class AppMain extends Application {
 
     private void shammyaTestPage() {
         Button button = new Button();
-        AnchorPane pane = new AnchorPane(button);
+        pane = new AnchorPane(button);
         
         root.getChildren().add(pane);
     }

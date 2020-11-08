@@ -5,6 +5,8 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
+import Course.Overflow.Files.FileType;
+import Course.Overflow.Files.Files;
 import Course.Overflow.Global.GLOBAL;
 import java.io.IOException;
 import java.net.URL;
@@ -86,6 +88,10 @@ public class LinkInputBoxController implements Initializable {
       void setLinkDetails(String text) {
             linkDescField.setText(text);
             oldLinkDesc = text;
+      }
+      
+      public Files uploadToDB(){
+          return new Files(FileType.toType("Link"), linkDescField.getText(), linkField.getText());
       }
       
 }

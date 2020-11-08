@@ -44,7 +44,7 @@ public class BorderPaneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(()->{
-            centerPane.setPrefWidth(GLOBAL.WIDTH - leftPane.getPrefWidth());
+            centerPane.setPrefWidth(GLOBAL.WIDTH - leftPane.getPrefWidth() - 25);
         });
     }
 

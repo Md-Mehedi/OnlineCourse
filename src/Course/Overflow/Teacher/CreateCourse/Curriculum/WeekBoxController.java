@@ -5,8 +5,9 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
-import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Course.Course;
 import Course.Overflow.Global.Customize.ToolTip;
+import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -56,12 +57,15 @@ public class WeekBoxController implements Initializable{
       private CurriculumController parentController;
       private AnchorPane parentPane;
       private ArrayList<LectureBoxController> lectureBoxControllers;
+      private ArrayList<Lecture> lectures;
+    private Week week;
       /**
        * Initializes the controller class.
        */
       @Override
       public void initialize(URL url, ResourceBundle rb) {
             lectureBoxControllers = new ArrayList<>();
+            lectures = new ArrayList<>();
             weekNameLabel.setMaxWidth(GLOBAL.LABEL_PREF_WIDTH - 230);
             lectureBoxContainer.setPadding(new Insets(10, GLOBAL.LEC_BOX_CON_RIGHT_PADDING, 10, GLOBAL.LEC_BOX_CON_LEFT_PADDING));
             new ToolTip(MouseEvent.MOUSE_ENTERED, addIcon, "Add more lectures.");
@@ -153,4 +157,13 @@ public class WeekBoxController implements Initializable{
                   lectureBoxControllers.get(i).setLectureNo(i+1);
             }
       }
+
+    void uploadToDB() {
+        week = new Week(Integer.parseInt(weekNo.getText()), weekNameLabel.getText(), new Course(1));
+        for(LectureBoxController lecCtrl : lectureBoxControllers){
+            lecCtrl.setWeek(week);
+            Lecture lecture = lecCtrl.uploadToDB();
+            lectures.add(lecture);
+        }
+    }
 }

@@ -44,8 +44,8 @@ TextField{
     -fx-min-width: 0;
 }
 .centerRightWidth{
-    -fx-pref-width: 1058;
-    -fx-max-width: 1058;
+    -fx-pref-width: 1080;
+    -fx-max-width: 1080;
 }
 .maxHeight{
     -fx-max-height: 600;

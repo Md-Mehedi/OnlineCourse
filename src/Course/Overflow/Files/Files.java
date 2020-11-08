@@ -52,7 +52,6 @@ public class Files {
     }
     
     public Files(FileType type, String title, String content){
-        System.out.println(type.getId());
         this.id = DB.generateId("FILES");
         this.type = type;
         this.title = title;

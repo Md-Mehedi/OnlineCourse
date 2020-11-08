@@ -5,6 +5,7 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
+import Course.Overflow.Files.Files;
 import Course.Overflow.Global.GLOBAL;
 import java.io.IOException;
 import java.net.URL;
@@ -36,6 +37,7 @@ public class ContentsListBoxController implements Initializable {
       private AnchorPane container;
 
       private LectureBoxController parent;
+    private FXMLLoader loader;
       /**
        * Initializes the controller class.
        */
@@ -43,6 +45,15 @@ public class ContentsListBoxController implements Initializable {
       public void initialize(URL url, ResourceBundle rb) {
             // TODO
       }      
+      
+      public enum LectureType{
+          ARTICLE,
+          VIDEO,
+          LINK,
+          PDF
+      }
+      
+      public LectureType fileType;
 
       @FXML
       private void mouseClicked(MouseEvent event) throws IOException {
@@ -50,19 +61,23 @@ public class ContentsListBoxController implements Initializable {
             HBox box = (HBox) container.getParent();
             AnchorPane pane = new AnchorPane();
             if(src == articleBtn){
-                  FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/ArticleInputBox.fxml"));
+                  fileType = LectureType.ARTICLE;
+                  loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/ArticleInputBox.fxml"));
                   pane = loader.load();
                   loader.<ArticleInputBoxController>getController().setParent(parent,true);
             } else if(src == videoBtn){
-                  FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/CourseContentsUploader.fxml"));
+                  fileType = LectureType.VIDEO;
+                  loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/CourseContentsUploader.fxml"));
                   pane = loader.load();
-                  loader.<CourseContentsUploaderController>getController().setParent(parent,"video",true);
+                  loader.<CourseContentsUploaderController>getController().setParent(parent,fileType,true);
             } else if(src == pdfBtn){
-                  FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/CourseContentsUploader.fxml"));
+                  fileType = LectureType.PDF;
+                  loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/CourseContentsUploader.fxml"));
                   pane = loader.load();
-                  loader.<CourseContentsUploaderController>getController().setParent(parent,"pdf",true);
+                  loader.<CourseContentsUploaderController>getController().setParent(parent,fileType,true);
             } else if(src == linkBtn){
-                  FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/LinkInputBox.fxml"));
+                  fileType = LectureType.LINK;
+                  loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/LinkInputBox.fxml"));
                   pane = loader.load();
                   loader.<LinkInputBoxController>getController().setParent(parent,true);
             }
@@ -74,4 +89,13 @@ public class ContentsListBoxController implements Initializable {
             this.parent = parent;
       }
       
+      public Files uploadToDb(){
+          switch(fileType){
+              case ARTICLE  : return loader.<ArticleInputBoxController>getController().uploadToDB();
+              case VIDEO    : return loader.<CourseContentsUploaderController>getController().uploadToDB();
+              case PDF      : return loader.<CourseContentsUploaderController>getController().uploadToDB();
+              case LINK     : return loader.<LinkInputBoxController>getController().uploadToDB();
+          }
+          return null;
+      }
 }

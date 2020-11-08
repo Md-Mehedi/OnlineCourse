@@ -5,8 +5,9 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Pricing;
 
-import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Customize.ToolTip;
+import Course.Overflow.Global.GLOBAL;
+import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
@@ -47,6 +48,8 @@ public class PricingController implements Initializable {
       private Label pricingDetailLabel;
       @FXML
       private FontAwesomeIconView infoPrice;
+    @FXML
+    private JFXButton uploadBtn;
 
       /**
        * Initializes the controller class.

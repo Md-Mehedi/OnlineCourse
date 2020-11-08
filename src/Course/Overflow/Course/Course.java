@@ -41,4 +41,13 @@ public class Course {
     Category mainCategory;
     Category subCategory;
     PromoCode promo;
+    
+    public Course(Integer id){
+        this.id = id;
+        System.out.println("Course constructor is not set properly...");
+    }
+    
+    public Integer getId(){
+        return id;
+    }
 }

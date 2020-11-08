@@ -70,7 +70,7 @@ public class VideoShowBoxController implements Initializable {
             if(src == updateBtn){
                   FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/CourseContentsUploader.fxml"));
                   AnchorPane pane = loader.load();
-                  loader.<CourseContentsUploaderController>getController().setParent(parent, "video", false);
+                  loader.<CourseContentsUploaderController>getController().setParent(parent, ContentsListBoxController.LectureType.VIDEO, false);
                   loader.<CourseContentsUploaderController>getController().setFile(file);
                   loader.<CourseContentsUploaderController>getController().setDescription(description.getText());
                   parent.getAvailableContentContainer().getChildren().remove(container);
@@ -107,5 +107,6 @@ public class VideoShowBoxController implements Initializable {
       void setDescription(String description) {
             this.description.setText(description);
       }
+      
       
 }

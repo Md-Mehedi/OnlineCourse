@@ -5,8 +5,9 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
-import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Customize.ToolTip;
+import Course.Overflow.Global.GLOBAL;
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,20 +29,23 @@ import javafx.scene.layout.VBox;
  */
 public class CurriculumController implements Initializable {
 
-      @FXML
-      private AnchorPane container;
-      @FXML
-      private VBox weekBoxContainer;
-      @FXML
-      private ImageView addWeekBtn;
-      
-      private ArrayList<WeekBoxController> weekBoxControllers;
+    @FXML
+    private AnchorPane container;
+    @FXML
+    private VBox weekBoxContainer;
+    @FXML
+    private ImageView addWeekBtn;
+
+    private ArrayList<WeekBoxController> weekBoxControllers;
+    @FXML
+    private JFXButton tempUploadBtn;
       /**
        * Initializes the controller class.
        */
       @Override
       public void initialize(URL url, ResourceBundle rb){
             weekBoxControllers = new ArrayList<WeekBoxController>();
+            addListener();
             try {
                   AnchorPane root = new AnchorPane();
                   FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/WeekBox.fxml"));
@@ -83,4 +87,14 @@ public class CurriculumController implements Initializable {
                   weekBoxControllers.get(i).setWeekNumber(i+1);
             }
       }
+
+    private void addListener() {
+        tempUploadBtn.setOnMouseClicked((event) -> {
+            System.out.println("Temp upload event");
+            System.out.println("Week ctrls size "+weekBoxControllers.size());
+            for(WeekBoxController weekCtrl : weekBoxControllers){
+                weekCtrl.uploadToDB();
+            }
+        });
+    }
 }

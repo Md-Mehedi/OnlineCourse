@@ -14,10 +14,10 @@ and open the template in the editor.
  * Layout CSS 
  */
 .mainFullWidth{
-    -fx-pref-width: 1435;
+    -fx-pref-width: 1460;
 }
 .mainCenterWidth{
-    -fx-pref-width: 1135;
+    -fx-pref-width: 1160;
 }
 .mainLeftWidth{
     -fx-pref-width: 300;

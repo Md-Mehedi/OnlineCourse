@@ -5,8 +5,8 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
-import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Customize.ToolTip;
+import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -58,6 +58,10 @@ public class LectureBoxController implements Initializable {
       @FXML
       private Label lectureNo;
       private WeekBoxController parentController;
+    private ContentsListBoxController contentListCtrl;
+    private Week week;
+    private Lecture lecture;
+
       
       /**
        * Initializes the controller class.
@@ -191,8 +195,9 @@ public class LectureBoxController implements Initializable {
                   FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/ContentsListBox.fxml"));
                   AnchorPane pane;
                   pane = (AnchorPane) loader.load();
+                  contentListCtrl = loader.<ContentsListBoxController>getController();
+                  contentListCtrl.setParent(this);
                   availableContentContainer.getChildren().add(pane);
-                  loader.<ContentsListBoxController>getController().setParent(this);
             } else if(src == cancelContents){
                   content.setVisible(true);
                   cancelContents.setVisible(false);
@@ -215,4 +220,17 @@ public class LectureBoxController implements Initializable {
       void setParent(WeekBoxController parentController) {
             this.parentController = parentController;
       }
+      
+    public Week getWeek() {
+        return week;
+    }
+
+    public void setWeek(Week week) {
+        this.week = week;
+    }
+
+    public Lecture uploadToDB() {
+        lecture = new Lecture(Integer.parseInt(lectureNo.getText()), lectureNameLabel.getText(), contentListCtrl.uploadToDb(), freeAvailableCkB.isSelected(), week);
+        return lecture;
+    }
 }

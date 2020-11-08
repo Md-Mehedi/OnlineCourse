@@ -5,6 +5,8 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
+import Course.Overflow.Files.FileType;
+import Course.Overflow.Files.Files;
 import Course.Overflow.Global.GLOBAL;
 import java.io.IOException;
 import java.net.URL;
@@ -86,6 +88,11 @@ public class ArticleInputBoxController implements Initializable {
       void setTitle(String text) {
             title.setText(text);
             oldTitle = text;
+      }
+      
+      public Files uploadToDB(){
+          Files file = new Files(FileType.toType("Article"), title.getText(), article.getText());
+          return file;
       }
       
 }
