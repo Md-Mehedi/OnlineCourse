@@ -48,6 +48,7 @@ public class AppMain extends Application {
                 System.out.println("USER : MEHEDI");
                 GLOBAL.TEACHER = new Teacher("MehediHasan");
                 GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
+                GLOBAL.PAGE_CTRL = new PageController();
 
                 CreateCourse mp = new CreateCourse();
                 pane = mp.getRootPane();

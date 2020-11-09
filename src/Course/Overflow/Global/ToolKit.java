@@ -38,6 +38,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -84,6 +85,7 @@ public class ToolKit {
 
     public static File chooseFile(String fileType) {
         FileChooser fc = new FileChooser();
+        fc.setInitialDirectory(new File(GLOBAL.FILE_CHOOSER_DIRECTORY));
         if (fileType == "video") {
             fc.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("Video files", "*.mp4", "*.3gp")
@@ -97,7 +99,9 @@ public class ToolKit {
                     new FileChooser.ExtensionFilter("Image files", "*.jpeg", "*.jpg", "*.bmp", "*.png", "*.gif")
             );
         }
-        return fc.showOpenDialog(null);
+        File file = fc.showOpenDialog(null);
+        GLOBAL.FILE_CHOOSER_DIRECTORY = file.getParent();
+        return file;
     }
 
     public static MediaPlayer getMediaPlayer(File file) {
@@ -469,5 +473,9 @@ public class ToolKit {
     
     public static boolean DBoolToJBool(String b){
         return (b.equals("T") ? true : false);
+    }
+    
+    public static void showWarning(String text){
+        JOptionPane.showMessageDialog(null, text, "Warning", JOptionPane.WARNING_MESSAGE);
     }
 }

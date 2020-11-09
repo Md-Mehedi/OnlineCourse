@@ -33,6 +33,7 @@
             </HBox>
             <CheckBox fx:id="offerCkBox" mnemonicParsing="false" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="If you want to offer" />
             <HBox fx:id="offerContainer" style="-fx-alignment: center-left;" />
+            <CheckBox fx:id="promoCkBox" mnemonicParsing="false" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="If you want to add any promo code." />
             <HBox fx:id="promoContainer" style="-fx-alignment: center-left;" />
             <HBox>
                <children>

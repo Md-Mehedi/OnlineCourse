@@ -5,6 +5,11 @@
  */
 package Course.Overflow.Teacher.CreateCourse.TargetStudentPage;
 
+import Course.Overflow.Course.Course;
+import Course.Overflow.Course.Property;
+import Course.Overflow.Files.FileType;
+import Course.Overflow.Files.Files;
+import Course.Overflow.Global.Customize.Icon;
 import Course.Overflow.Global.Customize.ToolTip;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
@@ -34,7 +39,7 @@ import javafx.scene.layout.VBox;
  *
  * @author ASUS
  */
-public class PropertiesController implements Initializable {
+public class PropertiesController extends Object implements Initializable {
 
     private Label uploadBtn;
     @FXML
@@ -61,6 +66,7 @@ public class PropertiesController implements Initializable {
     private ImageView iconPicBox;
     @FXML
     private TextField answerField;
+    private File iconPicFile;
 
     /**
      * Initializes the controller class.
@@ -95,10 +101,13 @@ public class PropertiesController implements Initializable {
         Object src = event.getSource();
         if (src == deleteIcon) {
             parentContainer.getChildren().remove(container);
+            parentController.removePropertiesCtrl(this);
         } else if (src == upIcon) {
             ToolKit.moveRow(parentContainer, parentContainer.getChildren().indexOf(container), -1);
+            parentController.moveProperty(parentController.getPropertiesCtrls().indexOf(this), -1);
         } else if (src == downIcon) {
             ToolKit.moveRow(parentContainer, parentContainer.getChildren().indexOf(container), 1);
+            parentController.moveProperty(parentController.getPropertiesCtrls().indexOf(this), 1);
         }
     }
 
@@ -168,9 +177,26 @@ public class PropertiesController implements Initializable {
     }
 
     void setIconPic(File file) throws FileNotFoundException {
+        this.iconPicFile = file;
         iconBox.setVisible(false);
         iconPicBox.setVisible(true);
         iconPicBox.setImage(new Image(new FileInputStream(file)));
     }
-
+    public Property uploadToDB(Course course){
+        Files file;
+        if(iconBox.isVisible()){
+            file = new Files(FileType.toType("FontAwesomeIcon"), "Properties icon", iconHolder.getGlyphName());
+        }
+        else{
+            file = new Files(iconPicFile, FileType.toType("Picture"), "Properties icon");
+        }
+        System.out.println(file.getType().getType());
+        Icon icon = new Icon(file);
+        Property property = new Property(icon, course, answerField.getText());
+        return property;
+    }
+    
+    public String getValue(){
+        return answerField.getText();
+    }
 }

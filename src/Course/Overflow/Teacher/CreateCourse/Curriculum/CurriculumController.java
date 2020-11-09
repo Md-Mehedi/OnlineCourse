@@ -5,8 +5,13 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
+import Course.Overflow.Course.Course;
 import Course.Overflow.Global.Customize.ToolTip;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Teacher.CreateCourse.CourseLandingPage.DetailsController;
+import Course.Overflow.Teacher.CreateCourse.Pricing.PricingController;
+import Course.Overflow.Teacher.CreateCourse.TargetStudentPage.TargetStudentPageController;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -39,6 +44,9 @@ public class CurriculumController implements Initializable {
     private ArrayList<WeekBoxController> weekBoxControllers;
     @FXML
     private JFXButton tempUploadBtn;
+    private TargetStudentPageController targetStudentCtrl;
+    private DetailsController detailsCtrl;
+    private PricingController pricingCtrl;
       /**
        * Initializes the controller class.
        */
@@ -89,12 +97,35 @@ public class CurriculumController implements Initializable {
       }
 
     private void addListener() {
-        tempUploadBtn.setOnMouseClicked((event) -> {
-            System.out.println("Temp upload event");
-            System.out.println("Week ctrls size "+weekBoxControllers.size());
-            for(WeekBoxController weekCtrl : weekBoxControllers){
-                weekCtrl.uploadToDB();
-            }
-        });
+//        tempUploadBtn.setOnMouseClicked((event) -> {
+//            System.out.println("Temp upload event");
+//            System.out.println("Week ctrls size "+weekBoxControllers.size());
+//            for(WeekBoxController weekCtrl : weekBoxControllers){
+//                weekCtrl.uploadToDB();
+//            }
+//        });
+    }
+    
+    public void uploadToDB(Course course){
+        for(WeekBoxController weekCtrl : weekBoxControllers){
+            weekCtrl.uploadToDB(course);
+        }
+    }
+
+    public void setControllers(TargetStudentPageController targetStudentCtrl, DetailsController detailsController, PricingController pricingController) {
+        this.targetStudentCtrl = targetStudentCtrl;
+        this.detailsCtrl = detailsController;
+        this.pricingCtrl = pricingController;
+    }
+
+    public Boolean isPassedCondition() {
+        if(weekBoxControllers.size() == 0){
+            ToolKit.showWarning("You can't make a course without lectures!");
+            return false;
+        }
+        for(WeekBoxController weekCtrl : weekBoxControllers){
+            if(!weekCtrl.isPassedCondition()) return false;
+        }
+        return true;
     }
 }

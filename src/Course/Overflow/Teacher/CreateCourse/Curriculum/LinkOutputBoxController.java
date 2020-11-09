@@ -25,51 +25,52 @@ import javafx.scene.layout.AnchorPane;
  */
 public class LinkOutputBoxController implements Initializable {
 
-      @FXML
-      private AnchorPane container;
-      @FXML
-      private Label linkDetails;
-      @FXML
-      private Label link;
-      @FXML
-      private Button editBtn;
-      private LectureBoxController parent;
+    @FXML
+    private AnchorPane container;
+    @FXML
+    private Label linkDetails;
+    @FXML
+    private Label link;
+    @FXML
+    private Button editBtn;
+    private LectureBoxController parent;
 
-      /**
-       * Initializes the controller class.
-       */
-      @Override
-      public void initialize(URL url, ResourceBundle rb) {
-            link.setPrefWidth(GLOBAL.LABEL_PREF_WIDTH-120);
-            linkDetails.setPrefWidth(GLOBAL.LABEL_PREF_WIDTH);
-      }      
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        link.setPrefWidth(GLOBAL.LABEL_PREF_WIDTH - 120);
+        linkDetails.setPrefWidth(GLOBAL.LABEL_PREF_WIDTH);
+    }
 
-      void setLink(String text) {
-            link.setText(text);
-      }
+    void setLink(String text) {
+        link.setText(text);
+    }
 
-      void setLinkDesc(String text) {
-            linkDetails.setText(text);
-      }
+    void setLinkDesc(String text) {
+        linkDetails.setText(text);
+    }
 
-      @FXML
-      private void mouseClicked(MouseEvent event) throws IOException {
-            if(event.getSource() == editBtn){
-                  FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/LinkInputBox.fxml"));
-                  AnchorPane pane = loader.load();
-                  LinkInputBoxController ctrl = loader.getController();
-                  ctrl.setParent(parent, false);
-                  ctrl.setLink(link.getText());
-                  ctrl.setLinkDetails(linkDetails.getText());
-                  parent.getAvailableContentContainer().getChildren().remove(container);
-                  parent.getAvailableContentContainer().getChildren().add(pane);
-            } else if(event.getSource() == link){
-                  ToolKit.openLink(link.getText());
-            }
-      }
-      
-      public void setParent(LectureBoxController parent){
-            this.parent = parent;
-      }
-      
+    @FXML
+    private void mouseClicked(MouseEvent event) throws IOException {
+        if (event.getSource() == editBtn) {
+            parent.setLectureLoaded(false);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/LinkInputBox.fxml"));
+            AnchorPane pane = loader.load();
+            LinkInputBoxController ctrl = loader.getController();
+            ctrl.setParent(parent, false);
+            ctrl.setLink(link.getText());
+            ctrl.setLinkDetails(linkDetails.getText());
+            parent.getAvailableContentContainer().getChildren().remove(container);
+            parent.getAvailableContentContainer().getChildren().add(pane);
+        } else if (event.getSource() == link) {
+            ToolKit.openLink(link.getText());
+        }
+    }
+
+    public void setParent(LectureBoxController parent) {
+        this.parent = parent;
+    }
+
 }

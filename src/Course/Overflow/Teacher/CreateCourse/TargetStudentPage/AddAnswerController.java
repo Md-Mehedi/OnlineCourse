@@ -23,52 +23,58 @@ import javafx.scene.layout.VBox;
  */
 public class AddAnswerController implements Initializable {
 
-      @FXML
-      private AnchorPane container;
-      @FXML
-      private TextField answerField;
-      @FXML
-      private Label deleteIcon;
-      @FXML
-      private Label upIcon;
-      @FXML
-      private Label downIcon;
-      
-      private VBox parentContainer;
-      private TargetStudentPageController parentController;
-      private AnchorPane mainContainer;
+    @FXML
+    private AnchorPane container;
+    @FXML
+    private TextField answerField;
+    @FXML
+    private Label deleteIcon;
+    @FXML
+    private Label upIcon;
+    @FXML
+    private Label downIcon;
 
-      /**
-       * Initializes the controller class.
-       */
-      @Override
-      public void initialize(URL url, ResourceBundle rb) {
-      }      
+    private VBox parentContainer;
+    private TargetStudentPageController parentController;
+    private AnchorPane mainContainer;
 
-      @FXML
-      private void mouseExited(MouseEvent event) {
-      }
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+    }
 
-      @FXML
-      private void mouseEntered(MouseEvent event) {
-      }
-      
-      @FXML
-      private void mouseClicked(MouseEvent event) {
-            Object src = event.getSource();
-            if(src == deleteIcon){
-                  parentContainer.getChildren().remove(container);
-            } else if(src == upIcon){
-                  ToolKit.moveRow(parentContainer, parentContainer.getChildren().indexOf(container), -1);
-            } else if(src == downIcon){
-                  ToolKit.moveRow(parentContainer, parentContainer.getChildren().indexOf(container), 1);
-            }
-      }
-      
-      public void setParent(TargetStudentPageController parentController, VBox parentContainer, AnchorPane mainContainer){
-            this.parentContainer = parentContainer;
-            this.parentController = parentController;
-            this.mainContainer = mainContainer;
-      }
+    @FXML
+    private void mouseExited(MouseEvent event) {
+    }
+
+    @FXML
+    private void mouseEntered(MouseEvent event) {
+    }
+
+    @FXML
+    private void mouseClicked(MouseEvent event) {
+        Object src = event.getSource();
+        if (src == deleteIcon) {
+            parentContainer.getChildren().remove(container);
+            parentController.removeCourseLearningCtrl(this);
+            parentController.removeRequCtrl(this);
+        } else if (src == upIcon) {
+            ToolKit.moveRow(parentContainer, parentContainer.getChildren().indexOf(container), -1);            
+        } else if (src == downIcon) {
+            ToolKit.moveRow(parentContainer, parentContainer.getChildren().indexOf(container), 1);
+        }
+    }
+
+    public void setParent(TargetStudentPageController parentController, VBox parentContainer, AnchorPane mainContainer) {
+        this.parentContainer = parentContainer;
+        this.parentController = parentController;
+        this.mainContainer = mainContainer;
+    }
+    
+    public String getValue(){
+        return answerField.getText();
+    }
 
 }

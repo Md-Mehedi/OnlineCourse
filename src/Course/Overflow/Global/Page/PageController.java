@@ -48,6 +48,7 @@ public class PageController {
 //    public PageController() {
 //        this(PageName.Home);
 //    }
+    public PageController(){}
     public PageController(PageName pageName) {
         pages = new ArrayList<>();
         pageIdx = -1;

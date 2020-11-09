@@ -119,9 +119,9 @@ TextField{
 }
 .fileUploaderHbox Button{
     -fx-pref-height: 38;
-/*    -fx-pref-width: 102;
+    -fx-pref-width: 102;
     -fx-min-width: 102;
-    -fx-max-width: 102;*/
+    -fx-max-width: 102;
     -fx-background-color: #009999;
     -fx-font-weight: bold;
     -fx-text-fill: white;
