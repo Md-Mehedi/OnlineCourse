@@ -45,4 +45,8 @@ public class OfferController implements Initializable {
       public Double getOffer(){
           return Double.parseDouble(offerField.getText());
       }
+
+    void setOffer(Double off) {
+        offerField.setText(off.toString());
+    }
 }

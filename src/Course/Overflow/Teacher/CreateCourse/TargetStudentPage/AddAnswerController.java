@@ -76,5 +76,8 @@ public class AddAnswerController implements Initializable {
     public String getValue(){
         return answerField.getText();
     }
-
+    
+    public void loadData(String text){
+        answerField.setText(text);
+    }
 }

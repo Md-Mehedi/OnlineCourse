@@ -7,6 +7,7 @@ package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
 import Course.Overflow.Global.Customize.PDF;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.LectureBoxController.LectureType;
 import com.qoppa.pdf.PDFException;
 import java.io.File;
 import java.io.IOException;
@@ -74,7 +75,7 @@ public class PDFShowBoxController implements Initializable {
             parent.setLectureLoaded(false);
             FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/CourseContentsUploader.fxml"));
             AnchorPane pane = loader.load();
-            loader.<CourseContentsUploaderController>getController().setParent(parent, ContentsListBoxController.LectureType.PDF, false);
+            loader.<CourseContentsUploaderController>getController().setParent(parent, LectureType.PDF, false);
             loader.<CourseContentsUploaderController>getController().setFile(file);
             loader.<CourseContentsUploaderController>getController().setDescription(description.getText());
             parent.getAvailableContentContainer().getChildren().remove(container);

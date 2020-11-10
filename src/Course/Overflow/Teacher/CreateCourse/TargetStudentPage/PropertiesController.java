@@ -9,7 +9,6 @@ import Course.Overflow.Course.Course;
 import Course.Overflow.Course.Property;
 import Course.Overflow.Files.FileType;
 import Course.Overflow.Files.Files;
-import Course.Overflow.Global.Customize.Icon;
 import Course.Overflow.Global.Customize.ToolTip;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
@@ -176,11 +175,15 @@ public class PropertiesController extends Object implements Initializable {
         iconPack.setVisible(b);
     }
 
-    void setIconPic(File file) throws FileNotFoundException {
-        this.iconPicFile = file;
-        iconBox.setVisible(false);
-        iconPicBox.setVisible(true);
-        iconPicBox.setImage(new Image(new FileInputStream(file)));
+    void setIconPic(File file) {
+        try {
+            this.iconPicFile = file;
+            iconBox.setVisible(false);
+            iconPicBox.setVisible(true);
+            iconPicBox.setImage(new Image(new FileInputStream(file)));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PropertiesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public Property uploadToDB(Course course){
         Files file;
@@ -190,13 +193,21 @@ public class PropertiesController extends Object implements Initializable {
         else{
             file = new Files(iconPicFile, FileType.toType("Picture"), "Properties icon");
         }
-        System.out.println(file.getType().getType());
-        Icon icon = new Icon(file);
-        Property property = new Property(icon, course, answerField.getText());
+        Property property = new Property(file, course, answerField.getText());
         return property;
     }
     
     public String getValue(){
         return answerField.getText();
+    }
+    
+    public void loadData(Property property){
+        answerField.setText(property.getText());
+        if(property.getIcon().getType() == FileType.toType("Picture")){
+            setIconPic(new File(ToolKit.makeAbsoluteLocation(property.getIcon().getContent())));
+        }
+        else if(property.getIcon().getType() == FileType.toType("FontAwesomeIcon")){
+            setIcon(property.getIcon().getContent());
+        }
     }
 }

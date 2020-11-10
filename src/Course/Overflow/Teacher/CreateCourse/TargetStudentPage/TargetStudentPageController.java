@@ -55,7 +55,7 @@ public class TargetStudentPageController implements Initializable {
     private CurriculumController curriculumCtrl;
     private PricingController pricingCtrl;
     private ArrayList<PropertiesController> propertiesCtrls;
-    private ArrayList<AddAnswerController>  courseOutcomesCtrls;
+    private ArrayList<AddAnswerController> courseOutcomesCtrls;
     private ArrayList<AddAnswerController> requCtrls;
 
     public ArrayList<PropertiesController> getPropertiesCtrls() {
@@ -81,6 +81,7 @@ public class TargetStudentPageController implements Initializable {
     public void setRequCtrls(ArrayList<AddAnswerController> requCtrls) {
         this.requCtrls = requCtrls;
     }
+
     /**
      * Initializes the controller class.
      */
@@ -90,42 +91,27 @@ public class TargetStudentPageController implements Initializable {
         propertiesCtrls = new ArrayList<>();
         courseOutcomesCtrls = new ArrayList<>();
         requCtrls = new ArrayList<>();
-        
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_TARGET_STUDENT_PAGE + "/AddAnswer.fxml"));
-            tempPane = loader.load();
-            loader.<AddAnswerController>getController().setParent(this, courseLearningContainer, mainContainer);
-            courseLearningContainer.getChildren().add(tempPane);
-            courseOutcomesCtrls.add(loader.getController());
-            
-            loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_TARGET_STUDENT_PAGE + "/AddAnswer.fxml"));
-            tempPane = loader.load();
-            loader.<AddAnswerController>getController().setParent(this, requContainer, mainContainer);
-            requContainer.getChildren().add(tempPane);
-            requCtrls.add(loader.getController());
-            
-            loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_TARGET_STUDENT_PAGE + "/Properties.fxml"));
-            tempPane = loader.load();
-            loader.<PropertiesController>getController().setParent(this, propertiesContainer, mainContainer);
-            propertiesContainer.getChildren().add(tempPane);
-            propertiesCtrls.add(loader.getController());
-        } catch (IOException ex) {
-            Logger.getLogger(TargetStudentPageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        addLearningField("");
+        addPrerequisitiveField("");
+        addPropertiesField(null);
     }
 
-    public void removePropertiesCtrl(PropertiesController ctrl){
+    public void removePropertiesCtrl(PropertiesController ctrl) {
         propertiesCtrls.remove(ctrl);
     }
 
-    public void removeCourseLearningCtrl(AddAnswerController ctrl){
-        if(courseOutcomesCtrls.contains(ctrl)) courseOutcomesCtrls.remove(ctrl);
+    public void removeCourseLearningCtrl(AddAnswerController ctrl) {
+        if (courseOutcomesCtrls.contains(ctrl)) {
+            courseOutcomesCtrls.remove(ctrl);
+        }
     }
 
-    public void removeRequCtrl(AddAnswerController ctrl){
-        if(requCtrls.contains(ctrl)) requCtrls.remove(ctrl);
+    public void removeRequCtrl(AddAnswerController ctrl) {
+        if (requCtrls.contains(ctrl)) {
+            requCtrls.remove(ctrl);
+        }
     }
-    
+
     @FXML
     private void mouseExited(MouseEvent event) {
     }
@@ -134,28 +120,57 @@ public class TargetStudentPageController implements Initializable {
     private void mouseEntered(MouseEvent event) {
     }
 
+    private void addLearningField(String text) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_TARGET_STUDENT_PAGE + "/AddAnswer.fxml"));
+            AnchorPane pane = loader.load();
+            loader.<AddAnswerController>getController().setParent(this, courseLearningContainer, mainContainer);
+            loader.<AddAnswerController>getController().loadData(text);
+            courseLearningContainer.getChildren().add(pane);
+            courseOutcomesCtrls.add(loader.getController());
+        } catch (IOException ex) {
+            Logger.getLogger(TargetStudentPageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void addPrerequisitiveField(String text) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_TARGET_STUDENT_PAGE + "/AddAnswer.fxml"));
+            AnchorPane pane = loader.load();
+            loader.<AddAnswerController>getController().setParent(this, requContainer, mainContainer);
+            loader.<AddAnswerController>getController().loadData(text);
+            requContainer.getChildren().add(pane);
+            requCtrls.add(loader.getController());
+        } catch (IOException ex) {
+            Logger.getLogger(TargetStudentPageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void addPropertiesField(Property property) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_TARGET_STUDENT_PAGE + "/Properties.fxml"));
+            AnchorPane pane = loader.load();
+            loader.<PropertiesController>getController().setParent(this, propertiesContainer, mainContainer);
+            if (property != null) {
+                loader.<PropertiesController>getController().loadData(property);
+            }
+            propertiesContainer.getChildren().add(pane);
+            propertiesCtrls.add(loader.getController());
+        } catch (IOException ex) {
+            Logger.getLogger(TargetStudentPageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @FXML
     private void mouseClicked(MouseEvent event) throws IOException {
         Object src = event.getSource();
         ToolTip.invisibleAll();
         if (src == addLearning) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_TARGET_STUDENT_PAGE + "/AddAnswer.fxml"));
-            AnchorPane pane = loader.load();
-            loader.<AddAnswerController>getController().setParent(this, courseLearningContainer, mainContainer);
-            courseLearningContainer.getChildren().add(pane);
-            courseOutcomesCtrls.add(loader.getController());
+            addLearningField("");
         } else if (src == addRequirement) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_TARGET_STUDENT_PAGE + "/AddAnswer.fxml"));
-            AnchorPane pane = loader.load();
-            loader.<AddAnswerController>getController().setParent(this, requContainer, mainContainer);
-            requContainer.getChildren().add(pane);
-            requCtrls.add(loader.getController());
+            addPrerequisitiveField("");
         } else if (src == addProperties) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_TARGET_STUDENT_PAGE + "/Properties.fxml"));
-            AnchorPane pane = loader.load();
-            loader.<PropertiesController>getController().setParent(this, propertiesContainer, mainContainer);
-            propertiesContainer.getChildren().add(pane);
-            propertiesCtrls.add(loader.getController());
+            addPropertiesField(null);
         }
     }
 
@@ -168,10 +183,10 @@ public class TargetStudentPageController implements Initializable {
         this.curriculumCtrl = curriculumCtrl;
         this.pricingCtrl = pricingController;
     }
-    
-    public void uploadProperties(Course course){
+
+    public void uploadProperties(Course course) {
         ArrayList<Property> properties = new ArrayList<Property>();
-        for(PropertiesController ctrl : propertiesCtrls){
+        for (PropertiesController ctrl : propertiesCtrls) {
             properties.add(ctrl.uploadToDB(course));
         }
         course.setProperties(properties);
@@ -179,8 +194,10 @@ public class TargetStudentPageController implements Initializable {
 
     public String getOutcomes() {
         String outcomes = "";
-        for(AddAnswerController outcomeCtrl : courseOutcomesCtrls){
-            if(outcomeCtrl.getValue().equals("")) continue;
+        for (AddAnswerController outcomeCtrl : courseOutcomesCtrls) {
+            if (outcomeCtrl.getValue().equals("")) {
+                continue;
+            }
             outcomes += (outcomes.equals("") ? "" : "><") + outcomeCtrl.getValue();
         }
         return outcomes;
@@ -188,13 +205,15 @@ public class TargetStudentPageController implements Initializable {
 
     public String getPrerequisitives() {
         String prerequisitives = "";
-        for(AddAnswerController prerequCtrl : requCtrls){
-            if(prerequCtrl.getValue().equals("")) continue;
+        for (AddAnswerController prerequCtrl : requCtrls) {
+            if (prerequCtrl.getValue().equals("")) {
+                continue;
+            }
             prerequisitives += (prerequisitives.equals("") ? "" : "><") + prerequCtrl.getValue();
         }
         return prerequisitives;
     }
-    
+
     public void moveProperty(int idx, int i) {
         ArrayList<PropertiesController> parent = propertiesCtrls;
         if (idx + i < 0 || idx + i == parent.size()) {
@@ -207,32 +226,51 @@ public class TargetStudentPageController implements Initializable {
     }
 
     public boolean isPassedCondition() {
-        for(AddAnswerController outcomes : courseOutcomesCtrls){
-            if(outcomes.getValue().equals("")){
+        for (AddAnswerController outcomes : courseOutcomesCtrls) {
+            if (outcomes.getValue().equals("")) {
                 ToolKit.showWarning("Any outcomes field can not be empty.");
                 return false;
             }
         }
-        if(courseOutcomesCtrls.size()==0) {
+        if (courseOutcomesCtrls.size() == 0) {
             ToolKit.showWarning("Please enter at least one outcome to make your course more beautiful");
             return false;
         }
-        for(AddAnswerController r : requCtrls){
-            if(r.getValue().equals("")){
+        for (AddAnswerController r : requCtrls) {
+            if (r.getValue().equals("")) {
                 ToolKit.showWarning("Any prerequisitive field can not be empty.");
                 return false;
             }
         }
-        for(PropertiesController p : propertiesCtrls){
-            if(p.getValue().equals("")){
+        for (PropertiesController p : propertiesCtrls) {
+            if (p.getValue().equals("")) {
                 ToolKit.showWarning("Any properties field can not be empty.");
                 return false;
             }
         }
-        if(propertiesCtrls.size()==0) {
+        if (propertiesCtrls.size() == 0) {
             ToolKit.showWarning("Please enter at least one properties to make your course more beautiful");
             return false;
         }
-        return true;         
+        return true;
+    }
+
+    public void loadDate(Course course) {
+        courseLearningContainer.getChildren().clear();
+        courseOutcomesCtrls.clear();
+        requContainer.getChildren().clear();
+        requCtrls.clear();
+        propertiesContainer.getChildren().clear();
+        propertiesCtrls.clear();
+        
+        for (String text : course.getOutcomes()) {
+            addLearningField(text);
+        }
+        for (String text : course.getPrerequisitive()) {
+            addPrerequisitiveField(text);
+        }
+        for (Property property : course.getProperties()) {
+            addPropertiesField(property);
+        }
     }
 }

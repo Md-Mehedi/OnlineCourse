@@ -122,13 +122,6 @@ public class DetailsController implements Initializable {
 
     @SuppressWarnings("unchecked")
     private void readyLanguageList() {
-//            langList = FXCollections.observableArrayList();
-//            langList.add("--Select Language--");
-//            for(Language lang : Language.getList()){
-//                langList.add(lang);
-//            }
-//            languageCB.setItems(langList);
-//            languageCB.setValue("--Select Language--");
 
         checkBoxes = new HashMap<>();
         selectedLanguage = new ArrayList<>();
@@ -195,6 +188,23 @@ public class DetailsController implements Initializable {
             }
         }
         languageField.setText(text);
+    }
+    
+    private void updateLanguage(ArrayList<Language> languages) {
+        for(Language lang : languages){
+            selectedLanguage.add(lang);
+            CheckBox cb = checkBoxes.get(lang.getId());
+            cb.setSelected(true);
+            cb.setOnMouseClicked((event) -> {
+                if (cb.isSelected()) {
+                    selectedLanguage.add(lang);
+                } else {
+                    selectedLanguage.remove(lang);
+                }
+                refreshLanguageString();
+            });
+        }
+        refreshLanguageString();
     }
 
     @SuppressWarnings("unchecked")
@@ -316,4 +326,16 @@ public class DetailsController implements Initializable {
         }
         return true;
     }
+    
+    public void loadData(Course course){
+        courseTitle.setText(course.getTitle());
+        courseSubTitle.setText(course.getSubTitle());
+        courseDescription.setText(course.getDescription());
+        photoFile = new File(ToolKit.makeAbsoluteLocation(course.getImageFile().getContent()));
+        courseImage.setImage(new Image(photoFile.toURI().toString()));
+        mainCategoryCB.setValue(course.getMainCategory().getName());
+        subCategoryCB.setValue(course.getSubCategory().getName());
+        updateLanguage(course.getLanguages());
+    }
+
 }

@@ -4,6 +4,7 @@ package Course.Overflow.Global.Main;
  * To change this license HEADER, choose License Headers in Project Properties. To change this
  * template file, choose ToolKit | Templates and open the template in the editor.
  */
+import Course.Overflow.Course.Course;
 import Course.Overflow.DB;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageController;
@@ -51,6 +52,7 @@ public class AppMain extends Application {
                 GLOBAL.PAGE_CTRL = new PageController();
 
                 CreateCourse mp = new CreateCourse();
+                mp.loadData(new Course(1));
                 pane = mp.getRootPane();
                 root.getChildren().add(pane);
             }

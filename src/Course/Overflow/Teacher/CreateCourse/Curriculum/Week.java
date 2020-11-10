@@ -11,6 +11,7 @@ import Course.Overflow.DB;
 import Course.Overflow.Global.ToolKit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,16 +26,18 @@ public class Week {
     String title;
     Date lastUpdate;
     Course course;
-    
-    public Week(Integer id){
+    ArrayList<Lecture> lectures;
+
+    public Week(Integer id, Course course){
         this.id = id;
+        this.course = course;
         ResultSet rs = DB.executeQuery("SELECT * FROM WEEK WHERE ID = #", id.toString());
         try {
             while(rs.next()){
                 weekNo = rs.getInt("WEEK_NO");
                 title = rs.getString("TITLE");
                 lastUpdate = rs.getDate("LAST_UPDATE");
-                course = new Course(rs.getInt("COURSE_ID"));
+                lectures = Lecture.getLectures(this);
             }
         } catch (SQLException ex) {
             Logger.getLogger(Week.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,6 +54,19 @@ public class Week {
               "INSERT INTO WEEK(ID, WEEK_NO, TITLE, LAST_UPDATE, COURSE_ID) VALUES(#, #, '#', #, #)", 
               id.toString(), weekNo.toString(), title, ToolKit.JDateToDDate(lastUpdate), course.getId().toString()
         );
+    }
+    
+    public static ArrayList<Week> getWeeks(Course course){
+        ArrayList<Week> weeks = new ArrayList<Week>();
+        ResultSet rsWeek = DB.executeQuery("SELECT ID FROM WEEK WHERE COURSE_ID = # ORDER BY WEEK_NO ASC", course.getId().toString());
+        try {
+            while(rsWeek.next()){
+                weeks.add(new Week(rsWeek.getInt("ID"), course));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Week.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return weeks;
     }
 
     public Integer getId() {
@@ -92,4 +108,13 @@ public class Week {
     public void setCourse(Course course) {
         this.course = course;
     }
+    
+    public ArrayList<Lecture> getLectures() {
+        return lectures;
+    }
+
+    public void setLectures(ArrayList<Lecture> lectures) {
+        this.lectures = lectures;
+    }
+    
 }

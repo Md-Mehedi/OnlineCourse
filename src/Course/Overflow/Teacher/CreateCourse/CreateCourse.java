@@ -111,4 +111,11 @@ public class CreateCourse {
               && detailsController.isPassedCondition()
               && pricingController.isPassedCondition();
     }
+    
+    public void loadData(Course course){
+        targetStudentCtrl.loadDate(course);
+        curriculumCtrl.loadData(course);
+        detailsController.loadData(course);
+        pricingController.loadData(course);
+    }
 }

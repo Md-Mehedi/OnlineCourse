@@ -11,6 +11,7 @@ import Course.Overflow.Files.Files;
 import Course.Overflow.Global.ToolKit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,17 +29,17 @@ public class Lecture {
     boolean isPreview;
     Week week;
     
-    public Lecture(Integer id){
+    public Lecture(Integer id, Week week){
         this.id = id;
+        this.week = week;
         ResultSet rs = DB.executeQuery("SELECT * FROM LECTURE WHERE ID = #", id.toString());
         try {
             while(rs.next()){
                 lectureNo = rs.getInt("LECTURE_NO");
                 title = rs.getString("TITLE");
                 lastUpdate = rs.getDate("LAST_UPDATE");
-                isPreview = rs.getBoolean("IS_PREVIEW");
+                isPreview = ToolKit.DBoolToJBool(rs.getString("IS_PREVIEW"));
                 file = new Files(rs.getInt("FILE_ID"));
-                week = new Week(rs.getInt("WEEK_ID"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Lecture.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,6 +66,19 @@ public class Lecture {
               "INSERT INTO LECTURE(ID, LECTURE_NO, TITLE, LAST_UPDATE, IS_PREVIEW, WEEK_ID, FILE_ID) VALUES(#, #, '#', #, '#', #, #)", 
               id.toString(), lectureNo.toString(), title, ToolKit.JDateToDDate(lastUpdate), ToolKit.JBoolToDBool(isPreview), week.getId().toString(), file.getId().toString()
         );
+    }
+    
+    public static ArrayList<Lecture> getLectures(Week week){
+        ArrayList<Lecture> lectures = new ArrayList<>();
+        ResultSet rs = DB.executeQuery("SELECT ID FROM LECTURE WHERE WEEK_ID = #", week.getId().toString());
+        try {
+            while(rs.next()){
+                lectures.add(new Lecture(rs.getInt("ID"), week));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Lecture.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lectures;
     }
 
     public Integer getId() {

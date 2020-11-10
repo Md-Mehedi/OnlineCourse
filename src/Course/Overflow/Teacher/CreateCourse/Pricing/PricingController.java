@@ -5,6 +5,7 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Pricing;
 
+import Course.Overflow.Course.Course;
 import Course.Overflow.Global.Customize.ToolTip;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
@@ -17,6 +18,8 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -77,16 +80,25 @@ public class PricingController implements Initializable {
     private void mouseEntered(MouseEvent event) {
     }
 
+    private void addOfferPane(Course course){
+        try {
+            offerCkBox.setSelected(true);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_PRICING_LOCATION + "/Offer.fxml"));
+            offerPane = loader.load();
+            offerContainer.getChildren().add(offerPane);
+            offerCtrl =  loader.<OfferController>getController();
+            offerCtrl.setParent(this, container);
+            if(course != null) offerCtrl.setOffer(course.getOff());
+        } catch (IOException ex) {
+            Logger.getLogger(PricingController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     @FXML
     private void mouseClicked(MouseEvent event) throws IOException {
         Object src = event.getSource();
         if (src == offerCkBox) {
             if (offerCkBox.isSelected()) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_PRICING_LOCATION + "/Offer.fxml"));
-                offerPane = loader.load();
-                offerContainer.getChildren().add(offerPane);
-                offerCtrl =  loader.<OfferController>getController();
-                offerCtrl.setParent(this, container);
+                addOfferPane(null);
             } else {
                 offerContainer.getChildren().removeAll(offerPane);
             }
@@ -134,5 +146,12 @@ public class PricingController implements Initializable {
             return false;
         }
         return true;
+    }
+    
+    public void loadData(Course course){
+        price.setText(course.getMainPrice().toString());
+        if(course.getOff() != 0.0){
+            addOfferPane(course);
+        }
     }
 }

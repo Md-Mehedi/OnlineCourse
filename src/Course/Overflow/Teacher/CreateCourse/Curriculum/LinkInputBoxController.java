@@ -7,13 +7,11 @@ package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
 import Course.Overflow.Files.FileType;
 import Course.Overflow.Files.Files;
-import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -60,22 +58,11 @@ public class LinkInputBoxController implements Initializable {
     @FXML
     private void mouseClicked(MouseEvent event) throws IOException {
         Object src = event.getSource();
-        if (src == saveBtn || (src == cancelBtn && isNew == false)) {
+        if (src == saveBtn) {
             if(!isPassedCondition()) return;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/LinkOutputBox.fxml"));
-            AnchorPane pane = loader.load();
-            LinkOutputBoxController ctrl = loader.getController();
-            ctrl.setParent(parent);
-            if (src != saveBtn && isNew == false) {
-                linkDescField.setText(oldLinkDesc);
-                linkField.setText(oldLink);
-            }
-            ctrl.setLink(linkField.getText());
-            ctrl.setLinkDesc(linkDescField.getText());
-            parent.getAvailableContentContainer().getChildren().remove(container);
-            parent.getAvailableContentContainer().getChildren().add(pane);
-            parent.setCancelVisible(false);
-            parent.setLectureLoaded(true);
+            parent.addLinkOutputBox(linkField.getText(), linkDescField.getText());
+        } else if (src == cancelBtn && isNew == false) {
+            parent.addLinkOutputBox(oldLink, oldLinkDesc);
         } else if (src == cancelBtn) {
             parent.getAvailableContentContainer().getChildren().remove(container);
             parent.setCancelVisible(false);

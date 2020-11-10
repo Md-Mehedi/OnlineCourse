@@ -7,16 +7,14 @@ package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
 import Course.Overflow.Files.FileType;
 import Course.Overflow.Files.Files;
-import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
-import Course.Overflow.Teacher.CreateCourse.Curriculum.ContentsListBoxController.LectureType;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.LectureBoxController.LectureType;
 import com.qoppa.pdf.PDFException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -80,31 +78,14 @@ public class CourseContentsUploaderController implements Initializable {
             } else {
                 fileNameLabel.setText("");
             }
-        } else if (src == uploadBtn || (src == cancelBtn && isNew == false)) {
+        } else if (src == uploadBtn) {
             if(!isPassedCondition()) return;
-            AnchorPane pane = new AnchorPane();
+            parent.addVideoOutputBox(file, description.getText());
+        } else if (src == cancelBtn && isNew == false) {
             if (isNew == false && src != uploadBtn) {
                 file = oldFile;
             }
-            if (type == LectureType.VIDEO) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/VideoShowBox.fxml"));
-                pane = loader.load();
-                VideoShowBoxController ctrl = loader.getController();
-                ctrl.setParent(parent);
-                ctrl.setFile(file);
-                ctrl.setDescription(description.getText());
-            } else if (type == LectureType.PDF) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/PDFShowBox.fxml"));
-                pane = loader.load();
-                PDFShowBoxController ctrl = loader.getController();
-                ctrl.setParent(parent);
-                ctrl.setFile(file);
-                ctrl.setDescription(description.getText());
-            }
-            parent.getAvailableContentContainer().getChildren().add(pane);
-            parent.getAvailableContentContainer().getChildren().remove(container);
-            parent.setCancelVisible(false);
-            parent.setLectureLoaded(true);
+            parent.addVideoOutputBox(file, description.getText());
         } else if (src == cancelBtn) {
             parent.getAvailableContentContainer().getChildren().remove(container);
             parent.setCancelVisible(false);

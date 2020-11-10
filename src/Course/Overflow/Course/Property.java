@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Course.Overflow.Course;
 
 import Course.Overflow.DB;
 import Course.Overflow.Files.Files;
-import Course.Overflow.Global.Customize.Icon;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,31 +18,45 @@ import java.util.logging.Logger;
  * @author Md Mehedi Hasan
  */
 public class Property {
+
     Integer id;
-    Icon icon;
+    Files icon;
     String text;
     Course course;
-    
-    public Property(Integer id){
+
+    public Property(Integer id, Course course) {
         this.id = id;
+        this.course = course;
         ResultSet rs = DB.executeQuery("SELECT * FROM COURSE_PROPERTIES WHERE ID = #", id.toString());
         try {
-            if(rs.next()){
-                icon = new Icon(new Files(rs.getInt("ID")));
+            if (rs.next()) {
+                icon = new Files(rs.getInt("ID"));
                 text = rs.getString("TEXT");
-                this.course = new Course(rs.getInt("COURSE_ID"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Property.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public Property(Icon icon, Course course, String text){
+
+    public Property(Files icon, Course course, String text) {
         this.id = DB.generateId("COURSE_PROPERTIES");
         this.icon = icon;
         this.course = course;
         this.text = text;
-        DB.execute("INSERT INTO COURSE_PROPERTIES VALUES(#, #, #, '#')", id.toString(), icon.getFile().getId().toString(), course.getId().toString(), text);
+        DB.execute("INSERT INTO COURSE_PROPERTIES VALUES(#, #, #, '#')", id.toString(), icon.getId().toString(), course.getId().toString(), text);
+    }
+
+    public static ArrayList<Property> getProperties(Course course) {
+        ArrayList<Property> properties = new ArrayList<Property>();
+        ResultSet rs = DB.executeQuery("SELECT ID FROM COURSE_PROPERTIES WHERE COURSE_ID = #", course.getId().toString());
+        try {
+            while (rs.next()) {
+                properties.add(new Property(rs.getInt("ID"), course));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Property.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return properties;
     }
 
     public Integer getId() {
@@ -62,17 +75,12 @@ public class Property {
         this.course = course;
     }
 
-    public Property(Icon icon, String text) {
-        this.icon = icon;
-        this.text = text;
-    }
-
-    public Icon getIcon() {
+    public Files getIcon() {
         return icon;
     }
 
     public String getText() {
         return text;
     }
-    
+
 }

@@ -118,17 +118,22 @@ public class WeekBoxController implements Initializable {
             parentController.removeWeekBoxController(parent.getChildren().indexOf(weekBoxPane));
             parent.getChildren().remove(weekBoxPane);
         } else if (src == addIcon) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/LectureBox.fxml"));
-            AnchorPane pane;
-            try {
-                pane = (AnchorPane) loader.load();
-                loader.<LectureBoxController>getController().setParent(this);
-                loader.<LectureBoxController>getController().setLectureNo(lectureBoxContainer.getChildren().size() + 1);
-                lectureBoxControllers.add(loader.<LectureBoxController>getController());
-                lectureBoxContainer.getChildren().add(pane);
-            } catch (IOException ex) {
-                System.out.println(ex);
-            }
+            addLecture(null);
+        }
+    }
+    
+    private void addLecture(Lecture lecture){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/LectureBox.fxml"));
+        AnchorPane pane;
+        try {
+            pane = (AnchorPane) loader.load();
+            loader.<LectureBoxController>getController().setParent(this);
+            loader.<LectureBoxController>getController().setLectureNo(lectureBoxContainer.getChildren().size() + 1);
+            if(lecture != null) loader.<LectureBoxController>getController().loadData(lecture);
+            lectureBoxControllers.add(loader.<LectureBoxController>getController());
+            lectureBoxContainer.getChildren().add(pane);
+        } catch (IOException ex) {
+            System.out.println(ex);
         }
     }
 
@@ -189,5 +194,12 @@ public class WeekBoxController implements Initializable {
     
     public int getWeekNo(){
         return Integer.parseInt(weekNo.getText());
+    }
+    
+    public void loadData(Week week){
+        weekNameLabel.setText(week.getTitle());
+        for(Lecture lecture : week.getLectures()){
+            addLecture(lecture);
+        }
     }
 }

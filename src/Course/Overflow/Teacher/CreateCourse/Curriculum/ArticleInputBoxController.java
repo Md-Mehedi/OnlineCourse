@@ -7,13 +7,11 @@ package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
 import Course.Overflow.Files.FileType;
 import Course.Overflow.Files.Files;
-import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -60,22 +58,11 @@ public class ArticleInputBoxController implements Initializable {
     @FXML
     private void mouseClicked(MouseEvent event) throws IOException {
         Object src = event.getSource();
-        if (src == saveBtn || (src == cancelBtn && isNew == false)) {
+        if (src == saveBtn) {
             if(!isPassedCondition()) return;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/ArticleOutputBox.fxml"));
-            AnchorPane pane = loader.load();
-            ArticleOutputBoxController ctrl = loader.getController();
-            ctrl.setParent(parent);
-            parent.getAvailableContentContainer().getChildren().add(pane);
-            parent.getAvailableContentContainer().getChildren().remove(container);
-            parent.setCancelVisible(false);
-            if (src != saveBtn && isNew == false) {
-                title.setText(oldTitle);
-                article.setText(oldArticle);
-            }
-            ctrl.setTitle(title.getText());
-            ctrl.setArticle(article.getText());
-            parent.setLectureLoaded(true);
+            parent.addArticleOutputBox(title.getText(), article.getText());
+        } else if (src == cancelBtn && isNew == false) {
+            parent.addArticleOutputBox(oldTitle, oldArticle);
         } else if (src == cancelBtn && isNew == true) {
             parent.getAvailableContentContainer().getChildren().remove(container);
             parent.setCancelVisible(false);

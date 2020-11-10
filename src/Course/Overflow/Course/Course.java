@@ -6,13 +6,13 @@
 
 package Course.Overflow.Course;
 
-import Course.Overflow.Course.Contents.Week;
 import Course.Overflow.DB;
 import Course.Overflow.Files.Files;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Language;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.Week;
 import Course.Overflow.Teacher.Teacher;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,6 +26,7 @@ import java.util.logging.Logger;
  * @author Md Mehedi Hasan
  */
 public class Course {
+
     Integer id;
     String title;
     String subTitle;
@@ -61,7 +62,35 @@ public class Course {
     
     public Course(Integer id){
         this.id = id;
-        System.out.println("Course constructor is not set properly...");
+        ResultSet rs = DB.executeQuery("SELECT * FROM COURSE WHERE ID = #", id.toString());
+        try {
+            rs.next();
+            title = rs.getString("TITLE");
+            subTitle = rs.getString("SUBTITLE");
+            description = rs.getString("DESCRIPTION");
+            mainPrice = rs.getDouble("PRICE");
+            off = rs.getDouble("OFFER");
+            publishDate = rs.getDate("PUBLISH_DATE");
+            isApproved = ToolKit.DBoolToJBool(rs.getString("IS_APPROVED"));
+            teacher = new Teacher(rs.getString("TEACHER_ID"));
+            imageFile = new Files(rs.getInt("COVER_ID"));
+            subCategory = new Category(rs.getInt("CATEGORY_ID"));
+            mainCategory = subCategory.getParent();
+            
+            languages = Language.getLanguages(this);
+            properties = Property.getProperties(this);
+            
+//            Rating will be added
+//            Review will be added
+
+            outcomes = rs.getString("OUTCOMES").split("><");
+            prerequisitives = rs.getString("PREREQUISITES").split("><");
+            
+            weeks = Week.getWeeks(this);
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public Course(String title, String subTitle, String description, Double price, Files cover, Category subCategory){
@@ -250,4 +279,45 @@ public class Course {
         this.imageFile = imageFile;
         DB.execute("UPDATE COURSE SET COVER_ID = # WHERE ID = #", imageFile.getId().toString(),id.toString());
     }
+    
+    public Date getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    public boolean isIsApproved() {
+        return isApproved;
+    }
+
+    public void setIsApproved(boolean isApproved) {
+        this.isApproved = isApproved;
+    }
+
+    public Files getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(Files imageFile) {
+        this.imageFile = imageFile;
+    }
+
+    public String[] getPrerequisitives() {
+        return prerequisitives;
+    }
+
+    public void setPrerequisitives(String[] prerequisitives) {
+        this.prerequisitives = prerequisitives;
+    }
+
+    public ArrayList<Week> getWeeks() {
+        return weeks;
+    }
+
+    public void setWeeks(ArrayList<Week> weeks) {
+        this.weeks = weeks;
+    }
+
 }

@@ -54,27 +54,28 @@ public class CurriculumController implements Initializable {
       public void initialize(URL url, ResourceBundle rb){
             weekBoxControllers = new ArrayList<WeekBoxController>();
             addListener();
-            try {
-                  AnchorPane root = new AnchorPane();
-                  FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/WeekBox.fxml"));
-                  root = (AnchorPane) loader.load();
-                  loader.<WeekBoxController>getController().setParent(this, container);
-                  weekBoxControllers.add(loader.<WeekBoxController>getController());
-                  weekBoxContainer.getChildren().add(root);
-            } catch (IOException ex) {Logger.getLogger(CurriculumController.class.getName()).log(Level.SEVERE, null, ex);}
+            addWeek(null);
             new ToolTip(MouseEvent.MOUSE_ENTERED, addWeekBtn, "Add more weeks.");
       }      
 
+      private void addWeek(Week week){
+        try {
+            AnchorPane root = new AnchorPane();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/WeekBox.fxml"));
+            root = (AnchorPane) loader.load();
+            loader.<WeekBoxController>getController().setParent(this, container);
+            loader.<WeekBoxController>getController().setWeekNumber(weekBoxContainer.getChildren().size()+1);
+            if(week != null) loader.<WeekBoxController>getController().loadData(week);
+            weekBoxControllers.add(loader.<WeekBoxController>getController());
+            weekBoxContainer.getChildren().add(root);
+        } catch (IOException ex) {
+            Logger.getLogger(CurriculumController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      }
       @FXML
       private void mouseClicked(MouseEvent event) throws IOException {
             if(event.getSource() == addWeekBtn){
-                  AnchorPane root = new AnchorPane();
-                  FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/WeekBox.fxml"));
-                  root = (AnchorPane) loader.load();
-                  loader.<WeekBoxController>getController().setParent(this, container);
-                  loader.<WeekBoxController>getController().setWeekNumber(weekBoxContainer.getChildren().size()+1);
-                  weekBoxControllers.add(loader.<WeekBoxController>getController());
-                  weekBoxContainer.getChildren().add(root);
+                addWeek(null);
             }
       }
       
@@ -127,5 +128,14 @@ public class CurriculumController implements Initializable {
             if(!weekCtrl.isPassedCondition()) return false;
         }
         return true;
+    }
+
+    public void loadData(Course course) {
+        weekBoxContainer.getChildren().clear();
+        weekBoxControllers.clear();
+        
+        for(Week week : course.getWeeks()){
+            addWeek(week);
+        }
     }
 }

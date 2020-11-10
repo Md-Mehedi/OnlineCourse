@@ -5,14 +5,19 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
+import Course.Overflow.Files.Files;
 import Course.Overflow.Global.Customize.ToolTip;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
+import com.qoppa.pdf.PDFException;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,6 +68,16 @@ public class LectureBoxController implements Initializable {
     private Week week;
     private Lecture lecture;
     private boolean isLectureLoaded;
+
+    public enum LectureType {
+        ARTICLE,
+        VIDEO,
+        LINK,
+        PDF
+    }
+
+    private LectureType fileType;
+    private FXMLLoader loader;
 
     public boolean isIsLectureLoaded() {
         return isLectureLoaded;
@@ -213,6 +228,171 @@ public class LectureBoxController implements Initializable {
         }
     }
 
+    public AnchorPane addArticleInputBox() {
+        AnchorPane pane = null;
+        try {
+            fileType = LectureType.ARTICLE;
+            loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/ArticleInputBox.fxml"));
+            pane = loader.load();
+            loader.<ArticleInputBoxController>getController().setParent(this, true);
+            //if(lecture != null) loader.<ArticleInputBoxController>getController().loadData(lecture);
+        } catch (IOException ex) {
+            Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pane;
+    }
+
+    public void addArticleOutputBox(String title, String article) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/ArticleOutputBox.fxml"));
+            AnchorPane pane = loader.load();
+            ArticleOutputBoxController ctrl = loader.getController();
+            ctrl.setParent(this);
+            this.getAvailableContentContainer().getChildren().clear();
+            this.getAvailableContentContainer().getChildren().add(pane);
+            this.setCancelVisible(false);
+            ctrl.setTitle(title);
+            ctrl.setArticle(article);
+            this.setLectureLoaded(true);
+            this.content.setVisible(false);
+        } catch (IOException ex) {
+            Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void addArticleOutputBox(Lecture lecture) {
+        addArticleOutputBox(lecture.getFile().getTitle(), lecture.getFile().getContent());
+    }
+
+    public AnchorPane addVideoInputBox() {
+        AnchorPane pane = null;
+        try {
+            fileType = LectureType.VIDEO;
+            loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/CourseContentsUploader.fxml"));
+            pane = loader.load();
+            loader.<CourseContentsUploaderController>getController().setParent(this, fileType, true);
+        } catch (IOException ex) {
+            Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pane;
+    }
+
+    public void addVideoOutputBox(File file, String description) {
+        try {
+            AnchorPane pane = new AnchorPane();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/VideoShowBox.fxml"));
+            pane = loader.load();
+            VideoShowBoxController ctrl = loader.getController();
+            ctrl.setParent(this);
+            ctrl.setFile(file);
+            ctrl.setDescription(description);
+            this.getAvailableContentContainer().getChildren().add(pane);
+            this.getAvailableContentContainer().getChildren().clear();
+            this.setCancelVisible(false);
+            this.setLectureLoaded(true);
+            this.content.setVisible(false);
+        } catch (IOException ex) {
+            Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void addVideoOutputBox(Lecture lecture){
+        addVideoOutputBox(new File(ToolKit.makeAbsoluteLocation(lecture.getFile().getContent())), lecture.getFile().getTitle());
+    }
+
+    public AnchorPane addPDFInputBox() {
+        AnchorPane pane = null;
+        try {
+            fileType = LectureType.PDF;
+            loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/CourseContentsUploader.fxml"));
+            pane = loader.load();
+            loader.<CourseContentsUploaderController>getController().setParent(this, fileType, true);
+        } catch (IOException ex) {
+            Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pane;
+    }
+
+    public void addPDFOutputBox(File file, String description) {
+        try {
+            AnchorPane pane = new AnchorPane();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/PDFShowBox.fxml"));
+            pane = loader.load();
+            PDFShowBoxController ctrl = loader.getController();
+            ctrl.setParent(this);
+            ctrl.setFile(file);
+            ctrl.setDescription(description);
+            this.getAvailableContentContainer().getChildren().add(pane);
+            this.getAvailableContentContainer().getChildren().clear();
+            this.setCancelVisible(false);
+            this.setLectureLoaded(true);
+            this.content.setVisible(false);
+        } catch (IOException ex) {
+            Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PDFException ex) {
+            Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void addPDFOutputBox(Lecture lecture){
+        addPDFOutputBox(new File(ToolKit.makeAbsoluteLocation(lecture.getFile().getContent())), lecture.getFile().getTitle());
+    }
+
+    public AnchorPane addLinkInputBox() {
+        AnchorPane pane = null;
+        try {
+            fileType = LectureType.LINK;
+            loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/LinkInputBox.fxml"));
+            pane = loader.load();
+            loader.<LinkInputBoxController>getController().setParent(this, true);
+            //if(lecture != null) loader.<LinkInputBoxController>getController().loadData(lecture);
+        } catch (IOException ex) {
+            Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pane;
+    }
+    
+    public void addLinkOutputBox(String link, String description){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/LinkOutputBox.fxml"));
+            AnchorPane pane = loader.load();
+            LinkOutputBoxController ctrl = loader.getController();
+            ctrl.setParent(this);
+            ctrl.setLink(link);
+            ctrl.setLinkDesc(description);
+            this.getAvailableContentContainer().getChildren().clear();
+            this.getAvailableContentContainer().getChildren().add(pane);
+            this.setCancelVisible(false);
+            this.setLectureLoaded(true);
+            this.content.setVisible(false);
+        } catch (IOException ex) {
+            Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void addLinkOutputBox(Lecture lecture){
+        addLinkOutputBox(lecture.getFile().getContent(), lecture.getFile().getTitle());
+    }
+
+    public void loadData(Lecture lecture) {
+        lectureNameLabel.setText(lecture.getTitle());
+        freeAvailableCkB.setSelected(lecture.isPreview);
+        System.out.println(lecture.getFile().getType().getType());
+        if(lecture.getFile().getType().getType().equals("Article")){
+            addArticleOutputBox(lecture);
+        }
+        else if(lecture.getFile().getType().getType().equals("Video")){
+            addVideoOutputBox(lecture);
+        }
+        else if(lecture.getFile().getType().getType().equals("PDF")){
+            addPDFOutputBox(lecture);
+        }
+        else if(lecture.getFile().getType().getType().equals("Link")){
+            addLinkOutputBox(lecture);
+        }
+    }
+
     public void setContentVisible(boolean b) {
         content.setVisible(b);
     }
@@ -242,7 +422,18 @@ public class LectureBoxController implements Initializable {
     }
 
     public Lecture uploadToDB() {
-        lecture = new Lecture(Integer.parseInt(lectureNo.getText()), lectureNameLabel.getText(), contentListCtrl.uploadToDb(), freeAvailableCkB.isSelected(), week);
+        Files file = null;
+        switch (fileType) {
+            case ARTICLE:
+                file = loader.<ArticleInputBoxController>getController().uploadToDB();
+            case VIDEO:
+                file = loader.<CourseContentsUploaderController>getController().uploadToDB();
+            case PDF:
+                file = loader.<CourseContentsUploaderController>getController().uploadToDB();
+            case LINK:
+                file = loader.<LinkInputBoxController>getController().uploadToDB();
+        }
+        lecture = new Lecture(Integer.parseInt(lectureNo.getText()), lectureNameLabel.getText(), file, freeAvailableCkB.isSelected(), week);
         return lecture;
     }
 

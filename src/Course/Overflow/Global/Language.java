@@ -6,6 +6,7 @@
 
 package Course.Overflow.Global;
 
+import Course.Overflow.Course.Course;
 import Course.Overflow.DB;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,5 +61,18 @@ public class Language {
         }
         return list;
     } 
+    
+    public static ArrayList<Language> getLanguages(Course course){
+        ArrayList<Language> languages = new ArrayList<Language>();
+        ResultSet rs = DB.executeQuery("SELECT LANGUAGE_ID FROM COURSE_LANGUAGE WHERE COURSE_ID = #", course.getId().toString());
+        try {
+            while(rs.next()){
+                languages.add(new Language(rs.getInt("LANGUAGE_ID")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Language.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return languages;
+    }
     
 }

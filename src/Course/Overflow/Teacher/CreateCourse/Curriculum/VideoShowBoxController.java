@@ -6,6 +6,7 @@
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.LectureBoxController.LectureType;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -69,7 +70,7 @@ public class VideoShowBoxController implements Initializable {
             parent.setLectureLoaded(false);
             FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/CourseContentsUploader.fxml"));
             AnchorPane pane = loader.load();
-            loader.<CourseContentsUploaderController>getController().setParent(parent, ContentsListBoxController.LectureType.VIDEO, false);
+            loader.<CourseContentsUploaderController>getController().setParent(parent, LectureType.VIDEO, false);
             loader.<CourseContentsUploaderController>getController().setFile(file);
             loader.<CourseContentsUploaderController>getController().setDescription(description.getText());
             parent.getAvailableContentContainer().getChildren().remove(container);
