@@ -44,7 +44,7 @@ public class AppMain extends Application {
 
 // To show the main app, just toggle the bottom 2 line comments.
         if(System.getProperty("user.name").equals("ASUS")){
-            int Testing = 1;
+            int Testing = 0;
             if(Testing == 1){
                 System.out.println("USER : MEHEDI");
                 GLOBAL.TEACHER = new Teacher("MehediHasan");
@@ -54,7 +54,7 @@ public class AppMain extends Application {
                 CreateCourse mp = new CreateCourse();
                 Course course = new Course(19);
                 mp.loadData(course);
-                pane = mp.getRootPane();
+                pane = mp.getRoot();
                 root.getChildren().add(pane);
             }
             else mehediTestPage();
