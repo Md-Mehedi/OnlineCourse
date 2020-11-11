@@ -57,6 +57,8 @@ public class TargetStudentPageController implements Initializable {
     private ArrayList<PropertiesController> propertiesCtrls;
     private ArrayList<AddAnswerController> courseOutcomesCtrls;
     private ArrayList<AddAnswerController> requCtrls;
+    private boolean newCourse;
+    private Course course;
 
     public ArrayList<PropertiesController> getPropertiesCtrls() {
         return propertiesCtrls;
@@ -87,6 +89,7 @@ public class TargetStudentPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        newCourse = true;
         mainContainer = container;
         propertiesCtrls = new ArrayList<>();
         courseOutcomesCtrls = new ArrayList<>();
@@ -184,12 +187,18 @@ public class TargetStudentPageController implements Initializable {
         this.pricingCtrl = pricingController;
     }
 
-    public void uploadProperties(Course course) {
-        ArrayList<Property> properties = new ArrayList<Property>();
+    public void uploadToDB(Course course) {
         for (PropertiesController ctrl : propertiesCtrls) {
-            properties.add(ctrl.uploadToDB(course));
+            ctrl.uploadToDB(course);
         }
-        course.setProperties(properties);
+    }
+    
+    public void updateDB(){
+        for(PropertiesController ctrl : propertiesCtrls){
+            ctrl.updateDB(course);
+        }
+        course.setOutcomes(getOutcomes());
+        course.setPrerequisitive(getPrerequisitives());
     }
 
     public String getOutcomes() {
@@ -212,17 +221,6 @@ public class TargetStudentPageController implements Initializable {
             prerequisitives += (prerequisitives.equals("") ? "" : "><") + prerequCtrl.getValue();
         }
         return prerequisitives;
-    }
-
-    public void moveProperty(int idx, int i) {
-        ArrayList<PropertiesController> parent = propertiesCtrls;
-        if (idx + i < 0 || idx + i == parent.size()) {
-            return;
-        }
-        PropertiesController curBox = parent.get(idx);
-        PropertiesController toBox = parent.get(idx + i);
-        parent.remove(i == -1 ? curBox : toBox);
-        parent.add(idx + (i == -1 ? i : 0), i == -1 ? curBox : toBox);
     }
 
     public boolean isPassedCondition() {
@@ -272,5 +270,10 @@ public class TargetStudentPageController implements Initializable {
         for (Property property : course.getProperties()) {
             addPropertiesField(property);
         }
+    }
+    
+    public void createEnvironmentForCourseUpdate(Course course){
+        this.course = course;
+        newCourse = false;
     }
 }

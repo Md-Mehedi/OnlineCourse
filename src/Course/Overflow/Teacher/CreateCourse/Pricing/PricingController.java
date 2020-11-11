@@ -62,12 +62,16 @@ public class PricingController implements Initializable {
     private TargetStudentPageController targetStudentCtrl;
     private OfferController offerCtrl;
     private CreateCourse parent;
+    private boolean newCourse;
+    @FXML
+    private JFXButton cancelBtn;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        newCourse = true;
         new ToolTip(MouseEvent.MOUSE_ENTERED, infoPrice, "If you want to give this course as free, please set the 'Course price' as 0.");
         addListener();
     }
@@ -132,7 +136,11 @@ public class PricingController implements Initializable {
 
     private void addListener() {
         uploadBtn.setOnMouseClicked((event) -> {
+            System.out.println("In uploadToDB");
             parent.uploadToDB();
+        });
+        cancelBtn.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(GLOBAL.PAGE_CTRL.getPreviousPageName());
         });
     }
 
@@ -153,5 +161,14 @@ public class PricingController implements Initializable {
         if(course.getOff() != 0.0){
             addOfferPane(course);
         }
+    }
+    
+    public void createEnvironmentForCourseUpdate(){
+        newCourse = false;
+        uploadBtn.setText("Update");
+        uploadBtn.setOnMouseClicked((event) -> {
+            System.out.println("In uploadToDB");
+            parent.updateDB();
+        });
     }
 }

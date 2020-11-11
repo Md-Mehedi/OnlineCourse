@@ -66,6 +66,7 @@ public class PropertiesController extends Object implements Initializable {
     @FXML
     private TextField answerField;
     private File iconPicFile;
+    private Property property;
 
     /**
      * Initializes the controller class.
@@ -101,12 +102,13 @@ public class PropertiesController extends Object implements Initializable {
         if (src == deleteIcon) {
             parentContainer.getChildren().remove(container);
             parentController.removePropertiesCtrl(this);
+            if(property != null) property.delete();
         } else if (src == upIcon) {
             ToolKit.moveRow(parentContainer, parentContainer.getChildren().indexOf(container), -1);
-            parentController.moveProperty(parentController.getPropertiesCtrls().indexOf(this), -1);
+            ToolKit.moveRow(parentController.getPropertiesCtrls(), parentController.getPropertiesCtrls().indexOf(this), -1);
         } else if (src == downIcon) {
             ToolKit.moveRow(parentContainer, parentContainer.getChildren().indexOf(container), 1);
-            parentController.moveProperty(parentController.getPropertiesCtrls().indexOf(this), 1);
+            ToolKit.moveRow(parentController.getPropertiesCtrls(), parentController.getPropertiesCtrls().indexOf(this), 1);
         }
     }
 
@@ -185,7 +187,7 @@ public class PropertiesController extends Object implements Initializable {
             Logger.getLogger(PropertiesController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public Property uploadToDB(Course course){
+    public void uploadToDB(Course course){
         Files file;
         if(iconBox.isVisible()){
             file = new Files(FileType.toType("FontAwesomeIcon"), "Properties icon", iconHolder.getGlyphName());
@@ -193,8 +195,25 @@ public class PropertiesController extends Object implements Initializable {
         else{
             file = new Files(iconPicFile, FileType.toType("Picture"), "Properties icon");
         }
-        Property property = new Property(file, course, answerField.getText());
-        return property;
+        Property property = new Property(file, course, answerField.getText(), parentController.getPropertiesCtrls().indexOf(this)+1);
+        course.addProperty(property);
+    }
+    
+    public void updateDB(Course course){
+        if(property == null){
+            uploadToDB(course);
+            return;
+        }
+        property.setPosition(parentController.getPropertiesCtrls().indexOf(this)+1);
+        property.setText(answerField.getText());
+        if(iconBox.isVisible()){
+            property.getIcon().setType(FileType.toType("FontAwesomeIcon"));
+            property.getIcon().setContent(iconHolder.getGlyphName());
+        }
+        else{
+            property.getIcon().setType(FileType.toType("Picture"));
+            property.getIcon().setFile(iconPicFile);
+        }
     }
     
     public String getValue(){
@@ -202,12 +221,14 @@ public class PropertiesController extends Object implements Initializable {
     }
     
     public void loadData(Property property){
+        this.property = property;
         answerField.setText(property.getText());
-        if(property.getIcon().getType() == FileType.toType("Picture")){
+        System.out.println(property.getIcon().getType().getType());
+        if(property.getIcon().getType().getType().equals("Picture")){
             setIconPic(new File(ToolKit.makeAbsoluteLocation(property.getIcon().getContent())));
         }
-        else if(property.getIcon().getType() == FileType.toType("FontAwesomeIcon")){
+        else if(property.getIcon().getType().getType().equals("FontAwesomeIcon")){
             setIcon(property.getIcon().getContent());
-        }
+        } else System.err.println("Property picture type is not found");
     }
 }

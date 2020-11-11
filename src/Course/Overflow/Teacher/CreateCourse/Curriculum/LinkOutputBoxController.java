@@ -5,6 +5,8 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
+import Course.Overflow.Files.FileType;
+import Course.Overflow.Files.Files;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
 import java.io.IOException;
@@ -34,6 +36,7 @@ public class LinkOutputBoxController implements Initializable {
     @FXML
     private Button editBtn;
     private LectureBoxController parent;
+    private Lecture lecture;
 
     /**
      * Initializes the controller class.
@@ -71,6 +74,19 @@ public class LinkOutputBoxController implements Initializable {
 
     public void setParent(LectureBoxController parent) {
         this.parent = parent;
+    }
+
+    public Files uploadToDB() {
+        return new Files(FileType.toType("Link"), linkDetails.getText(), link.getText());
+    }
+    
+    public void updateDB(){
+        lecture.getFile().setTitle(link.getText());
+        lecture.getFile().setContent(linkDetails.getText());
+    }
+
+    void setLecture(Lecture lecture) {
+        this.lecture = lecture;
     }
 
 }

@@ -12,7 +12,6 @@ import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.CreateCourse.CourseLandingPage.DetailsController;
 import Course.Overflow.Teacher.CreateCourse.Pricing.PricingController;
 import Course.Overflow.Teacher.CreateCourse.TargetStudentPage.TargetStudentPageController;
-import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -42,60 +41,82 @@ public class CurriculumController implements Initializable {
     private ImageView addWeekBtn;
 
     private ArrayList<WeekBoxController> weekBoxControllers;
-    @FXML
-    private JFXButton tempUploadBtn;
     private TargetStudentPageController targetStudentCtrl;
     private DetailsController detailsCtrl;
     private PricingController pricingCtrl;
-      /**
-       * Initializes the controller class.
-       */
-      @Override
-      public void initialize(URL url, ResourceBundle rb){
-            weekBoxControllers = new ArrayList<WeekBoxController>();
-            addListener();
-            addWeek(null);
-            new ToolTip(MouseEvent.MOUSE_ENTERED, addWeekBtn, "Add more weeks.");
-      }      
+    private boolean newCourse;
+    private Course course;
 
-      private void addWeek(Week week){
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        newCourse = true;
+        weekBoxControllers = new ArrayList<WeekBoxController>();
+        addListener();
+        addWeek(null);
+        new ToolTip(MouseEvent.MOUSE_ENTERED, addWeekBtn, "Add more weeks.");
+    }
+
+    private void addWeek(Week week) {
         try {
             AnchorPane root = new AnchorPane();
             FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/WeekBox.fxml"));
             root = (AnchorPane) loader.load();
             loader.<WeekBoxController>getController().setParent(this, container);
-            loader.<WeekBoxController>getController().setWeekNumber(weekBoxContainer.getChildren().size()+1);
-            if(week != null) loader.<WeekBoxController>getController().loadData(week);
+            loader.<WeekBoxController>getController().setWeekNumber(weekBoxContainer.getChildren().size() + 1);
+            if (week != null) {
+                loader.<WeekBoxController>getController().loadData(week);
+            }
+            if(course != null){
+                loader.<WeekBoxController>getController().setCourse(course);
+            }
             weekBoxControllers.add(loader.<WeekBoxController>getController());
             weekBoxContainer.getChildren().add(root);
         } catch (IOException ex) {
             Logger.getLogger(CurriculumController.class.getName()).log(Level.SEVERE, null, ex);
         }
-      }
-      @FXML
-      private void mouseClicked(MouseEvent event) throws IOException {
-            if(event.getSource() == addWeekBtn){
-                addWeek(null);
-            }
-      }
-      
-      public void swapControllers(int idx1, int idx2){
-            if(idx1 == -1 || idx2 == -1) return;
-            if(idx1 == weekBoxControllers.size() || idx2 == weekBoxControllers.size()) return;
-            
-            weekBoxControllers.get(idx1).setWeekNumber(idx2+1);
-            weekBoxControllers.get(idx2).setWeekNumber(idx1+1);
-            WeekBoxController removed = weekBoxControllers.get(Math.max(idx1, idx2));
-            weekBoxControllers.remove(idx1<idx2 ? idx2 : idx1);
-            weekBoxControllers.add(Math.min(idx1, idx2), removed);
-      }
-      
-      public void removeWeekBoxController(int idx){
-            weekBoxControllers.remove(idx);
-            for(int i=0;i<weekBoxControllers.size();i++){
-                  weekBoxControllers.get(i).setWeekNumber(i+1);
-            }
-      }
+    }
+
+    public ArrayList<WeekBoxController> getWeekBoxControllers() {
+        return weekBoxControllers;
+    }
+
+    @FXML
+    private void mouseClicked(MouseEvent event) throws IOException {
+        if (event.getSource() == addWeekBtn) {
+            addWeek(null);
+        }
+    }
+    
+    public void refreshWeekNumber(){
+        for(int i = 0; i<weekBoxControllers.size(); i++){
+            weekBoxControllers.get(i).setWeekNumber(i+1);
+        }
+    }
+
+//    public void swapControllers(int idx1, int idx2) {
+//        if (idx1 == -1 || idx2 == -1) {
+//            return;
+//        }
+//        if (idx1 == weekBoxControllers.size() || idx2 == weekBoxControllers.size()) {
+//            return;
+//        }
+//
+//        weekBoxControllers.get(idx1).setWeekNumber(idx2 + 1);
+//        weekBoxControllers.get(idx2).setWeekNumber(idx1 + 1);
+//        WeekBoxController removed = weekBoxControllers.get(Math.max(idx1, idx2));
+//        weekBoxControllers.remove(idx1 < idx2 ? idx2 : idx1);
+//        weekBoxControllers.add(Math.min(idx1, idx2), removed);
+//    }
+
+    public void removeWeekBoxController(int idx) {
+        weekBoxControllers.remove(idx);
+        for (int i = 0; i < weekBoxControllers.size(); i++) {
+            weekBoxControllers.get(i).setWeekNumber(i + 1);
+        }
+    }
 
     private void addListener() {
 //        tempUploadBtn.setOnMouseClicked((event) -> {
@@ -106,10 +127,16 @@ public class CurriculumController implements Initializable {
 //            }
 //        });
     }
-    
-    public void uploadToDB(Course course){
-        for(WeekBoxController weekCtrl : weekBoxControllers){
+
+    public void uploadToDB(Course course) {
+        for (WeekBoxController weekCtrl : weekBoxControllers) {
             weekCtrl.uploadToDB(course);
+        }
+    }
+
+    public void updateDB() {
+        for(WeekBoxController weekCtrl : weekBoxControllers){
+            weekCtrl.updateDB();
         }
     }
 
@@ -120,22 +147,30 @@ public class CurriculumController implements Initializable {
     }
 
     public Boolean isPassedCondition() {
-        if(weekBoxControllers.size() == 0){
+        if (weekBoxControllers.size() == 0) {
             ToolKit.showWarning("You can't make a course without lectures!");
             return false;
         }
-        for(WeekBoxController weekCtrl : weekBoxControllers){
-            if(!weekCtrl.isPassedCondition()) return false;
+        for (WeekBoxController weekCtrl : weekBoxControllers) {
+            if (!weekCtrl.isPassedCondition()) {
+                return false;
+            }
         }
         return true;
     }
 
     public void loadData(Course course) {
+        this.course = course;
         weekBoxContainer.getChildren().clear();
         weekBoxControllers.clear();
-        
-        for(Week week : course.getWeeks()){
+
+        for (Week week : course.getWeeks()) {
             addWeek(week);
         }
+    }
+
+    public void createEnvironmentForCourseUpdate(Course course) {
+        this.course = course;
+        newCourse = false;
     }
 }

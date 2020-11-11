@@ -25,12 +25,10 @@ public class Week {
     Integer weekNo;
     String title;
     Date lastUpdate;
-    Course course;
     ArrayList<Lecture> lectures;
 
-    public Week(Integer id, Course course){
+    public Week(Integer id){
         this.id = id;
-        this.course = course;
         ResultSet rs = DB.executeQuery("SELECT * FROM WEEK WHERE ID = #", id.toString());
         try {
             while(rs.next()){
@@ -48,7 +46,6 @@ public class Week {
         this.id = DB.generateId("WEEK");
         this.weekNo = weekNo;
         this.title = title;
-        this.course = course;
         this.lastUpdate = ToolKit.getCurTime();
         DB.execute(
               "INSERT INTO WEEK(ID, WEEK_NO, TITLE, LAST_UPDATE, COURSE_ID) VALUES(#, #, '#', #, #)", 
@@ -61,7 +58,7 @@ public class Week {
         ResultSet rsWeek = DB.executeQuery("SELECT ID FROM WEEK WHERE COURSE_ID = # ORDER BY WEEK_NO ASC", course.getId().toString());
         try {
             while(rsWeek.next()){
-                weeks.add(new Week(rsWeek.getInt("ID"), course));
+                weeks.add(new Week(rsWeek.getInt("ID")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Week.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,16 +70,14 @@ public class Week {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Integer getWeekNo() {
         return weekNo;
     }
 
     public void setWeekNo(Integer weekNo) {
         this.weekNo = weekNo;
+        DB.execute("UPDATE WEEK SET WEEK_NO = # WHERE ID = #", weekNo.toString(), id.toString());
+        updateTime();
     }
 
     public String getTitle() {
@@ -91,22 +86,17 @@ public class Week {
 
     public void setTitle(String title) {
         this.title = title;
+        DB.execute("UPDATE WEEK SET TITLE = '#' WHERE ID = #", title, id.toString());
+        updateTime();
     }
 
     public Date getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
+    private void updateTime() {
+        this.lastUpdate = ToolKit.getCurTime();
+        DB.execute("UPDATE WEEK SET LAST_UPDATE = # WHERE ID = #", ToolKit.JDateToDDate(lastUpdate), id.toString());
     }
     
     public ArrayList<Lecture> getLectures() {
@@ -117,4 +107,14 @@ public class Week {
         this.lectures = lectures;
     }
     
+    public void delete(){
+        for(Lecture lecture : lectures){
+            lecture.delete();
+        }
+        DB.execute("DELETE WEEK WHERE ID = #", id.toString());
+    }
+    
+    public void addLecture(Lecture lecture){
+        this.lectures.add(lecture);
+    }
 }

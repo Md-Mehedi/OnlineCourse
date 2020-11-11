@@ -27,11 +27,9 @@ public class Lecture {
     Date lastUpdate;
     Files file;
     boolean isPreview;
-    Week week;
     
-    public Lecture(Integer id, Week week){
+    public Lecture(Integer id){
         this.id = id;
-        this.week = week;
         ResultSet rs = DB.executeQuery("SELECT * FROM LECTURE WHERE ID = #", id.toString());
         try {
             while(rs.next()){
@@ -60,7 +58,6 @@ public class Lecture {
         this.title = title;
         this.file = file;
         this.isPreview = isPreview;
-        this.week = week;
         this.lastUpdate = ToolKit.getCurTime();
         DB.execute(
               "INSERT INTO LECTURE(ID, LECTURE_NO, TITLE, LAST_UPDATE, IS_PREVIEW, WEEK_ID, FILE_ID) VALUES(#, #, '#', #, '#', #, #)", 
@@ -73,7 +70,7 @@ public class Lecture {
         ResultSet rs = DB.executeQuery("SELECT ID FROM LECTURE WHERE WEEK_ID = #", week.getId().toString());
         try {
             while(rs.next()){
-                lectures.add(new Lecture(rs.getInt("ID"), week));
+                lectures.add(new Lecture(rs.getInt("ID")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Lecture.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,16 +82,14 @@ public class Lecture {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Integer getLectureNo() {
         return lectureNo;
     }
 
     public void setLectureNo(Integer lectureNo) {
         this.lectureNo = lectureNo;
+        DB.execute("UPDATE LECTURE SET LECTURE_NO = # WHERE ID = #", lectureNo.toString(), id.toString());
+        updateTime();
     }
 
     public String getTitle() {
@@ -103,14 +98,17 @@ public class Lecture {
 
     public void setTitle(String title) {
         this.title = title;
+        DB.execute("UPDATE LECTURE SET TITLE = '#' WHERE ID = #", title, id.toString());
+        updateTime();
     }
 
     public Date getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
+    private void updateTime() {
+        this.lastUpdate = ToolKit.getCurTime();
+        DB.execute("UPDATE LECTURE SET LAST_UPDATE = # WHERE ID = #", ToolKit.JDateToDDate(lastUpdate), id.toString());
     }
 
     public boolean isIsPreview() {
@@ -119,6 +117,13 @@ public class Lecture {
 
     public void setIsPreview(boolean isPreview) {
         this.isPreview = isPreview;
+        DB.execute("UPDATE LECTURE SET IS_PREVIEW = '#' WHERE ID = #", ToolKit.JBoolToDBool(isPreview), id.toString());
+        updateTime();
+    }
+    
+    public void delete(){
+        file.delete();
+        DB.execute("DELETE LECTURE WHERE ID = #", id.toString());
     }
     
 }

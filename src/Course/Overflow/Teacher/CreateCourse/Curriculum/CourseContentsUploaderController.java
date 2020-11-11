@@ -5,8 +5,6 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
-import Course.Overflow.Files.FileType;
-import Course.Overflow.Files.Files;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.LectureBoxController.LectureType;
 import com.qoppa.pdf.PDFException;
@@ -80,7 +78,8 @@ public class CourseContentsUploaderController implements Initializable {
             }
         } else if (src == uploadBtn) {
             if(!isPassedCondition()) return;
-            parent.addVideoOutputBox(file, description.getText());
+            if(type == LectureType.VIDEO) parent.addVideoOutputBox(file, description.getText());
+            if(type == LectureType.PDF) parent.addPDFOutputBox(file, description.getText());
         } else if (src == cancelBtn && isNew == false) {
             if (isNew == false && src != uploadBtn) {
                 file = oldFile;
@@ -107,16 +106,6 @@ public class CourseContentsUploaderController implements Initializable {
 
     public void setDescription(String description) {
         this.description.setText(description);
-    }
-
-    public Files uploadToDB() {
-        if (type == LectureType.VIDEO) {
-            return new Files(file, FileType.toType("Video"), description.getText());
-        }
-        if (type == LectureType.PDF) {
-            return new Files(file, FileType.toType("PDF"), description.getText());
-        }
-        return null;
     }
 
     public boolean isPassedCondition() {

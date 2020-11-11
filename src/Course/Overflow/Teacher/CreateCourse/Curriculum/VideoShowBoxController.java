@@ -5,6 +5,8 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
+import Course.Overflow.Files.FileType;
+import Course.Overflow.Files.Files;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.LectureBoxController.LectureType;
 import java.io.File;
@@ -48,6 +50,7 @@ public class VideoShowBoxController implements Initializable {
     private File file;
     private Media me;
     private MediaPlayer mp;
+    private Lecture lecture;
 
     /**
      * Initializes the controller class.
@@ -108,4 +111,16 @@ public class VideoShowBoxController implements Initializable {
         this.description.setText(description);
     }
 
+    public Files uploadToDB() {
+        return new Files(file, FileType.toType("Video"), description.getText());
+    }
+    
+    public void updateDB(){
+        lecture.getFile().setTitle(description.getText());
+        lecture.getFile().setFile(file);
+    }
+
+    void setLecture(Lecture lecture) {
+        this.lecture = lecture;
+    }
 }

@@ -44,6 +44,7 @@ public class CreateCourse {
     private CurriculumController curriculumCtrl;
     private DetailsController detailsController;
     private PricingController pricingController;
+    private Course course;
 
     public CreateCourse() throws IOException {
         lsPane = new LeftSlidingPane(Type.NO_HOVER);
@@ -102,7 +103,15 @@ public class CreateCourse {
         curriculumCtrl.uploadToDB(course);
         course.setOutcomes(targetStudentCtrl.getOutcomes());
         course.setPrerequisitive(targetStudentCtrl.getPrerequisitives());
-        targetStudentCtrl.uploadProperties(course); //new Course(3));
+        targetStudentCtrl.uploadToDB(course); //new Course(3));
+    }
+    
+    public void updateDB(){
+        if(!isPassedCondition()) return;
+        detailsController.updateDB();
+        targetStudentCtrl.updateDB();
+        curriculumCtrl.updateDB();
+        //loadData(new Course(19));
     }
 
     private boolean isPassedCondition() {
@@ -113,9 +122,17 @@ public class CreateCourse {
     }
     
     public void loadData(Course course){
+        this.course = course;
+        targetStudentCtrl.createEnvironmentForCourseUpdate(course);
         targetStudentCtrl.loadDate(course);
+        
+        curriculumCtrl.createEnvironmentForCourseUpdate(course);
         curriculumCtrl.loadData(course);
+        
+        detailsController.createEnvironmentForCourseUpdate(course);
         detailsController.loadData(course);
+        
+        pricingController.createEnvironmentForCourseUpdate();
         pricingController.loadData(course);
     }
 }

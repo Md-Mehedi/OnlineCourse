@@ -5,6 +5,8 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
+import Course.Overflow.Files.FileType;
+import Course.Overflow.Files.Files;
 import Course.Overflow.Global.GLOBAL;
 import java.io.IOException;
 import java.net.URL;
@@ -33,6 +35,7 @@ public class ArticleOutputBoxController implements Initializable {
     private Button edit;
     @FXML
     private AnchorPane container;
+    private Lecture lecture;
 
     /**
      * Initializes the controller class.
@@ -68,5 +71,19 @@ public class ArticleOutputBoxController implements Initializable {
             ctrl.setArticle(article.getText());
             ctrl.setTitle(title.getText());
         }
+    }
+    
+    public Files uploadToDB() {
+        Files file = new Files(FileType.toType("Article"), title.getText(), article.getText());
+        return file;
+    }
+    
+    public void updateDB(){
+        lecture.getFile().setContent(article.getText());
+        lecture.getFile().setTitle(title.getText());
+    }
+
+    void setLecture(Lecture lecture) {
+        this.lecture = lecture;
     }
 }
