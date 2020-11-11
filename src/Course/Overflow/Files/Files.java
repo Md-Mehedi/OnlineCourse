@@ -121,6 +121,13 @@ public class Files {
     
     public void delete(){
         DB.execute("DELETE FILES WHERE ID = #", id.toString());
+        switch(type.getType()){
+            case "Picture"  :
+            case "PDF"      :
+            case "Video"    :
+                File file = new File(ToolKit.makeAbsoluteLocation(content));
+                file.delete();
+        }
     }
-    
+    //Testing
 }

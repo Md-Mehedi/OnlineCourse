@@ -236,7 +236,7 @@ public class Course {
 
     public void setLanguages(ArrayList<Language> languages) {
         this.languages = languages;
-        DB.execute("DELETE FROM COURSE_LANGUAGE WHERE COURSE_ID = #", id.toString());
+        deleteCourseLanguage();
         for(Language lang : languages){
             Integer id = DB.generateId("COURSE_LANGUAGE");
             DB.execute("INSERT INTO COURSE_LANGUAGE VALUES(#, '#', #)", id.toString(), this.id.toString(), lang.getId().toString());
@@ -304,6 +304,19 @@ public class Course {
 
     public void addProperty(Property property) {
         properties.add(property);
+    }
+    
+    public void deleteCourseLanguage(){
+        DB.execute("DELETE FROM COURSE_LANGUAGE WHERE COURSE_ID = #", id.toString());
+    }
+    
+    public void delete(){
+        imageFile.delete();
+        deleteCourseLanguage();
+        for(Property property : properties) property.delete();
+//        ArrayList<Review> reveiws;
+
+        for(Week week : weeks) week.delete();
     }
 
 }
