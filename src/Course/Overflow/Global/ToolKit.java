@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,6 +57,16 @@ public class ToolKit {
         AnchorPane toBox = (AnchorPane) parent.getChildren().get(idx + i);
         parent.getChildren().remove(i == -1 ? curBox : toBox);
         parent.getChildren().add(idx + (i == -1 ? i : 0), i == -1 ? curBox : toBox);
+    }
+
+    public static <T> void moveRow(ArrayList<T> parent, int idx, int i) {
+        if (idx + i < 0 || idx + i == parent.size()) {
+            return;
+        }
+        T curBox = parent.get(idx);
+        T toBox = parent.get(idx + i);
+        parent.remove(i == -1 ? curBox : toBox);
+        parent.add(idx + (i == -1 ? i : 0), i == -1 ? curBox : toBox);
     }
 
     public static void makeDynamicTextArea(TextArea ta) {

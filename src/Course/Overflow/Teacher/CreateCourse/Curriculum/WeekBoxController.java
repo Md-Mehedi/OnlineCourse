@@ -58,6 +58,11 @@ public class WeekBoxController implements Initializable {
     private AnchorPane parentPane;
     private ArrayList<LectureBoxController> lectureBoxControllers;
     private ArrayList<Lecture> lectures;
+    private Course course;
+
+    public ArrayList<LectureBoxController> getLectureBoxControllers() {
+        return lectureBoxControllers;
+    }
     private Week week;
 
     /**
@@ -111,14 +116,23 @@ public class WeekBoxController implements Initializable {
         } else if (src == up || src == down) {
             VBox parent = (VBox) weekBoxPane.getParent();
             int idx = parent.getChildren().indexOf(weekBoxPane);
-            parentController.swapControllers(idx, idx + (src == up ? -1 : 1));
             ToolKit.moveRow(parent, idx, src == up ? -1 : 1);
+            ToolKit.moveRow(parentController.getWeekBoxControllers(), idx, src == up ? -1 : 1);
+            parentController.refreshWeekNumber();
         } else if (src == deleteIcon) {
             VBox parent = (VBox) weekBoxPane.getParent();
             parentController.removeWeekBoxController(parent.getChildren().indexOf(weekBoxPane));
             parent.getChildren().remove(weekBoxPane);
+            parentController.getWeekBoxControllers().remove(this);
+            if(week != null) week.delete();
         } else if (src == addIcon) {
             addLecture(null);
+        }
+    }
+    
+    public void refreshLectureNo(){
+        for(int i = 0; i<lectureBoxControllers.size(); i++){
+            lectureBoxControllers.get(i).setLectureNo(i+1);
         }
     }
     
@@ -130,6 +144,7 @@ public class WeekBoxController implements Initializable {
             loader.<LectureBoxController>getController().setParent(this);
             loader.<LectureBoxController>getController().setLectureNo(lectureBoxContainer.getChildren().size() + 1);
             if(lecture != null) loader.<LectureBoxController>getController().loadData(lecture);
+            if(week != null) loader.<LectureBoxController>getController().setWeek(week);
             lectureBoxControllers.add(loader.<LectureBoxController>getController());
             lectureBoxContainer.getChildren().add(pane);
         } catch (IOException ex) {
@@ -146,20 +161,20 @@ public class WeekBoxController implements Initializable {
         weekNo.setText("" + x);
     }
 
-    public void swapControllers(int idx1, int idx2) {
-        if (idx1 == -1 || idx2 == -1) {
-            return;
-        }
-        if (idx1 == lectureBoxControllers.size() || idx2 == lectureBoxControllers.size()) {
-            return;
-        }
-
-        lectureBoxControllers.get(idx1).setLectureNo(idx2 + 1);
-        lectureBoxControllers.get(idx2).setLectureNo(idx1 + 1);
-        LectureBoxController removed = lectureBoxControllers.get(Math.max(idx1, idx2));
-        lectureBoxControllers.remove(idx1 < idx2 ? idx2 : idx1);
-        lectureBoxControllers.add(Math.min(idx1, idx2), removed);
-    }
+//    public void swapControllers(int idx1, int idx2) {
+//        if (idx1 == -1 || idx2 == -1) {
+//            return;
+//        }
+//        if (idx1 == lectureBoxControllers.size() || idx2 == lectureBoxControllers.size()) {
+//            return;
+//        }
+//
+//        lectureBoxControllers.get(idx1).setLectureNo(idx2 + 1);
+//        lectureBoxControllers.get(idx2).setLectureNo(idx1 + 1);
+//        LectureBoxController removed = lectureBoxControllers.get(Math.max(idx1, idx2));
+//        lectureBoxControllers.remove(idx1 < idx2 ? idx2 : idx1);
+//        lectureBoxControllers.add(Math.min(idx1, idx2), removed);
+//    }
 
     public void removeLectureBoxController(int idx) {
         lectureBoxControllers.remove(idx);
@@ -169,11 +184,26 @@ public class WeekBoxController implements Initializable {
     }
 
     public void uploadToDB(Course course) {
+        System.out.println("uploadDB" + weekNameLabel.getText());
         week = new Week(Integer.parseInt(weekNo.getText()), weekNameLabel.getText(), course);
         for (LectureBoxController lecCtrl : lectureBoxControllers) {
             lecCtrl.setWeek(week);
             Lecture lecture = lecCtrl.uploadToDB();
             lectures.add(lecture);
+        }
+        week.setLectures(lectures);
+    }
+    
+    public void updateDB(){
+        if(week == null){
+            uploadToDB(course);
+            return;
+        }
+        System.out.println("updateDB" + weekNameLabel.getText());
+        week.setTitle(weekNameLabel.getText());
+        week.setWeekNo(Integer.parseInt(weekNo.getText()));
+        for(LectureBoxController lecCtrl : lectureBoxControllers){
+            lecCtrl.updateDB();
         }
     }
     
@@ -192,14 +222,19 @@ public class WeekBoxController implements Initializable {
         return true;
     }
     
-    public int getWeekNo(){
+    public Integer getWeekNo(){
         return Integer.parseInt(weekNo.getText());
     }
     
     public void loadData(Week week){
+        this.week = week;
         weekNameLabel.setText(week.getTitle());
         for(Lecture lecture : week.getLectures()){
             addLecture(lecture);
         }
+    }
+    
+    public void setCourse(Course course){
+        this.course = course;
     }
 }

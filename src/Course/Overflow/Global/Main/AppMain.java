@@ -52,7 +52,8 @@ public class AppMain extends Application {
                 GLOBAL.PAGE_CTRL = new PageController();
 
                 CreateCourse mp = new CreateCourse();
-                mp.loadData(new Course(1));
+                Course course = new Course(19);
+                mp.loadData(course);
                 pane = mp.getRootPane();
                 root.getChildren().add(pane);
             }

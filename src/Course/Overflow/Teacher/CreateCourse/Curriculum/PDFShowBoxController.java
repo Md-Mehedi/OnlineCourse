@@ -5,6 +5,8 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
+import Course.Overflow.Files.FileType;
+import Course.Overflow.Files.Files;
 import Course.Overflow.Global.Customize.PDF;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.LectureBoxController.LectureType;
@@ -13,6 +15,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -48,6 +52,7 @@ public class PDFShowBoxController implements Initializable {
     private File file;
     private File oldFile;
     private PDF pdf;
+    private Lecture lecture;
 
     /**
      * Initializes the controller class.
@@ -86,12 +91,16 @@ public class PDFShowBoxController implements Initializable {
         }
     }
 
-    void setFile(File f) throws PDFException {
-        this.file = f;
-        this.oldFile = f;
-        fileNameLabel.setText(file.getName());
-        pdf = new PDF(file);
-        pdfThumbView.setImage(pdf.getThumbnail());
+    void setFile(File f) {
+        try {
+            this.file = f;
+            this.oldFile = f;
+            fileNameLabel.setText(file.getName());
+            pdf = new PDF(file);
+            pdfThumbView.setImage(pdf.getThumbnail());
+        } catch (PDFException ex) {
+            Logger.getLogger(PDFShowBoxController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     void setDescription(String description) {
@@ -108,4 +117,16 @@ public class PDFShowBoxController implements Initializable {
         openBtn.setOpacity(0);
     }
 
+    public Files uploadToDB() {
+        return new Files(file, FileType.toType("PDF"), description.getText());
+    }
+    
+    public void updateDB(){
+        lecture.getFile().setTitle(description.getText());
+        lecture.getFile().setFile(file);
+    }
+
+    void setLecture(Lecture lecture) {
+        this.lecture = lecture;
+    }
 }

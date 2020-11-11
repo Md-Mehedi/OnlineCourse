@@ -61,9 +61,21 @@ public class AddAnswerController implements Initializable {
             parentController.removeCourseLearningCtrl(this);
             parentController.removeRequCtrl(this);
         } else if (src == upIcon) {
-            ToolKit.moveRow(parentContainer, parentContainer.getChildren().indexOf(container), -1);            
+            ToolKit.moveRow(parentContainer, parentContainer.getChildren().indexOf(container), -1);
+            if(parentController.getCourseOutcomesCtrls().contains(this)){
+                ToolKit.moveRow(parentController.getCourseOutcomesCtrls(), parentController.getCourseOutcomesCtrls().indexOf(this), -1);
+            }
+            else{
+                ToolKit.moveRow(parentController.getRequCtrls(), parentController.getRequCtrls().indexOf(this), -1);
+            }
         } else if (src == downIcon) {
             ToolKit.moveRow(parentContainer, parentContainer.getChildren().indexOf(container), 1);
+            if(parentController.getCourseOutcomesCtrls().contains(this)){
+                ToolKit.moveRow(parentController.getCourseOutcomesCtrls(), parentController.getCourseOutcomesCtrls().indexOf(this), 1);
+            }
+            else{
+                ToolKit.moveRow(parentController.getRequCtrls(), parentController.getRequCtrls().indexOf(this), 1);
+            }
         }
     }
 

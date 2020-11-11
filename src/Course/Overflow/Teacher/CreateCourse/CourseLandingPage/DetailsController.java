@@ -97,12 +97,15 @@ public class DetailsController implements Initializable {
     private PricingController pricingCtrl;
     private CurriculumController curriculumCtrl;
     private TargetStudentPageController targetStudentCtrl;
+    private boolean newCourse;
+    private Course course;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        newCourse = true;
         readyLanguageList();
         readyLevel();
         readyCategory();
@@ -283,6 +286,18 @@ public class DetailsController implements Initializable {
             }
         }
     }
+    
+    public void updateDB(){
+        if(!isPassedCondition()) return;
+        course.setTitle(courseTitle.getText());
+        course.setSubTitle(courseSubTitle.getText());
+        course.setDescription(courseDescription.getText());
+        course.getCourseImage().setFile(photoFile);
+        course.setLanguages(selectedLanguage);
+        course.setSubCategory(new Category(subCategoryCB.getValue()));
+        course.setMainPrice(pricingCtrl.getPrice());
+        course.setOff(pricingCtrl.getOffer());
+    }
 
     public Course uploadToDB() {
         Files coursePhoto = new Files(photoFile, FileType.toType("Picture"), "Course Cover");
@@ -331,11 +346,16 @@ public class DetailsController implements Initializable {
         courseTitle.setText(course.getTitle());
         courseSubTitle.setText(course.getSubTitle());
         courseDescription.setText(course.getDescription());
-        photoFile = new File(ToolKit.makeAbsoluteLocation(course.getImageFile().getContent()));
+        photoFile = new File(ToolKit.makeAbsoluteLocation(course.getCourseImage().getContent()));
         courseImage.setImage(new Image(photoFile.toURI().toString()));
         mainCategoryCB.setValue(course.getMainCategory().getName());
         subCategoryCB.setValue(course.getSubCategory().getName());
         updateLanguage(course.getLanguages());
     }
 
+    public void createEnvironmentForCourseUpdate(Course course){
+        this.course = course;
+        newCourse = false;
+    }
+    
 }

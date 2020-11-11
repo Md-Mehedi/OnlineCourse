@@ -10,7 +10,6 @@ import Course.Overflow.DB;
 import Course.Overflow.Files.Files;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Language;
-import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.Week;
 import Course.Overflow.Teacher.Teacher;
@@ -104,6 +103,7 @@ public class Course {
         this.publishDate = ToolKit.getCurTime();
         this.isApproved = false;
         this.teacher = GLOBAL.TEACHER;
+        this.properties = new ArrayList<Property>();
         
         
         DB.execute(
@@ -236,17 +236,7 @@ public class Course {
 
     public void setLanguages(ArrayList<Language> languages) {
         this.languages = languages;
-        ResultSet rs = DB.executeQuery("SELECT * FROM COURSE_LANGUAGE WHERE COURSE_ID = '#'", id.toString());
-        try {
-            while(rs.next()){
-                DB.execute("DELETE FROM COURSE_LANGUAGE WHERE ID = #", rs.getString("ID"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if(languages.size() == 0){
-            return;
-        }
+        DB.execute("DELETE FROM COURSE_LANGUAGE WHERE COURSE_ID = #", id.toString());
         for(Language lang : languages){
             Integer id = DB.generateId("COURSE_LANGUAGE");
             DB.execute("INSERT INTO COURSE_LANGUAGE VALUES(#, '#', #)", id.toString(), this.id.toString(), lang.getId().toString());
@@ -268,7 +258,7 @@ public class Course {
 
     public void setDescription(String description) {
         this.description = description;
-        DB.execute("UPDATE COURSE SET DESCRIPTION = # WHERE ID = #", description,id.toString());
+        DB.execute("UPDATE COURSE SET DESCRIPTION = '#' WHERE ID = #", description,id.toString());
     }
 
     public Files getCourseImage() {
@@ -296,14 +286,6 @@ public class Course {
         this.isApproved = isApproved;
     }
 
-    public Files getImageFile() {
-        return imageFile;
-    }
-
-    public void setImageFile(Files imageFile) {
-        this.imageFile = imageFile;
-    }
-
     public String[] getPrerequisitives() {
         return prerequisitives;
     }
@@ -318,6 +300,10 @@ public class Course {
 
     public void setWeeks(ArrayList<Week> weeks) {
         this.weeks = weeks;
+    }
+
+    public void addProperty(Property property) {
+        properties.add(property);
     }
 
 }
