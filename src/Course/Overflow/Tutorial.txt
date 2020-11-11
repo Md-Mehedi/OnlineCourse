@@ -27,22 +27,28 @@ For Date Format
 https://www.tutorialspoint.com/java/java_date_time.htm
 
 Admin:
-    1.Language update:
+    1.Language update: Done
         Current language list show with 2 icon delete
         There should be a + icon to add new language
-    2.Country update:
+    2.Country update: Done
         Current country list show with 2 icon update and delete
         There should be a + icon to add new country
+    3.Designation update:
+        Current country list show with 2 icon update and delete
+        There should be a + icon to add new designation
+    4.Educational status update:
+        Current country list show with 2 icon update and delete
+        There should be a + icon to add new designation
     -- You can use only one fxml to maintain those functionality.
-    3.Category update:
+    5.Category update:
         Current main category list show with 3 icon update, delete and show sub category
         There should be a + icon to add new category
             sub category list will show after pressing show sub category icon from main category
             There should be a + icon to add new sub category
-    4.User list show
+    6.User list show
         Showing 2 table with all info of student and teacher
-    5.Show a list of un-approved courses    
-    6.Purchase  History  
+    7.Show a list of un-approved courses    
+    8.Purchase  History  
 
         
         
