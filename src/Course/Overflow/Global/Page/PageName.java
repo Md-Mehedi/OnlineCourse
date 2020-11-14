@@ -23,6 +23,7 @@ public enum PageName {
     , Anouncement("Anouncement")
     , Overview("Overview")
     , EnrolledStudents("Enrolled students")
+    , CreateCourse("Create a course")
     , CreateCourseTargetStudent("Target your student")
     , CreateCourseRecordVideo("Record your video")
     , CreateCourseCurriculumTips("Ready for course")
@@ -33,6 +34,7 @@ public enum PageName {
     , Signup()
     , ProfileSetting()
     , FrogetPassword()
+    , Blank("Blank Page")
     ;
     public String name;
 

@@ -17,13 +17,13 @@ public class Page {
     AnchorPane root;
     PageName pageName;
     
-    public Page(){
-        root = new AnchorPane();
-        root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
-    }
+//    public Page(){
+//    }
     
     public Page(PageName pageName){
-        this();
+        root = new AnchorPane();
+        root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
+        //this();
         this.pageName = pageName;
     }
 

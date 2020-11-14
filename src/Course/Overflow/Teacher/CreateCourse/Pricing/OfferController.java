@@ -41,4 +41,12 @@ public class OfferController implements Initializable {
             this.parentController = parentController;
             this.parentContainer = parentConatiner;
       }
+      
+      public Double getOffer(){
+          return Double.parseDouble(offerField.getText());
+      }
+
+    void setOffer(Double off) {
+        offerField.setText(off.toString());
+    }
 }

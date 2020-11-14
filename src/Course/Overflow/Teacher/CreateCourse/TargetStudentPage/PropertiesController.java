@@ -5,6 +5,10 @@
  */
 package Course.Overflow.Teacher.CreateCourse.TargetStudentPage;
 
+import Course.Overflow.Course.Course;
+import Course.Overflow.Course.Property;
+import Course.Overflow.Files.FileType;
+import Course.Overflow.Files.Files;
 import Course.Overflow.Global.Customize.ToolTip;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
@@ -34,7 +38,7 @@ import javafx.scene.layout.VBox;
  *
  * @author ASUS
  */
-public class PropertiesController implements Initializable {
+public class PropertiesController extends Object implements Initializable {
 
     private Label uploadBtn;
     @FXML
@@ -61,6 +65,8 @@ public class PropertiesController implements Initializable {
     private ImageView iconPicBox;
     @FXML
     private TextField answerField;
+    private File iconPicFile;
+    private Property property;
 
     /**
      * Initializes the controller class.
@@ -95,10 +101,14 @@ public class PropertiesController implements Initializable {
         Object src = event.getSource();
         if (src == deleteIcon) {
             parentContainer.getChildren().remove(container);
+            parentController.removePropertiesCtrl(this);
+            if(property != null) property.delete();
         } else if (src == upIcon) {
             ToolKit.moveRow(parentContainer, parentContainer.getChildren().indexOf(container), -1);
+            ToolKit.moveRow(parentController.getPropertiesCtrls(), parentController.getPropertiesCtrls().indexOf(this), -1);
         } else if (src == downIcon) {
             ToolKit.moveRow(parentContainer, parentContainer.getChildren().indexOf(container), 1);
+            ToolKit.moveRow(parentController.getPropertiesCtrls(), parentController.getPropertiesCtrls().indexOf(this), 1);
         }
     }
 
@@ -167,10 +177,58 @@ public class PropertiesController implements Initializable {
         iconPack.setVisible(b);
     }
 
-    void setIconPic(File file) throws FileNotFoundException {
-        iconBox.setVisible(false);
-        iconPicBox.setVisible(true);
-        iconPicBox.setImage(new Image(new FileInputStream(file)));
+    void setIconPic(File file) {
+        try {
+            this.iconPicFile = file;
+            iconBox.setVisible(false);
+            iconPicBox.setVisible(true);
+            iconPicBox.setImage(new Image(new FileInputStream(file)));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PropertiesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
+    public void uploadToDB(Course course){
+        Files file;
+        if(iconBox.isVisible()){
+            file = new Files(FileType.toType("FontAwesomeIcon"), "Properties icon", iconHolder.getGlyphName());
+        }
+        else{
+            file = new Files(iconPicFile, FileType.toType("Picture"), "Properties icon");
+        }
+        Property property = new Property(file, course, answerField.getText(), parentController.getPropertiesCtrls().indexOf(this)+1);
+        course.addProperty(property);
+    }
+    
+    public void updateDB(Course course){
+        if(property == null){
+            uploadToDB(course);
+            return;
+        }
+        property.setPosition(parentController.getPropertiesCtrls().indexOf(this)+1);
+        property.setText(answerField.getText());
+        if(iconBox.isVisible()){
+            property.getIcon().setType(FileType.toType("FontAwesomeIcon"));
+            property.getIcon().setContent(iconHolder.getGlyphName());
+        }
+        else{
+            property.getIcon().setType(FileType.toType("Picture"));
+            property.getIcon().setFile(iconPicFile);
+        }
+    }
+    
+    public String getValue(){
+        return answerField.getText();
+    }
+    
+    public void loadData(Property property){
+        this.property = property;
+        answerField.setText(property.getText());
+        System.out.println(property.getIcon().getType().getType());
+        if(property.getIcon().getType().getType().equals("Picture")){
+            setIconPic(new File(ToolKit.makeAbsoluteLocation(property.getIcon().getContent())));
+        }
+        else if(property.getIcon().getType().getType().equals("FontAwesomeIcon")){
+            setIcon(property.getIcon().getContent());
+        } else System.err.println("Property picture type is not found");
+    }
 }

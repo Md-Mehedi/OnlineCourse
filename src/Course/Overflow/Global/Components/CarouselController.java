@@ -5,9 +5,11 @@
  */
 package Course.Overflow.Global.Components;
 
+import Course.Overflow.Course.Course;
 import Course.Overflow.Global.GLOBAL;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,6 +58,7 @@ public class CarouselController implements Initializable {
     private boolean animationFinished;
     private Duration time;
     private boolean isFullScroll;
+    private ArrayList<Course> courses;
 
     /**
      * Initializes the controller class.
@@ -77,16 +80,7 @@ public class CarouselController implements Initializable {
         maxShowItem = 5;
         maxScrollItem = 1;
 
-        try {
-            for (int i = 0; i < 20; i++) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/CourseBox.fxml"));
-                pane = loader.load();
-                loader.<CourseBoxController>getController().setCourseTitle("" + (i + 1));
-                courseBoxContainer.getChildren().add(pane);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(CarouselController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         scrollPane.setBackground(
               new Background(new BackgroundFill(Color.TRANSPARENT, null, null))
         );
@@ -139,6 +133,27 @@ public class CarouselController implements Initializable {
         if (isFullScroll) {
             maxScrollItem = maxShowItem;
         }
+    }
+    
+    private void loadData(){
+        try {
+            for(Course course : courses){
+//            for (int i = 0; i < 20; i++) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/CourseBox.fxml"));
+                pane = loader.load();
+                CourseBoxController ctrl = loader.<CourseBoxController>getController();
+//                ctrl.setCourseTitle("" + (i + 1));
+                ctrl.setCourse(course);
+                courseBoxContainer.getChildren().add(pane);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(CarouselController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void setCourses(ArrayList<Course> courses) {
+        this.courses = courses;
+        loadData();
     }
 
 }

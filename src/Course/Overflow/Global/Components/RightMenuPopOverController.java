@@ -12,12 +12,16 @@ import Course.Overflow.Global.ToolKit;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.Callable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
@@ -39,19 +43,7 @@ public class RightMenuPopOverController implements Initializable {
     @FXML
     private Label email;
     @FXML
-    private Label myCourse;
-    @FXML
-    private Label purchaseHistory;
-    @FXML
-    private Label wishlist;
-    @FXML
-    private Label message;
-    @FXML
-    private Label faq;
-    @FXML
-    private Label accountSetting;
-    @FXML
-    private Label signOut;
+    private VBox labelContainer;
 
     /**
      * Initializes the controller class.
@@ -59,8 +51,53 @@ public class RightMenuPopOverController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        readyList();
         addDetails();
-    }    
+    }
+
+    public void readyList() {
+        labelContainer.getChildren().clear();
+        labelContainer.getChildren().add(setting);
+        setting.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
+        });
+
+        addLabel("My course", PageName.MyCourse);
+        if (GLOBAL.ACCOUNT_TYPE == Person.AccountType.Student) {
+            addLabel("Purchase history", PageName.PurchaseHistory);
+            addLabel("Wishlist", PageName.Wishlist);
+        } else if (GLOBAL.ACCOUNT_TYPE == Person.AccountType.Teacher) {
+            addLabel("My students", PageName.EnrolledStudents);
+            addLabel("Overview", PageName.Overview);
+            addLabel("Create a course", PageName.CreateCourse);
+        }
+        addLabel("Message", PageName.Messenger);
+        addLabel("FAQ", PageName.FAQ);
+        addLabel("Account setting", PageName.ProfileSetting);
+        addLabel("Sign out", PageName.Login, ()-> {
+                GLOBAL.ACCOUNT_TYPE = null;
+                GLOBAL.STUDENT = null;
+                GLOBAL.TEACHER = null;
+                return true;
+        });
+    }
+
+    private void addLabel(String labelName, PageName pageName) {
+        addLabel(labelName, pageName, () -> true);
+    }
+
+    private void addLabel(String labelName, PageName pageName, Callable<Boolean> callBeforeLoad) {
+        Label label = new Label(labelName);
+        label.setOnMouseClicked((event) -> {
+            try {
+                callBeforeLoad.call();
+                GLOBAL.PAGE_CTRL.loadPage(pageName);
+            } catch (Exception ex) {
+                Logger.getLogger(RightMenuPopOverController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        labelContainer.getChildren().add(label);
+    }
 
     @FXML
     private void mouseExited(MouseEvent event) {
@@ -72,45 +109,17 @@ public class RightMenuPopOverController implements Initializable {
 
     @FXML
     private void mouseClicked(MouseEvent event) {
-        if(event.getSource()==myCourse){
-            GLOBAL.PAGE_CTRL.loadPage(PageName.MyCourse);
-        }
-        else if(event.getSource()==wishlist){
-            GLOBAL.PAGE_CTRL.loadPage(PageName.Wishlist);
-        }
-//        else if(event.getSource()==purchaseHistory){
-//            GLOBAL.PAGE_CTRL.loadPage(PageName.PurchaseHistory);
-//        }
-//        else if(event.getSource()==message){
-//            GLOBAL.PAGE_CTRL.loadPage(PageName.Messenger);
-//        }
-//        else if(event.getSource()==faq){
-//            GLOBAL.PAGE_CTRL.loadPage(PageName.FAQ);
-//        }
-        if(event.getSource()==signOut){
-            GLOBAL.ACCOUNT_TYPE = null;
-            GLOBAL.STUDENT = null;
-            GLOBAL.TEACHER = null;
-            GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
-        }
-        else if(event.getSource()==setting){
-            GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
-        }
-        else if(event.getSource()==accountSetting){
-            GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
-        }
-    }    
+    }
 
     private void addDetails() {
         Person person = ToolKit.getCurrentPerson();
         username.setText(person.getUsername());
         email.setText(person.getEmail());
-        if(person.getPhoto() != null){
+        if (person.getPhoto() != null) {
             Image image = new Image(new File(ToolKit.makeAbsoluteLocation(person.getPhoto().getContent())).toURI().toString());
             imageCircle.setFill(new ImagePattern(image));
             imageLabel.setText("");
-        }
-        else{
+        } else {
             imageLabel.setText(ToolKit.userShortName());
         }
     }

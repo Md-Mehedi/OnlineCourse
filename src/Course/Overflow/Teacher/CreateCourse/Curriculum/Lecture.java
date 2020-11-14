@@ -37,8 +37,9 @@ public class Lecture {
                 title = rs.getString("TITLE");
                 lastUpdate = rs.getDate("LAST_UPDATE");
                 isPreview = ToolKit.DBoolToJBool(rs.getString("IS_PREVIEW"));
-                file = new Files(rs.getInt("FILE_ID"));
+                file = new Files(rs.getInt("FILE_ID"));  
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Lecture.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -72,9 +73,11 @@ public class Lecture {
             while(rs.next()){
                 lectures.add(new Lecture(rs.getInt("ID")));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Lecture.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return lectures;
     }
 

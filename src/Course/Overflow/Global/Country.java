@@ -25,6 +25,7 @@ public class Country {
                 rs.next();
                 name = rs.getString("NAME");
                 adminId = rs.getString("ADMIN_ID");
+                rs.close();
             } catch (SQLException ex) {
                 Logger.getLogger(Country.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -47,6 +48,7 @@ public class Country {
             };
             id = rs.getInt("ID");
             adminId = rs.getString("ADMIN_ID");
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Country.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -59,6 +61,7 @@ public class Country {
             while (rs.next()) {
                 list.add(new Country(rs.getInt("ID"), rs.getString("NAME"), rs.getString("ADMIN_ID")));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Country.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -90,7 +93,7 @@ public class Country {
                 String sql = "UPDATE COUNTRY SET NAME = '#' WHERE ID = #";
                 boolean x = DB.execute(sql, newName, rs.getString("ID"));
             }
-
+               rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Language.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -104,7 +107,7 @@ public class Country {
             String id = rs.getString("ID");
             DB.execute("UPDATE PERSON  SET COUNTRY_ID = NULL WHERE COUNTRY_ID = # ", id);
             DB.execute("DELETE FROM COUNTRY WHERE NAME = '#' ", selected);
-            
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Language.class.getName()).log(Level.SEVERE, null, ex);
         }

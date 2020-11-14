@@ -1,5 +1,6 @@
 package Course.Overflow.Global;
 
+import Course.Overflow.Course.Course;
 import Course.Overflow.DB;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,6 +33,7 @@ public class Language {
             }
             this.name = rs.getString("NAME");
             this.adminId = rs.getString("ADMIN_ID");
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Language.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,10 +62,25 @@ public class Language {
             while (rs.next()) {
                 list.add(new Language(rs.getInt("ID"), rs.getString("NAME"), rs.getString("ADMIN_ID")));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Language.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
+    } 
+    
+    public static ArrayList<Language> getLanguages(Course course){
+        ArrayList<Language> languages = new ArrayList<Language>();
+        ResultSet rs = DB.executeQuery("SELECT LANGUAGE_ID FROM COURSE_LANGUAGE WHERE COURSE_ID = #", course.getId().toString());
+        try {
+            while(rs.next()){
+                languages.add(new Language(rs.getInt("LANGUAGE_ID")));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Language.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return languages;
     }
 
     public static void createNewLanguage(String language) {
@@ -81,7 +98,7 @@ public class Language {
                 boolean x = DB.execute(sql, newName, rs.getString("ID"));
             }
             
-
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Language.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -94,7 +111,7 @@ public class Language {
             String id = rs.getString("ID");
             DB.execute("DELETE FROM PERSON_LANGUAGE WHERE LANGUAGE_ID = # ", id);
             DB.execute("DELETE FROM LANGUAGE WHERE NAME = '#' ", selected);
-            
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Language.class.getName()).log(Level.SEVERE, null, ex);
         }

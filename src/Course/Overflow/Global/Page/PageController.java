@@ -9,6 +9,7 @@ import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.PageByPageLayoutController;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Teacher.CreateCourse.CreateCourse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -48,6 +49,7 @@ public class PageController {
 //    public PageController() {
 //        this(PageName.Home);
 //    }
+    public PageController(){}
     public PageController(PageName pageName) {
         pages = new ArrayList<>();
         pageIdx = -1;
@@ -119,7 +121,7 @@ public class PageController {
             verticalBox.getChildren().add(menuBar);
 
             idx = verticalBox.getChildren().size();
-            verticalBox.getChildren().add(new Page().getRoot());
+            verticalBox.getChildren().add(new Page(PageName.Blank).getRoot());
 
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/RightMenuPopOver.fxml"));
             profilePane = loader.load();
@@ -202,6 +204,9 @@ public class PageController {
                 break;
             case ProfileSetting:
                 page = new ProfileSettingPage();
+                break;
+            case CreateCourse:
+                page = new CreateCourse();
         }
         if (!isLoadingWithoutLayout(pageName)) {
             loadPage(page);
@@ -222,4 +227,7 @@ public class PageController {
         return null;
     }
 
+    public Page getPage(){
+        return page;
+    }
 }

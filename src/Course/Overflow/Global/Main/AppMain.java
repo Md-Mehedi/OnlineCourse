@@ -4,11 +4,17 @@ package Course.Overflow.Global.Main;
  * To change this license HEADER, choose License Headers in Project Properties. To change this
  * template file, choose ToolKit | Templates and open the template in the editor.
  */
+import Course.Overflow.Course.Course;
 import Course.Overflow.DB;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageController;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.Person;
+import Course.Overflow.Teacher.CreateCourse.CreateCourse;
+import Course.Overflow.Teacher.Teacher;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -35,36 +41,43 @@ public class AppMain extends Application {
         primaryStage.getProperties().put("hostServices", this.getHostServices());
         root = new AnchorPane();
         pane = new AnchorPane();
-        GLOBAL.stage = primaryStage;
-        GLOBAL.rootPane = root;
         GLOBAL.WIDTH = 1460;
         GLOBAL.HEIGHT = 900;
         
 
 //// To show the main app, just toggle the bottom 2 line comments.
-        if(System.getProperty("user.name").equals("ASUS")){
-            System.out.println("USER : MEHEDI");
-//            CreateCourse mp = new CreateCourse();
-//            pane = mp.getRootPane();
-//            root.getChildren().add(pane);
-            mehediTestPage();
-            scene = new Scene(root,GLOBAL.WIDTH, GLOBAL.HEIGHT);
+        if(System.getProperty("user.name").equals("shammya")){
         }
         else{
-            System.out.println("USER : SHAMMYA");
-            shammyaTestPage();
-            scene = new Scene(root);
+            int Testing = 0;
+            if(Testing == 1){
+                System.out.println("USER : MEHEDI");
+                GLOBAL.TEACHER = new Teacher("MehediHasan");
+                GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
+                GLOBAL.PAGE_CTRL = new PageController();
+
+                CreateCourse mp = new CreateCourse();
+                Course course = new Course(19);
+                mp.loadData(course);
+                pane = mp.getRoot();
+                root.getChildren().add(pane);
+            }
+            else mehediTestPage();
+//            System.out.println("USER : SHAMMYA");
+//            shammyaTestPage();
         }
-//        
+        
+        GLOBAL.stage = primaryStage;
+        GLOBAL.rootPane = root;
+        scene = new Scene(root,GLOBAL.WIDTH, GLOBAL.HEIGHT);
         primaryStage.setScene(scene);
         primaryStage.show();
-//        
-//        primaryStage.setOnCloseRequest((event) -> {
-//            System.out.println(GLOBAL.HEIGHT);
-//            System.out.println(GLOBAL.WIDTH);
-//            System.exit(1);
-        //       });
         System.out.println("FXML is loaded...");
+        
+        primaryStage.setOnCloseRequest((event) -> {
+            DB.closeConnection();
+            System.exit(1);
+        });
     }
 
     private void mehediTestPage() throws IOException {
@@ -87,9 +100,14 @@ public class AppMain extends Application {
         DB.closeConnection();
     }
 
-    private void shammyaTestPage() throws IOException {
-       pane = FXMLLoader.load(getClass().getResource(GLOBAL.ADMIN_LOCATION + "/MaintainCountry.fxml"));
-       root.getChildren().add(pane);
+    private void shammyaTestPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.ADMIN_LOCATION + "/MaintainLanguage.fxml"));
+            AnchorPane pane = loader.load();
+            root.getChildren().add(pane);
+        } catch (IOException ex) {
+            Logger.getLogger(AppMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

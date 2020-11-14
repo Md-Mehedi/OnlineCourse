@@ -5,7 +5,10 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
+import Course.Overflow.Files.FileType;
+import Course.Overflow.Files.Files;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.LectureBoxController.LectureType;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -29,83 +32,95 @@ import javafx.scene.media.MediaView;
  */
 public class VideoShowBoxController implements Initializable {
 
-      @FXML
-      private AnchorPane container;
-      @FXML
-      private MediaView mediaView;
-      @FXML
-      private VBox playBtn;
-      @FXML
-      private Label descriptionLabel;
-      @FXML
-      private Label description;
-      @FXML
-      private Button updateBtn;
-      private LectureBoxController parent;
-      @FXML
-      private Label fileNameLabel;
-      private File file;
-      private Media me;
-      private MediaPlayer mp;
-      
+    @FXML
+    private AnchorPane container;
+    @FXML
+    private MediaView mediaView;
+    @FXML
+    private VBox playBtn;
+    @FXML
+    private Label descriptionLabel;
+    @FXML
+    private Label description;
+    @FXML
+    private Button updateBtn;
+    private LectureBoxController parent;
+    @FXML
+    private Label fileNameLabel;
+    private File file;
+    private Media me;
+    private MediaPlayer mp;
+    private Lecture lecture;
 
-      /**
-       * Initializes the controller class.
-       */
-      @Override
-      public void initialize(URL url, ResourceBundle rb) {
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        playBtn.setOpacity(0);
+        description.setPrefWidth(GLOBAL.LABEL_PREF_WIDTH - mediaView.getFitWidth() - 20);
+        fileNameLabel.setPrefWidth(GLOBAL.LABEL_PREF_WIDTH - mediaView.getFitWidth() - 20);
+    }
+
+    void setParent(LectureBoxController parent) {
+        this.parent = parent;
+    }
+
+    @FXML
+    private void mouseClicked(MouseEvent event) throws IOException {
+        Object src = event.getSource();
+        if (src == updateBtn) {
+            parent.setLectureLoaded(false);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/CourseContentsUploader.fxml"));
+            AnchorPane pane = loader.load();
+            loader.<CourseContentsUploaderController>getController().setParent(parent, LectureType.VIDEO, false);
+            loader.<CourseContentsUploaderController>getController().setFile(file);
+            loader.<CourseContentsUploaderController>getController().setDescription(description.getText());
+            parent.getAvailableContentContainer().getChildren().remove(container);
+            parent.getAvailableContentContainer().getChildren().add(pane);
+        } else if (src == playBtn) {
+            mp.setAutoPlay(true);
+            playBtn.setVisible(false);
+        }
+    }
+
+    void setFile(File f) {
+        this.file = f;
+        fileNameLabel.setText(file.getName());
+
+        me = new Media(file.toURI().toString());
+        mp = new MediaPlayer(me);
+        mediaView.setMediaPlayer(mp);
+    }
+
+    @FXML
+    private void mouseEntered(MouseEvent event) {
+        if (event.getSource() == playBtn) {
+            playBtn.setOpacity(1);
+        }
+    }
+
+    @FXML
+    private void mouseExited(MouseEvent event) {
+        if (event.getSource() == playBtn) {
             playBtn.setOpacity(0);
-            description.setPrefWidth(GLOBAL.LABEL_PREF_WIDTH-mediaView.getFitWidth()-20);
-            fileNameLabel.setPrefWidth(GLOBAL.LABEL_PREF_WIDTH-mediaView.getFitWidth()-20);
-      }      
+        }
+    }
 
-      void setParent(LectureBoxController parent) {
-            this.parent = parent;
-      }
+    void setDescription(String description) {
+        this.description.setText(description);
+    }
 
+    public Files uploadToDB() {
+        return new Files(file, FileType.toType("Video"), description.getText());
+    }
+    
+    public void updateDB(){
+        lecture.getFile().setTitle(description.getText());
+        lecture.getFile().setFile(file);
+    }
 
-      @FXML
-      private void mouseClicked(MouseEvent event) throws IOException {
-            Object src = event.getSource();
-            if(src == updateBtn){
-                  FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/CourseContentsUploader.fxml"));
-                  AnchorPane pane = loader.load();
-                  loader.<CourseContentsUploaderController>getController().setParent(parent, "video", false);
-                  loader.<CourseContentsUploaderController>getController().setFile(file);
-                  loader.<CourseContentsUploaderController>getController().setDescription(description.getText());
-                  parent.getAvailableContentContainer().getChildren().remove(container);
-                  parent.getAvailableContentContainer().getChildren().add(pane);
-            } else if(src == playBtn){
-                  mp.setAutoPlay(true);
-                  playBtn.setVisible(false);
-            }
-      }
-
-      void setFile(File f) {
-            this.file = f;
-            fileNameLabel.setText(file.getName());
-            
-            me = new Media(file.toURI().toString());
-            mp = new MediaPlayer(me);
-            mediaView.setMediaPlayer(mp);
-      }
-      
-      @FXML
-      private void mouseEntered(MouseEvent event) {
-            if(event.getSource() == playBtn){
-                  playBtn.setOpacity(1);
-            }
-      }
-
-      @FXML
-      private void mouseExited(MouseEvent event) {
-            if(event.getSource() == playBtn){
-                  playBtn.setOpacity(0);
-            }
-      }
-
-      void setDescription(String description) {
-            this.description.setText(description);
-      }
-      
+    void setLecture(Lecture lecture) {
+        this.lecture = lecture;
+    }
 }

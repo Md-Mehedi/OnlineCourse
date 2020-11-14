@@ -1,23 +1,26 @@
-/*
- * To change this license HEADER, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Course.Overflow.Course.Show;
 
 import Course.Overflow.Course.Contents.ReviewInputBoxController;
+import Course.Overflow.Course.Course;
 import Course.Overflow.Global.Components.CheckoutPageController;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Language;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -65,7 +68,6 @@ public class CourseDetailsController implements Initializable {
     private Label numOfStudent;
     @FXML
     private Label topInstName;
-    @FXML
     private Label lastUpdate;
     @FXML
     private Label language;
@@ -89,7 +91,15 @@ public class CourseDetailsController implements Initializable {
     private Label buyNowButton;
     private AnchorPane checkoutPane;
     private CheckoutPageController checkoutCtrl;
-    
+    private Course course;
+    private CurriculumController curriculumCtrl;
+    @FXML
+    private ImageView courseimage;
+    @FXML
+    private Label offer;
+    @FXML
+    private Label publish;
+
     /**
      * Initializes the controller class.
      */
@@ -97,13 +107,15 @@ public class CourseDetailsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         makeCourseWeek();
         makeReviewBox();
-        
-        addListener();
-    }    
 
-    public void makeCourseWeek(){
+        addListener();
+    }
+
+    public void makeCourseWeek() {
         try {
-            courseContent = FXMLLoader.load(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION+"/Curriculum.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/Curriculum.fxml"));
+            courseContent = loader.load();
+            curriculumCtrl = loader.<CurriculumController>getController();
         } catch (IOException ex) {
             Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -111,7 +123,7 @@ public class CourseDetailsController implements Initializable {
     }
 
     private void makeReviewBox() {
-        for(int i=0;i<5;i++){
+        for (int i = 0; i < 5; i++) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_SHOW_LOCATION + "/Review.fxml"));
             try {
                 //AnchorPane pane = new AnchorPane();
@@ -136,13 +148,13 @@ public class CourseDetailsController implements Initializable {
     }
 
     private void addListener() {
-        instName.setOnMouseClicked(event->{
+        instName.setOnMouseClicked(event -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
         });
-        instPhoto.setOnMouseClicked(event->{
+        instPhoto.setOnMouseClicked(event -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
         });
-        topInstName.setOnMouseClicked(event->{
+        topInstName.setOnMouseClicked(event -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
         });
         writeReviewBtn.setOnMouseClicked((event) -> {
@@ -151,7 +163,39 @@ public class CourseDetailsController implements Initializable {
         buyNowButton.setOnMouseClicked((event) -> {
             checkoutCtrl.show();
         });
-        
+
+    }
+
+    private void loadData() {
+        title.setText(course.getTitle());
+        curriculumCtrl.loadData(course);
+        Image img = new Image(course.getCourseImage().getContent());
+        courseimage.setImage(img);
+        mainPrice.setText(course.getMainPrice().toString());
+        offer.setText(course.getOff().toString());
+        title.setText(course.getTitle());
+        subTitle.setText(course.getSubTitle());
+        String name = course.getTeacher().getFirstName() + " " + course.getTeacher().getLastName();
+        topInstName.setText(name);
+        publish.setText(ToolKit.DateToLocalDate(course.getPublishDate()).toString());
+        ArrayList<Language> languag = course.getLanguages();
+        Set<String> ln = new HashSet<String>();
+        for (Language l : languag) {
+            ln.add(l.getName());
+        }
+        String lang = "";
+
+        for (String l : ln) {
+            lang += " , " + l;
+        }
+        lang = lang.replaceFirst(" ,", "");
+        System.out.println(lang);
+        this.language.setText(lang);
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+        loadData();
     }
 
 }

@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +39,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -55,6 +57,16 @@ public class ToolKit {
         AnchorPane toBox = (AnchorPane) parent.getChildren().get(idx + i);
         parent.getChildren().remove(i == -1 ? curBox : toBox);
         parent.getChildren().add(idx + (i == -1 ? i : 0), i == -1 ? curBox : toBox);
+    }
+
+    public static <T> void moveRow(ArrayList<T> parent, int idx, int i) {
+        if (idx + i < 0 || idx + i == parent.size()) {
+            return;
+        }
+        T curBox = parent.get(idx);
+        T toBox = parent.get(idx + i);
+        parent.remove(i == -1 ? curBox : toBox);
+        parent.add(idx + (i == -1 ? i : 0), i == -1 ? curBox : toBox);
     }
 
     public static void makeDynamicTextArea(TextArea ta) {
@@ -84,6 +96,7 @@ public class ToolKit {
 
     public static File chooseFile(String fileType) {
         FileChooser fc = new FileChooser();
+        fc.setInitialDirectory(new File(GLOBAL.FILE_CHOOSER_DIRECTORY));
         if (fileType == "video") {
             fc.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("Video files", "*.mp4", "*.3gp")
@@ -97,7 +110,9 @@ public class ToolKit {
                     new FileChooser.ExtensionFilter("Image files", "*.jpeg", "*.jpg", "*.bmp", "*.png", "*.gif")
             );
         }
-        return fc.showOpenDialog(null);
+        File file = fc.showOpenDialog(null);
+        GLOBAL.FILE_CHOOSER_DIRECTORY = file.getParent();
+        return file;
     }
 
     public static MediaPlayer getMediaPlayer(File file) {
@@ -384,7 +399,12 @@ public class ToolKit {
             case "Picture":
                 destPath += GLOBAL.PICTURE_LOCATION + "/Picture_" + DB.generateId("FILES").toString() + "_";
                 break;
-
+            case "Video":
+                destPath += GLOBAL.VIDEO_LOCATION + "/Video_" + DB.generateId("FILES").toString() + "_";
+                break;
+            case "PDF":
+                destPath += GLOBAL.PDF_LOCATION + "/PDF_" + DB.generateId("FILES").toString() + "_";
+                break;
         }
         destPath += file.getName();
 
@@ -456,5 +476,17 @@ public class ToolKit {
             }
         }
         return true;
+    }
+    
+    public static String JBoolToDBool(boolean b){
+        return (b ? "T" : "F");
+    }
+    
+    public static boolean DBoolToJBool(String b){
+        return (b.equals("T") ? true : false);
+    }
+    
+    public static void showWarning(String text){
+        JOptionPane.showMessageDialog(null, text, "Warning", JOptionPane.WARNING_MESSAGE);
     }
 }

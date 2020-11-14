@@ -66,7 +66,7 @@ public class PopupController implements Initializable {
         result = new HashMap<String,Object>();
         paneList = new ArrayList<AnchorPane>();
         buttonList = new ArrayList<Label>();
-        makeIconType(IconType.FONT_AWESOME_ICON,fontIconName);
+        makeIconType(IconType.FontAwesomeIcon,fontIconName);
         makeIconType(IconType.SVG,SVG.getNames());
         select(buttonList.get(0));
     }    
@@ -106,7 +106,7 @@ public class PopupController implements Initializable {
                 row.setValignment(VPos.CENTER);
                 grid.getRowConstraints().add(row);
             }
-            if(type == IconType.FONT_AWESOME_ICON){
+            if(type == IconType.FontAwesomeIcon){
                 node = getFontAwesomeIconView(s[i]);
             }
             if(type == IconType.SVG){
@@ -140,10 +140,10 @@ public class PopupController implements Initializable {
         });
         node.setOnMouseClicked((MouseEvent)->{
             result.clear();
-            if(type == IconType.FONT_AWESOME_ICON){
+            if(type == IconType.FontAwesomeIcon){
                 FontAwesomeIconView icon = (FontAwesomeIconView) node;
                 System.out.println(icon.getGlyphName());
-                result.put("type", IconType.FONT_AWESOME_ICON);
+                result.put("type", IconType.FontAwesomeIcon);
                 result.put("name", icon.getGlyphName());
             }
             if(type == IconType.SVG){

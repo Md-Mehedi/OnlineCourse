@@ -85,6 +85,7 @@ public class Person {
             if(rs.next()){
                 accountType = AccountType.Admin;
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -116,6 +117,7 @@ public class Person {
             {
                 languages.add(new Language(rs.getInt("LANGUAGE_ID")));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -131,6 +133,7 @@ public class Person {
             if(hp.authenticate(password, found)){
                 return new Person(username);
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -298,6 +301,7 @@ public class Person {
             while(rs.next()){
                 DB.execute("DELETE FROM PERSON_LANGUAGE WHERE ID = #", rs.getString("ID"));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
         }

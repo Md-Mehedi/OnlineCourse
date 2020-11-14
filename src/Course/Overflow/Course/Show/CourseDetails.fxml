@@ -45,8 +45,10 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label fx:id="lastUpdate" text="Last update" />
-                              <Label fx:id="language" text="Language" />
+                              <Label text="Publish Date" />
+                              <Label fx:id="publish" text="29 October, 2019" />
+                              <Label text="Language" />
+                              <Label fx:id="language" prefHeight="40.0" prefWidth="317.0" text="Language" />
                            </children>
                         </HBox>
                      </children>
@@ -54,19 +56,21 @@
                         <Insets right="60.0" />
                      </padding>
                   </VBox>
-                  <VBox id="TopRightBox">
+                  <VBox id="TopRightBox" prefHeight="423.0" prefWidth="507.0">
                      <children>
                         <StackPane>
                            <children>
                               <MediaView fitHeight="200.0" fitWidth="200.0" />
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="courseimage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </StackPane>
-                        <HBox>
+                        <HBox prefHeight="99.0" prefWidth="447.0">
                            <children>
-                              <Label fx:id="price" styleClass="title3" text="Current Price" />
-                              <Label fx:id="mainPrice" style="-fx-font-size: 22;" text="Main Price" />
-                              <Label fx:id="off" style="-fx-font-size: 22;" text="\% off" />
+                              <Label fx:id="price" prefHeight="99.0" prefWidth="230.0" styleClass="title3" text="Current Price" />
+                              <Label prefHeight="36.0" prefWidth="116.0" style="-fx-font-size: 22;" text="Main Price" />
+                              <Label fx:id="mainPrice" prefHeight="36.0" prefWidth="69.0" style="-fx-font-size: 22;" text="Main Price" />
+                              <Label fx:id="offer" prefHeight="47.0" prefWidth="61.0" style="-fx-font-size: 22;" text="\% off" />
+                              <Label fx:id="off" prefHeight="47.0" prefWidth="61.0" style="-fx-font-size: 22;" text="\% off" />
                            </children>
                         </HBox>
                         <Label fx:id="buyNowButton" styleClass="title1" text="Buy now" />

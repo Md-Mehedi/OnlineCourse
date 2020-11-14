@@ -52,7 +52,6 @@ public class Files {
     }
     
     public Files(FileType type, String title, String content){
-        System.out.println(type.getId());
         this.id = DB.generateId("FILES");
         this.type = type;
         this.title = title;
@@ -93,5 +92,42 @@ public class Files {
     public Date getLastUpdateTime() {
         return lastUpdateTime;
     }
+
+    public void setType(FileType type) {
+        this.type = type;
+        DB.execute("UPDATE FILES SET TYPE = # WHERE ID = #", type.getId().toString(), id.toString());
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+        DB.execute("UPDATE FILES SET TITLE = '#' WHERE ID = #", title, id.toString());
+        updateTime();
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+        DB.execute("UPDATE FILES SET CONTENT = '#' WHERE ID = #", content, id.toString());
+        updateTime();
+    }
     
+    public void setFile(File file){
+        setContent(ToolKit.copyFile(file, type));
+        updateTime();
+    }
+    
+    private void updateTime(){
+        DB.execute("UPDATE FILES SET LAST_UPDATE = # WHERE ID = #", ToolKit.getCurTimeDB(), id.toString());
+    }
+    
+    public void delete(){
+        DB.execute("DELETE FILES WHERE ID = #", id.toString());
+        switch(type.getType()){
+            case "Picture"  :
+            case "PDF"      :
+            case "Video"    :
+                File file = new File(ToolKit.makeAbsoluteLocation(content));
+                file.delete();
+        }
+    }
+    //Testing
 }

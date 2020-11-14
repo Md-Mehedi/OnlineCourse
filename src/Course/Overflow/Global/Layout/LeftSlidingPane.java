@@ -18,6 +18,7 @@ import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
@@ -71,6 +72,9 @@ public class LeftSlidingPane extends BorderPaneController{
     private Map<AnchorPane, Label> paneToIcon;
     private Map<Label, AnchorPane> nameToPane;
     private Map<AnchorPane, Label> paneToName;
+    private Map<Label, Callable<Boolean>> nameToFunc;
+    private Map<Label, Callable<Boolean>> iconToFunc;
+    private Label selectedName;
     private AnchorPane selectedPane;
     private AnchorPane runningPane;
     private final String FXML_PATH = GLOBAL.LAYOUT_LOCATION + "/BorderPane.fxml";
@@ -102,6 +106,8 @@ public class LeftSlidingPane extends BorderPaneController{
         paneToIcon = new HashMap<AnchorPane, Label>();
         nameToPane = new HashMap<Label, AnchorPane>();
         paneToName = new HashMap<AnchorPane, Label>();
+        nameToFunc = new HashMap<Label, Callable<Boolean>>();
+        iconToFunc = new HashMap<Label, Callable<Boolean>>();
         setType(type);
         addEventListenerForMenu();
         Platform.runLater(()->{
@@ -248,28 +254,35 @@ public class LeftSlidingPane extends BorderPaneController{
     public void addContent(AnchorPane pane, FontAwesomeIcon icon, PageName pageName){
         Label iconLabel = iconWrapper(new FontAwesomeIconView(icon));
         Label nameLabel = new Label(pageName.name);
-        addContent(pane, iconLabel, nameLabel, pageName);
+        addContent(pane, iconLabel, nameLabel, pageName, ()-> true);
     }
     public void addContent(AnchorPane pane, SVG svgName, PageName pageName){
+        addContent(pane, svgName, pageName, () -> true);
+    }
+    public void addContent(AnchorPane pane, SVG svgName, PageName pageName, Callable<Boolean> conditionFunc){
         Label iconLabel = iconWrapper(new SVGView(svgName));
         Label nameLabel = new Label(pageName.name);
-        addContent(pane, iconLabel, nameLabel, pageName);
+        addContent(pane, iconLabel, nameLabel, pageName, conditionFunc);
     }
     public void addContent(AnchorPane pane, MaterialIcon icon, PageName pageName){
         Label iconLabel = iconWrapper(new MaterialIconView(icon));
         Label nameLabel = new Label(pageName.name);
-        addContent(pane, iconLabel, nameLabel, pageName);
+        addContent(pane, iconLabel, nameLabel, pageName, ()-> true);
     }
     public void addContent(AnchorPane pane, Image icon, PageName pageName){
         Label iconLabel = iconWrapper(new ImageView(icon));
         Label nameLabel = new Label(pageName.name);
-        addContent(pane, iconLabel, nameLabel, pageName);
+        addContent(pane, iconLabel, nameLabel, pageName, ()-> true);
     }
-    private void addContent(AnchorPane pane, Label iconLabel, Label paneName, PageName pageName){
+    
+    
+    private void addContent(AnchorPane pane, Label iconLabel, Label paneName, PageName pageName, Callable<Boolean> conditionFunc){
         paneToIcon.put(pane, iconLabel);
         iconToPane.put(iconLabel, pane);
         paneToName.put(pane, paneName);
         nameToPane.put(paneName, pane);
+        nameToFunc.put(paneName, conditionFunc);
+        iconToFunc.put(iconLabel, conditionFunc);
         iconContainer.getChildren().add(iconLabel);
         labelContainer.getChildren().add(paneName);
         addEventListenerForVerticalMenuItem(iconLabel,pane, pageName);
@@ -305,13 +318,20 @@ public class LeftSlidingPane extends BorderPaneController{
         Platform.runLater(()->{
             new Timeline(new KeyFrame(animTime, new KeyValue(runningPane.layoutYProperty(), iconContainer.getChildren().get(idx).getLayoutY()))).play();
         });
+        selectedName = selectedLabel;
     }
     private void addEventListenerForVerticalMenuItem(Label btn, AnchorPane pane, PageName pageName){
         btn.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                labelClickTask(pane);
-                GLOBAL.PAGE_CTRL.curPage = pageName;
+                try {
+                    if(nameToFunc.get(selectedName).call()){
+                        labelClickTask(pane);
+                        GLOBAL.PAGE_CTRL.curPage = pageName;
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(LeftSlidingPane.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         btn.addEventFilter(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {

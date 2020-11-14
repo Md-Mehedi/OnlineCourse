@@ -6,6 +6,7 @@
 
 package Course.Overflow.Global.Customize;
 
+import Course.Overflow.Files.Files;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialicons.MaterialIcon;
@@ -19,11 +20,12 @@ import javafx.scene.layout.StackPane;
  */
 public class Icon extends StackPane{
     public enum IconType{
-        FONT_AWESOME_ICON("Font Awesome Icon"),
-        MATERIAL_ICON("Material Icon"),
+        FontAwesomeIcon("FontAwesomeIcon"),
+        MaterialIcon("MaterialIcon"),
         SVG("SVG");
         private String name;
         IconType(String s){
+            System.out.println(s);
             this.name = s;
         }
     }
@@ -33,15 +35,29 @@ public class Icon extends StackPane{
     private SVGView svgView;
     private FontAwesomeIconView faiView;
     private MaterialIconView miView;
+    private Files file;
     
     private double width;
     private double height;
     
+    public Icon(Files file){
+        this(IconType.valueOf(file.getType().getType()), file.getContent());
+        this.file = file;
+    }
+
+    public Files getFile() {
+        return file;
+    }
+
+    public void setFile(Files file) {
+        this.file = file;
+    }
+        
     public Icon(IconType type){
         this.type = type;
         width = 12;
         height = 12;
-        if(type == IconType.FONT_AWESOME_ICON){
+        if(type == IconType.FontAwesomeIcon){
             faiView = new FontAwesomeIconView();
             this.getChildren().add(faiView);
             faiView.glyphSizeProperty().bind(this.widthProperty());
@@ -49,7 +65,7 @@ public class Icon extends StackPane{
 //            this.prefHeightProperty().bind(faiView.glyphSizeProperty());
             //ToolKit.setAnchor(faiView, 0, 0, 0, 0);
         }
-        else if(type == IconType.MATERIAL_ICON){
+        else if(type == IconType.MaterialIcon){
             miView = new MaterialIconView();
             this.getChildren().add(miView);
             miView.glyphSizeProperty().bind(this.widthProperty());
@@ -69,10 +85,10 @@ public class Icon extends StackPane{
     public Icon(IconType type, String iconName){
         this(type);
         this.iconName = iconName;
-        if(type == IconType.FONT_AWESOME_ICON){
+        if(type == IconType.FontAwesomeIcon){
             faiView.setIcon(FontAwesomeIcon.valueOf(iconName));
         }
-        else if(type == IconType.MATERIAL_ICON){
+        else if(type == IconType.MaterialIcon){
             miView.setIcon(MaterialIcon.valueOf(iconName));
         }
         else if(type == IconType.SVG){
@@ -86,7 +102,7 @@ public class Icon extends StackPane{
     }
     
     public Icon(FontAwesomeIcon icon){
-        this(IconType.FONT_AWESOME_ICON, icon.name());
+        this(IconType.FontAwesomeIcon, icon.name());
     }
     public Icon(FontAwesomeIcon icon, double size){
         this(icon);
@@ -94,7 +110,7 @@ public class Icon extends StackPane{
         setPrefSize(size, size);
     }
     public Icon(MaterialIcon icon){
-        this(IconType.MATERIAL_ICON, icon.name());
+        this(IconType.MaterialIcon, icon.name());
     }
     public Icon(MaterialIcon icon, double size){
         this(icon);
@@ -123,8 +139,8 @@ public class Icon extends StackPane{
     }
     private void setGlyphSize(double size){
         Platform.runLater(()->{
-            if(type == IconType.FONT_AWESOME_ICON) faiView.setGlyphSize(size);
-            if(type == IconType.MATERIAL_ICON) miView.setGlyphSize(size);
+            if(type == IconType.FontAwesomeIcon) faiView.setGlyphSize(size);
+            if(type == IconType.MaterialIcon) miView.setGlyphSize(size);
         });
     }
 }
