@@ -45,8 +45,23 @@ public class AppMain extends Application {
         GLOBAL.HEIGHT = 900;
         
 
-//// To show the main app, just toggle the bottom 2 line comments.
-        if(System.getProperty("user.name").equals("shammya")){
+
+// To show the main app, just toggle the bottom 2 line comments.
+        if(System.getProperty("user.name").equals("ASUS")){
+            int Testing = 0;
+            if(Testing == 1){
+                System.out.println("USER : MEHEDI");
+                GLOBAL.TEACHER = new Teacher("MehediHasan");
+                GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
+                GLOBAL.PAGE_CTRL = new PageController();
+
+                CreateCourse mp = new CreateCourse();
+                Course course = new Course(19);
+                mp.loadData(course);
+                pane = mp.getRoot();
+                root.getChildren().add(pane);
+            }
+            else mehediTestPage();
         }
         else{
             int Testing = 0;
