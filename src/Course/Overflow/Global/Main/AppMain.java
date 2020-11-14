@@ -43,10 +43,10 @@ public class AppMain extends Application {
 
 
 // To show the main app, just toggle the bottom 2 line comments.
+        System.out.println(System.getProperty("user.name"));
         if(System.getProperty("user.name").equals("ASUS")){
             int Testing = 0;
             if(Testing == 1){
-                System.out.println("USER : MEHEDI");
                 GLOBAL.TEACHER = new Teacher("MehediHasan");
                 GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
                 GLOBAL.PAGE_CTRL = new PageController();
@@ -60,7 +60,6 @@ public class AppMain extends Application {
             else mehediTestPage();
         }
         else{
-            System.out.println("USER : SHAMMYA");
             shammyaTestPage();
         }
         
@@ -91,19 +90,19 @@ public class AppMain extends Application {
         GLOBAL.rootScroll = sc;
     }
 
+    private void shammyaTestPage() {
+        Button button = new Button();
+        pane = new AnchorPane(button);
+        
+        root.getChildren().add(pane);
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
         DB.closeConnection();
-    }
-
-    private void shammyaTestPage() {
-        Button button = new Button();
-        pane = new AnchorPane(button);
-        
-        root.getChildren().add(pane);
     }
 
 }

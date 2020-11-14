@@ -75,10 +75,10 @@ public class RightMenuPopOverController implements Initializable {
         addLabel("FAQ", PageName.FAQ);
         addLabel("Account setting", PageName.ProfileSetting);
         addLabel("Sign out", PageName.Login, ()-> {
-                GLOBAL.ACCOUNT_TYPE = null;
-                GLOBAL.STUDENT = null;
-                GLOBAL.TEACHER = null;
-                return true;
+            GLOBAL.ACCOUNT_TYPE = null;
+            GLOBAL.STUDENT = null;
+            GLOBAL.TEACHER = null;
+            return true;
         });
     }
 
