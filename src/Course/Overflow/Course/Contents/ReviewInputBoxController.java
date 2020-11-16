@@ -5,7 +5,12 @@
  */
 package Course.Overflow.Course.Contents;
 
+import Course.Overflow.Course.Course;
+import Course.Overflow.Course.Review;
+import Course.Overflow.Course.Show.CourseDetailsController;
+import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.FloatingPane;
+import Course.Overflow.Global.ToolKit;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -34,6 +39,10 @@ public class ReviewInputBoxController extends FloatingPane implements Initializa
     private Label cancelBtn;
     
     private AnchorPane parent;
+    private Course course;
+    private CourseDetailsController parentCtrl;
+    @FXML
+    private Label giveRatingLabel;
 
     /**
      * Initializes the controller class.
@@ -49,8 +58,44 @@ public class ReviewInputBoxController extends FloatingPane implements Initializa
             close();
         });
         submtBtn.setOnMouseClicked((event) -> {
+            if(!isConditionPass()) return;
+            Review review = new Review(course, GLOBAL.STUDENT, reviewField.getText(), this.rating.getRating());
+            parentCtrl.addReviewBox(review);
+            parentCtrl.refreshData();
+            parentCtrl.addRating();
+            parentCtrl.removeAddReviewBtn();
             close();
+            this.rating.setRating(0);
+            this.reviewField.setText("");
         });
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+    
+    public void setRating(Integer value){
+        this.rating.setRating(value);
+        giveRatingLabel.setText("Your submitted rating : ");
+        this.rating.setOnMouseClicked((event) -> {
+            this.rating.setRating(value);
+        });
+    }
+
+    public void setParent(CourseDetailsController parent) {
+        this.parentCtrl = parent;
+    }
+
+    private boolean isConditionPass() {
+        if(rating.getRating() == 0){
+            ToolKit.showWarning("Please give a rating.");
+            return false;
+        }
+        if(!(5 < reviewField.getText().length() && reviewField.getText().length() < 4000)){
+            ToolKit.showWarning("Please write a review between 50 to 4000 charecter.");
+            return false;
+        }
+        return true;
     }
     
     

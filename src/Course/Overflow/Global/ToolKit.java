@@ -361,8 +361,6 @@ public class ToolKit {
     public static String getCurTimeDB() {
         DateFormat df = new SimpleDateFormat(dateFormatJAVA());
         Date dateobj = new Date();
-        System.out.println(df.format(dateobj));
-
         return "TO_DATE('" + df.format(dateobj) + "', '" + dateFormatDB() + "')";
     }
 
@@ -388,6 +386,18 @@ public class ToolKit {
     
     public static LocalDate DateToLocalDate(Date date) {
         return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+    
+    public static String makeDateStructured(Date date, String structure){
+        DateFormat dateFormat = new SimpleDateFormat(structure);  
+        String strDate = dateFormat.format(date);  
+        return strDate;
+    }
+    
+    public static String makeDateStructured(LocalDate date, String structure){
+        DateFormat dateFormat = new SimpleDateFormat(structure);  
+        String strDate = dateFormat.format(date);  
+        return strDate;
     }
 
     /*
@@ -442,13 +452,6 @@ public class ToolKit {
         return GLOBAL.ROOT_LOCATION + location;
     }
     
-    public static String userShortName(){
-        Person person = getCurrentPerson();
-        String firstName = person.getFirstName();
-        String lastName = person.getLastName();
-        return (firstName.substring(0, 1) + lastName.substring(0, 1)).toUpperCase();
-    }
-    
     public static Person getCurrentPerson(){
         switch(GLOBAL.ACCOUNT_TYPE){
             case Teacher: return GLOBAL.TEACHER; 
@@ -488,5 +491,24 @@ public class ToolKit {
     
     public static void showWarning(String text){
         JOptionPane.showMessageDialog(null, text, "Warning", JOptionPane.WARNING_MESSAGE);
+    }
+    
+    public static String DoubleToString(Double value){
+        return DoubleToString(value, 2);
+    }
+    
+    public static String DoubleToString(Double value, int precision){
+        return String.format(String.format("%." + precision + "f", value), value);
+    }
+    
+    public static void print(Object text){
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.err.println("Error message is showing : ");
+        System.err.println(text.toString());
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
     }
 }

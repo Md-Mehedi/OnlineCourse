@@ -26,9 +26,10 @@ public class EducationalStatus {
         this.id = id;
         ResultSet rs = DB.executeQuery("SELECT * FROM EDUCATIONAL_STATUS WHERE ID = #", id.toString());
         try {
-            if(!rs.next()) return;
+            if(!rs.next()) {rs.close(); return;}
             type = rs.getString("TYPE");
             adminId = rs.getString("ADMIN_ID");
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(EducationalStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -38,9 +39,10 @@ public class EducationalStatus {
         this.type = type;
         ResultSet rs = DB.executeQuery("SELECT * FROM EDUCATIONAL_STATUS WHERE TYPE = '#'", type);
         try {
-            if(!rs.next()) return;
+            if(!rs.next()) {rs.close(); return;}
             id = rs.getInt("ID");
             adminId = rs.getString("ADMIN_ID");
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(EducationalStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -59,6 +61,7 @@ public class EducationalStatus {
             while(rs.next()){
                 list.add(new EducationalStatus(rs.getInt("ID"), rs.getString("TYPE"), rs.getString("ADMIN_ID")));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(EducationalStatus.class.getName()).log(Level.SEVERE, null, ex);
         }

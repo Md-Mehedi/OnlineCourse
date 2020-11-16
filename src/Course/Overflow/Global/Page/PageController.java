@@ -227,4 +227,7 @@ public class PageController {
         return null;
     }
 
+    public Page getPage(){
+        return page;
+    }
 }

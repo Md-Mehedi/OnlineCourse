@@ -25,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -128,5 +129,10 @@ public class PDFShowBoxController implements Initializable {
 
     void setLecture(Lecture lecture) {
         this.lecture = lecture;
+    }
+
+    void stopEditingFunctionality() {
+        Pane parent = (Pane) updateBtn.getParent();
+        parent.getChildren().remove(updateBtn);
     }
 }

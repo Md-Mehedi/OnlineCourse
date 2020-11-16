@@ -42,6 +42,7 @@ public class Category {
                 else this.parent = null;
                 this.adminId = rs.getString("ADMIN_ID");
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -57,6 +58,7 @@ public class Category {
                 else parent = null;
                 this.adminId = rs.getString("ADMIN_ID");
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -93,6 +95,7 @@ public class Category {
             while(rs.next()){
                 list.add(new Category(rs.getInt("ID")));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -106,6 +109,7 @@ public class Category {
             while(rs.next()){
                 list.add(new Category(rs.getInt("ID")));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
         }

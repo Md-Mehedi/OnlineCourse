@@ -67,8 +67,10 @@ public class ForgetPasswordController implements Initializable {
                         message.setText(msg);
                     } else {
                         message.setText("Please enter valid username and date of birth !");
+                        rs.close();
                         return;
                     }
+                    rs.close();
                 } catch (SQLException ex) {
                     Logger.getLogger(ForgetPasswordController.class.getName()).log(Level.SEVERE, null, ex);
                 }

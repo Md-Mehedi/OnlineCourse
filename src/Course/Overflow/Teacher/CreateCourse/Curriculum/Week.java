@@ -37,6 +37,7 @@ public class Week {
                 lastUpdate = rs.getDate("LAST_UPDATE");
                 lectures = Lecture.getLectures(this);
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Week.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,6 +61,7 @@ public class Week {
             while(rsWeek.next()){
                 weeks.add(new Week(rsWeek.getInt("ID")));
             }
+            rsWeek.close();
         } catch (SQLException ex) {
             Logger.getLogger(Week.class.getName()).log(Level.SEVERE, null, ex);
         }

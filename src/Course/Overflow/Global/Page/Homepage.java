@@ -6,6 +6,7 @@
 
 package Course.Overflow.Global.Page;
 
+import Course.Overflow.Course.Course;
 import Course.Overflow.Global.Components.CarouselController;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
@@ -40,12 +41,20 @@ public class Homepage extends Page{
     }
     
     private void addCarousels() {
+        ArrayList<Course> apcourses = new ArrayList<Course> (Course.getApprovedCourses());
+      
         for(int i=0;i<3;i++){
+            Course course = new Course(19);
+            ArrayList<Course> courses = new ArrayList<Course>();
+            courses.add(course);
             try {
                 loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/Carousel.fxml"));
                 AnchorPane pane = loader.load();
                 verticalBox.getChildren().add(pane);
-                carousels.add(loader.<CarouselController>getController());
+                CarouselController carCtrl = loader.<CarouselController>getController();
+                carousels.add(carCtrl);
+                
+                carCtrl.setCourses(apcourses);
             } catch (IOException ex) {
                     Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
             }

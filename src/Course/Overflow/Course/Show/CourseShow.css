@@ -22,6 +22,11 @@ Label{
     -fx-text-fill: black;
 }
 
+#weekContainer HBox, #weekContainer VBox{
+    -fx-alignment: center;
+    -fx-spacing: 10;
+}
+
 /*Couse HBox CSS*/
 .courseHBox .instName{
     -fx-font-size: 19;
@@ -46,3 +51,8 @@ Label{
     -fx-alignment: center-left;
 }
 
+.rating{
+    -fx-min-height: 40;
+    -fx-pref-height: 40;
+    -fx-max-height: 40;
+}

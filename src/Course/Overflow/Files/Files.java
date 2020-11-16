@@ -32,12 +32,13 @@ public class Files {
         this.id = id;
         ResultSet rs = DB.executeQuery("SELECT * FROM FILES WHERE ID = #", id.toString());
         try {
-            if(!rs.next()) return;
+            if(!rs.next()) {rs.close(); return;}
             type = new FileType(rs.getInt("TYPE"));
             title = rs.getString("TITLE");
             content = rs.getString("CONTENT");
             uploadTime = rs.getDate("UPLOAD_TIME");
             lastUpdateTime = rs.getDate("LAST_UPDATE");
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Files.class.getName()).log(Level.SEVERE, null, ex);
         }

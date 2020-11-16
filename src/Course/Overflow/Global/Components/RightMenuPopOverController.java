@@ -120,7 +120,7 @@ public class RightMenuPopOverController implements Initializable {
             imageCircle.setFill(new ImagePattern(image));
             imageLabel.setText("");
         } else {
-            imageLabel.setText(ToolKit.userShortName());
+            imageLabel.setText(ToolKit.getCurrentPerson().getShortName());
         }
     }
 }

@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 /**
  * FXML Controller class
@@ -85,5 +86,10 @@ public class ArticleOutputBoxController implements Initializable {
 
     void setLecture(Lecture lecture) {
         this.lecture = lecture;
+    }
+
+    void stopEditingFunctionality() {
+        Pane parent = (Pane) edit.getParent();
+        parent.getChildren().remove(edit);
     }
 }

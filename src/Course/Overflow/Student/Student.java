@@ -51,6 +51,7 @@ public class Student extends Person{
         try {
             rs.next();
             if(rs.getInt("EDU_STATUS_ID")!=0) eduStatus = new EducationalStatus(rs.getInt("EDU_STATUS_ID"));
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
         }

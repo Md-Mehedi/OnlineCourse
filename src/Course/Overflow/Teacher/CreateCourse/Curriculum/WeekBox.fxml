@@ -21,7 +21,7 @@
          <children>
             <AnchorPane styleClass="header">
                <children>
-                  <HBox id="WeekBoxHeader" spacing="5.0" style="-fx-alignment: center-left;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox id="WeekBoxHeader" fx:id="WeekHeader" spacing="5.0" style="-fx-alignment: center-left;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <HBox style="-fx-spacing: 0;">
                            <children>
@@ -73,7 +73,7 @@
                         </FontAwesomeIconView>
                      </children>
                   </HBox>
-                  <HBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox fx:id="upDownContainer" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <FontAwesomeIconView id="up" fx:id="up" glyphName="ANGLE_DOUBLE_UP" onMouseClicked="#mouseClicked" size="24">
                            <styleClass>
@@ -96,7 +96,7 @@
                </children>
             </AnchorPane>
             <VBox id="LectureBoxContainer" fx:id="lectureBoxContainer" spacing="30.0" />
-            <HBox id="WeekBoxFooter" style="-fx-alignment: center-right;">
+            <HBox id="WeekBoxFooter" fx:id="weekBoxFooter" style="-fx-alignment: center-right;">
                <children>
                   <ImageView id="add" fx:id="addIcon" fitHeight="40.0" fitWidth="50.0" onMouseClicked="#mouseClicked" pickOnBounds="true" preserveRatio="true">
                      <image>

@@ -15,6 +15,7 @@ import Course.Overflow.Global.Page.Page;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Teacher.CreateCourse.CourseLandingPage.DetailsController;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController.ViewerType;
 import Course.Overflow.Teacher.CreateCourse.Pricing.PricingController;
 import Course.Overflow.Teacher.CreateCourse.TargetStudentPage.TargetStudentPageController;
 import java.io.IOException;
@@ -137,8 +138,8 @@ public class CreateCourse extends Page {
         targetStudentCtrl.createEnvironmentForCourseUpdate(course);
         targetStudentCtrl.loadDate(course);
 
-        curriculumCtrl.createEnvironmentForCourseUpdate(course);
-        curriculumCtrl.loadData(course);
+//        curriculumCtrl.createEnvironmentForCourseUpdate(course);
+        curriculumCtrl.loadData(course, ViewerType.OwnerTeacher);
 
         detailsController.createEnvironmentForCourseUpdate(course);
         detailsController.loadData(course);

@@ -20,13 +20,13 @@ public class FileType {
         this.id = id;
         ResultSet rs = DB.executeQuery("SELECT * FROM FILE_TYPE WHERE ID=#", id.toString());
         try {
-            if (rs.next() == true) {
+            if (rs.next()) {
                 type = rs.getString("TYPE");
                 adminId = rs.getString("ADMIN_ID");
             } else {
                 System.err.println("no file found");
             }
-
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Files.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -48,11 +48,13 @@ public class FileType {
         ResultSet rs = DB.executeQuery("SELECT ID FROM FILE_TYPE WHERE TYPE = '#'", typeName);
         try {
             if (rs.next() == true) {
-                return new FileType(rs.getInt("ID"));
+                FileType type = new FileType(rs.getInt("ID"));
+                rs.close();
+                return type;
             } else {
                 System.out.println("no photo");
             }
-
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(FileType.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -6,13 +6,12 @@
 
 package Course.Overflow.Teacher;
 
-import Course.Overflow.Course.Course;
+import Course.Overflow.Course.CourseRating;
 import Course.Overflow.DB;
 import Course.Overflow.Global.Designation;
 import Course.Overflow.Global.Person;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,21 +23,6 @@ import java.util.logging.Logger;
 public class Teacher extends Person{
 
     private Designation designation;
-    int numOfStudent;
-    int numOfReviews;
-    ArrayList<Course> courses;
-
-    public int getNumOfStudent() {
-        return numOfStudent;
-    }
-
-    public int getNumOfReviews() {
-        return numOfReviews;
-    }
-
-    public ArrayList<Course> getCourses() {
-        return courses;
-    }
 
     public Designation getDesignation() {
         return designation;
@@ -47,18 +31,6 @@ public class Teacher extends Person{
     public void setDesignation(Designation designation) {
         this.designation = designation;
         DB.execute("UPDATE TEACHER SET DESIGNATION_ID = '#'", designation.getId().toString());
-    }
-
-    public void setNumOfStudent(int numOfStudent) {
-        this.numOfStudent = numOfStudent;
-    }
-
-    public void setNumOfReviews(int numOfReviews) {
-        this.numOfReviews = numOfReviews;
-    }
-
-    public void setCourses(ArrayList<Course> courses) {
-        this.courses = courses;
     }
 
     public Teacher(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about, Date dob){
@@ -73,6 +45,7 @@ public class Teacher extends Person{
         try {
             rs.next();
             if(rs.getInt("DESIGNATION_ID")!=0) designation = new  Designation(rs.getInt("DESIGNATION_ID"));
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,5 +53,49 @@ public class Teacher extends Person{
     
     public static boolean exist(String username) {
         return DB.valueExist("TEACHER", "ID", username);
+    }
+
+    public Integer getNumOfReview() {
+        Integer value = null;
+        ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM REVIEW WHERE COURSE_ID = ANY(SELECT ID FROM COURSE WHERE TEACHER_ID = '#')", getUsername());
+        try {
+            rs.next();
+            value = rs.getInt("COUNT(*)");
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return value;
+    }
+    
+    public Integer getNumOfStudent(){
+        try {
+            ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM PURCHASE_HISTORY WHERE COURSE_ID = ANY(SELECT ID FROM COURSE WHERE TEACHER_ID = '#')", getUsername());
+            Integer value;
+            rs.next();
+            value = rs.getInt("COUNT(*)");
+            rs.close();
+            return value;
+        } catch (SQLException ex) {
+            Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    public Integer getNumOfCourse(){
+        ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM COURSE WHERE TEACHER_ID = '#'", getUsername());
+        Integer value = null;
+        try {
+            rs.next();
+            value = rs.getInt("COUNT(*)");
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return value;
+    }
+    
+    public Double getRating(){
+        return CourseRating.getValue(this);
     }
 }

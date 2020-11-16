@@ -9,6 +9,8 @@ import Course.Overflow.Files.Files;
 import Course.Overflow.Global.Customize.ToolTip;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController.ViewerType;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.io.File;
@@ -67,6 +69,23 @@ public class LectureBoxController implements Initializable {
     private Week week;
     private Lecture lecture;
     private boolean isLectureLoaded;
+    private ViewerType viewer;
+    @FXML
+    private AnchorPane container;
+    @FXML
+    private HBox lecNoContainer;
+    @FXML
+    private HBox editDeleteContainer;
+    @FXML
+    private HBox contentContiner;
+    private AnchorPane articleOutputPane;
+    private ArticleOutputBoxController articleOutputCtrl;
+    private VideoShowBoxController videoShowCtrl;
+    private AnchorPane videoShowPane;
+    private AnchorPane pdfShowPane;
+    private PDFShowBoxController pdfShowCtrl;
+    private AnchorPane linkOutputPane;
+    private LinkOutputBoxController linkOutputCtrl;
 
     public enum LectureType {
         ARTICLE,
@@ -246,19 +265,24 @@ public class LectureBoxController implements Initializable {
 
     public ArticleOutputBoxController addArticleOutputBox(String title, String article) {
         try {
-            fileType = LectureType.ARTICLE;
-            loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/ArticleOutputBox.fxml"));
-            AnchorPane pane = loader.load();
-            ArticleOutputBoxController ctrl = loader.getController();
-            ctrl.setParent(this);
-            this.getAvailableContentContainer().getChildren().clear();
-            this.getAvailableContentContainer().getChildren().add(pane);
-            this.setCancelVisible(false);
-            ctrl.setTitle(title);
-            ctrl.setArticle(article);
-            this.setLectureLoaded(true);
-            this.content.setVisible(false);
-            return ctrl;
+            if(articleOutputCtrl == null){
+                fileType = LectureType.ARTICLE;
+                loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/ArticleOutputBox.fxml"));
+                articleOutputPane = loader.load();
+                articleOutputCtrl = loader.getController();
+                articleOutputCtrl.setParent(this);
+                this.getAvailableContentContainer().getChildren().clear();
+                this.setCancelVisible(false);
+                articleOutputCtrl.setTitle(title);
+                articleOutputCtrl.setArticle(article);
+                if(viewer != ViewerType.OwnerTeacher){
+                    articleOutputCtrl.stopEditingFunctionality();
+                }
+                this.setLectureLoaded(true);
+                this.content.setVisible(false);
+            }
+            this.getAvailableContentContainer().getChildren().add(articleOutputPane);
+            return articleOutputCtrl;
         } catch (IOException ex) {
             Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -285,20 +309,24 @@ public class LectureBoxController implements Initializable {
 
     public VideoShowBoxController addVideoOutputBox(File file, String description) {
         try {
-            fileType = LectureType.VIDEO;
-            AnchorPane pane = new AnchorPane();
-            loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/VideoShowBox.fxml"));
-            pane = loader.load();
-            VideoShowBoxController ctrl = loader.getController();
-            ctrl.setParent(this);
-            ctrl.setFile(file);
-            ctrl.setDescription(description);
-            this.getAvailableContentContainer().getChildren().clear();
-            this.getAvailableContentContainer().getChildren().add(pane);
-            this.setCancelVisible(false);
-            this.setLectureLoaded(true);
-            this.content.setVisible(false);
-            return ctrl;
+            if(videoShowCtrl == null){
+                fileType = LectureType.VIDEO;
+                loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/VideoShowBox.fxml"));
+                videoShowPane = (AnchorPane) loader.load();
+                videoShowCtrl = (VideoShowBoxController)loader.getController();
+                videoShowCtrl.setParent(this);
+                videoShowCtrl.setFile(file);
+                videoShowCtrl.setDescription(description);
+                if(viewer != ViewerType.OwnerTeacher){
+                    videoShowCtrl.stopEditingFunctionality();
+                }
+                this.getAvailableContentContainer().getChildren().clear();
+                this.setCancelVisible(false);
+                this.setLectureLoaded(true);
+                this.content.setVisible(false);
+            }
+            this.getAvailableContentContainer().getChildren().add(videoShowPane);
+            return videoShowCtrl;
         } catch (IOException ex) {
             Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -325,20 +353,24 @@ public class LectureBoxController implements Initializable {
 
     public PDFShowBoxController addPDFOutputBox(File file, String description) {
         try {
-            fileType = LectureType.PDF;
-            AnchorPane pane = new AnchorPane();
-            loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/PDFShowBox.fxml"));
-            pane = loader.load();
-            PDFShowBoxController ctrl = loader.getController();
-            ctrl.setParent(this);
-            ctrl.setFile(file);
-            ctrl.setDescription(description);
-            this.getAvailableContentContainer().getChildren().clear();
-            this.getAvailableContentContainer().getChildren().add(pane);
-            this.setCancelVisible(false);
-            this.setLectureLoaded(true);
-            this.content.setVisible(false);
-            return ctrl;
+            if(pdfShowCtrl == null){
+                fileType = LectureType.PDF;
+                loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/PDFShowBox.fxml"));
+                pdfShowPane = loader.load();
+                pdfShowCtrl = loader.getController();
+                pdfShowCtrl.setParent(this);
+                pdfShowCtrl.setFile(file);
+                pdfShowCtrl.setDescription(description);
+                if(viewer != ViewerType.OwnerTeacher){
+                    pdfShowCtrl.stopEditingFunctionality();
+                }
+                this.getAvailableContentContainer().getChildren().clear();
+                this.setCancelVisible(false);
+                this.setLectureLoaded(true);
+                this.content.setVisible(false);
+            }
+            this.getAvailableContentContainer().getChildren().add(pdfShowPane);
+            return pdfShowCtrl;
         } catch (IOException ex) {
             Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -366,19 +398,24 @@ public class LectureBoxController implements Initializable {
     
     public LinkOutputBoxController addLinkOutputBox(String link, String description){
         try {
-            fileType = LectureType.LINK;
-            loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/LinkOutputBox.fxml"));
-            AnchorPane pane = loader.load();
-            LinkOutputBoxController ctrl = loader.getController();
-            ctrl.setParent(this);
-            ctrl.setLink(link);
-            ctrl.setLinkDesc(description);
-            this.getAvailableContentContainer().getChildren().clear();
-            this.getAvailableContentContainer().getChildren().add(pane);
-            this.setCancelVisible(false);
-            this.setLectureLoaded(true);
-            this.content.setVisible(false);
-            return ctrl;
+            if(linkOutputCtrl == null){
+                fileType = LectureType.LINK;
+                loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/LinkOutputBox.fxml"));
+                linkOutputPane = loader.load();
+                linkOutputCtrl = loader.getController();
+                linkOutputCtrl.setParent(this);
+                linkOutputCtrl.setLink(link);
+                linkOutputCtrl.setLinkDesc(description);
+                if(viewer != ViewerType.OwnerTeacher){
+                    linkOutputCtrl.stopEditingFunctionality();
+                }
+                this.getAvailableContentContainer().getChildren().clear();
+                this.setCancelVisible(false);
+                this.setLectureLoaded(true);
+                this.content.setVisible(false);
+            }
+            this.getAvailableContentContainer().getChildren().add(linkOutputPane);
+            return linkOutputCtrl;
         } catch (IOException ex) {
             Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -389,23 +426,41 @@ public class LectureBoxController implements Initializable {
         ctrl.setLecture(lecture);
     }
 
-    public void loadData(Lecture lecture) {
+    public void loadData(Week week, Lecture lecture, ViewerType viewer) {
+        this.week = week;
         this.lecture = lecture;
+        this.viewer = viewer;
+        
         lectureNameLabel.setText(lecture.getTitle());
         freeAvailableCkB.setSelected(lecture.isPreview);
         //System.out.println(lecture.getFile().getType().getType());
-        if(lecture.getFile().getType().getType().equals("Article")){
-            addArticleOutputBox(lecture);
+        if(viewer == ViewerType.OwnerTeacher){
+            if(lecture.getFile().getType().getType().equals("Article")){
+                addArticleOutputBox(lecture);
+            }
+            else if(lecture.getFile().getType().getType().equals("Video")){
+                addVideoOutputBox(lecture);
+            }
+            else if(lecture.getFile().getType().getType().equals("PDF")){
+                addPDFOutputBox(lecture);
+            }
+            else if(lecture.getFile().getType().getType().equals("Link")){
+                addLinkOutputBox(lecture);
+            }
         }
-        else if(lecture.getFile().getType().getType().equals("Video")){
-            addVideoOutputBox(lecture);
+        else{
+            stopEditingFunctionality();
+            if(viewer == ViewerType.OwnerStudent || (viewer == ViewerType.Normal && lecture.isPreview)){
+                makeIconToShowCourse();
+            }
         }
-        else if(lecture.getFile().getType().getType().equals("PDF")){
-            addPDFOutputBox(lecture);
-        }
-        else if(lecture.getFile().getType().getType().equals("Link")){
-            addLinkOutputBox(lecture);
-        }
+    }
+
+    private void stopEditingFunctionality() {
+        lecNoContainer.getChildren().remove(freeAvailableCkB);
+        editDeleteContainer.getChildren().remove(editIcon);
+        editDeleteContainer.getChildren().remove(deleteIcon);
+        contentContiner.getChildren().clear();
     }
 
     public void setContentVisible(boolean b) {
@@ -485,5 +540,32 @@ public class LectureBoxController implements Initializable {
             return false;
         }
         return true;
+    }    
+    
+    private void makeIconToShowCourse() {
+        FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.CHEVRON_DOWN);
+        icon.setGlyphSize(25);
+        contentContiner.getChildren().add(icon);
+        icon.setOnMouseClicked((event) -> {
+            if(icon.getRotate() == 0){
+                icon.setRotate(180);
+                if(lecture.getFile().getType().getType().equals("Article")){
+                    addArticleOutputBox(lecture);
+                }
+                else if(lecture.getFile().getType().getType().equals("Video")){
+                    addVideoOutputBox(lecture);
+                }
+                else if(lecture.getFile().getType().getType().equals("PDF")){
+                    addPDFOutputBox(lecture);
+                }
+                else if(lecture.getFile().getType().getType().equals("Link")){
+                    addLinkOutputBox(lecture);
+                }
+            }
+            else{
+                icon.setRotate(0);
+                availableContentContainer.getChildren().clear();
+            }
+        });
     }
 }

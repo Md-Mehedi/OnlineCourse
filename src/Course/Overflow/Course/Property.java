@@ -33,6 +33,7 @@ public class Property {
                 text = rs.getString("TEXT");
                 position = rs.getInt("POSITION");
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Property.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -52,6 +53,7 @@ public class Property {
             while (rs.next()) {
                 properties.add(new Property(rs.getInt("ID")));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Property.class.getName()).log(Level.SEVERE, null, ex);
         }

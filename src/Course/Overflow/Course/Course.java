@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Property.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Course.Overflow.Course;
 
 import Course.Overflow.DB;
@@ -11,6 +5,7 @@ import Course.Overflow.Files.Files;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Language;
 import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Student.Student;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.Week;
 import Course.Overflow.Teacher.Teacher;
 import java.sql.ResultSet;
@@ -39,60 +34,58 @@ public class Course {
     Files imageFile;
     Category mainCategory;
     Category subCategory;
-    
+
     ArrayList<Language> languages;
     ArrayList<Property> properties;
     Double rating;
     ArrayList<Review> reveiws;
-    
+
     Integer numOfStudents;
     String[] prerequisitives;
     String[] outcomes;
-    
+
     ArrayList<Week> weeks;
 //    CourseContent content;
 //    Media promotionalVideo;
 //    String level;
 //    PromoCode promo;
-    
-    public Course(){
-        
+
+    public Course() {
+
     }
     
-    public Course(Integer id){
+    public Course(Integer id) {
         this.id = id;
         ResultSet rs = DB.executeQuery("SELECT * FROM COURSE WHERE ID = #", id.toString());
         try {
             rs.next();
             title = rs.getString("TITLE");
             subTitle = rs.getString("SUBTITLE");
-            description = rs.getString("DESCRIPTION");
             mainPrice = rs.getDouble("PRICE");
             off = rs.getDouble("OFFER");
             publishDate = rs.getDate("PUBLISH_DATE");
+        
             isApproved = ToolKit.DBoolToJBool(rs.getString("IS_APPROVED"));
             teacher = new Teacher(rs.getString("TEACHER_ID"));
             imageFile = new Files(rs.getInt("COVER_ID"));
             subCategory = new Category(rs.getInt("CATEGORY_ID"));
             mainCategory = subCategory.getParent();
-            
+
             languages = Language.getLanguages(this);
             properties = Property.getProperties(this);
-            
+
+            description = rs.getString("DESCRIPTION");
 //            Rating will be added
 //            Review will be added
-
-            outcomes = rs.getString("OUTCOMES").split("><");
+            if(!rs.getString("OUTCOMES").equals("")) outcomes = rs.getString("OUTCOMES").split("><");
             prerequisitives = rs.getString("PREREQUISITES").split("><");
-            
-            weeks = Week.getWeeks(this);
-        
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public Course(String title, String subTitle, String description, Double price, Files cover, Category subCategory){
+
+    public Course(String title, String subTitle, String description, Double price, Files cover, Category subCategory) {
         this.id = DB.generateId("COURSE");
         this.title = title;
         this.subTitle = subTitle;
@@ -104,17 +97,16 @@ public class Course {
         this.isApproved = false;
         this.teacher = GLOBAL.TEACHER;
         this.properties = new ArrayList<Property>();
-        
-        
+
         DB.execute(
-              "INSERT INTO COURSE(ID, TITLE, SUBTITLE, DESCRIPTION, PRICE, PUBLISH_DATE, IS_APPROVED, TEACHER_ID, COVER_ID, CATEGORY_ID)"
-                    + "VALUES(#, '#', '#', '#', #, #, '#', '#', #, #)", 
-              id.toString(), title, subTitle, description, price.toString(), ToolKit.JDateToDDate(publishDate), ToolKit.JBoolToDBool(isApproved), 
-              teacher.getUsername().toString(), imageFile.getId().toString(), subCategory.getId().toString()
+                "INSERT INTO COURSE(ID, TITLE, SUBTITLE, DESCRIPTION, PRICE, PUBLISH_DATE, IS_APPROVED, TEACHER_ID, COVER_ID, CATEGORY_ID)"
+                + "VALUES(#, '#', '#', '#', #, #, '#', '#', #, #)",
+                id.toString(), title, subTitle, description, price.toString(), ToolKit.JDateToDDate(publishDate), ToolKit.JBoolToDBool(isApproved),
+                teacher.getUsername().toString(), imageFile.getId().toString(), subCategory.getId().toString()
         );
     }
-    
-    public Integer getId(){
+
+    public Integer getId() {
         return id;
     }
 
@@ -132,11 +124,7 @@ public class Course {
     }
 
     public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
+        return CourseRating.getValue(this);
     }
 
     public Teacher getTeacher() {
@@ -179,7 +167,7 @@ public class Course {
     public void setSubCategory(Category subCategory) {
         this.subCategory = subCategory;
         this.mainCategory = subCategory.getParent();
-        DB.execute("UPDATE COURSE SET CATEGORY_ID = # WHERE ID = #", subCategory.getId().toString(),id.toString());
+        DB.execute("UPDATE COURSE SET CATEGORY_ID = # WHERE ID = #", subCategory.getId().toString(), id.toString());
     }
 
     public void setTitle(String title) {
@@ -201,7 +189,7 @@ public class Course {
 
     public void setMainPrice(Double mainPrice) {
         this.mainPrice = mainPrice;
-        DB.execute("UPDATE COURSE SET PRICE = # WHERE ID = #", mainPrice.toString(),id.toString());
+        DB.execute("UPDATE COURSE SET PRICE = # WHERE ID = #", mainPrice.toString(), id.toString());
     }
 
     public Double getOff() {
@@ -210,7 +198,7 @@ public class Course {
 
     public void setOff(Double off) {
         this.off = off;
-        DB.execute("UPDATE COURSE SET OFFER = # WHERE ID = #", off.toString(),id.toString());
+        DB.execute("UPDATE COURSE SET OFFER = # WHERE ID = #", off.toString(), id.toString());
     }
 
     public Category getMainCategory() {
@@ -227,7 +215,7 @@ public class Course {
 
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
-        DB.execute("UPDATE COURSE SET LAST_UPDATE = # WHERE ID = #", ToolKit.JDateToDDate(lastUpdate),id.toString());
+        DB.execute("UPDATE COURSE SET LAST_UPDATE = # WHERE ID = #", ToolKit.JDateToDDate(lastUpdate), id.toString());
     }
 
     public ArrayList<Language> getLanguages() {
@@ -237,7 +225,7 @@ public class Course {
     public void setLanguages(ArrayList<Language> languages) {
         this.languages = languages;
         deleteCourseLanguage();
-        for(Language lang : languages){
+        for (Language lang : languages) {
             Integer id = DB.generateId("COURSE_LANGUAGE");
             DB.execute("INSERT INTO COURSE_LANGUAGE VALUES(#, '#', #)", id.toString(), this.id.toString(), lang.getId().toString());
         }
@@ -258,7 +246,7 @@ public class Course {
 
     public void setDescription(String description) {
         this.description = description;
-        DB.execute("UPDATE COURSE SET DESCRIPTION = '#' WHERE ID = #", description,id.toString());
+        DB.execute("UPDATE COURSE SET DESCRIPTION = '#' WHERE ID = #", description, id.toString());
     }
 
     public Files getCourseImage() {
@@ -267,9 +255,9 @@ public class Course {
 
     public void setCourseImage(Files imageFile) {
         this.imageFile = imageFile;
-        DB.execute("UPDATE COURSE SET COVER_ID = # WHERE ID = #", imageFile.getId().toString(),id.toString());
+        DB.execute("UPDATE COURSE SET COVER_ID = # WHERE ID = #", imageFile.getId().toString(), id.toString());
     }
-    
+
     public Date getPublishDate() {
         return publishDate;
     }
@@ -305,18 +293,77 @@ public class Course {
     public void addProperty(Property property) {
         properties.add(property);
     }
-    
-    public void deleteCourseLanguage(){
+
+    public void deleteCourseLanguage() {
         DB.execute("DELETE FROM COURSE_LANGUAGE WHERE COURSE_ID = #", id.toString());
     }
-    
-    public void delete(){
+
+    public void delete() {
         imageFile.delete();
         deleteCourseLanguage();
-        for(Property property : properties) property.delete();
+        for (Property property : properties) {
+            property.delete();
+        }
 //        ArrayList<Review> reveiws;
 
-        for(Week week : weeks) week.delete();
+        for (Week week : weeks) {
+            week.delete();
+        }
+    }
+
+    public static ArrayList<Course> getApprovedCourses() {
+        ArrayList<Course> apCourses = new ArrayList<Course>();
+        String sql = "SELECT ID FROM COURSE ";
+        ResultSet rs = DB.executeQuery(sql);
+        try {
+            while (rs.next()) {
+                int id = Integer.valueOf(rs.getString("ID"));
+                Integer ID = new Integer(id);
+                apCourses.add(new Course(ID));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("inside course : total course = " + apCourses.size());
+        return apCourses;
+    }
+    
+    public void loadAllData(){
+        weeks = Week.getWeeks(this);
+        reveiws = Review.getList(this);
+    }
+    
+    public Double getCurrentPrice(){
+        return getMainPrice() - getMainPrice()*getOff()/100.0;
+    }
+    
+    public Integer getNumOfRating(){
+        try {
+            ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM RATING WHERE COURSE_ID = #", id.toString());
+            rs.next();
+            Integer value = rs.getInt("COUNT(*)");
+            rs.close();
+            return value;
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public Integer getRatingOf(Student student) {
+        ResultSet rs = DB.executeQuery("SELECT VALUE FROM RATING WHERE COURSE_ID = # AND STUDENT_ID = '#'", id.toString(), student.getUsername());
+        try {
+            if(rs.next()){
+                Integer value = rs.getInt("VALUE");
+                rs.close();
+                return value;
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 
 }

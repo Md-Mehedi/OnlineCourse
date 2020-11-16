@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -46,6 +47,16 @@ public class CurriculumController implements Initializable {
     private PricingController pricingCtrl;
     private boolean newCourse;
     private Course course;
+    @FXML
+    private Label heading;
+    private boolean showFull;
+    private ViewerType viewer;
+    
+    public enum ViewerType{
+        OwnerTeacher,   // Who make this course
+        OwnerStudent,   // Who buy this course
+        Normal;         // Others who don't associate with course
+    };
 
     /**
      * Initializes the controller class.
@@ -53,6 +64,7 @@ public class CurriculumController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         newCourse = true;
+        showFull = true;
         weekBoxControllers = new ArrayList<WeekBoxController>();
         addListener();
         addWeek(null);
@@ -67,11 +79,11 @@ public class CurriculumController implements Initializable {
             loader.<WeekBoxController>getController().setParent(this, container);
             loader.<WeekBoxController>getController().setWeekNumber(weekBoxContainer.getChildren().size() + 1);
             if (week != null) {
-                loader.<WeekBoxController>getController().loadData(week);
+                loader.<WeekBoxController>getController().loadData(course, week, viewer);
             }
-            if(course != null){
-                loader.<WeekBoxController>getController().setCourse(course);
-            }
+//            if(course != null){
+//                loader.<WeekBoxController>getController().setCourse(course);
+//            }
             weekBoxControllers.add(loader.<WeekBoxController>getController());
             weekBoxContainer.getChildren().add(root);
         } catch (IOException ex) {
@@ -159,18 +171,19 @@ public class CurriculumController implements Initializable {
         return true;
     }
 
-    public void loadData(Course course) {
+    public void loadData(Course course, ViewerType viewer) {
         this.course = course;
+        this.viewer = viewer;
+        if(viewer == ViewerType.Normal || viewer == ViewerType.OwnerStudent){
+            heading.setText("");
+            addWeekBtn.setVisible(false);
+        }
+        
         weekBoxContainer.getChildren().clear();
         weekBoxControllers.clear();
 
         for (Week week : course.getWeeks()) {
             addWeek(week);
         }
-    }
-
-    public void createEnvironmentForCourseUpdate(Course course) {
-        this.course = course;
-        newCourse = false;
     }
 }

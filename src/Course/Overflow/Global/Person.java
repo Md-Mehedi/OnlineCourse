@@ -69,6 +69,7 @@ public class Person {
             this.youtubeURL = rs.getString("YOUTUBE_URL");
             this.website = rs.getString("WEBSITE");
             loadLanguages();
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -85,6 +86,7 @@ public class Person {
             if(rs.next()){
                 accountType = AccountType.Admin;
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -116,6 +118,7 @@ public class Person {
             {
                 languages.add(new Language(rs.getInt("LANGUAGE_ID")));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -131,6 +134,7 @@ public class Person {
             if(hp.authenticate(password, found)){
                 return new Person(username);
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -298,6 +302,7 @@ public class Person {
             while(rs.next()){
                 DB.execute("DELETE FROM PERSON_LANGUAGE WHERE ID = #", rs.getString("ID"));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -315,5 +320,13 @@ public class Person {
             return new Image(new File(ToolKit.makeAbsoluteLocation(photo.getContent())).toURI().toString());     
         }
         return null;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+    
+    public String getShortName(){
+        return (firstName.substring(0, 1) + lastName.substring(0, 1)).toUpperCase();
     }
 }

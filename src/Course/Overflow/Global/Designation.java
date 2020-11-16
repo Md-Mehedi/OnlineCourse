@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package Course.Overflow.Global;
 
 import Course.Overflow.DB;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,10 +21,11 @@ public class Designation {
         this.id = id;
         ResultSet rs = DB.executeQuery("SELECT * FROM DESIGNATION WHERE ID = #", id.toString());
         try {
-            if(!rs.next()) return;
+            if(!rs.next()) {rs.close(); return;}
             type = rs.getString("TYPE");
             System.out.println(type);
             adminId = rs.getString("ADMIN_ID");
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Designation.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -39,9 +35,10 @@ public class Designation {
         this.type = type;
         ResultSet rs = DB.executeQuery("SELECT * FROM DESIGNATION WHERE TYPE = '#'", type);
         try {
-            if(!rs.next()) return;
+            if(!rs.next()) {rs.close(); return;}
             id = rs.getInt("ID");
             adminId = rs.getString("ADMIN_ID");
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Designation.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,6 +57,7 @@ public class Designation {
             while(rs.next()){
                 list.add(new Designation(rs.getInt("ID"), rs.getString("TYPE"), rs.getString("ADMIN_ID")));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Designation.class.getName()).log(Level.SEVERE, null, ex);
         }

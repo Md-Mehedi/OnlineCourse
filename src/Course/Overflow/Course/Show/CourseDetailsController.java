@@ -1,26 +1,38 @@
-/*
- * To change this license HEADER, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Course.Overflow.Course.Show;
 
 import Course.Overflow.Course.Contents.ReviewInputBoxController;
+import Course.Overflow.Course.Course;
+import Course.Overflow.Course.CourseRating;
+import Course.Overflow.Course.Property;
+import Course.Overflow.Course.Review;
 import Course.Overflow.Global.Components.CheckoutPageController;
+import Course.Overflow.Global.Customize.Icon;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Language;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController.ViewerType;
+import com.jfoenix.controls.JFXButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.Rating;
 
 /**
  * FXML Controller class
@@ -38,8 +50,6 @@ public class CourseDetailsController implements Initializable {
     @FXML
     private Label instName;
     @FXML
-    private Label instShortDes;
-    @FXML
     private Label instRating;
     @FXML
     private Label instReviews;
@@ -50,7 +60,7 @@ public class CourseDetailsController implements Initializable {
     @FXML
     private Label instDes;
     @FXML
-    private VBox reviewsBox;
+    private VBox reviewContainer;
     @FXML
     private VBox courseLearnBox;
     @FXML
@@ -65,7 +75,6 @@ public class CourseDetailsController implements Initializable {
     private Label numOfStudent;
     @FXML
     private Label topInstName;
-    @FXML
     private Label lastUpdate;
     @FXML
     private Label language;
@@ -73,8 +82,6 @@ public class CourseDetailsController implements Initializable {
     private Label price;
     @FXML
     private Label mainPrice;
-    @FXML
-    private Label off;
     @FXML
     private VBox properties;
 
@@ -86,46 +93,92 @@ public class CourseDetailsController implements Initializable {
     private ReviewInputBoxController reviewInputCtrl;
     private static boolean isReviewInputBoxAdded = false;
     @FXML
-    private Label buyNowButton;
+    private JFXButton buyNowButton;
     private AnchorPane checkoutPane;
     private CheckoutPageController checkoutCtrl;
-    
+    private Course course;
+    private CurriculumController curriculumCtrl;
+    @FXML
+    private ImageView courseimage;
+    @FXML
+    private Label offer;
+    @FXML
+    private Label publish;
+    private ReviewController reviewBoxCtrl;
+    @FXML
+    private Rating ratingStar;
+    @FXML
+    private AnchorPane root;
+    @FXML
+    private Label ratingCount1;
+    @FXML
+    private Label ratingCount2;
+    @FXML
+    private Label ratingCount3;
+    @FXML
+    private Label ratingCount4;
+    @FXML
+    private Label ratingCount5;
+    @FXML
+    private Rating studentRating;
+    @FXML
+    private JFXButton ratingSubmit;
+    @FXML
+    private Rating rating1;
+    @FXML
+    private Rating rating2;
+    @FXML
+    private Rating rating3;
+    @FXML
+    private Rating rating4;
+    @FXML
+    private Rating rating5;
+    private CourseRating submittedRating;
+    @FXML
+    private Label giveRatingLabel;
+    @FXML
+    private Label curRatingValue;
+    @FXML
+    private Rating curRating;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        makeCourseWeek();
-        makeReviewBox();
-        
-        addListener();
-    }    
+        fixupRatings();
+        connectCurriculum();
+        connectReviewInputBox();
+        connectCheckoutBox();
 
-    public void makeCourseWeek(){
+        addListener();
+    }
+
+    private void connectCurriculum() {
         try {
-            courseContent = FXMLLoader.load(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION+"/Curriculum.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/Curriculum.fxml"));
+            courseContent = loader.load();
+            curriculumCtrl = loader.<CurriculumController>getController();
         } catch (IOException ex) {
             Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
         }
         courseContentBox.getChildren().add(courseContent);
     }
 
-    private void makeReviewBox() {
-        for(int i=0;i<5;i++){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_SHOW_LOCATION + "/Review.fxml"));
-            try {
-                //AnchorPane pane = new AnchorPane();
-                AnchorPane pane = loader.load();
-                reviewsBox.getChildren().add(pane);
-            } catch (IOException ex) {
-                Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+    private void connectReviewInputBox() {
         try {
             // Review input box added
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CONTENTS_LOCATION + "/ReviewInputBox.fxml"));
             reviewInputPane = loader.load();
             reviewInputCtrl = loader.<ReviewInputBoxController>getController();
+            reviewInputCtrl.setParent(this);
+        } catch (IOException ex) {
+            Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void connectCheckoutBox(){
+        try {
             // Checkout page added
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/CheckoutPage.fxml"));
             checkoutPane = loader.load();
@@ -133,16 +186,17 @@ public class CourseDetailsController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     private void addListener() {
-        instName.setOnMouseClicked(event->{
+        instName.setOnMouseClicked(event -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
         });
-        instPhoto.setOnMouseClicked(event->{
+        instPhoto.setOnMouseClicked(event -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
         });
-        topInstName.setOnMouseClicked(event->{
+        topInstName.setOnMouseClicked(event -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
         });
         writeReviewBtn.setOnMouseClicked((event) -> {
@@ -151,7 +205,165 @@ public class CourseDetailsController implements Initializable {
         buyNowButton.setOnMouseClicked((event) -> {
             checkoutCtrl.show();
         });
+        ratingSubmit.setOnMouseClicked((event) -> {
+            submittedRating = new CourseRating(course, GLOBAL.STUDENT, studentRating.getRating());
+            refreshData();
+            clearRatingSubmitBtn();
+            reviewInputCtrl.setRating((int)(double)submittedRating.getValue());
+        });
+    }
+    
+    private HBox makeLabelWithIcon(String text, String iconName){
+        Label label = new Label(text);
+        Icon icon = new Icon(FontAwesomeIcon.valueOf(iconName));
+        icon.setSize(25);
+        HBox box = new HBox(icon, label);
+        box.setSpacing(5);
+        return box;
+    }
+
+    private void loadData() {
+        title.setText(course.getTitle());
+        subTitle.setText(course.getSubTitle());
+        topInstName.setText(course.getTeacher().getFullName());
+        publish.setText(ToolKit.makeDateStructured(course.getPublishDate(), "dd MMMMM, yyyy"));
+        
+        ArrayList<Language> languag = course.getLanguages();
+        Set<String> ln = new HashSet<String>();
+        for (Language l : languag) {
+            ln.add(l.getName());
+        }
+        String lang = "";
+        for (String l : ln) {
+            lang += " , " + l;
+        }
+        lang = lang.replaceFirst(" ,", "");
+        this.language.setText(lang);
+        
+        courseimage.setImage(new Image(course.getCourseImage().getContent()));
+        mainPrice.setText(course.getMainPrice().toString());
+        offer.setText(ToolKit.DoubleToString(course.getOff()) + " % off");
+        price.setText(course.getCurrentPrice().toString());
+        for(Property property : course.getProperties()){
+            properties.getChildren().add(makeLabelWithIcon(property.getText(), property.getIcon().getContent()));
+        }
+        for(String outcome : course.getOutcomes()){
+            courseLearnBox.getChildren().add(makeLabelWithIcon(outcome, "CHECK"));
+        }
+        for(String prerequ : course.getPrerequisitive()){
+            requirementBox.getChildren().add(makeLabelWithIcon(prerequ, "CHEVRON_CIRCLE_RIGHT"));
+        }
+        courseDescription.setText(course.getDescription());
+        
+        curriculumCtrl.loadData(course, ViewerType.OwnerStudent);
+        
+        instName.setText(course.getTeacher().getFullName());
+        instPhoto.setImage(course.getTeacher().getImage());
+        instDes.setText(course.getTeacher().getAbout());
+        
+        addRating();
+        
+        if(Review.isReviewed(course, GLOBAL.STUDENT)){
+            removeAddReviewBtn();
+        }
+        ArrayList<Review> reviewList = Review.getList(course);
+        for(Review review : reviewList){
+            addReviewBox(review);
+        }
+        
+        refreshData();
+    }
+    
+    public void refreshData(){
+        ratingStar.setRating(course.getRating());
+        rating.setText("(" + course.getNumOfRating() +" ratings)");
+        numOfStudent.setText(course.getTeacher().getNumOfStudent() + " students");
+        
+        instRating.setText(ToolKit.DoubleToString(course.getTeacher().getRating()));
+        instReviews.setText(course.getTeacher().getNumOfReview().toString() + " reviews");
+        instStudents.setText(course.getTeacher().getNumOfStudent().toString() + " students");
+        instCourses.setText(course.getTeacher().getNumOfCourse().toString() + " courses");
+        
+        ratingCount1.setText(CourseRating.getCount(course, 1).toString() + (CourseRating.getCount(course, 1) > 1 ? " students" : " student"));
+        ratingCount2.setText(CourseRating.getCount(course, 2).toString() + (CourseRating.getCount(course, 2) > 1 ? " students" : " student"));
+        ratingCount3.setText(CourseRating.getCount(course, 3).toString() + (CourseRating.getCount(course, 3) > 1 ? " students" : " student"));
+        ratingCount4.setText(CourseRating.getCount(course, 4).toString() + (CourseRating.getCount(course, 4) > 1 ? " students" : " student"));
+        ratingCount5.setText(CourseRating.getCount(course, 5).toString() + (CourseRating.getCount(course, 5) > 1 ? " students" : " student"));
+        curRating.setRating(course.getRating());
+        curRatingValue.setText("(" + ToolKit.DoubleToString(course.getRating()) + ")");
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+        course.loadAllData();
+        loadData();
+        reviewInputCtrl.setCourse(course);
+        Integer ratingValue = course.getRatingOf(GLOBAL.STUDENT);
+        if(ratingValue != 0){
+            reviewInputCtrl.setRating(ratingValue);
+        };
+    }
+
+    public void addReviewBox(Review review) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_SHOW_LOCATION + "/Review.fxml"));
+        try {
+            AnchorPane pane = loader.load();
+            reviewBoxCtrl = loader.<ReviewController>getController();
+            if(review != null) reviewBoxCtrl.setReveiw(review);
+            reviewContainer.getChildren().add(0, pane);
+        } catch (IOException ex) {
+            Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void fixupRatings() {
+        ratingStar.setOnMouseClicked((event) -> {
+            ratingStar.setRating(course.getRating());
+        });
+        rating1.setOnMouseClicked((event) -> {
+            rating1.setRating(1);
+        });
+        rating2.setOnMouseClicked((event) -> {
+            rating2.setRating(2);
+        });
+        rating3.setOnMouseClicked((event) -> {
+            rating3.setRating(3);
+        });
+        rating4.setOnMouseClicked((event) -> {
+            rating4.setRating(4);
+        });
+        rating5.setOnMouseClicked((event) -> {
+            rating5.setRating(5);
+        });
+        studentRating.setOnMouseClicked((event) -> {
+            if(submittedRating.getValue() != null){
+                studentRating.setRating(submittedRating.getValue());
+            }
+        });
+        curRating.setOnMouseClicked((event) -> {
+            curRating.setRating(course.getRating());
+        });
         
     }
 
+    private void clearRatingSubmitBtn() {
+        VBox box = (VBox) ratingSubmit.getParent();
+        box.getChildren().remove(ratingSubmit);
+        giveRatingLabel.setText("Your rating");
+    }
+
+    public void removeAddReviewBtn() {
+        VBox parent = (VBox) writeReviewBtn.getParent();
+        int idx = parent.getChildren().indexOf(writeReviewBtn);
+        parent.getChildren().remove(writeReviewBtn);
+        parent.getChildren().add(idx, new Label("You have already reviewed this course."));
+    }
+
+    public void addRating() {
+        submittedRating = new CourseRating(course.getId(), GLOBAL.STUDENT);
+        if(submittedRating.getValue() != null){
+            studentRating.setRating(submittedRating.getValue());
+            clearRatingSubmitBtn();
+        }
+    }
 }

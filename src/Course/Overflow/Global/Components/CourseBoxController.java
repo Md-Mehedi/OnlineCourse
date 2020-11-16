@@ -5,12 +5,18 @@
  */
 package Course.Overflow.Global.Components;
 
+import Course.Overflow.Course.Course;
+import Course.Overflow.Course.Show.CourseDetailsController;
+import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Page.CoursePage;
+import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.ToolKit;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -41,6 +47,7 @@ public class CourseBoxController implements Initializable {
     private Label offerPrice;
     @FXML
     private AnchorPane container;
+    private Course course;
     
     
 
@@ -50,18 +57,36 @@ public class CourseBoxController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         rating.setUpdateOnHover(false);
-        rating.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                rating.setRating(Double.parseDouble(ratingValue.getText()));
-            }
+        rating.setOnMouseClicked((MouseEvent event) -> {
+            rating.setRating(Double.parseDouble(ratingValue.getText()));
         });
         container.setOnMouseClicked((event)->{
-            //GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
+            CoursePage page = (CoursePage) GLOBAL.PAGE_CTRL.getPage();
+            CourseDetailsController ctrl = page.getController();
+            ctrl.setCourse(course);
         });
     }    
     
     public void setCourseTitle(String title){
         this.title.setText(title);
+    }
+    
+    private void loadData(){
+        Image img = new Image(course.getCourseImage().getContent());
+        picBox.setImage(img);
+        title.setText(course.getTitle());
+        teacher.setText(course.getTeacher().getFullName());
+        rating.setRating(course.getRating());
+        ratingValue.setText(ToolKit.DoubleToString(course.getRating()));
+        numOfRating.setText("(" + course.getNumOfRating() + ")");
+        mainPrice.setText(course.getMainPrice().toString());
+        Double offPrice = (course.getMainPrice() - course.getMainPrice()*course.getOff()/100);
+        offerPrice.setText(offPrice.toString());
+    }
+
+    void setCourse(Course course) {
+        this.course = course;
+        loadData();
     }
 }

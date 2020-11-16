@@ -26,7 +26,7 @@ public class DB {
             }
             else{
                 System.out.println("USER : SHAMMYA");
-                con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSEOVERFLOW_", "co");
+                con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSE_OVERFLOW", "co");
             }
             st = con.createStatement();
             System.out.println("Connection established");
@@ -67,7 +67,6 @@ public class DB {
             System.out.println(sql);System.out.println("");
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            return rs;
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
             startConnection();
@@ -95,7 +94,9 @@ public class DB {
         ResultSet rs = executeQuery("SELECT NVL(MAX(#), 0)+1 # FROM #", idName, idName, tableName);
         try {
             rs.next();
-            return rs.getInt(idName);
+            Integer IN = new Integer(rs.getInt(idName));
+            rs.close();
+            return IN;
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -111,7 +112,9 @@ public class DB {
         try {
             String sql = "SELECT * FROM # WHERE # = '#' ";
             ResultSet rs = executeQuery(sql, table, column, val);
-            return rs.next();
+            boolean f = rs.next();
+            rs.close();
+            return f;
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
