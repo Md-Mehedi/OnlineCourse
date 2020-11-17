@@ -366,4 +366,21 @@ public class Course {
         return 0;
     }
 
+    public boolean isBoughtBy(Student student) {
+        try {
+            ResultSet rs = DB.executeQuery("SELECT * FROM PURCHASE_HISTORY WHERE COURSE_ID = # AND STUDENT_ID = '#'", id.toString(), student.getUsername());
+            if(rs.next()){
+                rs.close();
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public static ArrayList<Course> coursesOf(Teacher aThis) {
+        return null;
+    }
+
 }

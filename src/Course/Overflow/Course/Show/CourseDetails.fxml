@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
@@ -18,12 +19,12 @@
    <children>
       <VBox layoutX="36.0" layoutY="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox id="TopHBox" prefWidth="1435.0">
+            <HBox id="TopHBox" prefWidth="1435.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox prefWidth="800.0" style="-fx-alignment: top-left;">
+                  <VBox minWidth="800.0" prefWidth="800.0" style="-fx-alignment: top-left;">
                      <children>
                         <Label fx:id="title" styleClass="title1" text="2020 Complete Python Bootcamp: From Zero to Hero in Python" />
-                        <Label fx:id="subTitle" style="-fx-font-weight: none;" styleClass="title5" text="Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!" />
+                        <Label fx:id="subTitle" style="-fx-font-weight: none;" styleClass="title5" text="Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!" />
                         <HBox>
                            <children>
                               <Rating fx:id="ratingStar" partialRating="true" prefHeight="0.0">
@@ -57,17 +58,17 @@
                         <Insets right="60.0" />
                      </padding>
                   </VBox>
-                  <AnchorPane id="TopRightBox">
+                  <VBox id="TopRightBox">
                      <children>
-                        <VBox AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="20.0">
+                        <StackPane>
                            <children>
-                              <StackPane>
-                                 <children>
-                                    <MediaView fitHeight="200.0" fitWidth="200.0" />
-                                    <ImageView fx:id="courseimage" fitHeight="271.0" fitWidth="486.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </StackPane>
-                              <HBox style="-fx-alignment: bottom-left;">
+                              <MediaView fitHeight="200.0" fitWidth="200.0" />
+                              <ImageView fx:id="courseimage" fitHeight="271.0" fitWidth="486.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </StackPane>
+                        <VBox fx:id="buyNowContainer">
+                           <children>
+                              <HBox fx:id="priceContainer" style="-fx-alignment: bottom-left;">
                                  <children>
                                     <Label fx:id="price" styleClass="title3" text="Current Price" />
                                     <Label fx:id="mainPrice" style="-fx-font-size: 22;" styleClass="mainPrice" text="Main Price" />
@@ -81,19 +82,26 @@
                                           <String fx:value="title1" />
                                           <String fx:value="myButton" />
                                        </styleClass>
+                                       <HBox.margin>
+                                          <Insets bottom="15.0" top="15.0" />
+                                       </HBox.margin>
                                     </JFXButton>
                                  </children>
                               </HBox>
-                              <VBox>
-                                 <children>
-                                    <Label styleClass="title4" text="This course included" />
-                                    <VBox fx:id="properties" />
-                                 </children>
-                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="title4" text="This course included" />
+                              <VBox fx:id="properties" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                      </children>
-                  </AnchorPane>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </VBox>
+                  <Region minWidth="30.0" />
                </children>
             </HBox>
             <VBox>
@@ -179,7 +187,7 @@
                               </HBox>
                               <VBox VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Label fx:id="instDes" maxHeight="1000.0" text="  Jose Marcial Portilla has a BS and MS in Mechanical Engineering from Santa Clara University and years of experience as a professional instructor and trainer for Data Science and programming. He has publications and patents in various fields such as microfluidics, materials science, and data science technologies. Over the course of his career he has developed a skill set in analyzing data and he hopes to use his experience in teaching and data science to help other people learn the power of programming the ability to analyze data, as well as present the data in clear and beautiful visualizations. Currently he works as the Head of Data Science for Pierian Data Inc. and provides in-person data science and python programming training courses to employees working at top companies, including General Electric, Cigna, The New York Times, Credit Suisse, McKinsey and many more. Feel free to contact him on LinkedIn for more information on in-person training sessions or group training sessions in Las Vegas, NV." VBox.vgrow="ALWAYS" />
+                                    <Label fx:id="instDes" maxHeight="1000.0" prefHeight="60.0" prefWidth="1339.0" text="  Jose Marcial Portilla has a BS and MS in Mechanical Engineering from Santa Clara University and years of experience as a professional instructor and trainer for Data Science and programming. He has publications and patents in various fields such as microfluidics, materials science, and data science technologies. Over the course of his career he has developed a skill set in analyzing data and he hopes to use his experience in teaching and data science to help other people learn the power of programming the ability to analyze data, as well as present the data in clear and beautiful visualizations. Currently he works as the Head of Data Science for Pierian Data Inc. and provides in-person data science and python programming training courses to employees working at top companies, including General Electric, Cigna, The New York Times, Credit Suisse, McKinsey and many more. Feel free to contact him on LinkedIn for more information on in-person training sessions or group training sessions in Las Vegas, NV." VBox.vgrow="ALWAYS" />
                                  </children>
                               </VBox>
                            </children>
@@ -224,9 +232,13 @@
                                                 <Rating fx:id="curRating" partialRating="true" rating="5.0" styleClass="rating" />
                                              </children>
                                           </HBox>
-                                          <Label fx:id="giveRatingLabel" text="Give a rating" />
-                                          <Rating fx:id="studentRating" rating="5.0" styleClass="rating" />
-                                          <JFXButton fx:id="ratingSubmit" styleClass="myButton" text="Submit" />
+                                          <VBox fx:id="studentRatingContainer" style="-fx-alignment: center; -fx-spacing: 5;">
+                                             <children>
+                                                <Label fx:id="giveRatingLabel" text="Give a rating" />
+                                                <Rating fx:id="studentRating" rating="5.0" styleClass="rating" />
+                                                <JFXButton fx:id="ratingSubmit" styleClass="myButton" text="Submit" />
+                                             </children>
+                                          </VBox>
                                        </children>
                                     </VBox>
                                  </children>

@@ -64,7 +64,7 @@ public class CourseBoxController implements Initializable {
             GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
             CoursePage page = (CoursePage) GLOBAL.PAGE_CTRL.getPage();
             CourseDetailsController ctrl = page.getController();
-            ctrl.setCourse(course);
+            ctrl.loadData(course);
         });
     }    
     

@@ -6,12 +6,14 @@
 
 package Course.Overflow.Teacher;
 
+import Course.Overflow.Course.Course;
 import Course.Overflow.Course.CourseRating;
 import Course.Overflow.DB;
 import Course.Overflow.Global.Designation;
 import Course.Overflow.Global.Person;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -97,5 +99,9 @@ public class Teacher extends Person{
     
     public Double getRating(){
         return CourseRating.getValue(this);
+    }
+
+    ArrayList<Course> getCourses() {
+        return Course.coursesOf(this);
     }
 }

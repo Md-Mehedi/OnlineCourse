@@ -126,7 +126,7 @@ public class CreateCourse extends Page {
         //loadData(new Course(19));
     }
 
-    private boolean isPassedCondition() {
+    public boolean isPassedCondition() {
         return targetStudentCtrl.isPassedCondition()
               && curriculumCtrl.isPassedCondition()
               && detailsController.isPassedCondition()
@@ -139,12 +139,16 @@ public class CreateCourse extends Page {
         targetStudentCtrl.loadDate(course);
 
 //        curriculumCtrl.createEnvironmentForCourseUpdate(course);
-        curriculumCtrl.loadData(course, ViewerType.OwnerTeacher);
+        curriculumCtrl.loadData(course, ViewerType.OwnerTeacherEditor);
 
         detailsController.createEnvironmentForCourseUpdate(course);
         detailsController.loadData(course);
 
         pricingController.createEnvironmentForCourseUpdate();
         pricingController.loadData(course);
+    }
+    
+    public Course getCourse(){
+        return course;
     }
 }

@@ -6,8 +6,10 @@
 package Course.Overflow.Teacher.CreateCourse.Pricing;
 
 import Course.Overflow.Course.Course;
+import Course.Overflow.Course.Show.CourseDetailsController;
 import Course.Overflow.Global.Customize.ToolTip;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.CreateCourse.CourseLandingPage.DetailsController;
 import Course.Overflow.Teacher.CreateCourse.CreateCourse;
@@ -136,11 +138,14 @@ public class PricingController implements Initializable {
 
     private void addListener() {
         uploadBtn.setOnMouseClicked((event) -> {
-            System.out.println("In uploadToDB");
+            if(!parent.isPassedCondition()) return;
             parent.uploadToDB();
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
+            CourseDetailsController ctrl = (CourseDetailsController) GLOBAL.PAGE_CTRL.getController();
+            ctrl.loadData(parent.getCourse());
         });
         cancelBtn.setOnMouseClicked((event) -> {
-            GLOBAL.PAGE_CTRL.loadPage(GLOBAL.PAGE_CTRL.getPreviousPageName());
+            GLOBAL.PAGE_CTRL.loadPreviousPage();
         });
     }
 
@@ -167,8 +172,10 @@ public class PricingController implements Initializable {
         newCourse = false;
         uploadBtn.setText("Update");
         uploadBtn.setOnMouseClicked((event) -> {
-            System.out.println("In uploadToDB");
             parent.updateDB();
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
+            CourseDetailsController ctrl = (CourseDetailsController) GLOBAL.PAGE_CTRL.getController();
+            ctrl.loadData(parent.getCourse());
         });
     }
 }

@@ -236,7 +236,7 @@ public class WeekBoxController implements Initializable {
         this.course = course;
         this.week = week;
         this.viewer = viewer;
-        if(viewer != ViewerType.OwnerTeacher){
+        if(viewer != ViewerType.OwnerTeacherEditor){
             stopEditingFunctionality();
         }
         weekNameLabel.setText(week.getTitle());

@@ -9,6 +9,7 @@ package Course.Overflow.Student;
 import Course.Overflow.Course.Course;
 import Course.Overflow.DB;
 import Course.Overflow.Global.EducationalStatus;
+import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Person;
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,10 +24,20 @@ import java.util.logging.Logger;
 public class Student extends Person{
 
     private EducationalStatus eduStatus;
-    ArrayList<Course> courses;
 
     public ArrayList<Course> getCourses() {
-        return courses;
+        try {
+            ArrayList<Course> courses = new ArrayList();
+            ResultSet rs = DB.executeQuery("SELECT COURSE_ID FROM PURCHASE_HISTORY WHERE STUDENT_ID = '#' ORDER BY TIME DESC", getUsername());
+            while(rs.next()){
+                courses.add(new Course(rs.getInt("COURSE_ID")));
+            }
+            rs.close();
+            return courses;
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }    
 
     public EducationalStatus getEduStatus() {
@@ -59,5 +70,9 @@ public class Student extends Person{
     
     public static boolean exist(String username) {
         return DB.valueExist("STUDENT", "ID", username);
+    }
+
+    public void boughtCourse(Course course) {
+        new PurchaseHistory(course, GLOBAL.STUDENT, course.getCurrentPrice());
     }
 }

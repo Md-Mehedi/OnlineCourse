@@ -341,11 +341,11 @@ public class ProfileSettingController implements Initializable {
                 return;
             }
             setPersonInformations();
-            GLOBAL.PAGE_CTRL.loadPage(GLOBAL.PAGE_CTRL.getPreviousPageName());
+            GLOBAL.PAGE_CTRL.loadPreviousPage();
             clearPassword();
         });
         cancel.setOnMouseClicked(event ->{
-            GLOBAL.PAGE_CTRL.loadPage(GLOBAL.PAGE_CTRL.getPreviousPageName());
+            GLOBAL.PAGE_CTRL.loadPreviousPage();
             clearPassword();
         });
 

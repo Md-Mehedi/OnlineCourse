@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 public class Page {
     AnchorPane root;
     PageName pageName;
+    Object controller;
     
 //    public Page(){
 //    }
@@ -25,6 +26,12 @@ public class Page {
         root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
         //this();
         this.pageName = pageName;
+    }
+    
+    public Page(Page page){
+        this.root = page.root;
+        this.pageName = page.pageName;
+        this.controller = page.controller;
     }
 
     public AnchorPane getRoot() {
@@ -37,5 +44,9 @@ public class Page {
     
     public PageName getPageName(){
         return pageName;
+    }
+
+    public Object getController() {
+        return controller;
     }
 }

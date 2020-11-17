@@ -25,7 +25,7 @@ public class ProfileSettingPage extends Page{
         try {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml"));
             root = loader.load();
-            proSetCtrl = loader.<ProfileSettingController>getController();
+            this.controller = loader.<ProfileSettingController>getController();
 //            if(GLOBAL.PAGE_CTRL.getPreviousPageName() == PageName.Signup){
 //                proSetCtrl.createEnvironmentForSignup();
 //            };

@@ -5,11 +5,13 @@
  */
 package Course.Overflow.Teacher;
 
+import Course.Overflow.Course.Course;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.PageByPageLayoutController;
 import Course.Overflow.Global.Layout.PageByPageLayoutController.BoxType;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,6 +50,7 @@ public class TeacherPreviewController implements Initializable {
     @FXML
     private AnchorPane gridContainer;
     private PageByPageLayoutController gridCtrl;
+    private Teacher teacher;
 
     /**
      * Initializes the controller class.
@@ -66,6 +69,16 @@ public class TeacherPreviewController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(TeacherPreviewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void loadData(Teacher teacher){
+        this.teacher = teacher;
+        name.setText(teacher.getFullName());
+        numOfStudents.setText(teacher.getNumOfStudent().toString());
+        numOfReviews.setText(teacher.getNumOfReview().toString());
+        description.setText(teacher.getAbout());
+        
+        ArrayList<Course> list = teacher.getCourses();
     }
         
     

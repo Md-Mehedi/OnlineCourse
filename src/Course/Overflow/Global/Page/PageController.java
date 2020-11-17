@@ -213,6 +213,14 @@ public class PageController {
         }
         curPage = pageName;
     }
+    
+    public void loadPreviousPage(){
+        if(idx <= 0) loadPage(PageName.Home);
+        else{
+            page = new Page(pages.get(idx-1));
+            loadPage(page);
+        }
+    }
 
     public Object loadFXML(String fxmlName) {
         try {
@@ -229,5 +237,9 @@ public class PageController {
 
     public Page getPage(){
         return page;
+    }
+    
+    public Object getController(){
+        return page.getController();
     }
 }

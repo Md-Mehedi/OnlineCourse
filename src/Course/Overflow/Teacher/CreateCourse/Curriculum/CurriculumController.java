@@ -53,9 +53,11 @@ public class CurriculumController implements Initializable {
     private ViewerType viewer;
     
     public enum ViewerType{
-        OwnerTeacher,   // Who make this course
+        Admin,
+        OwnerTeacherEditor,   // Who make this course
+        OwnerTeacherNormal,
         OwnerStudent,   // Who buy this course
-        Normal;         // Others who don't associate with course
+        NormalStudent, NormalTeacher;         // Others who don't associate with course
     };
 
     /**
@@ -174,7 +176,7 @@ public class CurriculumController implements Initializable {
     public void loadData(Course course, ViewerType viewer) {
         this.course = course;
         this.viewer = viewer;
-        if(viewer == ViewerType.Normal || viewer == ViewerType.OwnerStudent){
+        if(viewer != ViewerType.OwnerTeacherEditor){
             heading.setText("");
             addWeekBtn.setVisible(false);
         }

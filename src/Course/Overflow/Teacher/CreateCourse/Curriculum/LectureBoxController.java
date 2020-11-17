@@ -275,7 +275,7 @@ public class LectureBoxController implements Initializable {
                 this.setCancelVisible(false);
                 articleOutputCtrl.setTitle(title);
                 articleOutputCtrl.setArticle(article);
-                if(viewer != ViewerType.OwnerTeacher){
+                if(viewer != ViewerType.OwnerTeacherEditor){
                     articleOutputCtrl.stopEditingFunctionality();
                 }
                 this.setLectureLoaded(true);
@@ -317,7 +317,7 @@ public class LectureBoxController implements Initializable {
                 videoShowCtrl.setParent(this);
                 videoShowCtrl.setFile(file);
                 videoShowCtrl.setDescription(description);
-                if(viewer != ViewerType.OwnerTeacher){
+                if(viewer != ViewerType.OwnerTeacherEditor){
                     videoShowCtrl.stopEditingFunctionality();
                 }
                 this.getAvailableContentContainer().getChildren().clear();
@@ -361,7 +361,7 @@ public class LectureBoxController implements Initializable {
                 pdfShowCtrl.setParent(this);
                 pdfShowCtrl.setFile(file);
                 pdfShowCtrl.setDescription(description);
-                if(viewer != ViewerType.OwnerTeacher){
+                if(viewer != ViewerType.OwnerTeacherEditor){
                     pdfShowCtrl.stopEditingFunctionality();
                 }
                 this.getAvailableContentContainer().getChildren().clear();
@@ -406,7 +406,7 @@ public class LectureBoxController implements Initializable {
                 linkOutputCtrl.setParent(this);
                 linkOutputCtrl.setLink(link);
                 linkOutputCtrl.setLinkDesc(description);
-                if(viewer != ViewerType.OwnerTeacher){
+                if(viewer != ViewerType.OwnerTeacherEditor){
                     linkOutputCtrl.stopEditingFunctionality();
                 }
                 this.getAvailableContentContainer().getChildren().clear();
@@ -434,7 +434,7 @@ public class LectureBoxController implements Initializable {
         lectureNameLabel.setText(lecture.getTitle());
         freeAvailableCkB.setSelected(lecture.isPreview);
         //System.out.println(lecture.getFile().getType().getType());
-        if(viewer == ViewerType.OwnerTeacher){
+        if(viewer == ViewerType.OwnerTeacherEditor){
             if(lecture.getFile().getType().getType().equals("Article")){
                 addArticleOutputBox(lecture);
             }
@@ -450,7 +450,11 @@ public class LectureBoxController implements Initializable {
         }
         else{
             stopEditingFunctionality();
-            if(viewer == ViewerType.OwnerStudent || (viewer == ViewerType.Normal && lecture.isPreview)){
+            if(viewer == ViewerType.Admin || 
+                  viewer == ViewerType.OwnerStudent || 
+                  viewer == ViewerType.OwnerTeacherNormal ||
+                  (viewer == ViewerType.NormalStudent && lecture.isPreview ||
+                  (viewer == ViewerType.NormalTeacher && lecture.isPreview))){
                 makeIconToShowCourse();
             }
         }

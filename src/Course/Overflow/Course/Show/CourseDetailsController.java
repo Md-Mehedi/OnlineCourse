@@ -11,6 +11,7 @@ import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Language;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Teacher.CreateCourse.CreateCourse;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController.ViewerType;
 import com.jfoenix.controls.JFXButton;
@@ -31,6 +32,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.Rating;
 
@@ -140,6 +142,13 @@ public class CourseDetailsController implements Initializable {
     private Label curRatingValue;
     @FXML
     private Rating curRating;
+    @FXML
+    private VBox buyNowContainer;
+    @FXML
+    private HBox priceContainer;
+    private ViewerType viewer;
+    @FXML
+    private VBox studentRatingContainer;
 
     /**
      * Initializes the controller class.
@@ -183,6 +192,7 @@ public class CourseDetailsController implements Initializable {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/CheckoutPage.fxml"));
             checkoutPane = loader.load();
             checkoutCtrl = loader.<CheckoutPageController>getController();
+            checkoutCtrl.setParent(this);
         } catch (IOException ex) {
             Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -222,15 +232,32 @@ public class CourseDetailsController implements Initializable {
         return box;
     }
 
-    private void loadData() {
+    public void loadData(Course course) {
+        this.course = course;
+        course.loadAllData();
+        
+        defineViewerType();
+        if(viewer == ViewerType.OwnerTeacherNormal){
+            makeBuyNowToUpdateCourse();
+        }
+        else if(viewer == ViewerType.OwnerStudent || viewer == ViewerType.NormalTeacher){
+            removeBuyNowBtn();
+        }
+        if(viewer == ViewerType.NormalStudent){
+            checkoutCtrl.loadData(course);
+        }
+        if(viewer == ViewerType.NormalStudent || viewer == ViewerType.OwnerStudent){
+            reviewInputCtrl.setCourse(course);
+        }
+        
         title.setText(course.getTitle());
         subTitle.setText(course.getSubTitle());
         topInstName.setText(course.getTeacher().getFullName());
         publish.setText(ToolKit.makeDateStructured(course.getPublishDate(), "dd MMMMM, yyyy"));
         
-        ArrayList<Language> languag = course.getLanguages();
+        ArrayList<Language> language = course.getLanguages();
         Set<String> ln = new HashSet<String>();
-        for (Language l : languag) {
+        for (Language l : language) {
             ln.add(l.getName());
         }
         String lang = "";
@@ -255,23 +282,20 @@ public class CourseDetailsController implements Initializable {
         }
         courseDescription.setText(course.getDescription());
         
-        curriculumCtrl.loadData(course, ViewerType.OwnerStudent);
+        refreshCurriculum();
         
         instName.setText(course.getTeacher().getFullName());
         instPhoto.setImage(course.getTeacher().getImage());
         instDes.setText(course.getTeacher().getAbout());
         
         addRating();
-        
-        if(Review.isReviewed(course, GLOBAL.STUDENT)){
-            removeAddReviewBtn();
-        }
-        ArrayList<Review> reviewList = Review.getList(course);
-        for(Review review : reviewList){
-            addReviewBox(review);
-        }
+        addReview();
         
         refreshData();
+    }
+    
+    public void refreshCurriculum(){
+        curriculumCtrl.loadData(course, viewer);
     }
     
     public void refreshData(){
@@ -291,17 +315,6 @@ public class CourseDetailsController implements Initializable {
         ratingCount5.setText(CourseRating.getCount(course, 5).toString() + (CourseRating.getCount(course, 5) > 1 ? " students" : " student"));
         curRating.setRating(course.getRating());
         curRatingValue.setText("(" + ToolKit.DoubleToString(course.getRating()) + ")");
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-        course.loadAllData();
-        loadData();
-        reviewInputCtrl.setCourse(course);
-        Integer ratingValue = course.getRatingOf(GLOBAL.STUDENT);
-        if(ratingValue != 0){
-            reviewInputCtrl.setRating(ratingValue);
-        };
     }
 
     public void addReviewBox(Review review) {
@@ -347,9 +360,11 @@ public class CourseDetailsController implements Initializable {
     }
 
     private void clearRatingSubmitBtn() {
+        if(ratingSubmit == null) return;
         VBox box = (VBox) ratingSubmit.getParent();
         box.getChildren().remove(ratingSubmit);
         giveRatingLabel.setText("Your rating");
+        ratingSubmit = null;
     }
 
     public void removeAddReviewBtn() {
@@ -360,10 +375,76 @@ public class CourseDetailsController implements Initializable {
     }
 
     public void addRating() {
-        submittedRating = new CourseRating(course.getId(), GLOBAL.STUDENT);
-        if(submittedRating.getValue() != null){
-            studentRating.setRating(submittedRating.getValue());
-            clearRatingSubmitBtn();
+        if(viewer == ViewerType.NormalStudent || viewer == ViewerType.OwnerStudent){
+            Integer ratingValue = course.getRatingOf(GLOBAL.STUDENT);
+            if(ratingValue != 0){
+                reviewInputCtrl.setRating(ratingValue);
+            };
+            submittedRating = new CourseRating(course.getId(), GLOBAL.STUDENT);
+            if(submittedRating.getValue() != null){
+                studentRating.setRating(submittedRating.getValue());
+                clearRatingSubmitBtn();
+            }
         }
+        else{
+            Pane pane = (Pane) studentRatingContainer.getParent();
+            pane.getChildren().remove(studentRatingContainer);
+        }
+    }
+    
+    public void removeBuyNowBtn(){
+        Pane pane = (Pane) buyNowContainer.getParent();
+        pane.getChildren().remove(buyNowContainer);
+    }
+    
+    public void makeBuyNowToUpdateCourse(){
+        Pane pane = (Pane) priceContainer.getParent();
+        pane.getChildren().remove(priceContainer);
+        buyNowButton.setText("Update Course");
+        buyNowButton.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(PageName.CreateCourse);
+            CreateCourse cc = (CreateCourse) GLOBAL.PAGE_CTRL.getPage();
+            cc.loadData(course);
+        });
+    }
+
+    private void defineViewerType() {
+        if(GLOBAL.TEACHER != null){
+            if(GLOBAL.TEACHER.getUsername().equals(course.getTeacher().getUsername())){
+                viewer = ViewerType.OwnerTeacherNormal;
+            }
+            else{
+                viewer = ViewerType.NormalTeacher;
+            }
+        }
+        else if(GLOBAL.STUDENT != null){
+            if(course.isBoughtBy(GLOBAL.STUDENT)){
+                viewer = ViewerType.OwnerStudent;
+            }
+            else viewer = ViewerType.NormalStudent;
+        }
+        else viewer = ViewerType.Admin;
+    }
+
+    private void addReview() {
+        if(viewer == ViewerType.OwnerStudent || viewer == ViewerType.NormalStudent){
+            if(Review.isReviewed(course, GLOBAL.STUDENT)){
+                removeAddReviewBtn();
+            }
+        }
+        else{
+            VBox parent = (VBox) writeReviewBtn.getParent();
+            int idx = parent.getChildren().indexOf(writeReviewBtn);
+            parent.getChildren().remove(writeReviewBtn);
+            parent.getChildren().add(idx, new Label("You can not review or rating this course."));
+        }
+        ArrayList<Review> reviewList = Review.getList(course);
+        for(Review review : reviewList){
+            addReviewBox(review);
+        }
+    }
+    
+    public void setViewer(ViewerType viewer){
+        this.viewer = viewer;
     }
 }

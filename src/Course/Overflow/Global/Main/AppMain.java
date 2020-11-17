@@ -10,7 +10,6 @@ import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageController;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
-import Course.Overflow.Student.Student;
 import Course.Overflow.Teacher.CreateCourse.CreateCourse;
 import Course.Overflow.Teacher.Teacher;
 import java.io.IOException;
@@ -82,10 +81,10 @@ public class AppMain extends Application {
     }
 
     private void mehediTestPage() throws IOException {
-//        GLOBAL.TEACHER = new Teacher("MehediHasan");
-//        GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
-        GLOBAL.STUDENT = new Student("mm");
-        GLOBAL.ACCOUNT_TYPE = Person.AccountType.Student;
+        GLOBAL.TEACHER = new Teacher("MehediHasan");
+        GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
+//        GLOBAL.STUDENT = new Student("mm");
+//        GLOBAL.ACCOUNT_TYPE = Person.AccountType.Student;
         
         PageController pageCtrl = new PageController(PageName.Home);
         GLOBAL.PAGE_CTRL = pageCtrl;
