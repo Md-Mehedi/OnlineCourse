@@ -10,7 +10,6 @@ import Course.Overflow.Global.Components.CourseBoxController;
 import Course.Overflow.Global.Components.CourseBoxHorizontalController;
 import Course.Overflow.Global.Components.PersonSmallViewController;
 import Course.Overflow.Global.GLOBAL;
-import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Student.PurchaseHistory;
 import Course.Overflow.Teacher.TeacherPreviewController;
@@ -173,6 +172,9 @@ public class PageByPageLayoutController implements Initializable {
         if (type == BoxViewType.PersonGrid) {
             stopViewChange();
         }
+        if(items.size()<=column){
+            removeHeader();
+        }
     }
 
     public <T> void setUpPage(ArrayList<T> items, BoxViewType type) {
@@ -289,7 +291,7 @@ public class PageByPageLayoutController implements Initializable {
                             ((CourseBoxController) loader.getController()).loadData((Course) items.get(i));
                         }
                         else{
-                            ((PersonSmallViewController) loader.getController()).loadData((Person) items.get(i));
+                            ((PersonSmallViewController) loader.getController()).loadData(((PurchaseHistory)items.get(i)).getStudent());
                         }
                     }
                 } catch (IOException ex) {
@@ -339,5 +341,15 @@ public class PageByPageLayoutController implements Initializable {
     
     public void setPurchasyHistory(Map<Course, PurchaseHistory> mp){
         this.mp = mp;
+    }
+
+    public void attachedWithContainer() {
+        if(container != null){
+            ToolKit.setAnchor(container, 0, 0, 0, 0);
+        }
+    }
+    
+    public void removeHeader(){
+        ToolKit.removeNode(topContainer);
     }
 }

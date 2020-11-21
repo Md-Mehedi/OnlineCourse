@@ -6,6 +6,7 @@
 
 package Course.Overflow.Global.Communication;
 
+import Course.Overflow.Course.Course;
 import Course.Overflow.Course.Show.CourseBoxLittle;
 import Course.Overflow.Global.ToolKit;
 import javafx.scene.control.Label;
@@ -37,8 +38,9 @@ public class FAQ {
     }
 
     private void makeDefaultFAQList() {
+        Course course = new Course(16);
         for(int j=0; j<10; j++){
-            CourseBoxLittle box = new CourseBoxLittle();
+            CourseBoxLittle box = new CourseBoxLittle(course);
             container.getChildren().add(box);
             for(int i=0;i<5;i++){
                 box.addData(getaQA());

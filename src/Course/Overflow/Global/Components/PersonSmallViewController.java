@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -26,6 +27,7 @@ public class PersonSmallViewController implements Initializable {
     private Label name;
     @FXML
     private Label desc;
+    private Person person;
 
     /**
      * Initializes the controller class.
@@ -36,7 +38,10 @@ public class PersonSmallViewController implements Initializable {
     }    
 
     public void loadData(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.person = person;
+        photo.setImage(new Image(person.getPhoto().getContent()));
+        name.setText(person.getFullName());
+        desc.setText(person.getAbout());
     }
     
 }

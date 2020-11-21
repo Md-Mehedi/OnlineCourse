@@ -7,6 +7,7 @@
 package Course.Overflow.Course;
 
 import Course.Overflow.DB;
+import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Student.Student;
 import java.sql.ResultSet;
@@ -27,6 +28,8 @@ public class Review {
     Date date;
     String text;
     CourseRating rating;
+    
+    private Review(){}
 
     public Review(Integer id){
         this.id = id;
@@ -106,6 +109,21 @@ public class Review {
         this.rating = rating;
     }
     
+    public Integer getCourseId(){
+        try {
+            ResultSet rs = DB.executeQuery("SELECT COURSE_ID FROM REVIEW WHERE ID = #", id.toString());
+            if(rs.next()){
+                Integer value = rs.getInt("COURSE_ID");
+                rs.close();
+                return value;
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Review.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     public static boolean isReviewed(Course course, Student student) {
         try {
             ResultSet rs = DB.executeQuery("SELECT * FROM REVIEW WHERE COURSE_ID = # AND STUDENT_ID = '#'", course.getId().toString(), student.getUsername());
@@ -118,5 +136,31 @@ public class Review {
             Logger.getLogger(Review.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    
+    public static ArrayList<ArrayList<Review>> getReviewsForTeacherView(){
+        ArrayList<ArrayList<Review>> lists = new ArrayList();
+        try {
+            ResultSet rsCourse = DB.executeQuery("SELECT COURSE_ID FROM REVIEW WHERE COURSE_ID = ANY (SELECT ID FROM COURSE WHERE TEACHER_ID = '#') GROUP BY COURSE_ID ORDER BY MAX(TIME) DESC", GLOBAL.TEACHER.getUsername());
+            while(rsCourse.next()){
+                ArrayList list = new ArrayList();
+                ResultSet rsReview = DB.executeQuery("SELECT * FROM REVIEW WHERE COURSE_ID = # ORDER BY TIME DESC", rsCourse.getString("COURSE_ID"));
+                while(rsReview.next()){
+                    Review r = new Review();
+                    r.setId(rsReview.getInt("ID"));
+                    r.setStudent(new Student(rsReview.getString("STUDENT_ID")));
+                    r.setDate(rsReview.getTimestamp("TIME"));
+                    r.setText(rsReview.getString("TEXT"));
+                    r.setRating(new CourseRating(rsReview.getInt("COURSE_ID"), r.getStudent()));
+                    list.add(r);
+                }
+                rsReview.close();
+                lists.add(list);
+            }
+            rsCourse.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Review.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lists;
     }
 }

@@ -39,6 +39,7 @@ public class CommunicationPage extends Page{
     private EnrolledStudentsView studentCtrl;
     private AnchorPane enrolledStudentPane;
     private PageName pageName;
+    private ReviewPage reviewsCtrl;
         
     public CommunicationPage(PageName pageName){
         super(pageName);
@@ -52,7 +53,7 @@ public class CommunicationPage extends Page{
         addStudentPage();
         addMessengerPage();
         addFAQPage();
-//        addReviews();
+        addReviews();
         addAnouncement();
         
         this.pageName = pageName;
@@ -87,11 +88,11 @@ public class CommunicationPage extends Page{
         slidingPaneCtrl.addContent(faqPane, SVG.FAQ, PageName.FAQ);
     }
 
-//    private void addReviews() {
-//        reviewsCtrl = new Reviews();
-//        reviewsPane = reviewsCtrl.getRoot();
-//        slidingPaneCtrl.addContent(reviewsPane, SVG.REVIEW, PageName.Review);
-//    }
+    private void addReviews() {
+        reviewsCtrl = new ReviewPage();
+        reviewsPane = reviewsCtrl.getRoot();
+        slidingPaneCtrl.addContent(reviewsPane, SVG.REVIEW, PageName.Review);
+    }
 
     private void addAnouncement() {
         anouncementCtrl = new Anouncement();

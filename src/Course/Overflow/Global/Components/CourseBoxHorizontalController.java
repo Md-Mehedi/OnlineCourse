@@ -79,7 +79,7 @@ public class CourseBoxHorizontalController implements Initializable {
         label2.setStyle("-fx-font-weight: bold;");
         
         VBox box = new VBox(label1, label2);
-        box.setStyle("-fx-alignment: center-left;");
+        box.setStyle("-fx-alignment: center;");
         box.setMinWidth(90);
         
         hContainer.getChildren().remove(2);
@@ -91,7 +91,7 @@ public class CourseBoxHorizontalController implements Initializable {
         label2.setStyle("-fx-font-weight: bold;");
         
         box = new VBox(label1, label2, label3);
-        box.setStyle("-fx-alignment: center-left;");
+        box.setStyle("-fx-alignment: center;");
         box.setMinWidth(190);
         
         hContainer.getChildren().add(box);

@@ -391,7 +391,7 @@ public class ToolKit {
     
     public static String makeDateStructured(Date date, String structure){
         DateFormat dateFormat = new SimpleDateFormat(structure);  
-        String strDate = dateFormat.format(date);  
+        String strDate = dateFormat.format(date).toString();  
         return strDate;
     }
     

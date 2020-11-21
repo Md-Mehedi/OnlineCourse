@@ -329,7 +329,7 @@ public class CourseDetailsController implements Initializable {
         try {
             AnchorPane pane = loader.load();
             reviewBoxCtrl = loader.<ReviewController>getController();
-            if(review != null) reviewBoxCtrl.setReveiw(review);
+            if(review != null) reviewBoxCtrl.loadData(review);
             reviewContainer.getChildren().add(0, pane);
         } catch (IOException ex) {
             Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);

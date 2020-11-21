@@ -101,9 +101,11 @@ public class CheckoutPageController extends FloatingPane implements Initializabl
         if(this.course != course){
             this.course = course;
             Student student = GLOBAL.STUDENT;
-            cardNameField.setText(student.getCard().getNameOnCard());
-            cardNumberField.setText(student.getCard().getCardNo());
-            expireField.setValue(ToolKit.DateToLocalDate(student.getCard().getExpireDate()));
+            if(student.getCard() != null){
+                cardNameField.setText(student.getCard().getNameOnCard());
+                cardNumberField.setText(student.getCard().getCardNo());
+                expireField.setValue(ToolKit.DateToLocalDate(student.getCard().getExpireDate()));
+            }
             coursePhoto.setImage(new Image(course.getCourseImage().getContent()));
             courseName.setText(course.getTitle());
             originalPriceBottom.setText(course.getMainPrice().toString());

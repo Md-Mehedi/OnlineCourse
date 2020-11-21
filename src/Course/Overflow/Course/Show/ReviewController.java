@@ -58,12 +58,12 @@ public class ReviewController implements Initializable {
         container.setMaxWidth(value);
     }
 
-    void setReveiw(Review review) {
+    public void loadData(Review review) {
         this.reviewValue = review;
         name.setText(review.getStudent().getFullName());
         this.review.setText(review.getText());
         this.ratingBox.setRating(review.getRating().getValue());
-        date.setText(ToolKit.makeDateStructured(review.getDate(), "hh:mm dd-MMMMM, yyyy"));
+        date.setText(ToolKit.makeDateStructured(review.getDate(), "hh:mm aa - dd MMMMM, yyyy"));
         setPic(review.getStudent().getImage());
         setPicName(review.getStudent().getShortName());
     }

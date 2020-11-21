@@ -1,0 +1,63 @@
+
+package Course.Overflow.Global.Page;
+
+import Course.Overflow.Course.Course;
+import Course.Overflow.Course.Review;
+import Course.Overflow.Course.Show.CourseBoxLittle;
+import Course.Overflow.Course.Show.ReviewController;
+import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.ToolKit;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+
+
+/**
+ *
+ * @author Md Mehedi Hasan
+ */
+public class ReviewPage{
+    private AnchorPane root;
+    private VBox container;
+    
+    public ReviewPage(){
+        container = new VBox();
+        root = new AnchorPane(container);
+        ToolKit.setAnchor(container, 0, 0, 0, 0);
+        
+        makeSomeDefaultReview();
+        
+    }
+    
+    public AnchorPane getReviewBox(Review review){
+        AnchorPane pane = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_SHOW_LOCATION + "/Review.fxml"));
+            pane = loader.load();
+            ReviewController ctrl = loader.<ReviewController>getController();
+            ctrl.setPrefWidth(1000);
+            ctrl.loadData(review);
+        } catch (IOException ex) {
+            Logger.getLogger(ReviewPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pane;
+    }
+    private void makeSomeDefaultReview() {
+        ArrayList<ArrayList<Review>> lists = Review.getReviewsForTeacherView();
+        for(int j=0; j<lists.size(); j++){
+            CourseBoxLittle box = new CourseBoxLittle(new Course(lists.get(j).get(0).getCourseId()));
+            container.getChildren().add(box);
+            for(int i=0;i<lists.get(j).size();i++){
+                box.addData(getReviewBox(lists.get(j).get(i)));
+            }
+        }
+    }
+    
+    public AnchorPane getRoot(){
+        return root;
+    }
+}
