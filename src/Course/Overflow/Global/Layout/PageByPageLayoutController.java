@@ -5,20 +5,25 @@
  */
 package Course.Overflow.Global.Layout;
 
+import Course.Overflow.Course.Course;
 import Course.Overflow.Global.Components.CourseBoxController;
 import Course.Overflow.Global.Components.CourseBoxHorizontalController;
 import Course.Overflow.Global.Components.PersonSmallViewController;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Student.PurchaseHistory;
 import Course.Overflow.Teacher.TeacherPreviewController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -31,6 +36,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -42,7 +49,6 @@ import javafx.util.Duration;
 public class PageByPageLayoutController implements Initializable {
 
     private FXMLLoader loader;
-    int total;
     int column;
     int totalItem1page;
     int totalPageNums;
@@ -64,11 +70,11 @@ public class PageByPageLayoutController implements Initializable {
     @FXML
     private Label itemsNumDetails;
     @FXML
-    private AnchorPane gridContainer;
-    
+    private AnchorPane itemContainer;
+
     private VBox vItemContainer;
-    private ArrayList<CourseBoxHorizontalController> itemHCtrls;
-    private ArrayList<?> itemBCtrl;
+    private ArrayList<?> itemCtrl;
+    private ArrayList<?> items;
     @FXML
     private FontAwesomeIconView listIcon;
     @FXML
@@ -79,43 +85,42 @@ public class PageByPageLayoutController implements Initializable {
     private HBox topContainer;
     private ChangeListener listener;
     private String fxmlName;
+    private ArrayList<Course> courses;
+    private Map<Course, PurchaseHistory> mp;
 
 
     /**
      * Initializes the controller class.
      */
     /*
-     * For make different type view - 
-     * 1. add a value in BoxType with the fxml name
-     * 2. add ArrayList<> initialization in setUpPage
+     * For make different type view - 1. add a value in BoxViewType with the fxml name 2. add
+     * ArrayList<> initialization in setUpPage
      */
-    public enum BoxType{
-        CourseVertical(GLOBAL.COMPONENTS_LOCATION + "/CourseBoxHorizontal.fxml"),
-        CourseGrid(GLOBAL.COMPONENTS_LOCATION + "/CourseBox.fxml"),
+    public enum BoxViewType {
+        ListView(GLOBAL.COMPONENTS_LOCATION + "/CourseBoxHorizontal.fxml"),
+        GridView(GLOBAL.COMPONENTS_LOCATION + "/CourseBox.fxml"),
         PersonGrid(GLOBAL.COMPONENTS_LOCATION + "/PersonSmallView.fxml");
         public String fxmlName;
-        BoxType(String s){
+
+        BoxViewType(String s) {
             this.fxmlName = s;
         }
     }
-    BoxType type;
-    
+    BoxViewType type;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        total = 43;
-        totalItem1page = 12;
-        column = 4;
         currentPage = 0;
-        offset = 45;
-        
-        itemHCtrls = new ArrayList<>();
         vItemContainer = new VBox();
+        column = 4;
+        offset = 20;
+
+        // if the item of the list is changed 
         listener = new ChangeListener<Number>() {
-            // if the item of the list is changed 
             public void changed(ObservableValue ov, Number value, Number new_value) {
-                if(new_value.intValue() != -1)
+                if (new_value.intValue() != -1) {
                     totalItem1page = (int) Math.ceil(Integer.parseInt(numOfItemList.get(new_value.intValue())));
-                else {
+                } else {
                     totalItem1page = Integer.parseInt(numOfItemList.get(1));
                 }
                 makePageNumbers();
@@ -124,78 +129,79 @@ public class PageByPageLayoutController implements Initializable {
             }
         };
         numOfItemChoiceBox.getSelectionModel().selectedIndexProperty().addListener(listener);
-    
-        
+    }
+
+    public <T> void setUpPage(ArrayList<T> items, BoxViewType type, int column, int offset) {
+        this.type = type;
+        this.items = items;
+        this.column = column;
+        this.offset = offset;
+
+        if (type == BoxViewType.GridView) {
+            itemCtrl = new ArrayList<CourseBoxController>();
+        } else if (type == BoxViewType.PersonGrid) {
+            itemCtrl = new ArrayList<PersonSmallViewController>();
+        } else if (type == BoxViewType.ListView) {
+            itemCtrl = new ArrayList<CourseBoxHorizontalController>();
+        }
+
+        updateIconOpacity();
+
+        itemContainer.getChildren().clear();
+        if (type == BoxViewType.ListView) {
+            itemContainer.getChildren().add(vItemContainer);
+            ToolKit.setAnchor(vItemContainer, 0, 0, 0, 0);
+        } else {
+            itemContainer.getChildren().add(grid);
+        }
+        readyNumOfItemList();
+        makePageNumbers();
+        loadPage(1);
+        estimateContainerWidth();
         listIcon.setOnMouseClicked((event) -> {
-            if(listIcon.getOpacity()!=1){
+            if (listIcon.getOpacity() != 1) {
                 currentPage = 0;
-                setUpPage(BoxType.CourseVertical, total);
+                setUpPage(items, BoxViewType.ListView);
             }
         });
         gridIcon.setOnMouseClicked((event) -> {
-            if(gridIcon.getOpacity()!=1){
+            if (gridIcon.getOpacity() != 1) {
                 currentPage = 0;
-                setUpPage(BoxType.CourseGrid, total, column, offset);
+                setUpPage(items, BoxViewType.GridView, column, offset);
             }
         });
-    }
-    
-    public void setUpPage(BoxType type, int totalCourse, int column, int offset){
-        this.type = type;
-        if(type == BoxType.CourseGrid) itemBCtrl = new ArrayList<CourseBoxController>();
-        else if(type==BoxType.PersonGrid) itemBCtrl = new ArrayList<PersonSmallViewController>();
-        
-        gridIcon.setOpacity(1);
-        listIcon.setOpacity(0.2);
-        this.total = totalCourse;
-        this.column = column;
-        this.offset = offset;
-        if(!gridContainer.getChildren().contains(grid)){
-            gridContainer.getChildren().remove(vItemContainer);
-            gridContainer.getChildren().add(grid);
+        if (type == BoxViewType.PersonGrid) {
+            stopViewChange();
         }
-        readyNumOfItemList();
-        makePageNumbers();
-        loadPage(1);
-        if(type == BoxType.PersonGrid) stopViewChange();
     }
-    
-    public void setUpPage(BoxType type, int totalCourse){
-        this.type = type;
-        gridIcon.setOpacity(0.1);
-        listIcon.setOpacity(1);
-        this.total = totalCourse;
-        if(!gridContainer.getChildren().contains(vItemContainer)){
-            gridContainer.getChildren().remove(grid);
-            gridContainer.getChildren().add(vItemContainer);
-            ToolKit.setAnchor(vItemContainer, 0, 0, 0, 0);
-        }
-        
-        readyNumOfItemList();
-        makePageNumbers();
-        loadPage(1);
+
+    public <T> void setUpPage(ArrayList<T> items, BoxViewType type) {
+        setUpPage(items, type, column, offset);
+    }
+
+    public <T> void setUpPage(ArrayList<T> items, BoxViewType type, int column) {
+        setUpPage(items, type, column, 20);
     }
 
     @SuppressWarnings("unchecked")
     private void readyNumOfItemList() {
         numOfItemList = FXCollections.observableArrayList();
-        if(type == BoxType.CourseVertical){
+        if (type == BoxViewType.ListView) {
             numOfItemList.addAll("5", "10", "15", "20", "25", "30");
-        }
-        else{
-            numOfItemList.addAll("4", "6", "8", "12", "16", "20", "30", "40");
+        } else {
+            numOfItemList.add(String.valueOf(column));
+            for(int i=1; i<=6; i++){
+                numOfItemList.add(String.valueOf(2*i*column));
+            }
         }
         numOfItemChoiceBox.setItems(numOfItemList);
         numOfItemChoiceBox.setValue(numOfItemList.get(1));
         totalItem1page = Integer.parseInt(numOfItemList.get(1));
-        
-        
-
     }
-    
+
     private void makePageNumbers() {
         pageNumContainer.getChildren().clear();
-        totalPageNums = (int) Math.ceil(1.0 * total / totalItem1page);
+        totalPageNums = (int) Math.ceil(1.0 * items.size() / totalItem1page);
         for (int i = 1; i <= totalPageNums; i++) {
             Label label = new Label(i + "");
             pageNumContainer.getChildren().add(label);
@@ -219,84 +225,119 @@ public class PageByPageLayoutController implements Initializable {
                 }
             });
         }
-        if(pageNumContainer.getChildren().size()==1) pageNumContainer.setVisible(false);
-        else pageNumContainer.setVisible(true);
+        if (pageNumContainer.getChildren().size() == 1) {
+            pageNumContainer.setVisible(false);
+        } else {
+            pageNumContainer.setVisible(true);
+        }
     }
 
     private void loadPage(int pageNum) {
         if (pageNum != currentPage) {
+
+            // Applying CSS to selected page
             if (currentPage != 0) {
                 pageNumContainer.getChildren().get(currentPage - 1).setId("");
             }
             currentPage = pageNum;
             pageNumContainer.getChildren().get(currentPage - 1).setId("selectedPage");
 
-            if(totalItem1page*(pageNum-1)+1 != Math.min(totalItem1page*pageNum, total)){
-                itemsNumDetails.setText("Showing (" +
-                      (totalItem1page * (pageNum - 1)+1) +
-                      " to " +
-                      (Math.min(totalItem1page * pageNum, total)) +
-                      ") of " +
-                      total +
-                      " itmes");
-            } 
-            else{
-                itemsNumDetails.setText("Showing " 
-                      + (totalItem1page*(pageNum-1)+1) 
-                      + " of " 
-                      + (totalItem1page*(pageNum-1)+1) 
-                      + (totalItem1page*(pageNum-1)+1==1 ? " item" : " items"));
+            // Set which items are showing
+            if (totalItem1page * (pageNum - 1) + 1 != Math.min(totalItem1page * pageNum, items.size())) {
+                itemsNumDetails.setText("Showing ("
+                      + (totalItem1page * (pageNum - 1) + 1)
+                      + " to "
+                      + (Math.min(totalItem1page * pageNum, items.size()))
+                      + ") of "
+                      + items.size()
+                      + " itmes");
+            } else {
+                itemsNumDetails.setText("Showing "
+                      + (totalItem1page * (pageNum - 1) + 1)
+                      + " of "
+                      + (totalItem1page * (pageNum - 1) + 1)
+                      + (totalItem1page * (pageNum - 1) + 1 == 1 ? " item" : " items"));
             }
-            
+
             // Starting Filling with Course Box
             String fxmlName = type.fxmlName;
-            if(type == BoxType.CourseVertical){
+            if (type == BoxViewType.ListView) {
                 vItemContainer.getChildren().clear();
-            }
-            else{
+            } else {
                 grid.getChildren().clear();
                 grid.setVgap(offset);
                 grid.setHgap(offset);
             }
 
-            for (int i = totalItem1page * (pageNum - 1); i < Math.min(totalItem1page * pageNum, total); i++) {
+            for (int i = totalItem1page * (pageNum - 1); i < Math.min(totalItem1page * pageNum, items.size()); i++) {
                 try {
                     loader = new FXMLLoader(getClass().getResource(fxmlName));
                     AnchorPane pane = loader.load();
-                    if(type == BoxType.CourseVertical){
+                    if (type == BoxViewType.ListView) {
                         vItemContainer.getChildren().add(pane);
-                        itemHCtrls.add(loader.getController());
-                    }
-                    else{
+                        VBox.setVgrow(pane, Priority.ALWAYS);
+                        CourseBoxHorizontalController ctrl = loader.getController();
+                        itemCtrl.add(loader.getController());
+                        ctrl.loadData((Course) items.get(i));
+                        if(mp != null){
+                            ctrl.addPriceAndPurchaseDateColumn(mp.get(items.get(i)));
+                        }
+                    } else {
                         grid.add(pane, (i - totalItem1page * (pageNum - 1)) % column, (i - totalItem1page * (pageNum - 1)) / column);
-                        itemBCtrl.add(loader.getController());
+                        itemCtrl.add(loader.getController());
+                        if(type == BoxViewType.GridView){
+                            ((CourseBoxController) loader.getController()).loadData((Course) items.get(i));
+                        }
+                        else{
+                            ((PersonSmallViewController) loader.getController()).loadData((Person) items.get(i));
+                        }
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(TeacherPreviewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            if(type != BoxType.CourseVertical){
-                int n = grid.getChildren().size();
-                if(n<column){
-                    grid.setPrefWidth(n*250 + (n-1)*offset);
-                }
-                else{
-                    grid.setPrefWidth(column*250 + (column-1)*offset);
-                }
+            if (type != BoxViewType.ListView) {
+                Platform.runLater(()->{
+                    Double width = ((Pane)grid.getChildren().get(0)).getPrefWidth();
+                    int n = grid.getChildren().size();
+                    ToolKit.print(n);
+                    ToolKit.print(width);
+                    if (n < column) {
+                        grid.setPrefWidth(n * width + (n - 1) * offset);
+                    } else {
+                        grid.setPrefWidth(column * 250 + (column - 1) * offset);
+                    }
+                });
             }
         }
     }
-    
-    public void addPurchaseDateColumn() {
-        stopViewChange();
-        if(type == BoxType.CourseVertical){
-            for(CourseBoxHorizontalController ctrl : itemHCtrls){
-                ctrl.addPriceAndPurchaseDateColumn();
-            }
-        }
-    }
-    
-    public void stopViewChange(){
+
+    public void stopViewChange() {
         topContainer.getChildren().remove(viewChangerContainer);
+    }
+
+    private void updateIconOpacity() {
+        if (type == BoxViewType.GridView) {
+            gridIcon.setOpacity(1);
+            listIcon.setOpacity(0.2);
+        } else if (type == BoxViewType.ListView) {
+            gridIcon.setOpacity(0.2);
+            listIcon.setOpacity(1);
+        }
+    }
+    
+    private void estimateContainerWidth() {
+        Platform.runLater(()->{
+            Double width = 250.0;
+            if (type != BoxViewType.ListView) {
+                width = ((Pane)grid.getChildren().get(0)).getPrefWidth();
+            }
+            container.setPrefWidth(column*width + (column-1)*offset);
+            container.setMaxWidth(column*width + (column-1)*offset);
+        });
+    }
+    
+    public void setPurchasyHistory(Map<Course, PurchaseHistory> mp){
+        this.mp = mp;
     }
 }

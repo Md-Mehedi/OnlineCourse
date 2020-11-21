@@ -13,9 +13,9 @@ public enum PageName {
       Home
     , Course
     , TeacherDetails
-    , MyCourse
-    , Wishlist
-    , PurchaseHistory
+    , MyCourse("My Course")
+    , Wishlist("Wishlist")
+    , PurchaseHistory("Purchase History")
     , SearchResult
     , Messenger("Messenger")
     , FAQ("FAQ")
@@ -43,6 +43,9 @@ public enum PageName {
     }
     private PageName() {
         name = "";
+    }
+    public String getName(){
+        return name;
     }
     
 }

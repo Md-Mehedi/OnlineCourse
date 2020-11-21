@@ -5,49 +5,97 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.Rating?>
 
 <AnchorPane id="AnchorPane" styleClass="fullWidth" stylesheets="@../Global/Global.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Teacher.TeacherPreviewController">
    <children>
       <HBox style="-fx-alignment: top-left; -fx-spacing: 40;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="20.0">
          <children>
-            <VBox style="-fx-alignment: top-left; -fx-spacing: 30;">
+            <VBox style="-fx-alignment: top-left; -fx-spacing: 30;" HBox.hgrow="NEVER">
                <children>
                   <VBox style="-fx-alignment: top-left; -fx-spacing: 0;">
                      <children>
-                        <Label fx:id="name" styleClass="title1" text="Name" />
-                        <Label fx:id="shortDetails" style="-fx-font-size: 22;" styleClass="title5" text="Short details" />
+                        <HBox>
+                           <children>
+                              <Label fx:id="name" styleClass="title1" text="Name" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
-                  <HBox style="-fx-alignment: top-left;">
+                  <HBox style="-fx-alignment: center; -fx-spacing: 100;">
                      <children>
-                        <VBox style="-fx-alignment: top-left;">
+                        <VBox style="-fx-alignment: center;">
                            <children>
-                              <Label style="-fx-font-weight: bold;" text="Total students" />
                               <Label fx:id="numOfStudents" style="-fx-font-weight: bold; -fx-font-size: 25;" styleClass="title5" text="1093608" />
+                              <Label style="-fx-font-weight: bold;" text="Students" />
                            </children>
                         </VBox>
-                        <VBox style="-fx-alignment: top-left;">
+                        <VBox style="-fx-alignment: center;">
                            <children>
-                              <Label style="-fx-font-weight: bold;" text="Reviews" />
                               <Label fx:id="numOfReviews" style="-fx-font-weight: bold; -fx-font-size: 25;" text="7284" />
+                              <Label style="-fx-font-weight: bold;" text="Reviews" />
+                           </children>
+                        </VBox>
+                        <VBox style="-fx-alignment: center;">
+                           <children>
+                              <Label fx:id="numOfRating" style="-fx-font-weight: bold; -fx-font-size: 25;" text="7284" />
+                              <Rating fx:id="rating" partialRating="true" />
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-                  <VBox style="-fx-alignment: top-left; -fx-spacing: 0;">
+                  <VBox style="-fx-alignment: top-left; -fx-spacing: 0;" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label style="-fx-font-weight: bold;" text="About me" />
+                        <Label style="-fx-font-weight: bold;" text="About" />
                         <Label fx:id="description" prefWidth="800.0" text="jlfjsadlkfj alkfj lasjfla fj fljf ljaf aljf lkwjrl jaljf iwoejowjfoiqw ojqowir owjr coiwjr wjco wfoijsvnuv owij roweij rjlfjsadlkfj alkfj lasjfla fj fljf ljaf aljf lkwjrl jaljf iwoejowjfoiqw ojqowir owjr coiwjr wjco wfoijsvnuv owij roweij rjlfjsadlkfj alkfj lasjfla fj fljf ljaf aljf lkwjrl jaljf iwoejowjfoiqw ojqowir owjr coiwjr wjco wfoijsvnuv owij roweij rjlfjsadlkfj alkfj lasjfla fj fljf ljaf aljf lkwjrl jaljf iwoejowjfoiqw ojqowir owjr coiwjr wjco wfoijsvnuv owij roweij rjlfjsadlkfj alkfj lasjfla fj fljf ljaf aljf lkwjrl jaljf iwoejowjfoiqw ojqowir owjr coiwjr wjco wfoijsvnuv owij roweij rjlfjsadlkfj alkfj lasjfla fj fljf ljaf aljf lkwjrl jaljf iwoejowjfoiqw ojqowir owjr coiwjr wjco wfoijsvnuv owij roweij rjlfjsadlkfj alkfj lasjfla fj fljf ljaf aljf lkwjrl jaljf iwoejowjfoiqw ojqowir owjr coiwjr wjco wfoijsvnuv owij roweij rjlfjsadlkfj alkfj lasjfla fj fljf ljaf aljf lkwjrl jaljf iwoejowjfoiqw ojqowir owjr coiwjr wjco wfoijsvnuv owij roweij rjlfjsadlkfj alkfj lasjfla fj fljf ljaf aljf lkwjrl jaljf iwoejowjfoiqw ojqowir owjr coiwjr wjco wfoijsvnuv owij roweij rjlfjsadlkfj alkfj lasjfla fj fljf ljaf aljf lkwjrl jaljf iwoejowjfoiqw ojqowir owjr coiwjr wjco wfoijsvnuv owij roweij rjlfjsadlkfj alkfj lasjfla fj fljf ljaf aljf lkwjrl jaljf iwoejowjfoiqw ojqowir owjr coiwjr wjco wfoijsvnuv owij roweij rjlfjsadlkfj alkfj lasjfla fj fljf ljaf aljf lkwjrl jaljf iwoejowjfoiqw ojqowir owjr coiwjr wjco wfoijsvnuv owij roweij r" />
                      </children>
                   </VBox>
                   <Label style="-fx-font-weight: bold;" text="My courses" />
-                  <AnchorPane fx:id="gridContainer" />
+                  <AnchorPane fx:id="gridContainer" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-alignment: top-left;">
                <children>
-                  <ImageView fx:id="photo" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
-                  <VBox id="linkBox" fx:id="linkBox" />
+                  <ImageView fx:id="photo" fitHeight="295.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+                  <VBox id="linkBox" fx:id="linkBox" style="-fx-spacing: 30;">
+                     <children>
+                        <VBox style="-fx-alignment: center-left; -fx-spacing: 5;">
+                           <children>
+                              <Label styleClass="bold" text="Institution" />
+                              <Label fx:id="instituition" text="Website:" />
+                           </children>
+                        </VBox>
+                        <VBox style="-fx-alignment: center-left; -fx-spacing: 5;">
+                           <children>
+                              <Label styleClass="bold" text="E-mail" />
+                              <Label fx:id="email" text="Website:" />
+                           </children>
+                        </VBox>
+                        <VBox style="-fx-alignment: center-left; -fx-spacing: 5;">
+                           <children>
+                              <Label styleClass="bold" text="Facebook" />
+                              <Label fx:id="fbURL" text="Website:" />
+                           </children>
+                        </VBox>
+                        <VBox style="-fx-alignment: center-left; -fx-spacing: 5;">
+                           <children>
+                              <Label styleClass="bold" text="Website:" />
+                              <Label fx:id="website" text="Website:" />
+                           </children>
+                        </VBox>
+                        <VBox style="-fx-alignment: center-left; -fx-spacing: 5;">
+                           <children>
+                              <Label styleClass="bold" text="Youtube" />
+                              <Label fx:id="youtubeURL" text="Website:" />
+                           </children>
+                        </VBox>
+                        <VBox style="-fx-alignment: center-left; -fx-spacing: 5;">
+                           <children>
+                              <Label styleClass="bold" text="LinkedIn" />
+                              <Label fx:id="linkedInURL" text="Website:" />
+                           </children>
+                        </VBox>
+                     </children></VBox>
                </children>
             </VBox>
          </children>

@@ -143,7 +143,7 @@ public class CarouselController implements Initializable {
                 pane = loader.load();
                 CourseBoxController ctrl = loader.<CourseBoxController>getController();
 //                ctrl.setCourseTitle("" + (i + 1));
-                ctrl.setCourse(course);
+                ctrl.loadData(course);
                 courseBoxContainer.getChildren().add(pane);
             }
         } catch (IOException ex) {

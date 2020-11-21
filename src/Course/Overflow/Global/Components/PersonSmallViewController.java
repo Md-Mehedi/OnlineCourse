@@ -5,6 +5,7 @@
  */
 package Course.Overflow.Global.Components;
 
+import Course.Overflow.Global.Person;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -33,5 +34,9 @@ public class PersonSmallViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    public void loadData(Person person) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

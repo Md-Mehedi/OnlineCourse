@@ -41,7 +41,7 @@ public class EnrolledStudentsView {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.LAYOUT_LOCATION + "/PageByPageLayout.fxml"));
             pane = loader.load();
             PageByPageLayoutController ctrl = loader.getController();
-            ctrl.setUpPage(PageByPageLayoutController.BoxType.PersonGrid, 40, 3, 30);
+//            ctrl.setUpPage(PageByPageLayoutController.BoxType.PersonGrid, 40, 3, 30);
         } catch (IOException ex) {
             Logger.getLogger(EnrolledStudentsView.class.getName()).log(Level.SEVERE, null, ex);
         }

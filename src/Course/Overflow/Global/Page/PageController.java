@@ -6,7 +6,6 @@ import Course.Overflow.Global.Components.Notification.NotificationView;
 import Course.Overflow.Global.Components.RightMenuPopOverController;
 import Course.Overflow.Global.Components.TopMenuBar.MenuBar;
 import Course.Overflow.Global.GLOBAL;
-import Course.Overflow.Global.Layout.PageByPageLayoutController;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.CreateCourse.CreateCourse;
@@ -173,14 +172,12 @@ public class PageController {
                 page = new TeacherDetailsPage();
                 break;
             case MyCourse:
-                page = new CourseListShowPage("My courses");
-                break;
             case Wishlist:
-                page = new CourseListShowPage("Wishlist");
+                page = new CourseListShowPage(pageName);
                 break;
             case PurchaseHistory:
                 if (GLOBAL.ACCOUNT_TYPE == Person.AccountType.Student) {
-                    page = new CourseListShowPage("Your purchase history", PageByPageLayoutController.BoxType.CourseVertical);
+                    page = new CourseListShowPage(pageName);
                 } else if (GLOBAL.ACCOUNT_TYPE == Person.AccountType.Teacher) {
                     page = new PurchaseHistoryPage();
                 }
@@ -196,17 +193,18 @@ public class PageController {
             case Anouncement:
                 page = new CommunicationPage(pageName);
                 break;
+            case ProfileSetting:
+                page = new ProfileSettingPage();
+                break;
+            case CreateCourse:
+                page = new CreateCourse();
+                break;
             case Login:
                 loadFXML(GLOBAL.LOGIN_SIGNUP_LOCATION + "/Login.fxml");
                 break;
             case Signup:
                 loadFXML(GLOBAL.LOGIN_SIGNUP_LOCATION + "/Signup.fxml");
                 break;
-            case ProfileSetting:
-                page = new ProfileSettingPage();
-                break;
-            case CreateCourse:
-                page = new CreateCourse();
         }
         if (!isLoadingWithoutLayout(pageName)) {
             loadPage(page);

@@ -6,11 +6,16 @@
 
 package Course.Overflow.Global.Page;
 
+import Course.Overflow.Course.Course;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.PageByPageLayoutController;
-import Course.Overflow.Global.Layout.PageByPageLayoutController.BoxType;
+import Course.Overflow.Global.Layout.PageByPageLayoutController.BoxViewType;
 import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Student.PurchaseHistory;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
@@ -26,14 +31,14 @@ public class CourseListShowPage extends Page{
     private FXMLLoader loader;
     private VBox container;
     private PageByPageLayoutController ctrl;
-    private BoxType type;
+    private BoxViewType type;
     
-    public CourseListShowPage(String title){
-        this(title,BoxType.CourseGrid);
+    public CourseListShowPage(PageName pageName){
+        this(pageName,BoxViewType.GridView);
     }
     
-    public CourseListShowPage(String title, BoxType type){
-        super(PageName.MyCourse);
+    public CourseListShowPage(PageName pageName, BoxViewType type){
+        super(pageName);
         this.type = type;
         root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
         
@@ -41,7 +46,7 @@ public class CourseListShowPage extends Page{
         root.getChildren().add(container);
         ToolKit.setAnchor(container, 50, 150, 20, 150);
         
-        Label label = new Label(title);
+        Label label = new Label(pageName.getName());
         container.getChildren().add(label);
         label.getStyleClass().add("title1");
         
@@ -49,17 +54,23 @@ public class CourseListShowPage extends Page{
             loader = new FXMLLoader(getClass().getResource(GLOBAL.LAYOUT_LOCATION + "/PageByPageLayout.fxml"));
             AnchorPane pane = loader.load();
             ctrl = loader.<PageByPageLayoutController>getController();
-            if(type == BoxType.CourseGrid){
-                ctrl.setUpPage(BoxType.CourseGrid, 41, 4, 45);
+            if(pageName == PageName.MyCourse){
+                ctrl.setUpPage(ToolKit.getCurrentPerson().getMyCourses(), BoxViewType.GridView);
             }
-            else{
-                ctrl.setUpPage(BoxType.CourseVertical, 41);
+            else if(pageName == PageName.PurchaseHistory){
+                Map<Course, PurchaseHistory> mp = new HashMap();
+                ArrayList<Course> courses = GLOBAL.STUDENT.getCourses();
+                for(int i=0; i<courses.size(); i++){
+                    mp.put(courses.get(i), new PurchaseHistory(courses.get(i), GLOBAL.STUDENT));
+                }
+                ctrl.setPurchasyHistory(mp);
+                ctrl.setUpPage(courses, BoxViewType.ListView);
+                ctrl.stopViewChange();
             }
             container.getChildren().add(pane);
         } catch (IOException ex) {
             Logger.getLogger(TeacherDetailsPage.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(title == "Your purchase history") ctrl.addPurchaseDateColumn();
     }
     
 }

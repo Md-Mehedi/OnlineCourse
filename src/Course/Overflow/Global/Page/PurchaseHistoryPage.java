@@ -6,8 +6,9 @@
 
 package Course.Overflow.Global.Page;
 
-import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Student.PurchaseHistory;
+import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.geometry.VPos;
 import javafx.scene.control.Label;
@@ -31,6 +32,7 @@ public class PurchaseHistoryPage extends Page{
     private VBox container;
     private GridPane grid;
     private GridPane colorGrid;
+    private ArrayList<PurchaseHistory> list;
 
     public PurchaseHistoryPage() {
         super(PageName.PurchaseHistory);
@@ -57,8 +59,10 @@ public class PurchaseHistoryPage extends Page{
     private void createLayout() {
         ColumnConstraints courseNameColumn = new ColumnConstraints();
         courseNameColumn.setHgrow( Priority.ALWAYS );
-                
-        for(int i=0; i<20; i++){
+        
+        list = PurchaseHistory.getPurchasedStudentInfo();
+        
+        for(int i=0; i<list.size(); i++){
             RowConstraints rc = new RowConstraints();
             rc.setValignment(VPos.CENTER);
             rc.setPrefHeight(70);
@@ -77,25 +81,25 @@ public class PurchaseHistoryPage extends Page{
     }
 
     private void addAContent(int row) {
-        ImageView coursePhoto = new ImageView(new Image(GLOBAL.PICTURE_LOCATION + "/Cover.jpg"));
+        ImageView coursePhoto = new ImageView(new Image(list.get(row).getCourse().getCourseImage().getContent()));
         coursePhoto.setFitHeight(70);
         coursePhoto.setFitWidth(120);
         coursePhoto.setPreserveRatio(true);
         
-        Label courseName = new Label("Course klsjdfl fljlf skjf lsjfklsjdf lsdkjfl ksdjf ksldjflksdjf lksjdf skdjflkjwejr lkwejr lkwjrklewj Name");
+        Label courseName = new Label(list.get(row).getCourse().getTitle());
         courseName.setStyle(courseName.getStyle() + ""
               + "-fx-max-width: 350;"
               + font
               + bold
               + "");
         
-        ImageView studentPhoto = new ImageView(new Image(GLOBAL.PICTURE_LOCATION + "/Person 1.jpg"));
+        ImageView studentPhoto = new ImageView(new Image(list.get(row).getStudent().getPhoto().getContent()));
         studentPhoto.setFitHeight(70);
         studentPhoto.setFitWidth(70);
         studentPhoto.setPreserveRatio(true);
         
-        Label studentFirstName = new Label("Md Mehedi");
-        Label studentLastName = new Label("Hasan" + (row+1));
+        Label studentFirstName = new Label(list.get(row).getStudent().getFirstName());
+        Label studentLastName = new Label(list.get(row).getStudent().getLastName());
         VBox nameBox = new VBox(studentFirstName,studentLastName);
         nameBox.setStyle("-fx-alignment: center-left; -fx-spacing: 0;");
         studentFirstName.setStyle(studentFirstName.getStyle() + ""
@@ -105,8 +109,8 @@ public class PurchaseHistoryPage extends Page{
               + "");
         studentLastName.setStyle(studentFirstName.getStyle());
         
-        Label purchaseTime = new Label("09:12 AM");
-        Label purchaseDate = new Label("12 September, 2020");
+        Label purchaseTime = new Label(ToolKit.makeDateStructured(list.get(row).getTime(), "hh:mm aa"));
+        Label purchaseDate = new Label(ToolKit.makeDateStructured(list.get(row).getTime(), "dd MMMMM, yyyy"));
         VBox purchaseBox = new VBox(purchaseTime,purchaseDate);
         purchaseBox.setStyle("-fx-alignment: center; -fx-spacing: 0;");
         purchaseDate.setStyle(purchaseDate.getStyle() + ""
@@ -116,7 +120,7 @@ public class PurchaseHistoryPage extends Page{
               + "");
         purchaseTime.setStyle(purchaseDate.getStyle());
         
-        Label cost = new Label("22222");
+        Label cost = new Label(ToolKit.DoubleToString(list.get(row).getCost()));
         cost.setStyle(cost.getStyle() + ""
               + "-fx-alignment: center-right;"
               + "-fx-pref-width: 100;"

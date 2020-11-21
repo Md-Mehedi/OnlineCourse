@@ -14,6 +14,7 @@ import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.CreateCourse.CreateCourse;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController.ViewerType;
+import Course.Overflow.Teacher.TeacherPreviewController;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.io.IOException;
@@ -198,16 +199,22 @@ public class CourseDetailsController implements Initializable {
         }
         
     }
+    
+    private void loadTeacherPage(){
+        GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
+        TeacherPreviewController ctrl = (TeacherPreviewController) GLOBAL.PAGE_CTRL.getController();
+        ctrl.loadData(course.getTeacher());
+    }
 
     private void addListener() {
         instName.setOnMouseClicked(event -> {
-            GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
+            loadTeacherPage();
         });
         instPhoto.setOnMouseClicked(event -> {
-            GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
+            loadTeacherPage();
         });
         topInstName.setOnMouseClicked(event -> {
-            GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
+            loadTeacherPage();
         });
         writeReviewBtn.setOnMouseClicked((event) -> {
             reviewInputCtrl.show();

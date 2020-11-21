@@ -71,8 +71,9 @@ public class CourseBoxController implements Initializable {
     public void setCourseTitle(String title){
         this.title.setText(title);
     }
-    
-    private void loadData(){
+
+    public void loadData(Course course) {
+        this.course = course;
         Image img = new Image(course.getCourseImage().getContent());
         picBox.setImage(img);
         title.setText(course.getTitle());
@@ -83,10 +84,5 @@ public class CourseBoxController implements Initializable {
         mainPrice.setText(course.getMainPrice().toString());
         Double offPrice = (course.getMainPrice() - course.getMainPrice()*course.getOff()/100);
         offerPrice.setText(offPrice.toString());
-    }
-
-    void setCourse(Course course) {
-        this.course = course;
-        loadData();
     }
 }

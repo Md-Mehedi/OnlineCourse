@@ -79,7 +79,7 @@ public class SearchResultPage extends Page{
             loader = new FXMLLoader(getClass().getResource(GLOBAL.LAYOUT_LOCATION + "/PageByPageLayout.fxml"));
             courseBoxContainer.getChildren().add(loader.load());
             courseBoxesCtrl = loader.<PageByPageLayoutController>getController();
-            courseBoxesCtrl.setUpPage(PageByPageLayoutController.BoxType.CourseVertical, 13);
+            courseBoxesCtrl.setUpPage(new ArrayList<>(), PageByPageLayoutController.BoxViewType.ListView);
         } catch (IOException ex) {
             Logger.getLogger(SearchResultPage.class.getName()).log(Level.SEVERE, null, ex);
         }

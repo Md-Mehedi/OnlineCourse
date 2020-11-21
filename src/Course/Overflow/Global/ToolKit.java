@@ -33,6 +33,7 @@ import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -510,5 +511,10 @@ public class ToolKit {
         System.out.println("");
         System.out.println("");
         System.out.println("");
+    }
+
+    public static void removeNode(Node node) {
+        Pane parent = (Pane) node.getParent();
+        parent.getChildren().remove(node);
     }
 }

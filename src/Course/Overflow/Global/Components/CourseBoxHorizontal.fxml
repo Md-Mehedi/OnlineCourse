@@ -16,23 +16,26 @@
    <children>
       <HBox fx:id="hContainer" layoutX="53.0" layoutY="21.0" style="-fx-alignment: center-left; -fx-spacing: 15;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
          <children>
-            <ImageView fx:id="coursePhoto" fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+            <HBox minWidth="300.0" prefWidth="300.0" style="-fx-alignment: center;">
+               <children>
+                  <ImageView fx:id="coursePhoto" fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
             <VBox maxWidth="670.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="courseName" styleClass="title6" text="Learn Python Programming Masterclass" />
-                  <Label fx:id="courseShortDesc" style="-fx-text-alignment: justify; -fx-font-size: 16;" text="This Python For Beginners Course Teaches You The Python Language Fast. Includes Python Online Training With Python 3This Python For Beginners Course Teaches You The Python Language Fast. Includes Python Online Training With Python 3" />
-                  <Label fx:id="courseInst" styleClass="title8" text="Tim Buchalka, Jean-Paul Roberts, Tim Buchalka's Learn " />
-                  <HBox>
+                  <Label fx:id="courseName" style="-fx-text-alignment: justify;" styleClass="title6" text="Learn Python Programming MasterclassLearn Python Programming Masterclass" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="courseSubTitle" style="-fx-text-alignment: justify; -fx-font-size: 16;" text="This Python For Beginners Course Teaches You The Python Language Fast. Includes Python Online Training With Python 3This Python For Beginners Course Teaches You The Python Language Fast. Includes Python Online Training With Python 3" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="courseInst" styleClass="title8" text="Tim Buchalka, Jean-Paul Roberts, Tim Buchalka's Learn " VBox.vgrow="ALWAYS" />
+                  <HBox VBox.vgrow="ALWAYS">
                      <children>
                         <Label fx:id="rating" styleClass="title6" text="4.5" />
                         <Rating fx:id="ratingStar" />
                         <Label fx:id="numOfRating" text="(53059)" />
                      </children>
                   </HBox>
-                  <HBox>
+                  <HBox VBox.vgrow="ALWAYS">
                      <children>
                         <Label fx:id="numOfLecture" text="391 Lectures" />
-                        <Label fx:id="level" text="All levels" />
                      </children>
                   </HBox>
                </children>

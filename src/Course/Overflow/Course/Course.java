@@ -379,8 +379,31 @@ public class Course {
         return false;
     }
 
-    public static ArrayList<Course> coursesOf(Teacher aThis) {
-        return null;
+    public static ArrayList<Course> coursesOf(Teacher teacher) {
+        ArrayList<Course> list = new ArrayList<Course>();
+        try {
+            ResultSet rs = DB.executeQuery("SELECT ID FROM COURSE WHERE TEACHER_ID = '#'", teacher.getUsername());
+            while(rs.next()){
+                list.add(new Course(rs.getInt("ID")));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public Integer getNumOfLectures() {
+        try {
+            ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM LECTURE WHERE WEEK_ID = ANY(SELECT ID FROM WEEK WHERE COURSE_ID = #)", id.toString());
+            rs.next();
+            Integer value = rs.getInt("COUNT(*)");
+            rs.close();
+            return value;
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 
 }

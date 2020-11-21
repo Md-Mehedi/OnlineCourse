@@ -104,4 +104,17 @@ public class Teacher extends Person{
     ArrayList<Course> getCourses() {
         return Course.coursesOf(this);
     }
+
+    Integer getNumOfRating() {
+        ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM RATING WHERE COURSE_ID = ANY(SELECT ID FROM COURSE WHERE TEACHER_ID = '#')", getUsername());
+        Integer value = null;
+        try {
+            rs.next();
+            value = rs.getInt("COUNT(*)");
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return value;
+    }
 }

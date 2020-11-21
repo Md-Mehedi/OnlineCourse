@@ -67,8 +67,9 @@ public class RightMenuPopOverController implements Initializable {
             addLabel("Purchase history", PageName.PurchaseHistory);
             addLabel("Wishlist", PageName.Wishlist);
         } else if (GLOBAL.ACCOUNT_TYPE == Person.AccountType.Teacher) {
-            addLabel("My students", PageName.EnrolledStudents);
             addLabel("Overview", PageName.Overview);
+            addLabel("My students", PageName.EnrolledStudents);
+            addLabel("Purchase details", PageName.PurchaseHistory);
             addLabel("Create a course", PageName.CreateCourse);
         }
         addLabel("Message", PageName.Messenger);
