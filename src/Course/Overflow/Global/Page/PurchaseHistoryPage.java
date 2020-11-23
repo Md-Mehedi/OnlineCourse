@@ -61,6 +61,10 @@ public class PurchaseHistoryPage extends Page{
         courseNameColumn.setHgrow( Priority.ALWAYS );
         
         list = PurchaseHistory.getPurchasedStudentInfo();
+        if(list.size() == 0){
+            ToolKit.showNoDataFound(root);
+            return;
+        }
         
         for(int i=0; i<list.size(); i++){
             RowConstraints rc = new RowConstraints();

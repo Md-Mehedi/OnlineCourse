@@ -9,6 +9,7 @@ package Course.Overflow.Files;
 import Course.Overflow.DB;
 import Course.Overflow.Global.ToolKit;
 import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -49,7 +50,7 @@ public class Files {
     }
     
     public Files(File file, FileType type, String title){
-        this(type, title, ToolKit.copyFile(file, type));
+        this(type, title, ToolKit.copyFile(file, type, DB.generateId("FILES")));
     }
     
     public Files(FileType type, String title, String content){
@@ -58,7 +59,7 @@ public class Files {
         this.title = title;
         this.content = content;
         this.uploadTime = new Date();
-        this.lastUpdateTime = uploadTime;System.out.println("check");
+        this.lastUpdateTime = uploadTime;
         DB.execute(
               "INSERT INTO FILES VALUES(#, #, '#', '#', #, #)", 
               id.toString(),
@@ -95,25 +96,29 @@ public class Files {
     }
 
     public void setType(FileType type) {
+        if(this.type.equals(type)) return;
         this.type = type;
         DB.execute("UPDATE FILES SET TYPE = # WHERE ID = #", type.getId().toString(), id.toString());
     }
 
     public void setTitle(String title) {
+        if(this.title.equals(title)) return;
         this.title = title;
         DB.execute("UPDATE FILES SET TITLE = '#' WHERE ID = #", title, id.toString());
         updateTime();
     }
 
     public void setContent(String content) {
+        if(this.content.equals(content)) return;
         this.content = content;
         DB.execute("UPDATE FILES SET CONTENT = '#' WHERE ID = #", content, id.toString());
         updateTime();
     }
     
     public void setFile(File file){
-        setContent(ToolKit.copyFile(file, type));
-        updateTime();
+        if(file.getAbsolutePath().equals(new File(ToolKit.makeAbsoluteLocation(content)).getAbsolutePath())) return;
+        deleteFile();
+        setContent(ToolKit.copyFile(file, type, id));
     }
     
     private void updateTime(){
@@ -122,13 +127,22 @@ public class Files {
     
     public void delete(){
         DB.execute("DELETE FILES WHERE ID = #", id.toString());
+        deleteFile();
+    }
+    
+    public void deleteFile(){
+        if(content.equals("")) return;
         switch(type.getType()){
             case "Picture"  :
             case "PDF"      :
             case "Video"    :
                 File file = new File(ToolKit.makeAbsoluteLocation(content));
-                file.delete();
+                try {
+                    java.nio.file.Files.delete(new File(ToolKit.makeAbsoluteLocation(content)).toPath());
+                } catch (IOException ex) {
+                    Logger.getLogger(Files.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            //System.out.println("File is deleted... " + file.delete());
         }
     }
-    //Testing
 }

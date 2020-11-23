@@ -10,13 +10,10 @@ import Course.Overflow.Files.Files;
 import Course.Overflow.Global.Customize.PDF;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.LectureBoxController.LectureType;
-import com.qoppa.pdf.PDFException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -87,21 +84,17 @@ public class PDFShowBoxController implements Initializable {
             parent.getAvailableContentContainer().getChildren().remove(container);
             parent.getAvailableContentContainer().getChildren().add(pane);
         } else if (src == openBtn) {
+            pdf = new PDF(file);
+            pdfThumbView.setImage(pdf.getThumbnail());
             pdf.openPDFfile(file);
             openBtn.setVisible(false);
         }
     }
 
     void setFile(File f) {
-        try {
-            this.file = f;
-            this.oldFile = f;
-            fileNameLabel.setText(file.getName());
-            pdf = new PDF(file);
-            pdfThumbView.setImage(pdf.getThumbnail());
-        } catch (PDFException ex) {
-            Logger.getLogger(PDFShowBoxController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.file = f;
+        this.oldFile = f;
+        fileNameLabel.setText(file.getName());
     }
 
     void setDescription(String description) {

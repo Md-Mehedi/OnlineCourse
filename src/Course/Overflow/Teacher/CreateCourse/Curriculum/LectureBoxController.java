@@ -232,7 +232,10 @@ public class LectureBoxController implements Initializable {
             VBox parent = (VBox) lectureBoxPane.getParent();
             parent.getChildren().remove(lectureBoxPane);
             parentController.getLectureBoxControllers().remove(this);
-            if(lecture!=null) lecture.delete();
+            if(lecture!=null) {
+                if(fileType == LectureType.VIDEO) videoShowCtrl.closeMedieaPlayer();
+                lecture.delete();
+            }
         } else if (src == content) {
             content.setVisible(false);
             cancelContents.setVisible(true);
@@ -271,17 +274,17 @@ public class LectureBoxController implements Initializable {
                 articleOutputPane = loader.load();
                 articleOutputCtrl = loader.getController();
                 articleOutputCtrl.setParent(this);
-                this.getAvailableContentContainer().getChildren().clear();
                 this.setCancelVisible(false);
-                articleOutputCtrl.setTitle(title);
-                articleOutputCtrl.setArticle(article);
                 if(viewer != ViewerType.OwnerTeacherEditor){
                     articleOutputCtrl.stopEditingFunctionality();
                 }
-                this.setLectureLoaded(true);
                 this.content.setVisible(false);
             }
+            articleOutputCtrl.setTitle(title);
+            articleOutputCtrl.setArticle(article);
+            this.getAvailableContentContainer().getChildren().clear();
             this.getAvailableContentContainer().getChildren().add(articleOutputPane);
+            this.setLectureLoaded(true);
             return articleOutputCtrl;
         } catch (IOException ex) {
             Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
@@ -315,17 +318,17 @@ public class LectureBoxController implements Initializable {
                 videoShowPane = (AnchorPane) loader.load();
                 videoShowCtrl = (VideoShowBoxController)loader.getController();
                 videoShowCtrl.setParent(this);
-                videoShowCtrl.setFile(file);
-                videoShowCtrl.setDescription(description);
                 if(viewer != ViewerType.OwnerTeacherEditor){
                     videoShowCtrl.stopEditingFunctionality();
                 }
-                this.getAvailableContentContainer().getChildren().clear();
                 this.setCancelVisible(false);
-                this.setLectureLoaded(true);
                 this.content.setVisible(false);
             }
+            videoShowCtrl.setFile(file);
+            videoShowCtrl.setDescription(description);
+            this.getAvailableContentContainer().getChildren().clear();
             this.getAvailableContentContainer().getChildren().add(videoShowPane);
+            this.setLectureLoaded(true);
             return videoShowCtrl;
         } catch (IOException ex) {
             Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
@@ -359,17 +362,17 @@ public class LectureBoxController implements Initializable {
                 pdfShowPane = loader.load();
                 pdfShowCtrl = loader.getController();
                 pdfShowCtrl.setParent(this);
-                pdfShowCtrl.setFile(file);
-                pdfShowCtrl.setDescription(description);
                 if(viewer != ViewerType.OwnerTeacherEditor){
                     pdfShowCtrl.stopEditingFunctionality();
                 }
-                this.getAvailableContentContainer().getChildren().clear();
                 this.setCancelVisible(false);
-                this.setLectureLoaded(true);
                 this.content.setVisible(false);
             }
+            pdfShowCtrl.setFile(file);
+            pdfShowCtrl.setDescription(description);
+            this.getAvailableContentContainer().getChildren().clear();
             this.getAvailableContentContainer().getChildren().add(pdfShowPane);
+            this.setLectureLoaded(true);
             return pdfShowCtrl;
         } catch (IOException ex) {
             Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
@@ -404,17 +407,18 @@ public class LectureBoxController implements Initializable {
                 linkOutputPane = loader.load();
                 linkOutputCtrl = loader.getController();
                 linkOutputCtrl.setParent(this);
-                linkOutputCtrl.setLink(link);
-                linkOutputCtrl.setLinkDesc(description);
                 if(viewer != ViewerType.OwnerTeacherEditor){
+                    ToolKit.print(viewer);
                     linkOutputCtrl.stopEditingFunctionality();
                 }
-                this.getAvailableContentContainer().getChildren().clear();
                 this.setCancelVisible(false);
-                this.setLectureLoaded(true);
                 this.content.setVisible(false);
             }
+            linkOutputCtrl.setLink(link);
+            linkOutputCtrl.setLinkDesc(description);
+            this.getAvailableContentContainer().getChildren().clear();
             this.getAvailableContentContainer().getChildren().add(linkOutputPane);
+            this.setLectureLoaded(true);
             return linkOutputCtrl;
         } catch (IOException ex) {
             Logger.getLogger(LectureBoxController.class.getName()).log(Level.SEVERE, null, ex);
@@ -571,5 +575,16 @@ public class LectureBoxController implements Initializable {
                 availableContentContainer.getChildren().clear();
             }
         });
+    }
+    void setViewer(ViewerType viewer) {
+        this.viewer = viewer;
+    }
+    
+    LectureType getLectureType() {
+        return fileType;
+    }
+
+    VideoShowBoxController getVideoShowCtrl() {
+        return videoShowCtrl;
     }
 }

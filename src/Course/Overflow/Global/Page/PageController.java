@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -102,6 +103,9 @@ public class PageController {
         try {
             verticalBox = new VBox();
             wrapper = new AnchorPane(verticalBox);
+            Platform.runLater(()->{
+                wrapper.setMaxWidth(GLOBAL.WIDTH);
+            });
             scroll = new ScrollPane(wrapper);
             container.getChildren().clear();
             container.getChildren().add(scroll);

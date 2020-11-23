@@ -23,6 +23,7 @@ import java.util.logging.Logger;
  */
 public class Review {
 
+
     Integer id;
     Student student;
     Date date;
@@ -46,12 +47,12 @@ public class Review {
         }
     }
     
-    public Review(Course course, Student student, String text, Double ratingValue){
+    public Review(Course course, Student student, String text, CourseRating rating){
         this.id = DB.generateId("REVIEW");
         this.student = student;
         this.text = text;
         this.date = ToolKit.getCurTime();
-        this.rating = new CourseRating(course, student, ratingValue);
+        this.rating = rating;
         DB.execute("INSERT INTO REVIEW(ID, COURSE_ID, STUDENT_ID, TIME, TEXT) VALUES(#, #, '#', #, '#')", id.toString(), course.getId().toString(), student.getUsername(), ToolKit.JDateToDDate(date), text);
     }
 
@@ -162,5 +163,9 @@ public class Review {
             Logger.getLogger(Review.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lists;
+    }
+    
+    public static void delete(Course course) {
+        DB.execute("DELETE FROM REVIEW WHERE COURSE_ID = #", course.getId().toString());
     }
 }

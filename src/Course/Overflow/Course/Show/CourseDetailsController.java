@@ -25,6 +25,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,7 +35,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javax.swing.JOptionPane;
 import org.controlsfx.control.Rating;
 
 /**
@@ -150,6 +154,8 @@ public class CourseDetailsController implements Initializable {
     private ViewerType viewer;
     @FXML
     private VBox studentRatingContainer;
+    @FXML
+    private HBox buyNowBtnContainer;
 
     /**
      * Initializes the controller class.
@@ -226,7 +232,7 @@ public class CourseDetailsController implements Initializable {
             submittedRating = new CourseRating(course, GLOBAL.STUDENT, studentRating.getRating());
             refreshData();
             clearRatingSubmitBtn();
-            reviewInputCtrl.setRating((int)(double)submittedRating.getValue());
+            reviewInputCtrl.setRating(submittedRating);
         });
     }
     
@@ -274,7 +280,6 @@ public class CourseDetailsController implements Initializable {
         lang = lang.replaceFirst(" ,", "");
         this.language.setText(lang);
         
-        courseimage.setImage(new Image(course.getCourseImage().getContent()));
         mainPrice.setText(course.getMainPrice().toString());
         offer.setText(ToolKit.DoubleToString(course.getOff()) + " % off");
         price.setText(course.getCurrentPrice().toString());
@@ -297,6 +302,8 @@ public class CourseDetailsController implements Initializable {
         
         addRating();
         addReview();
+        ToolKit.print(course.getCourseImage().getContent());
+        courseimage.setImage(new Image(course.getCourseImage().getContent()));
         
         refreshData();
     }
@@ -384,10 +391,10 @@ public class CourseDetailsController implements Initializable {
     public void addRating() {
         if(viewer == ViewerType.NormalStudent || viewer == ViewerType.OwnerStudent){
             Integer ratingValue = course.getRatingOf(GLOBAL.STUDENT);
-            if(ratingValue != 0){
-                reviewInputCtrl.setRating(ratingValue);
-            };
             submittedRating = new CourseRating(course.getId(), GLOBAL.STUDENT);
+            if(ratingValue != 0){
+                reviewInputCtrl.setRating(submittedRating);
+            };
             if(submittedRating.getValue() != null){
                 studentRating.setRating(submittedRating.getValue());
                 clearRatingSubmitBtn();
@@ -407,11 +414,29 @@ public class CourseDetailsController implements Initializable {
     public void makeBuyNowToUpdateCourse(){
         Pane pane = (Pane) priceContainer.getParent();
         pane.getChildren().remove(priceContainer);
-        buyNowButton.setText("Update Course");
+        buyNowButton.setText("Update");
+        JFXButton deleteBtn = new JFXButton("Delete");
+        deleteBtn.getStyleClass().addAll("title1", "myButton");
+        deleteBtn.setStyle("-fx-background-color: red;");
+        Region region = new Region();
+        region.setMinWidth(15);
+        HBox.setHgrow(region, Priority.ALWAYS);
+        buyNowBtnContainer.getChildren().addAll(region, deleteBtn);
         buyNowButton.setOnMouseClicked((event) -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.CreateCourse);
             CreateCourse cc = (CreateCourse) GLOBAL.PAGE_CTRL.getPage();
             cc.loadData(course);
+        });
+        deleteBtn.setOnMouseClicked((event) -> {
+            int state1 = JOptionPane.showConfirmDialog(null, "Do you want to delete your course?\nIf you delete this course, you will never recover it.", "Warning!!!", JOptionPane.CANCEL_OPTION);
+            if (state1 == 0) {
+                course.delete();
+                GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
+            }
+        });
+        Platform.runLater(()->{
+            buyNowButton.setPrefWidth(buyNowButton.getPrefWidth()/2-15);
+            deleteBtn.setPrefWidth(buyNowButton.getPrefWidth());
         });
     }
 

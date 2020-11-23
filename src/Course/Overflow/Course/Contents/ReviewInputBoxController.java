@@ -6,6 +6,7 @@
 package Course.Overflow.Course.Contents;
 
 import Course.Overflow.Course.Course;
+import Course.Overflow.Course.CourseRating;
 import Course.Overflow.Course.Review;
 import Course.Overflow.Course.Show.CourseDetailsController;
 import Course.Overflow.Global.GLOBAL;
@@ -43,6 +44,7 @@ public class ReviewInputBoxController extends FloatingPane implements Initializa
     private CourseDetailsController parentCtrl;
     @FXML
     private Label giveRatingLabel;
+    private CourseRating courseRating;
 
     /**
      * Initializes the controller class.
@@ -59,7 +61,10 @@ public class ReviewInputBoxController extends FloatingPane implements Initializa
         });
         submtBtn.setOnMouseClicked((event) -> {
             if(!isConditionPass()) return;
-            Review review = new Review(course, GLOBAL.STUDENT, reviewField.getText(), this.rating.getRating());
+            if(courseRating == null){
+                courseRating = new CourseRating(course, GLOBAL.STUDENT, this.rating.getRating());
+            }
+            Review review = new Review(course, GLOBAL.STUDENT, reviewField.getText(), courseRating);
             parentCtrl.addReviewBox(review);
             parentCtrl.refreshData();
             parentCtrl.addRating();
@@ -74,11 +79,12 @@ public class ReviewInputBoxController extends FloatingPane implements Initializa
         this.course = course;
     }
     
-    public void setRating(Integer value){
-        this.rating.setRating(value);
+    public void setRating(CourseRating courseRating){
+        this.courseRating = courseRating;
+        this.rating.setRating(courseRating.getValue());
         giveRatingLabel.setText("Your submitted rating : ");
         this.rating.setOnMouseClicked((event) -> {
-            this.rating.setRating(value);
+            this.rating.setRating(courseRating.getValue());
         });
     }
 

@@ -29,7 +29,7 @@ public class ReviewPage{
         root = new AnchorPane(container);
         ToolKit.setAnchor(container, 0, 0, 0, 0);
         
-        makeSomeDefaultReview();
+        makeList();
         
     }
     
@@ -46,8 +46,12 @@ public class ReviewPage{
         }
         return pane;
     }
-    private void makeSomeDefaultReview() {
+    private void makeList() {
         ArrayList<ArrayList<Review>> lists = Review.getReviewsForTeacherView();
+        if(lists.size() == 0){
+            ToolKit.showNoDataFound(root);
+            return;
+        }
         for(int j=0; j<lists.size(); j++){
             CourseBoxLittle box = new CourseBoxLittle(new Course(lists.get(j).get(0).getCourseId()));
             container.getChildren().add(box);

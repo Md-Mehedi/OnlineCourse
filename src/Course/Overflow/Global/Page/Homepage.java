@@ -44,9 +44,6 @@ public class Homepage extends Page{
         ArrayList<Course> apcourses = new ArrayList<Course> (Course.getApprovedCourses());
       
         for(int i=0;i<3;i++){
-            Course course = new Course(19);
-            ArrayList<Course> courses = new ArrayList<Course>();
-            courses.add(course);
             try {
                 loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/Carousel.fxml"));
                 AnchorPane pane = loader.load();

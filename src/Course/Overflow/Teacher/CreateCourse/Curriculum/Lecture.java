@@ -60,6 +60,7 @@ public class Lecture {
         this.file = file;
         this.isPreview = isPreview;
         this.lastUpdate = ToolKit.getCurTime();
+        ToolKit.print(file.getId());
         DB.execute(
               "INSERT INTO LECTURE(ID, LECTURE_NO, TITLE, LAST_UPDATE, IS_PREVIEW, WEEK_ID, FILE_ID) VALUES(#, #, '#', #, '#', #, #)", 
               id.toString(), lectureNo.toString(), title, ToolKit.JDateToDDate(lastUpdate), ToolKit.JBoolToDBool(isPreview), week.getId().toString(), file.getId().toString()
@@ -125,8 +126,8 @@ public class Lecture {
     }
     
     public void delete(){
-        file.delete();
         DB.execute("DELETE LECTURE WHERE ID = #", id.toString());
+        file.delete();
     }
     
 }

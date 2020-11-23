@@ -81,12 +81,12 @@ public class AppMain extends Application {
     }
 
     private void mehediTestPage() throws IOException {
-        GLOBAL.TEACHER = new Teacher("MehediHasan");
-        GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
+//        GLOBAL.TEACHER = new Teacher("MehediHasan");
+//        GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
 //        GLOBAL.STUDENT = new Student("mm");
 //        GLOBAL.ACCOUNT_TYPE = Person.AccountType.Student;
         
-        PageController pageCtrl = new PageController(PageName.Home);
+        PageController pageCtrl = new PageController(PageName.Login);
         GLOBAL.PAGE_CTRL = pageCtrl;
         pane = pageCtrl.getContainer();
 

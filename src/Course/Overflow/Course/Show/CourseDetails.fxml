@@ -75,7 +75,7 @@
                                     <Label fx:id="offer" style="-fx-font-size: 22;" text="\% off" />
                                  </children>
                               </HBox>
-                              <HBox style="-fx-alignment: center;">
+                              <HBox fx:id="buyNowBtnContainer" style="-fx-alignment: center;">
                                  <children>
                                     <JFXButton fx:id="buyNowButton" prefHeight="74.0" prefWidth="483.0" text="Buy now">
                                        <styleClass>

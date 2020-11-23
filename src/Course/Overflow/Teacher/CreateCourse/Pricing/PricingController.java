@@ -67,6 +67,7 @@ public class PricingController implements Initializable {
     private boolean newCourse;
     @FXML
     private JFXButton cancelBtn;
+    private Course course;
 
     /**
      * Initializes the controller class.
@@ -162,6 +163,7 @@ public class PricingController implements Initializable {
     }
     
     public void loadData(Course course){
+        this.course = course;
         price.setText(course.getMainPrice().toString());
         if(course.getOff() != 0.0){
             addOfferPane(course);

@@ -5,7 +5,6 @@
  */
 package Course.Overflow.Global;
 
-import Course.Overflow.DB;
 import Course.Overflow.Files.FileType;
 import Course.Overflow.Global.Communication.MessengerController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -30,6 +29,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -112,7 +112,7 @@ public class ToolKit {
             );
         }
         File file = fc.showOpenDialog(null);
-        GLOBAL.FILE_CHOOSER_DIRECTORY = file.getParent();
+        if(file != null) GLOBAL.FILE_CHOOSER_DIRECTORY = file.getParent();
         return file;
     }
 
@@ -404,17 +404,17 @@ public class ToolKit {
     /*
      * Date Related Function End
      */
-    public static String copyFile(File file, FileType type) {
+    public static String copyFile(File file, FileType type, Integer id) {
         String destPath = "";
         switch (type.getType()) {
             case "Picture":
-                destPath += GLOBAL.PICTURE_LOCATION + "/Picture_" + DB.generateId("FILES").toString() + "_";
+                destPath += GLOBAL.PICTURE_LOCATION + "/Picture_" + id.toString() + "_";
                 break;
             case "Video":
-                destPath += GLOBAL.VIDEO_LOCATION + "/Video_" + DB.generateId("FILES").toString() + "_";
+                destPath += GLOBAL.VIDEO_LOCATION + "/Video_" + id.toString() + "_";
                 break;
             case "PDF":
-                destPath += GLOBAL.PDF_LOCATION + "/PDF_" + DB.generateId("FILES").toString() + "_";
+                destPath += GLOBAL.PDF_LOCATION + "/PDF_" + id.toString() + "_";
                 break;
         }
         destPath += file.getName();
@@ -425,6 +425,7 @@ public class ToolKit {
         } catch (IOException ex) {
             Logger.getLogger(MessengerController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        print("File is copied\n" + destPath);
         return destPath;
     }
 
@@ -516,5 +517,13 @@ public class ToolKit {
     public static void removeNode(Node node) {
         Pane parent = (Pane) node.getParent();
         parent.getChildren().remove(node);
+    }
+
+    public static void showNoDataFound(Pane node){
+        ImageView iv = new ImageView(new Image(GLOBAL.PICTURE_LOCATION + "/No Data Found.jpg"));
+        iv.setFitWidth(GLOBAL.WIDTH*0.7);
+        iv.setPreserveRatio(true);
+        node.getChildren().clear();
+        node.getChildren().add(iv);
     }
 }

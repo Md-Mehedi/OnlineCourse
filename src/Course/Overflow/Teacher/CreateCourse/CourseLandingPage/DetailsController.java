@@ -264,7 +264,8 @@ public class DetailsController implements Initializable {
         Object src = event.getSource();
 
         if (src == courseImageUpBtn) {
-            photoFile = ToolKit.chooseFile("image");
+            File tempFile = ToolKit.chooseFile("image");
+            if(tempFile != null) photoFile = tempFile;
             if (photoFile != null) {
                 courseImage.setImage(new Image(new FileInputStream(photoFile)));
                 courseImageLabel.setText(photoFile.getName());
@@ -302,7 +303,7 @@ public class DetailsController implements Initializable {
     public Course uploadToDB() {
         Files coursePhoto = new Files(photoFile, FileType.toType("Picture"), "Course Cover");
         Category subCat = new Category(subCategoryCB.getValue());
-        Course course = new Course(courseTitle.getText(), courseSubTitle.getText(), courseDescription.getText(), pricingCtrl.getPrice(), coursePhoto, subCat);
+        course = new Course(courseTitle.getText(), courseSubTitle.getText(), courseDescription.getText(), pricingCtrl.getPrice(), coursePhoto, subCat);
         course.setOff(pricingCtrl.getOffer());
         course.setLanguages(selectedLanguage);
         return course;
@@ -343,6 +344,7 @@ public class DetailsController implements Initializable {
     }
     
     public void loadData(Course course){
+        this.course = course;
         courseTitle.setText(course.getTitle());
         courseSubTitle.setText(course.getSubTitle());
         courseDescription.setText(course.getDescription());

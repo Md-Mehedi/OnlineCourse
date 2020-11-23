@@ -143,7 +143,16 @@ public class PageByPageLayoutController implements Initializable {
         } else if (type == BoxViewType.ListView) {
             itemCtrl = new ArrayList<CourseBoxHorizontalController>();
         }
-
+        if(items == null) {
+            removeHeader();
+            ToolKit.showNoDataFound(itemContainer);
+            return;
+        }
+        if(items.size() == 0) {
+            removeHeader();
+            ToolKit.showNoDataFound(itemContainer);
+            return;
+        }
         updateIconOpacity();
 
         itemContainer.getChildren().clear();
@@ -242,7 +251,7 @@ public class PageByPageLayoutController implements Initializable {
                 pageNumContainer.getChildren().get(currentPage - 1).setId("");
             }
             currentPage = pageNum;
-            pageNumContainer.getChildren().get(currentPage - 1).setId("selectedPage");
+            if(currentPage > 0) pageNumContainer.getChildren().get(currentPage - 1).setId("selectedPage");
 
             // Set which items are showing
             if (totalItem1page * (pageNum - 1) + 1 != Math.min(totalItem1page * pageNum, items.size())) {

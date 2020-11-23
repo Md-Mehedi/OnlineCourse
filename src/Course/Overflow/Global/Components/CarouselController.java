@@ -89,6 +89,7 @@ public class CarouselController implements Initializable {
     
     private void updateContainerSpacing(){
         Platform.runLater(() -> {
+            if(pane==null) return;
             double totWidth = scrollPane.getWidth();
             double boxWidth = pane.getWidth();
             maxShowItem = (int) (totWidth / (boxWidth + 10));

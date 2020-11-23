@@ -5,6 +5,7 @@
  */
 package Course.Overflow.Global.Communication;
 
+import Course.Overflow.DB;
 import Course.Overflow.Files.FileType;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
@@ -97,7 +98,7 @@ public class MessengerController implements Initializable {
             File file = fc.showOpenDialog(null);
             
             
-            String destURL = ToolKit.copyFile(file, FileType.toType("Picture"));
+            String destURL = ToolKit.copyFile(file, FileType.toType("Picture"), DB.generateId("FILES", "ID"));
             Image image = new Image((new File(destURL)).toURI().toString());
             
             makeMessage(image);

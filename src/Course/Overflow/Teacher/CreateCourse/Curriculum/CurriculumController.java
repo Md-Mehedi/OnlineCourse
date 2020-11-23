@@ -80,12 +80,13 @@ public class CurriculumController implements Initializable {
             root = (AnchorPane) loader.load();
             loader.<WeekBoxController>getController().setParent(this, container);
             loader.<WeekBoxController>getController().setWeekNumber(weekBoxContainer.getChildren().size() + 1);
+            loader.<WeekBoxController>getController().setViewer(viewer);
             if (week != null) {
                 loader.<WeekBoxController>getController().loadData(course, week, viewer);
             }
-//            if(course != null){
-//                loader.<WeekBoxController>getController().setCourse(course);
-//            }
+            if(course != null){
+                loader.<WeekBoxController>getController().setCourse(course);
+            }
             weekBoxControllers.add(loader.<WeekBoxController>getController());
             weekBoxContainer.getChildren().add(root);
         } catch (IOException ex) {
@@ -143,8 +144,9 @@ public class CurriculumController implements Initializable {
     }
 
     public void uploadToDB(Course course) {
+        this.course = course;
         for (WeekBoxController weekCtrl : weekBoxControllers) {
-            weekCtrl.uploadToDB(course);
+            weekCtrl.uploadToDB();
         }
     }
 
@@ -187,5 +189,9 @@ public class CurriculumController implements Initializable {
         for (Week week : course.getWeeks()) {
             addWeek(week);
         }
+    }
+    
+    public void setViewer(ViewerType viewer) {
+        this.viewer = viewer;
     }
 }

@@ -37,10 +37,10 @@ public class EnrolledStudentsView {
         root = new AnchorPane(container);
         ToolKit.setAnchor(container, 0, 0, 0, 0);
         
-        makeDefaultStudentList();
+        makeList();
     }
     
-    private Pane getSudentList(ArrayList<PurchaseHistory> list){
+    private Pane getStudentListView(ArrayList<PurchaseHistory> list){
         Pane pane = null;
         try {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.LAYOUT_LOCATION + "/PageByPageLayout.fxml"));
@@ -55,12 +55,16 @@ public class EnrolledStudentsView {
         return pane;
     }
 
-    private void makeDefaultStudentList() {
+    private void makeList() {
         ArrayList<Pair<Course, ArrayList<PurchaseHistory>>> lists = PurchaseHistory.getEnrolledStudentList();
+        if(lists.size() == 0){
+            ToolKit.showNoDataFound(root);
+            return;
+        }
         for(int j=0; j<lists.size(); j++){
             CourseBoxLittle box = new CourseBoxLittle(lists.get(j).getKey());
             container.getChildren().add(box);
-            box.addData(getSudentList(lists.get(j).getValue()));
+            box.addData(getStudentListView(lists.get(j).getValue()));
         }
     }
     

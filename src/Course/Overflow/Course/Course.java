@@ -2,9 +2,11 @@ package Course.Overflow.Course;
 
 import Course.Overflow.DB;
 import Course.Overflow.Files.Files;
+import Course.Overflow.Global.Communication.FAQ;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Language;
 import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Student.PurchaseHistory;
 import Course.Overflow.Student.Student;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.Week;
 import Course.Overflow.Teacher.Teacher;
@@ -58,7 +60,7 @@ public class Course {
         this.id = id;
         ResultSet rs = DB.executeQuery("SELECT * FROM COURSE WHERE ID = #", id.toString());
         try {
-            rs.next();
+            if(!rs.next()) return;
             title = rs.getString("TITLE");
             subTitle = rs.getString("SUBTITLE");
             mainPrice = rs.getDouble("PRICE");
@@ -119,6 +121,7 @@ public class Course {
     }
 
     public void setSubTitle(String subTitle) {
+        if(this.subTitle.equals(subTitle)) return;
         this.subTitle = subTitle;
         DB.execute("UPDATE COURSE SET SUBTITLE = '#' WHERE ID = #", subTitle, id.toString());
     }
@@ -165,12 +168,15 @@ public class Course {
     }
 
     public void setSubCategory(Category subCategory) {
+        if(this.subCategory != null)
+        if(this.subCategory.equals(subCategory)) return;
         this.subCategory = subCategory;
         this.mainCategory = subCategory.getParent();
         DB.execute("UPDATE COURSE SET CATEGORY_ID = # WHERE ID = #", subCategory.getId().toString(), id.toString());
     }
 
     public void setTitle(String title) {
+        if(this.title.equals(title)) return;
         this.title = title;
         DB.execute("UPDATE COURSE SET TITLE = '#' WHERE ID = #", title, id.toString());
     }
@@ -188,6 +194,8 @@ public class Course {
     }
 
     public void setMainPrice(Double mainPrice) {
+        if(this.mainPrice != null)
+        if(this.mainPrice.equals(mainPrice)) return;
         this.mainPrice = mainPrice;
         DB.execute("UPDATE COURSE SET PRICE = # WHERE ID = #", mainPrice.toString(), id.toString());
     }
@@ -197,6 +205,8 @@ public class Course {
     }
 
     public void setOff(Double off) {
+        if(this.off != null)
+        if(this.off.equals(off)) return;
         this.off = off;
         DB.execute("UPDATE COURSE SET OFFER = # WHERE ID = #", off.toString(), id.toString());
     }
@@ -223,6 +233,8 @@ public class Course {
     }
 
     public void setLanguages(ArrayList<Language> languages) {
+        if(this.languages != null)
+        if(this.languages.equals(languages)) return;
         this.languages = languages;
         deleteCourseLanguage();
         for (Language lang : languages) {
@@ -245,6 +257,7 @@ public class Course {
     }
 
     public void setDescription(String description) {
+        if(this.description.equals(description)) return;
         this.description = description;
         DB.execute("UPDATE COURSE SET DESCRIPTION = '#' WHERE ID = #", description, id.toString());
     }
@@ -299,16 +312,20 @@ public class Course {
     }
 
     public void delete() {
-        imageFile.delete();
         deleteCourseLanguage();
         for (Property property : properties) {
             property.delete();
         }
-//        ArrayList<Review> reveiws;
-
+        // Delete FAQ
         for (Week week : weeks) {
             week.delete();
         }
+        FAQ.delete(this);
+        Review.delete(this);
+        CourseRating.delete(this);
+        PurchaseHistory.delete(this);
+        DB.execute("DELETE FROM COURSE WHERE ID = #", id.toString());
+        imageFile.delete();
     }
 
     public static ArrayList<Course> getApprovedCourses() {

@@ -155,4 +155,9 @@ public class PurchaseHistory {
         }
         return null;
     }
+    
+    public static void delete(Course course) {
+        DB.execute("DELETE FROM PURCHASE_HISTORY WHERE COURSE_ID = #", course.getId().toString());
+    }
+    
 }

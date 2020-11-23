@@ -65,6 +65,7 @@ public class CreateCourse extends Page {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/Curriculum.fxml"));
             curriculumPane = loader.load();
             curriculumCtrl = loader.getController();
+            curriculumCtrl.setViewer(ViewerType.OwnerTeacherEditor);
 
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_LANDING_PAGE_LOCATION + "/Details.fxml"));
             landingPagePane = loader.load();
@@ -101,19 +102,15 @@ public class CreateCourse extends Page {
         }
     }
 
-    public boolean isTargetStudentPageComplete() {
-        return true;
-    }
-
     public void uploadToDB() {
         if (!isPassedCondition()) {
             return;
         }
-        Course course = detailsController.uploadToDB();
+        course = detailsController.uploadToDB();
         curriculumCtrl.uploadToDB(course);
         course.setOutcomes(targetStudentCtrl.getOutcomes());
         course.setPrerequisitive(targetStudentCtrl.getPrerequisitives());
-        targetStudentCtrl.uploadToDB(course); //new Course(3));
+        targetStudentCtrl.uploadToDB(course);
     }
 
     public void updateDB() {
@@ -123,7 +120,6 @@ public class CreateCourse extends Page {
         detailsController.updateDB();
         targetStudentCtrl.updateDB();
         curriculumCtrl.updateDB();
-        //loadData(new Course(19));
     }
 
     public boolean isPassedCondition() {
