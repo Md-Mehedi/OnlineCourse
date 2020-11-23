@@ -112,7 +112,7 @@ public class PDFShowBoxController implements Initializable {
     }
 
     public Files uploadToDB() {
-        return new Files(file, FileType.toType("PDF"), description.getText());
+        return new Files(file, FileType.PDF, description.getText());
     }
     
     public void updateDB(){

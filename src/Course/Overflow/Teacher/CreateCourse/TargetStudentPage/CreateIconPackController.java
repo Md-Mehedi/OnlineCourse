@@ -5,6 +5,7 @@
  */
 package Course.Overflow.Teacher.CreateCourse.TargetStudentPage;
 
+import Course.Overflow.Files.FileType;
 import Course.Overflow.Global.Customize.ToolTip;
 import Course.Overflow.Global.ToolKit;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -25,38 +26,38 @@ import javafx.scene.layout.AnchorPane;
  */
 public class CreateIconPackController implements Initializable {
 
-      @FXML
-      private Label upBtn;
-      private String iconName;
-      private PropertiesController parentController;
-      private AnchorPane parentPane;
+    @FXML
+    private Label upBtn;
+    private String iconName;
+    private PropertiesController parentController;
+    private AnchorPane parentPane;
 
-      /**
-       * Initializes the controller class.
-       */
-      @Override
-      public void initialize(URL url, ResourceBundle rb) {
-            new ToolTip(MouseEvent.MOUSE_ENTERED, upBtn, "Upload your custom icon in .png format and 25x25 size ratio");
-      }      
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        new ToolTip(MouseEvent.MOUSE_ENTERED, upBtn, "Upload your custom icon in .png format and 25x25 size ratio");
+    }
 
-      @FXML
-      private void mouseClicked(MouseEvent event) throws FileNotFoundException {
-            Object src = event.getSource();
-            if(src == upBtn){
-                  File file = ToolKit.chooseFile("image");
-                  parentController.setIconPackVisibility(false);
-                  parentController.setIconPic(file);
-            } else {
-                  FontAwesomeIconView selectIcon = (FontAwesomeIconView) src;
-                  iconName = selectIcon.getGlyphName();
-                  parentController.setIcon(iconName);
-                  parentController.setIconPackVisibility(false);
-            }
-      }
-      
-      public void setParent(PropertiesController parentController, AnchorPane parentPane){
-            this.parentController = parentController;
-            this.parentPane = parentPane;
-      }
-      
+    @FXML
+    private void mouseClicked(MouseEvent event) throws FileNotFoundException {
+        Object src = event.getSource();
+        if (src == upBtn) {
+            File file = ToolKit.chooseFile(FileType.PICTURE);
+            parentController.setIconPackVisibility(false);
+            parentController.setIconPic(file);
+        } else {
+            FontAwesomeIconView selectIcon = (FontAwesomeIconView) src;
+            iconName = selectIcon.getGlyphName();
+            parentController.setIcon(iconName);
+            parentController.setIconPackVisibility(false);
+        }
+    }
+
+    public void setParent(PropertiesController parentController, AnchorPane parentPane) {
+        this.parentController = parentController;
+        this.parentPane = parentPane;
+    }
+
 }

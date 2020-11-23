@@ -116,7 +116,7 @@ public class VideoShowBoxController implements Initializable {
     }
 
     public Files uploadToDB() {
-        return new Files(file, FileType.toType("Video"), description.getText());
+        return new Files(file, FileType.VIDEO, description.getText());
     }
     
     public void updateDB(){

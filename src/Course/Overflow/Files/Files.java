@@ -34,7 +34,7 @@ public class Files {
         ResultSet rs = DB.executeQuery("SELECT * FROM FILES WHERE ID = #", id.toString());
         try {
             if(!rs.next()) {rs.close(); return;}
-            type = new FileType(rs.getInt("TYPE"));
+            type = FileType.valueOf(rs.getInt("TYPE"));
             title = rs.getString("TITLE");
             content = rs.getString("CONTENT");
             uploadTime = rs.getDate("UPLOAD_TIME");
@@ -132,10 +132,10 @@ public class Files {
     
     public void deleteFile(){
         if(content.equals("")) return;
-        switch(type.getType()){
-            case "Picture"  :
-            case "PDF"      :
-            case "Video"    :
+        switch(type){
+            case PICTURE  :
+            case PDF      :
+            case VIDEO    :
                 File file = new File(ToolKit.makeAbsoluteLocation(content));
                 try {
                     java.nio.file.Files.delete(new File(ToolKit.makeAbsoluteLocation(content)).toPath());

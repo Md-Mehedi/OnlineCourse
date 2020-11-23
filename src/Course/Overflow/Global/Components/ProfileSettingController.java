@@ -323,7 +323,7 @@ public class ProfileSettingController implements Initializable {
 
     private void addListener() {
         upload.setOnMouseClicked((event) -> {
-            File chosenFile = ToolKit.chooseFile("image");
+            File chosenFile = ToolKit.chooseFile(FileType.PICTURE);
             if(chosenFile!=null) photoFile = chosenFile;
             if (chosenFile != null) {
                 imageNameLabel.setText(chosenFile.getName());
@@ -444,7 +444,7 @@ public class ProfileSettingController implements Initializable {
         }
         
         if(person.getPhoto() == null){
-            person.setPhoto(new Files(photoFile, FileType.toType("Picture")));
+            person.setPhoto(new Files(photoFile, FileType.PICTURE));
         }
         else{
             person.getPhoto().setFile(photoFile);

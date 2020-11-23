@@ -78,7 +78,7 @@ public class LinkOutputBoxController implements Initializable {
     }
 
     public Files uploadToDB() {
-        return new Files(FileType.toType("Link"), linkDetails.getText(), link.getText());
+        return new Files(FileType.LINK, linkDetails.getText(), link.getText());
     }
     
     public void updateDB(){

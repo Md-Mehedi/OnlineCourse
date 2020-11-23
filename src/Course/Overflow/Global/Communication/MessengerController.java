@@ -26,7 +26,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -94,11 +93,10 @@ public class MessengerController implements Initializable {
             sendAMessage();
         });
         addImageBtn.setOnMouseClicked((event) -> {
-            FileChooser fc = new FileChooser();
-            File file = fc.showOpenDialog(null);
+            File file = ToolKit.chooseFile(FileType.PICTURE);
             
             
-            String destURL = ToolKit.copyFile(file, FileType.toType("Picture"), DB.generateId("FILES", "ID"));
+            String destURL = ToolKit.copyFile(file, FileType.PICTURE, DB.generateId("FILES", "ID"));
             Image image = new Image((new File(destURL)).toURI().toString());
             
             makeMessage(image);

@@ -75,7 +75,7 @@ public class ArticleOutputBoxController implements Initializable {
     }
     
     public Files uploadToDB() {
-        Files file = new Files(FileType.toType("Article"), title.getText(), article.getText());
+        Files file = new Files(FileType.ARTICLE, title.getText(), article.getText());
         return file;
     }
     

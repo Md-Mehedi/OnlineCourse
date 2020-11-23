@@ -5,6 +5,7 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
+import Course.Overflow.Files.FileType;
 import Course.Overflow.Files.Files;
 import Course.Overflow.Global.Customize.ToolTip;
 import Course.Overflow.Global.GLOBAL;
@@ -437,18 +438,18 @@ public class LectureBoxController implements Initializable {
         
         lectureNameLabel.setText(lecture.getTitle());
         freeAvailableCkB.setSelected(lecture.isPreview);
-        //System.out.println(lecture.getFile().getType().getType());
+        //System.out.println(lecture.getFile().getTypeName().getTypeName());
         if(viewer == ViewerType.OwnerTeacherEditor){
-            if(lecture.getFile().getType().getType().equals("Article")){
+            if(lecture.getFile().getType() == FileType.ARTICLE){
                 addArticleOutputBox(lecture);
             }
-            else if(lecture.getFile().getType().getType().equals("Video")){
+            else if(lecture.getFile().getType() == FileType.VIDEO){
                 addVideoOutputBox(lecture);
             }
-            else if(lecture.getFile().getType().getType().equals("PDF")){
+            else if(lecture.getFile().getType() == FileType.PDF){
                 addPDFOutputBox(lecture);
             }
-            else if(lecture.getFile().getType().getType().equals("Link")){
+            else if(lecture.getFile().getType() == FileType.LINK){
                 addLinkOutputBox(lecture);
             }
         }
@@ -557,16 +558,16 @@ public class LectureBoxController implements Initializable {
         icon.setOnMouseClicked((event) -> {
             if(icon.getRotate() == 0){
                 icon.setRotate(180);
-                if(lecture.getFile().getType().getType().equals("Article")){
+                if(lecture.getFile().getType() == FileType.ARTICLE){
                     addArticleOutputBox(lecture);
                 }
-                else if(lecture.getFile().getType().getType().equals("Video")){
+                else if(lecture.getFile().getType() == FileType.VIDEO){
                     addVideoOutputBox(lecture);
                 }
-                else if(lecture.getFile().getType().getType().equals("PDF")){
+                else if(lecture.getFile().getType() == FileType.PDF){
                     addPDFOutputBox(lecture);
                 }
-                else if(lecture.getFile().getType().getType().equals("Link")){
+                else if(lecture.getFile().getType() == FileType.LINK){
                     addLinkOutputBox(lecture);
                 }
             }

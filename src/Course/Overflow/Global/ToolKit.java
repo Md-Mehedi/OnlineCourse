@@ -95,21 +95,25 @@ public class ToolKit {
         hostServices.showDocument(file.getAbsolutePath());
     }
 
-    public static File chooseFile(String fileType) {
+    public static File chooseFile(FileType type) {
         FileChooser fc = new FileChooser();
         fc.setInitialDirectory(new File(GLOBAL.FILE_CHOOSER_DIRECTORY));
-        if (fileType == "video") {
-            fc.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Video files", "*.mp4", "*.3gp")
-            );
-        } else if (fileType == "pdf") {
-            fc.getExtensionFilters().add(
-                    new FileChooser.ExtensionFilter("PDF files", "*.pdf")
-            );
-        } else if (fileType == "image") {
-            fc.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Image files", "*.jpeg", "*.jpg", "*.bmp", "*.png", "*.gif")
-            );
+        switch(type){
+            case VIDEO  :
+                fc.getExtensionFilters().addAll(
+                        new FileChooser.ExtensionFilter("Video files", "*.mp4", "*.3gp")
+                );
+                break;
+            case PDF    :
+                fc.getExtensionFilters().add(
+                        new FileChooser.ExtensionFilter("PDF files", "*.pdf")
+                );
+                break;
+            case PICTURE:
+                fc.getExtensionFilters().addAll(
+                        new FileChooser.ExtensionFilter("Image files", "*.jpeg", "*.jpg", "*.bmp", "*.png", "*.gif")
+                );
+                break;
         }
         File file = fc.showOpenDialog(null);
         if(file != null) GLOBAL.FILE_CHOOSER_DIRECTORY = file.getParent();
@@ -406,14 +410,14 @@ public class ToolKit {
      */
     public static String copyFile(File file, FileType type, Integer id) {
         String destPath = "";
-        switch (type.getType()) {
-            case "Picture":
+        switch (type) {
+            case PICTURE:
                 destPath += GLOBAL.PICTURE_LOCATION + "/Picture_" + id.toString() + "_";
                 break;
-            case "Video":
+            case VIDEO:
                 destPath += GLOBAL.VIDEO_LOCATION + "/Video_" + id.toString() + "_";
                 break;
-            case "PDF":
+            case PDF:
                 destPath += GLOBAL.PDF_LOCATION + "/PDF_" + id.toString() + "_";
                 break;
         }

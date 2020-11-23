@@ -264,14 +264,14 @@ public class DetailsController implements Initializable {
         Object src = event.getSource();
 
         if (src == courseImageUpBtn) {
-            File tempFile = ToolKit.chooseFile("image");
+            File tempFile = ToolKit.chooseFile(FileType.PICTURE);
             if(tempFile != null) photoFile = tempFile;
             if (photoFile != null) {
                 courseImage.setImage(new Image(new FileInputStream(photoFile)));
                 courseImageLabel.setText(photoFile.getName());
             }
         } else if (src == courseVideoUpBtn) {
-            File file = ToolKit.chooseFile("video");
+            File file = ToolKit.chooseFile(FileType.VIDEO);
             if (file != null) {
                 courseVideoImage.visibleProperty().set(false);
                 courseVideoLabel.setText(file.getName());
@@ -301,7 +301,7 @@ public class DetailsController implements Initializable {
     }
 
     public Course uploadToDB() {
-        Files coursePhoto = new Files(photoFile, FileType.toType("Picture"), "Course Cover");
+        Files coursePhoto = new Files(photoFile, FileType.PICTURE, "Course Cover");
         Category subCat = new Category(subCategoryCB.getValue());
         course = new Course(courseTitle.getText(), courseSubTitle.getText(), courseDescription.getText(), pricingCtrl.getPrice(), coursePhoto, subCat);
         course.setOff(pricingCtrl.getOffer());
