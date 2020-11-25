@@ -320,4 +320,27 @@ public class Person {
         }
         return null;
     }
+    public static ArrayList<Person> getList() {
+        ArrayList<Person> list = new ArrayList<Person>();
+        ResultSet rs ;
+        String sql = "SELECT ID FROM PERSON";
+        rs = DB.executeQuery(sql);
+        try {
+            while(rs.next())
+            {
+                list.add(new Person(rs.getString("ID")));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    public static void deletePerson(String name)
+    {
+        String sql = "DELETE FROM PERSON_LANGUAGE WHERE PERSON_ID = '#'";
+        DB.execute(sql, name);
+        sql = "DELETE FROM PERSON_LANGUAGE WHERE PERSON_ID = '#'";
+        DB.execute(sql, name);
+    }
 }

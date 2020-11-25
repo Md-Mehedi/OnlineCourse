@@ -35,6 +35,14 @@ public enum PageName {
     , ProfileSetting()
     , FrogetPassword()
     , Blank("Blank Page")
+    , AdminPanel
+    , AdminShowPerson("Users")
+    , AdminMaintainCategory("Category")
+    , AdminMaintainCountry("Country")
+    , AdminMaintainDesignation("Designation")
+    , AdminMaintainEduStatus("Educational Status")
+    , AdminMaintainLanguage("Language")
+    , AdminCourseList("Courses")
     ;
     public String name;
 

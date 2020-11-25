@@ -58,7 +58,7 @@ public class DB {
     }
     
     public static ResultSet executeQuery(String sql, String... arg) { // Replace # mark with value
-        System.out.println(sql);
+        //System.out.println(sql);
         for (String value : arg) {
             sql = sql.replaceFirst("#", value);
         }
@@ -76,7 +76,7 @@ public class DB {
     }
     
     public static boolean execute(String sql, String ... arg) { // Replace # mark with value
-        System.out.println(sql);
+        //System.out.println(sql);
         for (String value : arg) {
             sql = sql.replaceFirst("#", value);
         }

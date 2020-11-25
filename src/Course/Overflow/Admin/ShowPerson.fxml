@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="1035.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="Course.Overflow.Admin.ShowPersonController">
+   <children>
+      <TableView fx:id="table" layoutX="39.0" layoutY="71.0" prefHeight="478.0" prefWidth="957.0">
+        <columns>
+          <TableColumn fx:id="id_col" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="email_col" prefWidth="185.0" text="Email" />
+            <TableColumn fx:id="name_col" prefWidth="170.0" text="First Name" />
+            <TableColumn fx:id="dob_col" prefWidth="123.0" text="Date of Birth" />
+            <TableColumn fx:id="signup_col" prefWidth="122.0" text="Signup Date" />
+            <TableColumn fx:id="type_col" prefWidth="115.0" text="Type" />
+            <TableColumn fx:id="fburl_col" prefWidth="166.0" text="FB_URL" />
+        </columns>
+      </TableView>
+      <Label fx:id="countrylabel" alignment="CENTER" layoutX="447.0" layoutY="14.0" prefHeight="38.0" prefWidth="142.0" style="-fx-background-color: #66CCE1;" text="User List" textFill="WHITE">
+         <font>
+            <Font name="Bell MT Bold" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

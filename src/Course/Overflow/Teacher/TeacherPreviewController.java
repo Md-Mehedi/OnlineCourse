@@ -1,8 +1,4 @@
-/*
- * To change this license HEADER, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Course.Overflow.Teacher;
 
 import Course.Overflow.Global.GLOBAL;

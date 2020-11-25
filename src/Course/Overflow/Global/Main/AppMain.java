@@ -60,8 +60,12 @@ public class AppMain extends Application {
                 mp.loadData(course);
                 pane = mp.getRoot();
                 root.getChildren().add(pane);
+                
             }
-            else mehediTestPage();
+            else 
+            {
+                scene = new Scene(root,GLOBAL.WIDTH, GLOBAL.HEIGHT);
+            }
         }
         else{
             int Testing = 0;
@@ -77,14 +81,18 @@ public class AppMain extends Application {
                 pane = mp.getRoot();
                 root.getChildren().add(pane);
             }
-            else mehediTestPage();
+            else {
+                //mehediTestPage();
 //            System.out.println("USER : SHAMMYA");
-//            shammyaTestPage();
+                mehediTestPage();
+//           shammyaTestPage();
+            scene = new Scene(root);
+            }
         }
         
         GLOBAL.stage = primaryStage;
         GLOBAL.rootPane = root;
-        scene = new Scene(root,GLOBAL.WIDTH, GLOBAL.HEIGHT);
+        
         primaryStage.setScene(scene);
         primaryStage.show();
         System.out.println("FXML is loaded...");
@@ -96,7 +104,7 @@ public class AppMain extends Application {
     }
 
     private void mehediTestPage() throws IOException {
-        PageController pageCtrl = new PageController(PageName.Signup);
+        PageController pageCtrl = new PageController(PageName.Login);
         GLOBAL.PAGE_CTRL = pageCtrl;
         pane = pageCtrl.getContainer();
 
@@ -117,12 +125,11 @@ public class AppMain extends Application {
 
     private void shammyaTestPage() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.ADMIN_LOCATION + "/MaintainLanguage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.ADMIN_LOCATION + "/CourseList.fxml"));
             AnchorPane pane = loader.load();
             root.getChildren().add(pane);
         } catch (IOException ex) {
             Logger.getLogger(AppMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

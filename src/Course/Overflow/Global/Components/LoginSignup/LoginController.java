@@ -105,16 +105,18 @@ public class LoginController implements Initializable {
                     if(Student.exist(username.getText())){
                         GLOBAL.ACCOUNT_TYPE = Person.AccountType.Student;
                         GLOBAL.STUDENT = new Student(username.getText());
+                        GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
                     }
                     else if(Teacher.exist(username.getText())){
                         GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
                         GLOBAL.TEACHER = new Teacher(username.getText());
+                        GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
                     }
                     else if(Admin.exist(username.getText())){
                         GLOBAL.ACCOUNT_TYPE = Person.AccountType.Admin;
                         GLOBAL.ADMIN = new Admin(username.getText());
+                        GLOBAL.PAGE_CTRL.loadPage(PageName.AdminPanel);
                     }
-                    GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
                 } else {
                     int state = JOptionPane.showConfirmDialog(null, "Invalid User ID or Password ! ", "select", JOptionPane.CANCEL_OPTION);
                     if (state == 0) {

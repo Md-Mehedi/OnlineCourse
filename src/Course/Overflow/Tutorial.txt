@@ -33,10 +33,10 @@ Admin:
     2.Country update: Done
         Current country list show with 2 icon update and delete
         There should be a + icon to add new country
-    3.Designation update:
+    3.Designation update: Done
         Current country list show with 2 icon update and delete
         There should be a + icon to add new designation
-    4.Educational status update:
+    4.Educational status update: Done
         Current country list show with 2 icon update and delete
         There should be a + icon to add new designation
     -- You can use only one fxml to maintain those functionality.

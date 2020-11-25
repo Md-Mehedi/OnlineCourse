@@ -14,8 +14,9 @@ import javafx.scene.layout.AnchorPane;
  * @author Md Mehedi Hasan
  */
 public class Page {
-    AnchorPane root;
+    public AnchorPane root;
     PageName pageName;
+    Object controller;
     
 //    public Page(){
 //    }
@@ -37,5 +38,9 @@ public class Page {
     
     public PageName getPageName(){
         return pageName;
+    }
+
+    Object getController() {
+        return controller;
     }
 }

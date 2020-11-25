@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  */
 public class Course {
 
+    String teacherName;
     Integer id;
     String title;
     String subTitle;
@@ -67,6 +68,7 @@ public class Course {
         
             isApproved = ToolKit.DBoolToJBool(rs.getString("IS_APPROVED"));
             teacher = new Teacher(rs.getString("TEACHER_ID"));
+            teacherName = teacher.getFirstName();
             imageFile = new Files(rs.getInt("COVER_ID"));
             subCategory = new Category(rs.getInt("CATEGORY_ID"));
             mainCategory = subCategory.getParent();
@@ -107,6 +109,10 @@ public class Course {
         );
     }
 
+    public String getTeacherName()
+    {
+        return teacherName;
+    }
     public Integer getId() {
         return id;
     }
@@ -318,7 +324,7 @@ public class Course {
 
     public static ArrayList<Course> getApprovedCourses() {
         ArrayList<Course> apCourses = new ArrayList<Course>();
-        String sql = "SELECT ID FROM COURSE ";
+        String sql = "SELECT ID FROM COURSE WHERE IS_APPROVED = 'T'";
         ResultSet rs = DB.executeQuery(sql);
         try {
             while (rs.next()) {
@@ -330,8 +336,30 @@ public class Course {
         } catch (SQLException ex) {
             Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("inside course : total course = " + apCourses.size());
+        System.out.println("inside approved course : total course = " + apCourses.size());
         return apCourses;
+    }
+    public static ArrayList<Course> getUnapprovedCourses() {
+        ArrayList<Course> apCourses = new ArrayList<Course>();
+        String sql = "SELECT ID FROM COURSE WHERE IS_APPROVED = 'F'";
+        ResultSet rs = DB.executeQuery(sql);
+        try {
+            while (rs.next()) {
+                int id = Integer.valueOf(rs.getString("ID"));
+                Integer ID = new Integer(id);
+                apCourses.add(new Course(ID));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("inside unapproved course : total course = " + apCourses.size());
+        return apCourses;
+    }
+    public static void approveCourse(Integer id)
+    {
+        String sql = "UPDATE COURSE SET IS_APPROVED = 'T' WHERE ID = #";
+        DB.execute(sql, id.toString());
     }
 
 }

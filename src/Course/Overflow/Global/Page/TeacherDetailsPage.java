@@ -24,6 +24,7 @@ public class TeacherDetailsPage extends Page{
         try {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.TEACHER_LOCATION + "/TeacherPreview.fxml"));
             root = loader.load();
+            controller = loader.getController();
         } catch (IOException ex) {
             Logger.getLogger(TeacherDetailsPage.class.getName()).log(Level.SEVERE, null, ex);
         }

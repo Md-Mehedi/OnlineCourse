@@ -1,6 +1,7 @@
 
 package Course.Overflow.Global.Page;
 
+import Course.Overflow.Admin.AdminPanel;
 import Course.Overflow.Global.Components.HeaderController;
 import Course.Overflow.Global.Components.Notification.NotificationView;
 import Course.Overflow.Global.Components.RightMenuPopOverController;
@@ -207,6 +208,10 @@ public class PageController {
                 break;
             case CreateCourse:
                 page = new CreateCourse();
+                break;
+            case AdminPanel:
+                page = new AdminPanel();
+                break;
         }
         if (!isLoadingWithoutLayout(pageName)) {
             loadPage(page);
@@ -229,5 +234,9 @@ public class PageController {
 
     public Page getPage(){
         return page;
+    }
+
+    public Object getController() {
+        return page.getController();
     }
 }

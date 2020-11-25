@@ -2,7 +2,7 @@
 package Course.Overflow.Admin;
 
 import Course.Overflow.DB;
-import Course.Overflow.Global.Designation;
+import Course.Overflow.Global.EducationalStatus;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
@@ -19,79 +19,79 @@ import javafx.scene.layout.AnchorPane;
 /**
  * FXML Controller class
  *
- * @author shammya
+ * @author Shammya
  */
-public class MaintainDesignationController implements Initializable {
+public class MaintainEduStatusController implements Initializable {
 
     @FXML
-    private AnchorPane DesignationMaintainPane;
+    private TableView<EducationalStatus> table;
     @FXML
-    private TableView<Designation> table;
+    private TableColumn<EducationalStatus, Integer> id_col;
     @FXML
-    private TableColumn<Designation, Integer> id_col;
+    private TableColumn<EducationalStatus, String> type_col;
     @FXML
-    private TableColumn<Designation, String> type_col;
-    @FXML
-    private TableColumn<Designation, String> adminid_col;
+    private TableColumn<EducationalStatus, String> adminid_col;
     @FXML
     private JFXButton add;
     @FXML
-    private JFXTextField designationName;
+    private JFXTextField statusName;
     @FXML
     private JFXButton update;
     @FXML
     private JFXButton delete;
-    private ObservableList<Designation> list;
+    @FXML
+    private AnchorPane EduStatusMaintainPane;
+    private ObservableList<EducationalStatus> list;
     private String selected = "";
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        id_col.setCellValueFactory(new PropertyValueFactory<Designation, Integer>("id"));
-        type_col.setCellValueFactory(new PropertyValueFactory<Designation, String>("type"));
-        adminid_col.setCellValueFactory(new PropertyValueFactory<Designation, String>("adminId"));
+        id_col.setCellValueFactory(new PropertyValueFactory<EducationalStatus, Integer>("id"));
+        type_col.setCellValueFactory(new PropertyValueFactory<EducationalStatus, String>("type"));
+        adminid_col.setCellValueFactory(new PropertyValueFactory<EducationalStatus, String>("adminId"));
         loadTable();
         addListener();
     }    
+    
     private void addListener()
     {
         add.setOnMouseClicked(event -> {
-        if (!designationName.getText().isEmpty()) {
-                boolean present = DB.valueExist("DESIGNATION", "TYPE", designationName.getText());
+        if (!statusName.getText().isEmpty()) {
+                boolean present = DB.valueExist("EDUCATIONAL_STATUS", "TYPE", statusName.getText());
                 if (present) {
                     return;
                 }
-                Designation.createNewDesignation(designationName.getText());
+                EducationalStatus.createNewEduStatus(statusName.getText());
                 loadTable();
                 selected = "";
-                designationName.setText("");
+                statusName.setText("");
             }
         });
         table.setOnMouseClicked(event -> {
             int idx = table.getSelectionModel().getSelectedIndex();
             if (idx >= 0) {
                 selected = type_col.getCellData(idx).toString();
-                designationName.setText(selected);
+                statusName.setText(selected);
 
             } else {
                 selected = "";
             }
         });
         update.setOnMouseClicked(event -> {
-            boolean flag = !designationName.getText().isEmpty() && !selected.equals(designationName.getText()) && !selected.isEmpty();
+            boolean flag = !statusName.getText().isEmpty() && !selected.equals(statusName.getText()) && !selected.isEmpty();
             if (flag) {
-                Designation.changeDesignationName(selected, designationName.getText());
+                EducationalStatus.changeEduStatusName(selected, statusName.getText());
                 loadTable();
                 selected = "";
-                designationName.setText("");
+                statusName.setText("");
             }
         });
         
         delete.setOnMouseClicked(event -> {
-            boolean flag = !selected.isEmpty()&& !designationName.getText().isEmpty() && DB.valueExist("DESIGNATION", "TYPE", designationName.getText()) ;
+            boolean flag = !selected.isEmpty()&& !statusName.getText().isEmpty() && DB.valueExist("EDUCATIONAL_STATUS", "TYPE", statusName.getText()) ;
             if (flag) {
-                Designation.deleteDesignation(selected);
+                EducationalStatus.deleteEduStatus(selected);
                 loadTable();
-                designationName.setText("");
+                statusName.setText("");
                 selected="";
             }
         });
@@ -99,7 +99,7 @@ public class MaintainDesignationController implements Initializable {
 
     private void loadTable() {
         list = FXCollections.observableArrayList();
-        list.setAll(Designation.getList());
+        list.setAll(EducationalStatus.getList());
         table.setItems(list);
         
     }

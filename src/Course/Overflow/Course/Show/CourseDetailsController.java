@@ -150,6 +150,7 @@ public class CourseDetailsController implements Initializable {
     private void addListener() {
         instName.setOnMouseClicked(event -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
+            GLOBAL.PAGE_CTRL.getController();
         });
         instPhoto.setOnMouseClicked(event -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
@@ -163,6 +164,11 @@ public class CourseDetailsController implements Initializable {
         buyNowButton.setOnMouseClicked((event) -> {
             checkoutCtrl.show();
         });
+        instCourses.setOnMouseClicked(event -> {
+        
+        
+        });
+        
 
     }
 
@@ -191,6 +197,22 @@ public class CourseDetailsController implements Initializable {
         lang = lang.replaceFirst(" ,", "");
         System.out.println(lang);
         this.language.setText(lang);
+        String Instructor = course.getTeacher().getFirstName() + " " +course.getTeacher().getLastName();
+        instName.setText(Instructor);
+        instShortDes.setText(course.getTeacher().getAbout());
+        courseDescription.setText(course.getDescription());
+        for(String txt  :course.getPrerequisitive())
+        {
+            Label l = new Label(txt);
+            requirementBox.getChildren().add(l);
+        }
+        for(String txt : course.getOutcomes())
+        {
+            Label l = new Label(txt);
+            courseLearnBox.getChildren().add(l);
+        }
+        
+        
     }
 
     public void setCourse(Course course) {
