@@ -5,7 +5,8 @@ Button{
 Label, Text, TextField, TextArea, DatePicker{
     /*-fx-font: 20 "open sans,helvetica neue,Helvetica,Arial,sans-serif";*/
     /*-fx-font: 20 "sf pro display,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol";*/
-    -fx-font: 24 "Bell MT";
+    -fx-font: 22 "Bell MT";
+    /*-fx-font: 22 "Comic Sans ms";*/
     -fx-padding: 0 10 0 10;
     -fx-text-alignment: justify;
     -fx-wrap-text: true;
@@ -235,4 +236,23 @@ TextField{
 }
 .checkedListHbox > Label{
     -fx-padding: 0 0 20 0;
+}
+
+/*Rating Box CSS*/
+.rating > .container  .button , .rating{
+    -fx-pref-height: 25;
+    -fx-max-height:  25;
+    -fx-min-height:  25;
+}
+.rating > .container  .button {
+    -fx-pref-width: 25;
+    -fx-background-size: cover;
+    -fx-padding: 0;
+}
+.rating HBox{
+    -fx-spacing: 4;
+}
+
+.mainPrice .text{
+    -fx-strikethrough: true;
 }

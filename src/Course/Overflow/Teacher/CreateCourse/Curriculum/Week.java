@@ -48,6 +48,10 @@ public class Week {
         this.weekNo = weekNo;
         this.title = title;
         this.lastUpdate = ToolKit.getCurTime();
+//        ToolKit.print(course.getId());
+//        ToolKit.print(id);
+//        ToolKit.print(lastUpdate);
+        
         DB.execute(
               "INSERT INTO WEEK(ID, WEEK_NO, TITLE, LAST_UPDATE, COURSE_ID) VALUES(#, #, '#', #, #)", 
               id.toString(), weekNo.toString(), title, ToolKit.JDateToDDate(lastUpdate), course.getId().toString()

@@ -15,6 +15,7 @@ import Course.Overflow.Global.Page.Page;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Teacher.CreateCourse.CourseLandingPage.DetailsController;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController.ViewerType;
 import Course.Overflow.Teacher.CreateCourse.Pricing.PricingController;
 import Course.Overflow.Teacher.CreateCourse.TargetStudentPage.TargetStudentPageController;
 import java.io.IOException;
@@ -64,6 +65,7 @@ public class CreateCourse extends Page {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_CURRICULUM_LOCATION + "/Curriculum.fxml"));
             curriculumPane = loader.load();
             curriculumCtrl = loader.getController();
+            curriculumCtrl.setViewer(ViewerType.OwnerTeacherEditor);
 
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_LANDING_PAGE_LOCATION + "/Details.fxml"));
             landingPagePane = loader.load();
@@ -100,19 +102,15 @@ public class CreateCourse extends Page {
         }
     }
 
-    public boolean isTargetStudentPageComplete() {
-        return true;
-    }
-
     public void uploadToDB() {
         if (!isPassedCondition()) {
             return;
         }
-        Course course = detailsController.uploadToDB();
+        course = detailsController.uploadToDB();
         curriculumCtrl.uploadToDB(course);
         course.setOutcomes(targetStudentCtrl.getOutcomes());
         course.setPrerequisitive(targetStudentCtrl.getPrerequisitives());
-        targetStudentCtrl.uploadToDB(course); //new Course(3));
+        targetStudentCtrl.uploadToDB(course);
     }
 
     public void updateDB() {
@@ -122,10 +120,9 @@ public class CreateCourse extends Page {
         detailsController.updateDB();
         targetStudentCtrl.updateDB();
         curriculumCtrl.updateDB();
-        //loadData(new Course(19));
     }
 
-    private boolean isPassedCondition() {
+    public boolean isPassedCondition() {
         return targetStudentCtrl.isPassedCondition()
               && curriculumCtrl.isPassedCondition()
               && detailsController.isPassedCondition()
@@ -137,13 +134,17 @@ public class CreateCourse extends Page {
         targetStudentCtrl.createEnvironmentForCourseUpdate(course);
         targetStudentCtrl.loadDate(course);
 
-        curriculumCtrl.createEnvironmentForCourseUpdate(course);
-        curriculumCtrl.loadData(course);
+//        curriculumCtrl.createEnvironmentForCourseUpdate(course);
+        curriculumCtrl.loadData(course, ViewerType.OwnerTeacherEditor);
 
         detailsController.createEnvironmentForCourseUpdate(course);
         detailsController.loadData(course);
 
         pricingController.createEnvironmentForCourseUpdate();
         pricingController.loadData(course);
+    }
+    
+    public Course getCourse(){
+        return course;
     }
 }

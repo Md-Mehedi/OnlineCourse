@@ -2,9 +2,12 @@ package Course.Overflow.Course;
 
 import Course.Overflow.DB;
 import Course.Overflow.Files.Files;
+import Course.Overflow.Global.Communication.FAQ;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Language;
 import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Student.PurchaseHistory;
+import Course.Overflow.Student.Student;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.Week;
 import Course.Overflow.Teacher.Teacher;
 import java.sql.ResultSet;
@@ -53,15 +56,14 @@ public class Course {
     public Course() {
 
     }
-
+    
     public Course(Integer id) {
         this.id = id;
         ResultSet rs = DB.executeQuery("SELECT * FROM COURSE WHERE ID = #", id.toString());
         try {
-            rs.next();
+            if(!rs.next()) return;
             title = rs.getString("TITLE");
             subTitle = rs.getString("SUBTITLE");
-            description = rs.getString("DESCRIPTION");
             mainPrice = rs.getDouble("PRICE");
             off = rs.getDouble("OFFER");
             publishDate = rs.getDate("PUBLISH_DATE");
@@ -76,13 +78,12 @@ public class Course {
             languages = Language.getLanguages(this);
             properties = Property.getProperties(this);
 
+            description = rs.getString("DESCRIPTION");
 //            Rating will be added
 //            Review will be added
-            outcomes = rs.getString("OUTCOMES").split("><");
+            if(!rs.getString("OUTCOMES").equals("")) outcomes = rs.getString("OUTCOMES").split("><");
             prerequisitives = rs.getString("PREREQUISITES").split("><");
-
-            weeks = Week.getWeeks(this);
-
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -96,6 +97,7 @@ public class Course {
         this.mainPrice = price;
         this.imageFile = cover;
         this.subCategory = subCategory;
+        this.mainCategory = subCategory.getParent();
         this.publishDate = ToolKit.getCurTime();
         this.isApproved = false;
         this.teacher = GLOBAL.TEACHER;
@@ -126,16 +128,13 @@ public class Course {
     }
 
     public void setSubTitle(String subTitle) {
+        if(this.subTitle.equals(subTitle)) return;
         this.subTitle = subTitle;
         DB.execute("UPDATE COURSE SET SUBTITLE = '#' WHERE ID = #", subTitle, id.toString());
     }
 
     public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
+        return CourseRating.getValue(this);
     }
 
     public Teacher getTeacher() {
@@ -176,12 +175,15 @@ public class Course {
     }
 
     public void setSubCategory(Category subCategory) {
+        if(this.subCategory != null)
+        if(this.subCategory.equals(subCategory)) return;
         this.subCategory = subCategory;
         this.mainCategory = subCategory.getParent();
         DB.execute("UPDATE COURSE SET CATEGORY_ID = # WHERE ID = #", subCategory.getId().toString(), id.toString());
     }
 
     public void setTitle(String title) {
+        if(this.title.equals(title)) return;
         this.title = title;
         DB.execute("UPDATE COURSE SET TITLE = '#' WHERE ID = #", title, id.toString());
     }
@@ -199,6 +201,8 @@ public class Course {
     }
 
     public void setMainPrice(Double mainPrice) {
+        if(this.mainPrice != null)
+        if(this.mainPrice.equals(mainPrice)) return;
         this.mainPrice = mainPrice;
         DB.execute("UPDATE COURSE SET PRICE = # WHERE ID = #", mainPrice.toString(), id.toString());
     }
@@ -208,6 +212,8 @@ public class Course {
     }
 
     public void setOff(Double off) {
+        if(this.off != null)
+        if(this.off.equals(off)) return;
         this.off = off;
         DB.execute("UPDATE COURSE SET OFFER = # WHERE ID = #", off.toString(), id.toString());
     }
@@ -234,6 +240,8 @@ public class Course {
     }
 
     public void setLanguages(ArrayList<Language> languages) {
+        if(this.languages != null)
+        if(this.languages.equals(languages)) return;
         this.languages = languages;
         deleteCourseLanguage();
         for (Language lang : languages) {
@@ -256,6 +264,7 @@ public class Course {
     }
 
     public void setDescription(String description) {
+        if(this.description.equals(description)) return;
         this.description = description;
         DB.execute("UPDATE COURSE SET DESCRIPTION = '#' WHERE ID = #", description, id.toString());
     }
@@ -310,16 +319,20 @@ public class Course {
     }
 
     public void delete() {
-        imageFile.delete();
         deleteCourseLanguage();
         for (Property property : properties) {
             property.delete();
         }
-//        ArrayList<Review> reveiws;
-
+        // Delete FAQ
         for (Week week : weeks) {
             week.delete();
         }
+        FAQ.delete(this);
+        Review.delete(this);
+        CourseRating.delete(this);
+        PurchaseHistory.delete(this);
+        DB.execute("DELETE FROM COURSE WHERE ID = #", id.toString());
+        imageFile.delete();
     }
 
     public static ArrayList<Course> getApprovedCourses() {
@@ -339,6 +352,84 @@ public class Course {
         System.out.println("inside approved course : total course = " + apCourses.size());
         return apCourses;
     }
+    
+    public void loadAllData(){
+        weeks = Week.getWeeks(this);
+        reveiws = Review.getList(this);
+    }
+    
+    public Double getCurrentPrice(){
+        return getMainPrice() - getMainPrice()*getOff()/100.0;
+    }
+    
+    public Integer getNumOfRating(){
+        try {
+            ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM RATING WHERE COURSE_ID = #", id.toString());
+            rs.next();
+            Integer value = rs.getInt("COUNT(*)");
+            rs.close();
+            return value;
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public Integer getRatingOf(Student student) {
+        ResultSet rs = DB.executeQuery("SELECT VALUE FROM RATING WHERE COURSE_ID = # AND STUDENT_ID = '#'", id.toString(), student.getUsername());
+        try {
+            if(rs.next()){
+                Integer value = rs.getInt("VALUE");
+                rs.close();
+                return value;
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public boolean isBoughtBy(Student student) {
+        try {
+            ResultSet rs = DB.executeQuery("SELECT * FROM PURCHASE_HISTORY WHERE COURSE_ID = # AND STUDENT_ID = '#'", id.toString(), student.getUsername());
+            if(rs.next()){
+                rs.close();
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public static ArrayList<Course> coursesOf(Teacher teacher) {
+        ArrayList<Course> list = new ArrayList<Course>();
+        try {
+            ResultSet rs = DB.executeQuery("SELECT ID FROM COURSE WHERE TEACHER_ID = '#'", teacher.getUsername());
+            while(rs.next()){
+                list.add(new Course(rs.getInt("ID")));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public Integer getNumOfLectures() {
+        try {
+            ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM LECTURE WHERE WEEK_ID = ANY(SELECT ID FROM WEEK WHERE COURSE_ID = #)", id.toString());
+            rs.next();
+            Integer value = rs.getInt("COUNT(*)");
+            rs.close();
+            return value;
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
     public static ArrayList<Course> getUnapprovedCourses() {
         ArrayList<Course> apCourses = new ArrayList<Course>();
         String sql = "SELECT ID FROM COURSE WHERE IS_APPROVED = 'F'";

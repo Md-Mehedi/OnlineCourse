@@ -254,6 +254,7 @@ public class TargetStudentPageController implements Initializable {
     }
 
     public void loadDate(Course course) {
+        this.course = course;
         courseLearningContainer.getChildren().clear();
         courseOutcomesCtrls.clear();
         requContainer.getChildren().clear();

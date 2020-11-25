@@ -9,7 +9,6 @@ package Course.Overflow.Global.Page;
 import Course.Overflow.Global.Communication.Anouncement;
 import Course.Overflow.Global.Communication.FAQ;
 import Course.Overflow.Global.Communication.MessagePage;
-import Course.Overflow.Global.Communication.Reviews;
 import Course.Overflow.Global.Customize.SVG;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.LeftSlidingPane;
@@ -33,7 +32,6 @@ public class CommunicationPage extends Page{
     private MessagePage messengerPageCtrl;
     private FAQ faqCtrl;
     private AnchorPane faqPane;
-    private Reviews reviewsCtrl;
     private AnchorPane reviewsPane;
     private Anouncement anouncementCtrl;
     private AnchorPane anouncementPane;
@@ -41,6 +39,7 @@ public class CommunicationPage extends Page{
     private EnrolledStudentsView studentCtrl;
     private AnchorPane enrolledStudentPane;
     private PageName pageName;
+    private ReviewPage reviewsCtrl;
         
     public CommunicationPage(PageName pageName){
         super(pageName);
@@ -90,7 +89,7 @@ public class CommunicationPage extends Page{
     }
 
     private void addReviews() {
-        reviewsCtrl = new Reviews();
+        reviewsCtrl = new ReviewPage();
         reviewsPane = reviewsCtrl.getRoot();
         slidingPaneCtrl.addContent(reviewsPane, SVG.REVIEW, PageName.Review);
     }

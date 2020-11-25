@@ -9,6 +9,8 @@ import Course.Overflow.Course.Course;
 import Course.Overflow.Global.Customize.ToolTip;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController.ViewerType;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.LectureBoxController.LectureType;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.io.IOException;
@@ -59,6 +61,13 @@ public class WeekBoxController implements Initializable {
     private ArrayList<LectureBoxController> lectureBoxControllers;
     private ArrayList<Lecture> lectures;
     private Course course;
+    private ViewerType viewer;
+    @FXML
+    private HBox WeekHeader;
+    @FXML
+    private HBox upDownContainer;
+    @FXML
+    private HBox weekBoxFooter;
 
     public ArrayList<LectureBoxController> getLectureBoxControllers() {
         return lectureBoxControllers;
@@ -124,7 +133,12 @@ public class WeekBoxController implements Initializable {
             parentController.removeWeekBoxController(parent.getChildren().indexOf(weekBoxPane));
             parent.getChildren().remove(weekBoxPane);
             parentController.getWeekBoxControllers().remove(this);
-            if(week != null) week.delete();
+            if(week != null) {
+                for(LectureBoxController lecCtrl : lectureBoxControllers){
+                    if(lecCtrl.getLectureType() == LectureType.VIDEO) lecCtrl.getVideoShowCtrl().closeMedieaPlayer();
+                }
+                week.delete();
+            }
         } else if (src == addIcon) {
             addLecture(null);
         }
@@ -143,7 +157,8 @@ public class WeekBoxController implements Initializable {
             pane = (AnchorPane) loader.load();
             loader.<LectureBoxController>getController().setParent(this);
             loader.<LectureBoxController>getController().setLectureNo(lectureBoxContainer.getChildren().size() + 1);
-            if(lecture != null) loader.<LectureBoxController>getController().loadData(lecture);
+            loader.<LectureBoxController>getController().setViewer(viewer);
+            if(lecture != null) loader.<LectureBoxController>getController().loadData(week, lecture, viewer);
             if(week != null) loader.<LectureBoxController>getController().setWeek(week);
             lectureBoxControllers.add(loader.<LectureBoxController>getController());
             lectureBoxContainer.getChildren().add(pane);
@@ -184,11 +199,11 @@ public class WeekBoxController implements Initializable {
     }
 
     public void uploadToDB(Course course) {
-        System.out.println("uploadDB" + weekNameLabel.getText());
+        this.course = course;
         week = new Week(Integer.parseInt(weekNo.getText()), weekNameLabel.getText(), course);
         for (LectureBoxController lecCtrl : lectureBoxControllers) {
             lecCtrl.setWeek(week);
-            Lecture lecture = lecCtrl.uploadToDB();
+            Lecture lecture = lecCtrl.uploadToDB(week);
             lectures.add(lecture);
         }
         week.setLectures(lectures);
@@ -199,7 +214,6 @@ public class WeekBoxController implements Initializable {
             uploadToDB(course);
             return;
         }
-        System.out.println("updateDB" + weekNameLabel.getText());
         week.setTitle(weekNameLabel.getText());
         week.setWeekNo(Integer.parseInt(weekNo.getText()));
         for(LectureBoxController lecCtrl : lectureBoxControllers){
@@ -226,8 +240,13 @@ public class WeekBoxController implements Initializable {
         return Integer.parseInt(weekNo.getText());
     }
     
-    public void loadData(Week week){
+    public void loadData(Course course, Week week, ViewerType viewer){
+        this.course = course;
         this.week = week;
+        this.viewer = viewer;
+        if(viewer != ViewerType.OwnerTeacherEditor){
+            stopEditingFunctionality();
+        }
         weekNameLabel.setText(week.getTitle());
         for(Lecture lecture : week.getLectures()){
             addLecture(lecture);
@@ -236,5 +255,18 @@ public class WeekBoxController implements Initializable {
     
     public void setCourse(Course course){
         this.course = course;
+    }
+
+    private void stopEditingFunctionality() {
+        WeekHeader.getChildren().remove(editIcon);
+        WeekHeader.getChildren().remove(deleteIcon);
+        WeekHeader.getChildren().remove(deleteIcon);
+        upDownContainer.getChildren().remove(up);
+        upDownContainer.getChildren().remove(down);
+        weekBoxFooter.getChildren().remove(addIcon);
+    }
+
+    void setViewer(ViewerType viewer) {
+        this.viewer = viewer;
     }
 }

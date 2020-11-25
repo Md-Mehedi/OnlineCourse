@@ -27,13 +27,13 @@ public class CoursePage extends Page{
         try {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_SHOW_LOCATION + "/CourseDetails.fxml"));
             root = loader.load();
-            pageCtrl = loader.<CourseDetailsController>getController();
+            this.controller = loader.<CourseDetailsController>getController();
         } catch (IOException ex) {
             Logger.getLogger(CoursePage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     public CourseDetailsController getController(){
-        return pageCtrl;
+        return (CourseDetailsController) this.controller;
     }
 }

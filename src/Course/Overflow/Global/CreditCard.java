@@ -28,11 +28,12 @@ public class CreditCard {
         if(DB.valueExist("CREDIT_CARD", "ID", id.toString())){
             ResultSet rs = DB.executeQuery("SELECT * FROM CREDIT_CARD WHERE ID = #", id.toString());
             try {
-                if(!rs.next()) return;
+                if(!rs.next()) {rs.close(); return;}
 
                 cardNo = rs.getString("CARD_NO");
                 nameOnCard = rs.getString("NAME_ON_CARD");
                 expireDate = ToolKit.makeDateForJAVA(rs.getDate("EXPIRE_DATE"));
+                rs.close();
             } catch (SQLException ex) {
                 Logger.getLogger(CreditCard.class.getName()).log(Level.SEVERE, null, ex);
             }

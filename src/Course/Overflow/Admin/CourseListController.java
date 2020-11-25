@@ -72,7 +72,7 @@ public class CourseListController implements Initializable {
             //System.out.println(unapproved.getSelectionModel().getSelectedItem().getTitle());
             Course course = unapproved.getSelectionModel().getSelectedItem();
             GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
-            ((CourseDetailsController)GLOBAL.PAGE_CTRL.getController()).setCourse(course);
+            ((CourseDetailsController)GLOBAL.PAGE_CTRL.getController()).loadData(course);
         });
         itm2 = new MenuItem("Approve Course");
         itm2.setOnAction(event -> {

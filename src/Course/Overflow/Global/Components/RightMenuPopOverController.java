@@ -67,18 +67,19 @@ public class RightMenuPopOverController implements Initializable {
             addLabel("Purchase history", PageName.PurchaseHistory);
             addLabel("Wishlist", PageName.Wishlist);
         } else if (GLOBAL.ACCOUNT_TYPE == Person.AccountType.Teacher) {
-            addLabel("My students", PageName.EnrolledStudents);
             addLabel("Overview", PageName.Overview);
+            addLabel("My students", PageName.EnrolledStudents);
+            addLabel("Purchase details", PageName.PurchaseHistory);
             addLabel("Create a course", PageName.CreateCourse);
         }
         addLabel("Message", PageName.Messenger);
         addLabel("FAQ", PageName.FAQ);
         addLabel("Account setting", PageName.ProfileSetting);
         addLabel("Sign out", PageName.Login, ()-> {
-                GLOBAL.ACCOUNT_TYPE = null;
-                GLOBAL.STUDENT = null;
-                GLOBAL.TEACHER = null;
-                return true;
+            GLOBAL.ACCOUNT_TYPE = null;
+            GLOBAL.STUDENT = null;
+            GLOBAL.TEACHER = null;
+            return true;
         });
     }
 
@@ -120,7 +121,7 @@ public class RightMenuPopOverController implements Initializable {
             imageCircle.setFill(new ImagePattern(image));
             imageLabel.setText("");
         } else {
-            imageLabel.setText(ToolKit.userShortName());
+            imageLabel.setText(ToolKit.getCurrentPerson().getShortName());
         }
     }
 }

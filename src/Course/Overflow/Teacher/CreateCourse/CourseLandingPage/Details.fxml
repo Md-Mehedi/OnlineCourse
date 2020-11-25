@@ -20,19 +20,19 @@
          <children>
             <VBox style="-fx-alignment: top-left;">
                <children>
-                  <Label fx:id="ct" text="Course title" />
+                  <Label fx:id="ct" text="Course title *" />
                   <TextField fx:id="courseTitle" promptText="Insert your course title" />
                </children>
             </VBox>
             <VBox style="-fx-alignment: top-left;">
                <children>
-                  <Label text="Course subtitle" />
+                  <Label text="Course subtitle *" />
                   <TextField fx:id="courseSubTitle" promptText="Insert your course subtitle" />
                </children>
             </VBox>
             <VBox style="-fx-alignment: top-left;">
                <children>
-                  <Label text="Course description" />
+                  <Label text="Course description *" />
                   <TextArea fx:id="courseDescription" promptText="Insert your course description">
                      <VBox.margin>
                         <Insets />
@@ -45,7 +45,7 @@
                      <children>
                         <HBox style="-fx-alignment: center-left;">
                            <children>
-                              <Label text="Course image" />
+                              <Label text="Course image *" />
                               <FontAwesomeIconView fx:id="imageInfoIcon" glyphName="INFO_CIRCLE" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" size="20" />
                            </children>
                         </HBox>
@@ -72,19 +72,19 @@
                <children>
                   <VBox alignment="CENTER_LEFT" style="-fx-alignment: center-left;">
                      <children>
-                        <Label text="Language" />
+                        <Label text="Language *" />
                         <TextField fx:id="languageField" prefWidth="350.0" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER_LEFT" style="-fx-alignment: center-left;">
                      <children>
-                        <Label text="Main Category" />
+                        <Label text="Main Category *" />
                         <ChoiceBox fx:id="mainCategoryCB" styleClass="choiceBox" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER_LEFT" style="-fx-alignment: center-left;">
                      <children>
-                        <Label text="Sub Category" />
+                        <Label text="Sub Category *" />
                         <ChoiceBox fx:id="subCategoryCB" styleClass="choiceBox" />
                      </children>
                   </VBox>

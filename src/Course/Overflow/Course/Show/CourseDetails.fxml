@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import java.net.URL?>
@@ -8,24 +9,25 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 <?import org.controlsfx.control.Rating?>
 
-<AnchorPane id="AnchorPane" prefWidth="600.0" styleClass="fullWidth" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Course.Show.CourseDetailsController">
+<AnchorPane id="CourseDetailsRoot" fx:id="root" prefWidth="600.0" styleClass="fullWidth" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Course.Show.CourseDetailsController">
    <children>
       <VBox layoutX="36.0" layoutY="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox id="TopHBox" prefWidth="1435.0">
+            <HBox id="TopHBox" prefWidth="1435.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox prefWidth="800.0">
+                  <VBox minWidth="800.0" prefWidth="800.0" style="-fx-alignment: top-left;">
                      <children>
                         <Label fx:id="title" styleClass="title1" text="2020 Complete Python Bootcamp: From Zero to Hero in Python" />
-                        <Label fx:id="subTitle" style="-fx-font-weight: none;" styleClass="title5" text="Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!" />
+                        <Label fx:id="subTitle" style="-fx-font-weight: none;" styleClass="title5" text="Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!" />
                         <HBox>
                            <children>
-                              <Rating prefHeight="0.0" prefWidth="160.0">
+                              <Rating fx:id="ratingStar" partialRating="true" prefHeight="0.0">
                                  <HBox.margin>
                                     <Insets top="6.0" />
                                  </HBox.margin>
@@ -45,10 +47,10 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label text="Publish Date" />
+                              <Label styleClass="bold" text="Publish Date" />
                               <Label fx:id="publish" text="29 October, 2019" />
-                              <Label text="Language" />
-                              <Label fx:id="language" prefHeight="40.0" prefWidth="317.0" text="Language" />
+                              <Label styleClass="bold" text="Language" />
+                              <Label fx:id="language" text="Language" />
                            </children>
                         </HBox>
                      </children>
@@ -56,32 +58,50 @@
                         <Insets right="60.0" />
                      </padding>
                   </VBox>
-                  <VBox id="TopRightBox" prefHeight="423.0" prefWidth="507.0">
+                  <VBox id="TopRightBox">
                      <children>
                         <StackPane>
                            <children>
                               <MediaView fitHeight="200.0" fitWidth="200.0" />
-                              <ImageView fx:id="courseimage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="courseimage" fitHeight="271.0" fitWidth="486.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </StackPane>
-                        <HBox prefHeight="99.0" prefWidth="447.0">
+                        <VBox fx:id="buyNowContainer">
                            <children>
-                              <Label fx:id="price" prefHeight="99.0" prefWidth="230.0" styleClass="title3" text="Current Price" />
-                              <Label prefHeight="36.0" prefWidth="116.0" style="-fx-font-size: 22;" text="Main Price" />
-                              <Label fx:id="mainPrice" prefHeight="36.0" prefWidth="69.0" style="-fx-font-size: 22;" text="Main Price" />
-                              <Label fx:id="offer" prefHeight="47.0" prefWidth="61.0" style="-fx-font-size: 22;" text="\% off" />
-                              <Label fx:id="off" prefHeight="47.0" prefWidth="61.0" style="-fx-font-size: 22;" text="\% off" />
+                              <HBox fx:id="priceContainer" style="-fx-alignment: bottom-left;">
+                                 <children>
+                                    <Label fx:id="price" styleClass="title3" text="Current Price" />
+                                    <Label fx:id="mainPrice" style="-fx-font-size: 22;" styleClass="mainPrice" text="Main Price" />
+                                    <Label fx:id="offer" style="-fx-font-size: 22;" text="\% off" />
+                                 </children>
+                              </HBox>
+                              <HBox fx:id="buyNowBtnContainer" style="-fx-alignment: center;">
+                                 <children>
+                                    <JFXButton fx:id="buyNowButton" prefHeight="74.0" prefWidth="483.0" text="Buy now">
+                                       <styleClass>
+                                          <String fx:value="title1" />
+                                          <String fx:value="myButton" />
+                                       </styleClass>
+                                       <HBox.margin>
+                                          <Insets bottom="15.0" top="15.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
+                                 </children>
+                              </HBox>
                            </children>
-                        </HBox>
-                        <Label fx:id="buyNowButton" styleClass="title1" text="Buy now" />
-                        <VBox>
+                        </VBox>
+                        <VBox VBox.vgrow="ALWAYS">
                            <children>
                               <Label styleClass="title4" text="This course included" />
-                              <VBox fx:id="properties" />
+                              <VBox fx:id="properties" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                      </children>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
                   </VBox>
+                  <Region minWidth="30.0" />
                </children>
             </HBox>
             <VBox>
@@ -90,12 +110,6 @@
                      <children>
                         <Label styleClass="title4" text="What you'll learn" />
                         <VBox fx:id="courseLearnBox" />
-                     </children>
-                  </VBox>
-                  <VBox>
-                     <children>
-                        <Label styleClass="title4" text="Course content" />
-                        <VBox fx:id="courseContentBox" />
                      </children>
                   </VBox>
                   <VBox>
@@ -112,15 +126,20 @@
                   </VBox>
                   <VBox>
                      <children>
+                        <Label styleClass="title4" text="Course content" />
+                        <VBox id="weekContainer" fx:id="courseContentBox" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
                         <Label styleClass="title4" text="Instructor" />
                         <VBox>
                            <children>
                               <Label fx:id="instName" style="-fx-font-weight: bold; -fx-font-size: 23;" text="Instructor name" />
-                              <Label fx:id="instShortDes" text="Instructior short description" />
-                              <HBox>
+                              <HBox style="-fx-spacing: 30;">
                                  <children>
                                     <ImageView fx:id="instPhoto" fitHeight="128.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" />
-                                    <VBox>
+                                    <VBox HBox.hgrow="NEVER">
                                        <children>
                                           <HBox>
                                              <children>
@@ -129,7 +148,7 @@
                                                       <FontAwesomeIconView glyphName="STAR" size="27" />
                                                    </graphic>
                                                 </Label>
-                                                <Label fx:id="instRating" style="-fx-font-weight: none;" styleClass="title5" text="Rating" />
+                                                <Label fx:id="instRating" alignment="BOTTOM_LEFT" style="-fx-font-weight: none;" styleClass="title5" text="3.3" />
                                              </children>
                                           </HBox>
                                           <HBox>
@@ -168,7 +187,7 @@
                               </HBox>
                               <VBox VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Label fx:id="instDes" maxHeight="1000.0" text="  Jose Marcial Portilla has a BS and MS in Mechanical Engineering from Santa Clara University and years of experience as a professional instructor and trainer for Data Science and programming. He has publications and patents in various fields such as microfluidics, materials science, and data science technologies. Over the course of his career he has developed a skill set in analyzing data and he hopes to use his experience in teaching and data science to help other people learn the power of programming the ability to analyze data, as well as present the data in clear and beautiful visualizations. Currently he works as the Head of Data Science for Pierian Data Inc. and provides in-person data science and python programming training courses to employees working at top companies, including General Electric, Cigna, The New York Times, Credit Suisse, McKinsey and many more. Feel free to contact him on LinkedIn for more information on in-person training sessions or group training sessions in Las Vegas, NV." VBox.vgrow="ALWAYS" />
+                                    <Label fx:id="instDes" maxHeight="1000.0" prefHeight="60.0" prefWidth="1339.0" text="  Jose Marcial Portilla has a BS and MS in Mechanical Engineering from Santa Clara University and years of experience as a professional instructor and trainer for Data Science and programming. He has publications and patents in various fields such as microfluidics, materials science, and data science technologies. Over the course of his career he has developed a skill set in analyzing data and he hopes to use his experience in teaching and data science to help other people learn the power of programming the ability to analyze data, as well as present the data in clear and beautiful visualizations. Currently he works as the Head of Data Science for Pierian Data Inc. and provides in-person data science and python programming training courses to employees working at top companies, including General Electric, Cigna, The New York Times, Credit Suisse, McKinsey and many more. Feel free to contact him on LinkedIn for more information on in-person training sessions or group training sessions in Las Vegas, NV." VBox.vgrow="ALWAYS" />
                                  </children>
                               </VBox>
                            </children>
@@ -177,6 +196,55 @@
                   </VBox>
                   <VBox>
                      <children>
+                        <VBox>
+                           <children>
+                              <Label styleClass="title4" text="Rating" />
+                              <HBox style="-fx-spacing: 100;">
+                                 <children>
+                                    <HBox style="-fx-spacing: 15;">
+                                       <children>
+                                          <VBox style="-fx-alignment: center-right;">
+                                             <children>
+                                                <Rating fx:id="rating1" max="1" rating="1.0" styleClass="rating" />
+                                                <Rating fx:id="rating2" max="2" styleClass="rating" />
+                                                <Rating fx:id="rating3" max="3" rating="3.0" styleClass="rating" />
+                                                <Rating fx:id="rating4" max="4" rating="4.0" styleClass="rating" />
+                                                <Rating fx:id="rating5" rating="5.0" styleClass="rating" />
+                                             </children>
+                                          </VBox>
+                                          <VBox>
+                                             <children>
+                                                <Label fx:id="ratingCount1" text="Label" />
+                                                <Label fx:id="ratingCount2" text="Label" />
+                                                <Label fx:id="ratingCount3" text="Label" />
+                                                <Label fx:id="ratingCount4" text="Label" />
+                                                <Label fx:id="ratingCount5" text="Label" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                    <VBox style="-fx-alignment: center; -fx-spacing: 20;">
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <Label text="Current rating : " />
+                                                <Label fx:id="curRatingValue" text="rating value" />
+                                                <Rating fx:id="curRating" partialRating="true" rating="5.0" styleClass="rating" />
+                                             </children>
+                                          </HBox>
+                                          <VBox fx:id="studentRatingContainer" style="-fx-alignment: center; -fx-spacing: 5;">
+                                             <children>
+                                                <Label fx:id="giveRatingLabel" text="Give a rating" />
+                                                <Rating fx:id="studentRating" rating="5.0" styleClass="rating" />
+                                                <JFXButton fx:id="ratingSubmit" styleClass="myButton" text="Submit" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
                         <Label styleClass="title4" text="Reviews" />
                         <Label fx:id="writeReviewBtn" style="-fx-font-size: 24;" text="Write a review">
                            <styleClass>
@@ -184,7 +252,7 @@
                               <String fx:value="myButton" />
                            </styleClass>
                         </Label>
-                        <VBox fx:id="reviewsBox" />
+                        <VBox fx:id="reviewContainer" />
                      </children>
                   </VBox>
                </children>

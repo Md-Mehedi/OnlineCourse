@@ -10,52 +10,58 @@ import java.util.logging.Logger;
  *
  * @author Md Mehedi Hasan
  */
-public class FileType {
-
+public enum FileType {
+    PICTURE("Picture"),
+    VIDEO("Video"),
+    PDF("PDF"),
+    ARTICLE("Article"),
+    LINK("Link"),
+    FONT_AWESOME_ICON("FontAwesomeIcon"),
+    MATERIAL_ICON("MaterialIcon"),
+    SVG("SVG"),
+    ;
+    
     Integer id;
-    String type;
+    String typeName;
     String adminId;
 
-    public FileType(Integer id) {
-        this.id = id;
-        ResultSet rs = DB.executeQuery("SELECT * FROM FILE_TYPE WHERE ID=#", id.toString());
+    private FileType(String typeName) {
+        this.typeName = typeName;
+        ResultSet rs = DB.executeQuery("SELECT * FROM FILE_TYPE WHERE TYPE = '#'", typeName);
         try {
-            if (rs.next() == true) {
-                type = rs.getString("TYPE");
+            if (rs.next()) {
+                id = rs.getInt("ID");
                 adminId = rs.getString("ADMIN_ID");
             } else {
-                System.err.println("no file found");
+                System.err.println("no file data found");
             }
-
+            rs.close();
+            System.out.println(typeName + " is ready to use.");
         } catch (SQLException ex) {
             Logger.getLogger(Files.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static FileType valueOf(Integer id) {
+        for(FileType v : values())
+            if(v.getId() ==  id) return v;
+        throw new IllegalArgumentException();
     }
 
     public Integer getId() {
         return id;
     }
 
-    public String getType() {
-        return type;
+    public String getTypeName() {
+        return typeName;
     }
 
     public String getAdminId() {
         return adminId;
     }
-
-    public static FileType toType(String typeName) {
-        ResultSet rs = DB.executeQuery("SELECT ID FROM FILE_TYPE WHERE TYPE = '#'", typeName);
-        try {
-            if (rs.next() == true) {
-                return new FileType(rs.getInt("ID"));
-            } else {
-                System.out.println("no photo");
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(FileType.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+    
+    /**
+     *
+     * @param s
+     */
 }

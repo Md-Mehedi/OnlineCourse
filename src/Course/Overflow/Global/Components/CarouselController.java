@@ -89,6 +89,7 @@ public class CarouselController implements Initializable {
     
     private void updateContainerSpacing(){
         Platform.runLater(() -> {
+            if(pane==null) return;
             double totWidth = scrollPane.getWidth();
             double boxWidth = pane.getWidth();
             maxShowItem = (int) (totWidth / (boxWidth + 10));
@@ -143,7 +144,7 @@ public class CarouselController implements Initializable {
                 pane = loader.load();
                 CourseBoxController ctrl = loader.<CourseBoxController>getController();
 //                ctrl.setCourseTitle("" + (i + 1));
-                ctrl.setCourse(course);
+                ctrl.loadData(course);
                 courseBoxContainer.getChildren().add(pane);
             }
         } catch (IOException ex) {

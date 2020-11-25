@@ -190,10 +190,10 @@ public class PropertiesController extends Object implements Initializable {
     public void uploadToDB(Course course){
         Files file;
         if(iconBox.isVisible()){
-            file = new Files(FileType.toType("FontAwesomeIcon"), "Properties icon", iconHolder.getGlyphName());
+            file = new Files(FileType.FONT_AWESOME_ICON, "Properties icon", iconHolder.getGlyphName());
         }
         else{
-            file = new Files(iconPicFile, FileType.toType("Picture"), "Properties icon");
+            file = new Files(iconPicFile, FileType.PICTURE, "Properties icon");
         }
         Property property = new Property(file, course, answerField.getText(), parentController.getPropertiesCtrls().indexOf(this)+1);
         course.addProperty(property);
@@ -207,11 +207,11 @@ public class PropertiesController extends Object implements Initializable {
         property.setPosition(parentController.getPropertiesCtrls().indexOf(this)+1);
         property.setText(answerField.getText());
         if(iconBox.isVisible()){
-            property.getIcon().setType(FileType.toType("FontAwesomeIcon"));
+            property.getIcon().setType(FileType.FONT_AWESOME_ICON);
             property.getIcon().setContent(iconHolder.getGlyphName());
         }
         else{
-            property.getIcon().setType(FileType.toType("Picture"));
+            property.getIcon().setType(FileType.PICTURE);
             property.getIcon().setFile(iconPicFile);
         }
     }
@@ -223,11 +223,10 @@ public class PropertiesController extends Object implements Initializable {
     public void loadData(Property property){
         this.property = property;
         answerField.setText(property.getText());
-        System.out.println(property.getIcon().getType().getType());
-        if(property.getIcon().getType().getType().equals("Picture")){
+        if(property.getIcon().getType() == FileType.PICTURE){
             setIconPic(new File(ToolKit.makeAbsoluteLocation(property.getIcon().getContent())));
         }
-        else if(property.getIcon().getType().getType().equals("FontAwesomeIcon")){
+        else if(property.getIcon().getType() == FileType.FONT_AWESOME_ICON){
             setIcon(property.getIcon().getContent());
         } else System.err.println("Property picture type is not found");
     }

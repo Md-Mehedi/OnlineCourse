@@ -60,3 +60,8 @@ and open the template in the editor.
 #WeekBoxPane{
     -fx-background-color:#99ccff;
 }
+
+#weekBoxPane HBox, #weekBoxPane VBox{
+    -fx-alignment: center;
+    -fx-spacing: 10;
+}

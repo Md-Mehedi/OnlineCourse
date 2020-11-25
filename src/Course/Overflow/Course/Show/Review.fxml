@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -14,13 +12,12 @@
 
 <AnchorPane id="AnchorPane" fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Course.Show.ReviewController">
    <children>
-      <VBox fx:id="container" layoutX="23.0" layoutY="83.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="container" layoutX="23.0" layoutY="83.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <children>
             <HBox>
                <children>
                   <StackPane>
                      <children>
-                        <ImageView fx:id="image" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
                         <Circle fx:id="imageCircle" fill="#a11fff" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                         <Label fx:id="imageLabel" style="-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: white; -fx-pref-width: 80; -fx-alignment: center;" text="MH" />
                      </children>
@@ -28,14 +25,9 @@
                   <VBox>
                      <children>
                         <Label fx:id="name" styleClass="title4" text="Name" />
-                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                        <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-spacing: 30;">
                            <children>
-                              <Rating fx:id="ratingBox">
-                                 <padding>
-                                    <Insets top="4.0" />
-                                 </padding>
-                              </Rating>
-                              <Label fx:id="rating" text="Rating" />
+                              <Rating fx:id="ratingBox" focusTraversable="false" />
                               <Label fx:id="date" text="Date" />
                            </children>
                         </HBox>
@@ -46,7 +38,7 @@
             <HBox>
                <children>
                   <Region minWidth="90.0" prefWidth="90.0" />
-                  <Label fx:id="review" text="kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri " />
+                  <Label fx:id="review" styleClass="centerRightWidth" text="kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri " />
                </children>
             </HBox>
          </children>

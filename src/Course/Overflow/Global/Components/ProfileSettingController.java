@@ -38,7 +38,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -324,10 +323,8 @@ public class ProfileSettingController implements Initializable {
 
     private void addListener() {
         upload.setOnMouseClicked((event) -> {
-            FileChooser fc = new FileChooser();
-            fc.setInitialDirectory(new File(GLOBAL.FILE_CHOOSER_DIRECTORY));
-            File chosenFile = fc.showOpenDialog(null);
-            if(photoFile==null && chosenFile!=null) photoFile = chosenFile;
+            File chosenFile = ToolKit.chooseFile(FileType.PICTURE);
+            if(chosenFile!=null) photoFile = chosenFile;
             if (chosenFile != null) {
                 imageNameLabel.setText(chosenFile.getName());
                 photo.setImage(new Image(chosenFile.toURI().toString()));
@@ -341,11 +338,11 @@ public class ProfileSettingController implements Initializable {
                 return;
             }
             setPersonInformations();
-            GLOBAL.PAGE_CTRL.loadPage(GLOBAL.PAGE_CTRL.getPreviousPageName());
+            GLOBAL.PAGE_CTRL.loadPreviousPage();
             clearPassword();
         });
         cancel.setOnMouseClicked(event ->{
-            GLOBAL.PAGE_CTRL.loadPage(GLOBAL.PAGE_CTRL.getPreviousPageName());
+            GLOBAL.PAGE_CTRL.loadPreviousPage();
             clearPassword();
         });
 
@@ -407,7 +404,7 @@ public class ProfileSettingController implements Initializable {
         if(!oldPass.getText().equals("")){
             Person per = Person.validUser(ToolKit.getCurrentPerson().getUsername(), oldPass.getText());
             if(per==null){
-                JOptionPane.showConfirmDialog(null, "ভুল পাসোয়ার্ড দাও কেন?", "select", JOptionPane.OK_OPTION);
+                JOptionPane.showConfirmDialog(null, "Password is not matching.", "select", JOptionPane.OK_OPTION);
                 return false;
             }
         }
@@ -446,8 +443,11 @@ public class ProfileSettingController implements Initializable {
             person.setCard(null);
         }
         
-        if (photoFile != null) {
-            person.setPhoto(new Files(photoFile, FileType.toType("Picture")));
+        if(person.getPhoto() == null){
+            person.setPhoto(new Files(photoFile, FileType.PICTURE));
+        }
+        else{
+            person.getPhoto().setFile(photoFile);
         }
         
         switch(accountType){

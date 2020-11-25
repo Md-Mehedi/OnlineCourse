@@ -3,6 +3,7 @@
 package Course.Overflow.Global;
       
 
+import Course.Overflow.Course.Course;
 import Course.Overflow.DB;
 import Course.Overflow.Files.Files;
 import java.io.File;
@@ -69,6 +70,7 @@ public class Person {
             this.youtubeURL = rs.getString("YOUTUBE_URL");
             this.website = rs.getString("WEBSITE");
             loadLanguages();
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -320,6 +322,41 @@ public class Person {
         }
         return null;
     }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+    
+    public String getShortName(){
+        return (firstName.substring(0, 1) + lastName.substring(0, 1)).toUpperCase();
+    }
+    
+    public ArrayList<Course> getMyCourses(){
+        try {
+            ArrayList<Course> list = new ArrayList<>();
+            ResultSet rs = null;
+            if(accountType == AccountType.Teacher){
+                rs = DB.executeQuery("SELECT ID FROM COURSE WHERE TEACHER_ID = '#' ORDER BY PUBLISH_DATE DESC", username);
+            }
+            else if(accountType == AccountType.Student){
+                rs = DB.executeQuery("SELECT COURSE_ID FROM PURCHASE_HISTORY WHERE STUDENT_ID = '#' ORDER BY TIME DESC", username);
+            }
+            while(rs.next()){
+                if(accountType == AccountType.Teacher){
+                    list.add(new Course(rs.getInt("ID")));
+                }
+                else if(accountType == AccountType.Student){
+                    list.add(new Course(rs.getInt("COURSE_ID")));
+                }
+            }
+            rs.close();
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     public static ArrayList<Person> getList() {
         ArrayList<Person> list = new ArrayList<Person>();
         ResultSet rs ;

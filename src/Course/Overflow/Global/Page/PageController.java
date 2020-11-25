@@ -7,7 +7,6 @@ import Course.Overflow.Global.Components.Notification.NotificationView;
 import Course.Overflow.Global.Components.RightMenuPopOverController;
 import Course.Overflow.Global.Components.TopMenuBar.MenuBar;
 import Course.Overflow.Global.GLOBAL;
-import Course.Overflow.Global.Layout.PageByPageLayoutController;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.CreateCourse.CreateCourse;
@@ -15,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -104,6 +104,9 @@ public class PageController {
         try {
             verticalBox = new VBox();
             wrapper = new AnchorPane(verticalBox);
+            Platform.runLater(()->{
+                wrapper.setMaxWidth(GLOBAL.WIDTH);
+            });
             scroll = new ScrollPane(wrapper);
             container.getChildren().clear();
             container.getChildren().add(scroll);
@@ -174,14 +177,12 @@ public class PageController {
                 page = new TeacherDetailsPage();
                 break;
             case MyCourse:
-                page = new CourseListShowPage("My courses");
-                break;
             case Wishlist:
-                page = new CourseListShowPage("Wishlist");
+                page = new CourseListShowPage(pageName);
                 break;
             case PurchaseHistory:
                 if (GLOBAL.ACCOUNT_TYPE == Person.AccountType.Student) {
-                    page = new CourseListShowPage("Your purchase history", PageByPageLayoutController.BoxType.CourseVertical);
+                    page = new CourseListShowPage(pageName);
                 } else if (GLOBAL.ACCOUNT_TYPE == Person.AccountType.Teacher) {
                     page = new PurchaseHistoryPage();
                 }
@@ -197,17 +198,17 @@ public class PageController {
             case Anouncement:
                 page = new CommunicationPage(pageName);
                 break;
-            case Login:
-                loadFXML(GLOBAL.LOGIN_SIGNUP_LOCATION + "/Login.fxml");
-                break;
-            case Signup:
-                loadFXML(GLOBAL.LOGIN_SIGNUP_LOCATION + "/Signup.fxml");
-                break;
             case ProfileSetting:
                 page = new ProfileSettingPage();
                 break;
             case CreateCourse:
                 page = new CreateCourse();
+                break;
+            case Login:
+                loadFXML(GLOBAL.LOGIN_SIGNUP_LOCATION + "/Login.fxml");
+                break;
+            case Signup:
+                loadFXML(GLOBAL.LOGIN_SIGNUP_LOCATION + "/Signup.fxml");
                 break;
             case AdminPanel:
                 page = new AdminPanel();
@@ -217,6 +218,14 @@ public class PageController {
             loadPage(page);
         }
         curPage = pageName;
+    }
+    
+    public void loadPreviousPage(){
+        if(idx <= 0) loadPage(PageName.Home);
+        else{
+            page = new Page(pages.get(idx-1));
+            loadPage(page);
+        }
     }
 
     public Object loadFXML(String fxmlName) {
@@ -235,8 +244,8 @@ public class PageController {
     public Page getPage(){
         return page;
     }
-
-    public Object getController() {
+    
+    public Object getController(){
         return page.getController();
     }
 }

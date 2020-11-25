@@ -26,6 +26,7 @@ public class EducationalStatus {
             }
             type = rs.getString("TYPE");
             adminId = rs.getString("ADMIN_ID");
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(EducationalStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -40,6 +41,7 @@ public class EducationalStatus {
             }
             id = rs.getInt("ID");
             adminId = rs.getString("ADMIN_ID");
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(EducationalStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -58,6 +60,7 @@ public class EducationalStatus {
             while (rs.next()) {
                 list.add(new EducationalStatus(rs.getInt("ID"), rs.getString("TYPE"), rs.getString("ADMIN_ID")));
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(EducationalStatus.class.getName()).log(Level.SEVERE, null, ex);
         }

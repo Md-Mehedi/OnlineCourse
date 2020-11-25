@@ -1,6 +1,7 @@
 package Course.Overflow.Teacher;
 
 import Course.Overflow.Course.Course;
+import Course.Overflow.Course.CourseRating;
 import Course.Overflow.DB;
 import Course.Overflow.Global.Designation;
 import Course.Overflow.Global.Person;
@@ -18,21 +19,6 @@ import java.util.logging.Logger;
 public class Teacher extends Person {
 
     private Designation designation;
-    int numOfStudent;
-    int numOfReviews;
-    ArrayList<Course> courses;
-
-    public int getNumOfStudent() {
-        return numOfStudent;
-    }
-
-    public int getNumOfReviews() {
-        return numOfReviews;
-    }
-
-    public ArrayList<Course> getCourses() {
-        return courses;
-    }
 
     public Designation getDesignation() {
         return designation;
@@ -41,18 +27,6 @@ public class Teacher extends Person {
     public void setDesignation(Designation designation) {
         this.designation = designation;
         DB.execute("UPDATE TEACHER SET DESIGNATION_ID = '#'", designation.getId().toString());
-    }
-
-    public void setNumOfStudent(int numOfStudent) {
-        this.numOfStudent = numOfStudent;
-    }
-
-    public void setNumOfReviews(int numOfReviews) {
-        this.numOfReviews = numOfReviews;
-    }
-
-    public void setCourses(ArrayList<Course> courses) {
-        this.courses = courses;
     }
 
     public Teacher(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about, Date dob) {
@@ -78,6 +52,67 @@ public class Teacher extends Person {
         return DB.valueExist("TEACHER", "ID", username);
     }
 
+    public Integer getNumOfReview() {
+        Integer value = null;
+        ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM REVIEW WHERE COURSE_ID = ANY(SELECT ID FROM COURSE WHERE TEACHER_ID = '#')", getUsername());
+        try {
+            rs.next();
+            value = rs.getInt("COUNT(*)");
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return value;
+    }
+    
+    public Integer getNumOfStudent(){
+        try {
+            ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM PURCHASE_HISTORY WHERE COURSE_ID = ANY(SELECT ID FROM COURSE WHERE TEACHER_ID = '#')", getUsername());
+            Integer value;
+            rs.next();
+            value = rs.getInt("COUNT(*)");
+            rs.close();
+            return value;
+        } catch (SQLException ex) {
+            Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    public Integer getNumOfCourse(){
+        ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM COURSE WHERE TEACHER_ID = '#'", getUsername());
+        Integer value = null;
+        try {
+            rs.next();
+            value = rs.getInt("COUNT(*)");
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return value;
+    }
+    
+    public Double getRating(){
+        return CourseRating.getValue(this);
+    }
+
+    ArrayList<Course> getCourses() {
+        return Course.coursesOf(this);
+    }
+
+    Integer getNumOfRating() {
+        ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM RATING WHERE COURSE_ID = ANY(SELECT ID FROM COURSE WHERE TEACHER_ID = '#')", getUsername());
+        Integer value = null;
+        try {
+            rs.next();
+            value = rs.getInt("COUNT(*)");
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return value;
+    }
+    
     public static ArrayList<Course> getCreatedCourses(String tchname) {
         String sql = "SELECT ID FROM COURSE WHERE TEACHER_ID = '#' ";
         ResultSet rs = DB.executeQuery(sql, tchname);

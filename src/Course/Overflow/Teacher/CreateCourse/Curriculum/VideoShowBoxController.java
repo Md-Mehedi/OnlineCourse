@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -79,18 +80,21 @@ public class VideoShowBoxController implements Initializable {
             parent.getAvailableContentContainer().getChildren().remove(container);
             parent.getAvailableContentContainer().getChildren().add(pane);
         } else if (src == playBtn) {
+            me = new Media(file.toURI().toString());
+            mp = new MediaPlayer(me);
+            mediaView.setMediaPlayer(mp);
             mp.setAutoPlay(true);
             playBtn.setVisible(false);
         }
+    }
+    
+    public void closeMedieaPlayer(){
+        if(mp != null) mp.dispose();
     }
 
     void setFile(File f) {
         this.file = f;
         fileNameLabel.setText(file.getName());
-
-        me = new Media(file.toURI().toString());
-        mp = new MediaPlayer(me);
-        mediaView.setMediaPlayer(mp);
     }
 
     @FXML
@@ -112,7 +116,7 @@ public class VideoShowBoxController implements Initializable {
     }
 
     public Files uploadToDB() {
-        return new Files(file, FileType.toType("Video"), description.getText());
+        return new Files(file, FileType.VIDEO, description.getText());
     }
     
     public void updateDB(){
@@ -122,5 +126,10 @@ public class VideoShowBoxController implements Initializable {
 
     void setLecture(Lecture lecture) {
         this.lecture = lecture;
+    }
+
+    void stopEditingFunctionality() {
+        Pane parent = (Pane) updateBtn.getParent();
+        parent.getChildren().remove(updateBtn);
     }
 }

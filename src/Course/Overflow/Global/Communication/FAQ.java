@@ -6,7 +6,8 @@
 
 package Course.Overflow.Global.Communication;
 
-import Course.Overflow.Course.Show.CourseBoxLittle;
+import Course.Overflow.Course.Course;
+import Course.Overflow.DB;
 import Course.Overflow.Global.ToolKit;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -25,7 +26,7 @@ public class FAQ {
         root = new AnchorPane(container);
         ToolKit.setAnchor(container, 0, 0, 0, 0);
         
-        makeDefaultFAQList();
+        makeList();
     }
     
     private VBox getaQA(){
@@ -36,17 +37,23 @@ public class FAQ {
         return new VBox(q,a);
     }
 
-    private void makeDefaultFAQList() {
-        for(int j=0; j<10; j++){
-            CourseBoxLittle box = new CourseBoxLittle();
-            container.getChildren().add(box);
-            for(int i=0;i<5;i++){
-                box.addData(getaQA());
-            }
-        }
+    private void makeList() {
+        ToolKit.showNoDataFound(root);
+//        for(int j=0; j<10; j++){
+//            CourseBoxLittle box = new CourseBoxLittle(course);
+//            container.getChildren().add(box);
+//            for(int i=0;i<5;i++){
+//                box.addData(getaQA());
+//            }
+//        }
     }
     
     public AnchorPane getRoot(){
         return root;
     }
+    
+    public static void delete(Course course) {
+        DB.execute("DELETE FROM FAQ WHERE COURSE_ID = #", course.getId().toString());
+    }
+    
 }

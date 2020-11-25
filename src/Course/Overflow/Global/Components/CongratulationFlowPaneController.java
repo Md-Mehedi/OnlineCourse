@@ -5,12 +5,14 @@
  */
 package Course.Overflow.Global.Components;
 
+import Course.Overflow.Course.Course;
 import Course.Overflow.Global.Layout.FloatingPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -27,6 +29,8 @@ public class CongratulationFlowPaneController extends FloatingPane implements In
     private Label courseName;
     @FXML
     private AnchorPane container;
+    private Course course;
+    private CheckoutPageController parent;
 
     /**
      * Initializes the controller class.
@@ -35,5 +39,15 @@ public class CongratulationFlowPaneController extends FloatingPane implements In
     public void initialize(URL url, ResourceBundle rb) {
         this.backPane = container;
     }    
+
+    void loadData(Course course) {
+        this.course = course;
+        coursePhoto.setImage(new Image(course.getCourseImage().getContent()));
+        courseName.setText(course.getTitle());
+    }
+
+    void setParent(CheckoutPageController parent) {
+        this.parent = parent;
+    }
     
 }

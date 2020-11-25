@@ -11,7 +11,7 @@
    <children>
       <VBox layoutY="-14.0" style="-fx-alignment: center-left;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Start putting together your course by creating weeks, lectures (Articles, Video, PDF, Link) below." />
+            <Label fx:id="heading" text="Start putting together your course by creating weeks, lectures (Articles, Video, PDF, Link) below." />
             <VBox fx:id="weekBoxContainer" style="-fx-spacing: 30;">
                <padding>
                   <Insets left="50.0" />

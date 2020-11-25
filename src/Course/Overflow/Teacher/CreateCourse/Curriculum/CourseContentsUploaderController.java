@@ -5,6 +5,7 @@
  */
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
+import Course.Overflow.Files.FileType;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.LectureBoxController.LectureType;
 import com.qoppa.pdf.PDFException;
@@ -19,7 +20,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -59,18 +59,8 @@ public class CourseContentsUploaderController implements Initializable {
     private void mouseClicked(MouseEvent event) throws IOException, PDFException {
         Object src = event.getSource();
         if (src == chooseFileBtn) {
-            FileChooser fc = new FileChooser();
-            if (type == LectureType.VIDEO) {
-                fc.getExtensionFilters().addAll(
-                      new FileChooser.ExtensionFilter("MP4 Files", "*.mp4"),
-                      new FileChooser.ExtensionFilter("3gp Files", "*.3gp")
-                );
-            } else {
-                fc.getExtensionFilters().add(
-                      new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
-                );
-            }
-            file = fc.showOpenDialog(null);
+            File tempFile = ToolKit.chooseFile(type == LectureType.VIDEO ? FileType.VIDEO : FileType.PDF);
+            if(tempFile != null) file = tempFile;
             if (file != null) {
                 fileNameLabel.setText(file.getName());
             } else {

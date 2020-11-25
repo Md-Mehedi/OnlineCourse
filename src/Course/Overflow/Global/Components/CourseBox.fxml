@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -37,7 +38,7 @@
                <children>
                   <HBox id="ratingContainer">
                      <children>
-                        <Rating id="courseBoxRating" fx:id="rating" focusTraversable="false" />
+                        <Rating id="courseBoxRating" fx:id="rating" focusTraversable="false" partialRating="true" />
                         <Label fx:id="ratingValue" styleClass="ratingValue" text="2" />
                         <Label fx:id="numOfRating" styleClass="ratingTimes" text="(100)" />
                      </children>
@@ -54,6 +55,9 @@
          <effect>
             <DropShadow height="25.0" offsetX="1.0" offsetY="1.0" radius="12.0" spread="0.1" width="25.0" />
          </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </AnchorPane>
    </children>
 </AnchorPane>

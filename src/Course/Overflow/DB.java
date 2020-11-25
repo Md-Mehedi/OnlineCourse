@@ -60,14 +60,18 @@ public class DB {
     public static ResultSet executeQuery(String sql, String... arg) { // Replace # mark with value
         //System.out.println(sql);
         for (String value : arg) {
+            if(!value.contains("TO_DATE")) value = value.replace("'", "''");
+            value = value.replace("#", "^^^");
+            value = value.replace("$", "&&&&&");
             sql = sql.replaceFirst("#", value);
         }
+        sql = sql.replace("^^^", "#");
+        sql = sql.replace("&&&&&", "$");
         
         try {
             System.out.println(sql);System.out.println("");
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            return rs;
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
             startConnection();
@@ -78,8 +82,13 @@ public class DB {
     public static boolean execute(String sql, String ... arg) { // Replace # mark with value
         //System.out.println(sql);
         for (String value : arg) {
+            if(!value.contains("TO_DATE")) value = value.replace("'", "''");
+            value = value.replace("#", "^^^");
+            value = value.replace("$", "&&&&&");
             sql = sql.replaceFirst("#", value);
         }
+        sql = sql.replace("^^^", "#");
+        sql = sql.replace("&&&&&", "$");
         
         try {
             System.out.println(sql);System.out.println("");

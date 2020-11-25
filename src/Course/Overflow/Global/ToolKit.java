@@ -5,7 +5,6 @@
  */
 package Course.Overflow.Global;
 
-import Course.Overflow.DB;
 import Course.Overflow.Files.FileType;
 import Course.Overflow.Global.Communication.MessengerController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -30,9 +29,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -94,24 +95,28 @@ public class ToolKit {
         hostServices.showDocument(file.getAbsolutePath());
     }
 
-    public static File chooseFile(String fileType) {
+    public static File chooseFile(FileType type) {
         FileChooser fc = new FileChooser();
         fc.setInitialDirectory(new File(GLOBAL.FILE_CHOOSER_DIRECTORY));
-        if (fileType == "video") {
-            fc.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Video files", "*.mp4", "*.3gp")
-            );
-        } else if (fileType == "pdf") {
-            fc.getExtensionFilters().add(
-                    new FileChooser.ExtensionFilter("PDF files", "*.pdf")
-            );
-        } else if (fileType == "image") {
-            fc.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Image files", "*.jpeg", "*.jpg", "*.bmp", "*.png", "*.gif")
-            );
+        switch(type){
+            case VIDEO  :
+                fc.getExtensionFilters().addAll(
+                        new FileChooser.ExtensionFilter("Video files", "*.mp4", "*.3gp")
+                );
+                break;
+            case PDF    :
+                fc.getExtensionFilters().add(
+                        new FileChooser.ExtensionFilter("PDF files", "*.pdf")
+                );
+                break;
+            case PICTURE:
+                fc.getExtensionFilters().addAll(
+                        new FileChooser.ExtensionFilter("Image files", "*.jpeg", "*.jpg", "*.bmp", "*.png", "*.gif")
+                );
+                break;
         }
         File file = fc.showOpenDialog(null);
-        GLOBAL.FILE_CHOOSER_DIRECTORY = file.getParent();
+        if(file != null) GLOBAL.FILE_CHOOSER_DIRECTORY = file.getParent();
         return file;
     }
 
@@ -361,8 +366,6 @@ public class ToolKit {
     public static String getCurTimeDB() {
         DateFormat df = new SimpleDateFormat(dateFormatJAVA());
         Date dateobj = new Date();
-        System.out.println(df.format(dateobj));
-
         return "TO_DATE('" + df.format(dateobj) + "', '" + dateFormatDB() + "')";
     }
 
@@ -389,21 +392,33 @@ public class ToolKit {
     public static LocalDate DateToLocalDate(Date date) {
         return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
     }
+    
+    public static String makeDateStructured(Date date, String structure){
+        DateFormat dateFormat = new SimpleDateFormat(structure);  
+        String strDate = dateFormat.format(date).toString();  
+        return strDate;
+    }
+    
+    public static String makeDateStructured(LocalDate date, String structure){
+        DateFormat dateFormat = new SimpleDateFormat(structure);  
+        String strDate = dateFormat.format(date);  
+        return strDate;
+    }
 
     /*
      * Date Related Function End
      */
-    public static String copyFile(File file, FileType type) {
+    public static String copyFile(File file, FileType type, Integer id) {
         String destPath = "";
-        switch (type.getType()) {
-            case "Picture":
-                destPath += GLOBAL.PICTURE_LOCATION + "/Picture_" + DB.generateId("FILES").toString() + "_";
+        switch (type) {
+            case PICTURE:
+                destPath += GLOBAL.PICTURE_LOCATION + "/Picture_" + id.toString() + "_";
                 break;
-            case "Video":
-                destPath += GLOBAL.VIDEO_LOCATION + "/Video_" + DB.generateId("FILES").toString() + "_";
+            case VIDEO:
+                destPath += GLOBAL.VIDEO_LOCATION + "/Video_" + id.toString() + "_";
                 break;
-            case "PDF":
-                destPath += GLOBAL.PDF_LOCATION + "/PDF_" + DB.generateId("FILES").toString() + "_";
+            case PDF:
+                destPath += GLOBAL.PDF_LOCATION + "/PDF_" + id.toString() + "_";
                 break;
         }
         destPath += file.getName();
@@ -414,6 +429,7 @@ public class ToolKit {
         } catch (IOException ex) {
             Logger.getLogger(MessengerController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        print("File is copied\n" + destPath);
         return destPath;
     }
 
@@ -440,13 +456,6 @@ public class ToolKit {
     
     public static String makeAbsoluteLocation(String location){
         return GLOBAL.ROOT_LOCATION + location;
-    }
-    
-    public static String userShortName(){
-        Person person = getCurrentPerson();
-        String firstName = person.getFirstName();
-        String lastName = person.getLastName();
-        return (firstName.substring(0, 1) + lastName.substring(0, 1)).toUpperCase();
     }
     
     public static Person getCurrentPerson(){
@@ -488,5 +497,37 @@ public class ToolKit {
     
     public static void showWarning(String text){
         JOptionPane.showMessageDialog(null, text, "Warning", JOptionPane.WARNING_MESSAGE);
+    }
+    
+    public static String DoubleToString(Double value){
+        return DoubleToString(value, 2);
+    }
+    
+    public static String DoubleToString(Double value, int precision){
+        return String.format(String.format("%." + precision + "f", value), value);
+    }
+    
+    public static void print(Object text){
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.err.println("Error message is showing : ");
+        System.err.println(text.toString());
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+    }
+
+    public static void removeNode(Node node) {
+        Pane parent = (Pane) node.getParent();
+        parent.getChildren().remove(node);
+    }
+
+    public static void showNoDataFound(Pane node){
+        ImageView iv = new ImageView(new Image(GLOBAL.PICTURE_LOCATION + "/No Data Found.jpg"));
+        iv.setFitWidth(GLOBAL.WIDTH*0.7);
+        iv.setPreserveRatio(true);
+        node.getChildren().clear();
+        node.getChildren().add(iv);
     }
 }

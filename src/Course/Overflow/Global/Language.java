@@ -28,9 +28,7 @@ public class Language {
         try {
             this.id = id;
             ResultSet rs = DB.executeQuery("SELECT * FROM LANGUAGE WHERE ID = #", id.toString());
-            if (!rs.next()) {
-                return;
-            }
+            if (!rs.next()) {rs.close(); return;}
             this.name = rs.getString("NAME");
             this.adminId = rs.getString("ADMIN_ID");
             rs.close();

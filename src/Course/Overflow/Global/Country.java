@@ -44,6 +44,7 @@ public class Country {
         try {
             if (!rs.next()) {
                 System.out.println("Conuntry is not exist...");
+                rs.close();
                 return;
             };
             id = rs.getInt("ID");
@@ -93,7 +94,7 @@ public class Country {
                 String sql = "UPDATE COUNTRY SET NAME = '#' WHERE ID = #";
                 boolean x = DB.execute(sql, newName, rs.getString("ID"));
             }
-               rs.close();
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Language.class.getName()).log(Level.SEVERE, null, ex);
         }
