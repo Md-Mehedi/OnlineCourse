@@ -29,7 +29,7 @@ public class Teacher extends Person {
         DB.execute("UPDATE TEACHER SET DESIGNATION_ID = '#'", designation.getId().toString());
     }
 
-    public Teacher(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about, Date dob) {
+    public Teacher(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about, Date dob){
         super(accountType, username, email, password, firstName, lastName, about, dob);
         DB.execute("INSERT INTO TEACHER(ID) VALUES('#')", username);
     }

@@ -13,10 +13,7 @@ import Course.Overflow.Global.Person;
 import Course.Overflow.Teacher.CreateCourse.CreateCourse;
 import Course.Overflow.Teacher.Teacher;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -94,8 +91,12 @@ public class AppMain extends Application {
         GLOBAL.rootPane = root;
         
         primaryStage.setScene(scene);
-        primaryStage.show();
+        primaryStage.show(); 
         System.out.println("FXML is loaded...");
+//        root.setOnMouseClicked((event) -> {
+//            ToolKit.print("Hoise");
+//            root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Dark.css");
+//        });
         
         primaryStage.setOnCloseRequest((event) -> {
             DB.closeConnection();
@@ -124,12 +125,17 @@ public class AppMain extends Application {
     }
 
     private void shammyaTestPage() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.ADMIN_LOCATION + "/CourseList.fxml"));
-            AnchorPane pane = loader.load();
-            root.getChildren().add(pane);
-        } catch (IOException ex) {
-            Logger.getLogger(AppMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        PageController pageCtrl = new PageController(PageName.Login);
+        GLOBAL.PAGE_CTRL = pageCtrl;
+        pane = pageCtrl.getContainer();
+
+        ScrollPane sc = new ScrollPane(pane);
+        sc.setPrefWidth(GLOBAL.WIDTH);
+        sc.setPrefHeight(GLOBAL.HEIGHT);
+        sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        root.getChildren().add(sc);
+
+        GLOBAL.rootScroll = sc;
     }
 }
