@@ -500,7 +500,8 @@ public class LectureBoxController implements Initializable {
         this.week = week;
     }
 
-    public Lecture uploadToDB() {
+    public Lecture uploadToDB(Week week) {
+        this.week = week;
         System.out.println("uploadDB" + lectureNameLabel.getText());
         Files file = null;
         switch (fileType) {
@@ -519,7 +520,7 @@ public class LectureBoxController implements Initializable {
     
     public void updateDB(){
         if(lecture == null){
-            Lecture lec = uploadToDB();
+            Lecture lec = uploadToDB(week);
             week.addLecture(lec);
             return;
         }

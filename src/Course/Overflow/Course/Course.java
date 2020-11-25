@@ -95,6 +95,7 @@ public class Course {
         this.mainPrice = price;
         this.imageFile = cover;
         this.subCategory = subCategory;
+        this.mainCategory = subCategory.getParent();
         this.publishDate = ToolKit.getCurTime();
         this.isApproved = false;
         this.teacher = GLOBAL.TEACHER;

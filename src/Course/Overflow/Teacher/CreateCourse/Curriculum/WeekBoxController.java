@@ -198,11 +198,12 @@ public class WeekBoxController implements Initializable {
         }
     }
 
-    public void uploadToDB() {
+    public void uploadToDB(Course course) {
+        this.course = course;
         week = new Week(Integer.parseInt(weekNo.getText()), weekNameLabel.getText(), course);
         for (LectureBoxController lecCtrl : lectureBoxControllers) {
             lecCtrl.setWeek(week);
-            Lecture lecture = lecCtrl.uploadToDB();
+            Lecture lecture = lecCtrl.uploadToDB(week);
             lectures.add(lecture);
         }
         week.setLectures(lectures);
@@ -210,7 +211,7 @@ public class WeekBoxController implements Initializable {
     
     public void updateDB(){
         if(week == null){
-            uploadToDB();
+            uploadToDB(course);
             return;
         }
         week.setTitle(weekNameLabel.getText());

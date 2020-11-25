@@ -69,7 +69,7 @@ public class CurriculumController implements Initializable {
         showFull = true;
         weekBoxControllers = new ArrayList<WeekBoxController>();
         addListener();
-        addWeek(null);
+//        addWeek(null);
         new ToolTip(MouseEvent.MOUSE_ENTERED, addWeekBtn, "Add more weeks.");
     }
 
@@ -146,7 +146,7 @@ public class CurriculumController implements Initializable {
     public void uploadToDB(Course course) {
         this.course = course;
         for (WeekBoxController weekCtrl : weekBoxControllers) {
-            weekCtrl.uploadToDB();
+            weekCtrl.uploadToDB(course);
         }
     }
 
