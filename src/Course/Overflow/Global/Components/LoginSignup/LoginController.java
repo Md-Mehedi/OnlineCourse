@@ -15,7 +15,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,8 +37,7 @@ public class LoginController implements Initializable {
     private JFXTextField username;
     @FXML
     private JFXButton loginBtn;
-    @FXML
-    private AnchorPane root;
+
     private FXMLLoader loader;
     private Pane rootContainer;
     @FXML
@@ -53,19 +51,19 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        Platform.runLater(() -> {
-            rootContainer = (Pane) root.getParent();
-        });
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.LOGIN_SIGNUP_LOCATION + "/ForgetPassword.fxml"));
-            AnchorPane pane = loader.load();
-            fp = new FloatingPane();
-            fp.setAnchorPane(pane);
-            forgetPassCtrl = loader.<ForgetPasswordController>getController();
-            System.out.println(forgetPassCtrl);
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        Platform.runLater(() -> {
+//            rootContainer = (Pane) root.getParent();
+//        });
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.LOGIN_SIGNUP_LOCATION + "/ForgetPassword.fxml"));
+//            AnchorPane pane = loader.load();
+//            fp = new FloatingPane();
+//            fp.setAnchorPane(pane);
+//            forgetPassCtrl = loader.<ForgetPasswordController>getController();
+//            System.out.println(forgetPassCtrl);
+//        } catch (IOException ex) {
+//            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         addListener();
     }
 
@@ -140,9 +138,13 @@ public class LoginController implements Initializable {
 
         });
         forgetPass.setOnMouseClicked((event) -> {
-//            forgetPassCtrl.RefreshWindow();
-//            fp.show();
-            //ForgetPasswordController.message.setText("");
+            try {
+                AnchorPane pane = FXMLLoader.load(getClass().getResource(GLOBAL.LOGIN_SIGNUP_LOCATION+"/ForgetPassword.fxml"));
+                
+            } catch (IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         });
 
     }

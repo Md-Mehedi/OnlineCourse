@@ -213,6 +213,9 @@ public class PageController {
             case AdminPanel:
                 page = new AdminPanel();
                 break;
+            case ForgetPassword :
+                loadFXML(GLOBAL.LOGIN_SIGNUP_LOCATION + "/ForgetPassword.fxml");
+                break;
         }
         if (!isLoadingWithoutLayout(pageName)) {
             loadPage(page);
