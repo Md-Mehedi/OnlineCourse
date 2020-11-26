@@ -321,17 +321,14 @@ public class LeftSlidingPane extends BorderPaneController{
         selectedName = selectedLabel;
     }
     private void addEventListenerForVerticalMenuItem(Label btn, AnchorPane pane, PageName pageName){
-        btn.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    if(nameToFunc.get(selectedName).call()){
-                        labelClickTask(pane);
-                        GLOBAL.PAGE_CTRL.curPage = pageName;
-                    }
-                } catch (Exception ex) {
-                    Logger.getLogger(LeftSlidingPane.class.getName()).log(Level.SEVERE, null, ex);
+        btn.addEventFilter(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            try {
+                if(nameToFunc.get(selectedName).call()){
+                    labelClickTask(pane);
+                    GLOBAL.PAGE_CTRL.curPage = pageName;
                 }
+            } catch (Exception ex) {
+                Logger.getLogger(LeftSlidingPane.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
         btn.addEventFilter(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {

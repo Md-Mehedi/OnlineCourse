@@ -61,6 +61,7 @@ public class AppMain extends Application {
             }
             else 
             {
+                mehediTestPage();
                 scene = new Scene(root,GLOBAL.WIDTH, GLOBAL.HEIGHT);
             }
         }
@@ -81,7 +82,6 @@ public class AppMain extends Application {
             else {
                 //mehediTestPage();
 //            System.out.println("USER : SHAMMYA");
-                mehediTestPage();
 //           shammyaTestPage();
             scene = new Scene(root);
             }

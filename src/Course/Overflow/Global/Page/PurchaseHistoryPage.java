@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.geometry.VPos;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -85,7 +84,7 @@ public class PurchaseHistoryPage extends Page{
     }
 
     private void addAContent(int row) {
-        ImageView coursePhoto = new ImageView(new Image(list.get(row).getCourse().getCourseImage().getContent()));
+        ImageView coursePhoto = new ImageView(ToolKit.makeImage(list.get(row).getCourse().getCourseImage()));
         coursePhoto.setFitHeight(70);
         coursePhoto.setFitWidth(120);
         coursePhoto.setPreserveRatio(true);
@@ -97,7 +96,7 @@ public class PurchaseHistoryPage extends Page{
               + bold
               + "");
         
-        ImageView studentPhoto = new ImageView(new Image(list.get(row).getStudent().getPhoto().getContent()));
+        ImageView studentPhoto = new ImageView(ToolKit.makeImage(list.get(row).getStudent().getPhoto()));
         studentPhoto.setFitHeight(70);
         studentPhoto.setFitWidth(70);
         studentPhoto.setPreserveRatio(true);

@@ -5,7 +5,6 @@ import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.ToolKit;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -47,7 +46,7 @@ public class CourseBoxLittle extends AnchorPane{
     }
 
     private void makeCourseBox(){
-        ImageView iv = new ImageView(new Image(course.getCourseImage().getContent()));
+        ImageView iv = new ImageView(ToolKit.makeImage(course.getCourseImage()));
         iv.setFitWidth(180);
         iv.setFitHeight(120);
         iv.setPreserveRatio(true);

@@ -81,8 +81,10 @@ public class Course {
             description = rs.getString("DESCRIPTION");
 //            Rating will be added
 //            Review will be added
-            if(!rs.getString("OUTCOMES").equals("")) outcomes = rs.getString("OUTCOMES").split("><");
-            prerequisitives = rs.getString("PREREQUISITES").split("><");
+            if(rs.getString("OUTCOMES") != null) outcomes = rs.getString("OUTCOMES").split("><");
+            else outcomes = new String[0];
+            if(rs.getString("PREREQUISITES") != null) prerequisitives = rs.getString("PREREQUISITES").split("><");
+            else prerequisitives = new String[0];
             rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
@@ -450,6 +452,11 @@ public class Course {
     public static void approveCourse(Integer id)
     {
         String sql = "UPDATE COURSE SET IS_APPROVED = 'T' WHERE ID = #";
+        DB.execute(sql, id.toString());
+    }
+    
+    public static void unapproveCourse(Integer id) {
+        String sql = "UPDATE COURSE SET IS_APPROVED = 'F' WHERE ID = #";
         DB.execute(sql, id.toString());
     }
 

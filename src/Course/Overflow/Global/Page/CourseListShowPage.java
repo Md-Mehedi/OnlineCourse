@@ -69,7 +69,7 @@ public class CourseListShowPage extends Page{
             }
             container.getChildren().add(pane);
         } catch (IOException ex) {
-            Logger.getLogger(TeacherDetailsPage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonDetailsPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

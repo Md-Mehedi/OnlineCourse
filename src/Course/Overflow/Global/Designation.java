@@ -81,7 +81,7 @@ public class Designation {
 
     public static void createNewDesignation(String text) {
         String sql = "INSERT INTO DESIGNATION (ID,TYPE,ADMIN_ID) VALUES(#,'#','#')";
-        boolean x = DB.execute(sql, DB.generateId("DESIGNATION").toString(), text, "shammya");
+        boolean x = DB.execute(sql, DB.generateId("DESIGNATION").toString(), text, GLOBAL.ADMIN.getUsername());
     }
 
     public static void changeDesignationName(String oldName, String newName) {

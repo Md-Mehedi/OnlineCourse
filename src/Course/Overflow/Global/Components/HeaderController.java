@@ -15,7 +15,6 @@ import Course.Overflow.Global.ToolKit;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -222,11 +221,8 @@ public class HeaderController implements Initializable {
         Person person = ToolKit.getCurrentPerson();
         System.out.println(person);
         if(person.getPhoto() != null){
-            System.out.println(person.getAccountType());
-            System.out.println(person.getPhoto().getContent());
             if(profile.getChildren().contains(profileName)) profile.getChildren().remove(profileName);
-            File photoFile = new File(ToolKit.makeAbsoluteLocation(person.getPhoto().getContent()));
-            Image photo = new Image(photoFile.toURI().toString());
+            Image photo = ToolKit.makeImage(person.getPhoto());
             profileCircle.setFill(new ImagePattern(photo));
         }
         else {

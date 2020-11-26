@@ -530,4 +530,8 @@ public class ToolKit {
         node.getChildren().clear();
         node.getChildren().add(iv);
     }
+
+    public static Image makeImage(Course.Overflow.Files.Files imageFile) {
+        return new Image(new File(ToolKit.makeAbsoluteLocation(imageFile.getContent())).toURI().toString());
+    }
 }

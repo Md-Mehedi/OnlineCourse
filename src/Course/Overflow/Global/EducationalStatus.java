@@ -81,7 +81,7 @@ public class EducationalStatus {
 
     public static void createNewEduStatus(String text) {
         String sql = "INSERT INTO EDUCATIONAL_STATUS (ID,TYPE,ADMIN_ID) VALUES(#,'#','#')";
-        boolean x = DB.execute(sql, DB.generateId("EDUCATIONAL_STATUS").toString(), text, "shammya");
+        boolean x = DB.execute(sql, DB.generateId("EDUCATIONAL_STATUS").toString(), text, GLOBAL.ADMIN.getUsername());
     }
 
     public static void changeEduStatusName(String oldName, String newName) {

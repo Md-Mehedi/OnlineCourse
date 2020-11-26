@@ -9,7 +9,6 @@ import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
@@ -61,19 +60,24 @@ public class RightMenuPopOverController implements Initializable {
         setting.setOnMouseClicked((event) -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
         });
-
-        addLabel("My course", PageName.MyCourse);
-        if (GLOBAL.ACCOUNT_TYPE == Person.AccountType.Student) {
+        if(GLOBAL.ACCOUNT_TYPE == Person.AccountType.Admin){
+            addLabel("Dashboard", PageName.AdminPanel);
+        }
+        else if (GLOBAL.ACCOUNT_TYPE == Person.AccountType.Student) {
+            addLabel("My course", PageName.MyCourse);
             addLabel("Purchase history", PageName.PurchaseHistory);
-            addLabel("Wishlist", PageName.Wishlist);
+//            addLabel("Wishlist", PageName.Wishlist);
+            addLabel("Message", PageName.Messenger);
+            addLabel("FAQ", PageName.FAQ);
         } else if (GLOBAL.ACCOUNT_TYPE == Person.AccountType.Teacher) {
+            addLabel("My course", PageName.MyCourse);
             addLabel("Overview", PageName.Overview);
             addLabel("My students", PageName.EnrolledStudents);
             addLabel("Purchase details", PageName.PurchaseHistory);
             addLabel("Create a course", PageName.CreateCourse);
+            addLabel("Message", PageName.Messenger);
+            addLabel("FAQ", PageName.FAQ);
         }
-        addLabel("Message", PageName.Messenger);
-        addLabel("FAQ", PageName.FAQ);
         addLabel("Account setting", PageName.ProfileSetting);
         addLabel("Sign out", PageName.Login, ()-> {
             GLOBAL.ACCOUNT_TYPE = null;
@@ -117,7 +121,7 @@ public class RightMenuPopOverController implements Initializable {
         username.setText(person.getUsername());
         email.setText(person.getEmail());
         if (person.getPhoto() != null) {
-            Image image = new Image(new File(ToolKit.makeAbsoluteLocation(person.getPhoto().getContent())).toURI().toString());
+            Image image = ToolKit.makeImage(person.getPhoto());
             imageCircle.setFill(new ImagePattern(image));
             imageLabel.setText("");
         } else {

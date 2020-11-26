@@ -23,7 +23,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -106,7 +105,7 @@ public class CheckoutPageController extends FloatingPane implements Initializabl
                 cardNumberField.setText(student.getCard().getCardNo());
                 expireField.setValue(ToolKit.DateToLocalDate(student.getCard().getExpireDate()));
             }
-            coursePhoto.setImage(new Image(course.getCourseImage().getContent()));
+            coursePhoto.setImage(ToolKit.makeImage(course.getCourseImage()));
             courseName.setText(course.getTitle());
             originalPriceBottom.setText(course.getMainPrice().toString());
             discountsPriceBottom.setText(course.getCurrentPrice().toString());

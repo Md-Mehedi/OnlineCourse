@@ -143,7 +143,7 @@ public class PricingController implements Initializable {
             parent.uploadToDB();
             GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
             CourseDetailsController ctrl = (CourseDetailsController) GLOBAL.PAGE_CTRL.getController();
-            ctrl.loadData(parent.getCourse());
+            ctrl.loadData(new Course(parent.getCourse().getId()));
         });
         cancelBtn.setOnMouseClicked((event) -> {
             GLOBAL.PAGE_CTRL.loadPreviousPage();
