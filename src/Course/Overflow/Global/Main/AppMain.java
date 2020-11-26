@@ -40,14 +40,12 @@ public class AppMain extends Application {
         pane = new AnchorPane();
         GLOBAL.WIDTH = 1460;
         GLOBAL.HEIGHT = 900;
-        
-
 
 // To show the main app, just toggle the bottom 2 line comments.
         System.out.println(System.getProperty("user.name"));
-        if(System.getProperty("user.name").equals("ASUS")){
+        if (System.getProperty("user.name").equals("ASUS")) {
             int Testing = 0;
-            if(Testing == 1){
+            if (Testing == 1) {
                 GLOBAL.TEACHER = new Teacher("MehediHasan");
                 GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
                 GLOBAL.PAGE_CTRL = new PageController();
@@ -57,17 +55,14 @@ public class AppMain extends Application {
                 mp.loadData(course);
                 pane = mp.getRoot();
                 root.getChildren().add(pane);
-                
-            }
-            else 
-            {
+
+            } else {
                 mehediTestPage();
-                scene = new Scene(root,GLOBAL.WIDTH, GLOBAL.HEIGHT);
+                scene = new Scene(root, GLOBAL.WIDTH, GLOBAL.HEIGHT);
             }
-        }
-        else{
+        } else {
             int Testing = 0;
-            if(Testing == 1){
+            if (Testing == 1) {
                 System.out.println("USER : MEHEDI");
                 GLOBAL.TEACHER = new Teacher("MehediHasan");
                 GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
@@ -78,26 +73,18 @@ public class AppMain extends Application {
                 mp.loadData(course);
                 pane = mp.getRoot();
                 root.getChildren().add(pane);
-            }
-            else {
-                //mehediTestPage();
-//            System.out.println("USER : SHAMMYA");
-//           shammyaTestPage();
-            scene = new Scene(root);
+            } else {
+                shammyaTestPage();
+                scene = new Scene(root);
             }
         }
-        
+
         GLOBAL.stage = primaryStage;
         GLOBAL.rootPane = root;
-        
+
         primaryStage.setScene(scene);
-        primaryStage.show(); 
+        primaryStage.show();
         System.out.println("FXML is loaded...");
-//        root.setOnMouseClicked((event) -> {
-//            ToolKit.print("Hoise");
-//            root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Dark.css");
-//        });
-        
         primaryStage.setOnCloseRequest((event) -> {
             DB.closeConnection();
             System.exit(1);
