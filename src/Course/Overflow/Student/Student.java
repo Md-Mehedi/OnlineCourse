@@ -11,6 +11,7 @@ import Course.Overflow.DB;
 import Course.Overflow.Global.EducationalStatus;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Person;
+import Course.Overflow.Teacher.Teacher;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -74,5 +75,31 @@ public class Student extends Person{
 
     public void boughtCourse(Course course) {
         new PurchaseHistory(course, GLOBAL.STUDENT, course.getCurrentPrice());
+    }
+
+    public Integer getNumOfReview() {
+        Integer value = null;
+        ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM REVIEW WHERE STUDENT_ID = '#'", getUsername());
+        try {
+            rs.next();
+            value = rs.getInt("COUNT(*)");
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return value;
+    }
+
+    public Integer getNumOfCourse() {
+        Integer value = null;
+        ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM PURCHASE_HISTORY WHERE STUDENT_ID = '#'", getUsername());
+        try {
+            rs.next();
+            value = rs.getInt("COUNT(*)");
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return value;
     }
 }

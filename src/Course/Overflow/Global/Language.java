@@ -83,7 +83,7 @@ public class Language {
 
     public static void createNewLanguage(String language) {
         String sql = "INSERT INTO LANGUAGE (ID,NAME,ADMIN_ID) VALUES(#,'#','#')";
-        boolean x = DB.execute(sql, DB.generateId("LANGUAGE").toString(), language, "shammya");
+        boolean x = DB.execute(sql, DB.generateId("LANGUAGE").toString(), language, GLOBAL.ADMIN.getUsername());
     }
 
     public static void changeLanguageName(String oldName, String newName) {

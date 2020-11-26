@@ -74,7 +74,7 @@ public class CourseBoxController implements Initializable {
 
     public void loadData(Course course) {
         this.course = course;
-        Image img = new Image(course.getCourseImage().getContent());
+        Image img = ToolKit.makeImage(course.getCourseImage());
         picBox.setImage(img);
         title.setText(course.getTitle());
         teacher.setText(course.getTeacher().getFullName());

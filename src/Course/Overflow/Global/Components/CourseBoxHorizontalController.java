@@ -17,7 +17,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -99,8 +98,7 @@ public class CourseBoxHorizontalController implements Initializable {
 
     public void loadData(Course course) {
         this.course = course;
-        ToolKit.print(course.getCourseImage().getContent());
-        coursePhoto.setImage(new Image(course.getCourseImage().getContent()));
+        coursePhoto.setImage(ToolKit.makeImage(course.getCourseImage()));
         courseName.setText(course.getTitle());
         courseSubTitle.setText(course.getSubTitle());
         courseInst.setText(course.getTeacher().getFullName());

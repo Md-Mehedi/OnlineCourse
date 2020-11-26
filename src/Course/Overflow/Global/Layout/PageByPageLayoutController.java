@@ -12,7 +12,7 @@ import Course.Overflow.Global.Components.PersonSmallViewController;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Student.PurchaseHistory;
-import Course.Overflow.Teacher.TeacherPreviewController;
+import Course.Overflow.Global.PersonPreviewController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
@@ -304,7 +304,7 @@ public class PageByPageLayoutController implements Initializable {
                         }
                     }
                 } catch (IOException ex) {
-                    Logger.getLogger(TeacherPreviewController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(PersonPreviewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (type != BoxViewType.ListView) {

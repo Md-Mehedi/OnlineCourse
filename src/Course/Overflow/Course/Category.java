@@ -1,6 +1,7 @@
 package Course.Overflow.Course;
 
 import Course.Overflow.DB;
+import Course.Overflow.Global.GLOBAL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -119,13 +120,13 @@ public class Category {
 
     public static void createNewCategory(String name) {
         String sql = "INSERT INTO CATEGORY VALUES (#,'#',NULL,NULL,'#')";
-        boolean x = DB.execute(sql, DB.generateId("CATEGORY").toString(), name, "shammya");
+        boolean x = DB.execute(sql, DB.generateId("CATEGORY").toString(), name, GLOBAL.ADMIN.getUsername());
     }
 
     public static void createNewSubCategory(String name, String parentname) {
         Category ctg = new Category(parentname);
         String sql = "INSERT INTO CATEGORY VALUES (#,'#',#,NULL,'#')";
-        boolean x = DB.execute(sql, DB.generateId("CATEGORY").toString(), name, ctg.getId().toString(), "shammya");
+        boolean x = DB.execute(sql, DB.generateId("CATEGORY").toString(), name, ctg.getId().toString(), GLOBAL.ADMIN.getUsername());
     }
 
     public static void DeleteCategory(String name) {

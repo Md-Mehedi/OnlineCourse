@@ -29,7 +29,7 @@ public class PageController {
     public static ArrayList<Page> pages;
     public static int pageIdx;
 
-    public PageName curPage;
+    public static PageName curPage;
     private AnchorPane container;
     private ScrollPane scroll;
     private static VBox verticalBox;
@@ -155,6 +155,7 @@ public class PageController {
         } else {
             headerCtrl.getRightArrow().setOpacity(1);
         }
+        curPage = pages.get(pageIdx).pageName;
     }
 
     public void loadPage(PageName pageName) {
@@ -173,8 +174,8 @@ public class PageController {
             case Course:
                 page = new CoursePage();
                 break;
-            case TeacherDetails:
-                page = new TeacherDetailsPage();
+            case PersonDetails:
+                page = new PersonDetailsPage();
                 break;
             case MyCourse:
             case Wishlist:

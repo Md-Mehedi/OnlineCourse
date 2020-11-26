@@ -1,5 +1,6 @@
 package Course.Overflow.Course.Show;
 
+import Course.Overflow.Admin.CourseListController;
 import Course.Overflow.Course.Contents.ReviewInputBoxController;
 import Course.Overflow.Course.Course;
 import Course.Overflow.Course.CourseRating;
@@ -10,11 +11,11 @@ import Course.Overflow.Global.Customize.Icon;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Language;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.PersonPreviewController;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.CreateCourse.CreateCourse;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController.ViewerType;
-import Course.Overflow.Teacher.TeacherPreviewController;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.io.IOException;
@@ -30,7 +31,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -156,6 +156,7 @@ public class CourseDetailsController implements Initializable {
     private VBox studentRatingContainer;
     @FXML
     private HBox buyNowBtnContainer;
+    private CourseListController adminCtrl;
 
     /**
      * Initializes the controller class.
@@ -207,8 +208,8 @@ public class CourseDetailsController implements Initializable {
     }
     
     private void loadTeacherPage(){
-        GLOBAL.PAGE_CTRL.loadPage(PageName.TeacherDetails);
-        TeacherPreviewController ctrl = (TeacherPreviewController) GLOBAL.PAGE_CTRL.getController();
+        GLOBAL.PAGE_CTRL.loadPage(PageName.PersonDetails);
+        PersonPreviewController ctrl = (PersonPreviewController) GLOBAL.PAGE_CTRL.getController();
         ctrl.loadData(course.getTeacher());
     }
 
@@ -252,6 +253,9 @@ public class CourseDetailsController implements Initializable {
         defineViewerType();
         if(viewer == ViewerType.OwnerTeacherNormal){
             makeBuyNowToUpdateCourse();
+        }
+        else if(viewer == ViewerType.Admin){
+            makeBuyNowToApproveCourse();
         }
         else if(viewer == ViewerType.OwnerStudent || viewer == ViewerType.NormalTeacher){
             removeBuyNowBtn();
@@ -302,9 +306,7 @@ public class CourseDetailsController implements Initializable {
         
         addRating();
         addReview();
-        ToolKit.print(course.getCourseImage().getContent());
-        courseimage.setImage(new Image(course.getCourseImage().getContent()));
-        
+        courseimage.setImage(ToolKit.makeImage(course.getCourseImage()));
         refreshData();
     }
     
@@ -412,8 +414,8 @@ public class CourseDetailsController implements Initializable {
     }
     
     public void makeBuyNowToUpdateCourse(){
-        Pane pane = (Pane) priceContainer.getParent();
-        pane.getChildren().remove(priceContainer);
+//        Pane pane = (Pane) priceContainer.getParent();
+//        pane.getChildren().remove(priceContainer);
         buyNowButton.setText("Update");
         JFXButton deleteBtn = new JFXButton("Delete");
         deleteBtn.getStyleClass().addAll("title1", "myButton");
@@ -478,5 +480,28 @@ public class CourseDetailsController implements Initializable {
     
     public void setViewer(ViewerType viewer){
         this.viewer = viewer;
+    }
+
+    private void makeBuyNowToApproveCourse() {
+        if(course.isIsApproved()){
+            buyNowButton.setText("Unapprove");
+        }
+        else{
+            buyNowButton.setText("Approve");
+        }
+        buyNowButton.setOnMouseClicked((event) -> {
+            if(buyNowButton.getText().equals("Approve")){
+                adminCtrl.approveCourse(course.getId());
+                buyNowButton.setText("Unapprove");
+            }
+            else{
+                adminCtrl.unapproveCourse(course.getId());
+                buyNowButton.setText("Approve");
+            }
+        });
+    }
+
+    public void setAdminView(CourseListController adminCtrl) {
+        this.adminCtrl = adminCtrl;
     }
 }

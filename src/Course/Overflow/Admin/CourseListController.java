@@ -45,6 +45,7 @@ public class CourseListController implements Initializable {
     private MenuItem itm2;
     private ContextMenu contextMenu1;
     private MenuItem itm11;
+    private MenuItem itm22;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -69,29 +70,42 @@ public class CourseListController implements Initializable {
         contextMenu = new ContextMenu();
         itm1 = new MenuItem("Show Details");
         itm1.setOnAction(event -> {
-            //System.out.println(unapproved.getSelectionModel().getSelectedItem().getTitle());
             Course course = unapproved.getSelectionModel().getSelectedItem();
             GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
             ((CourseDetailsController)GLOBAL.PAGE_CTRL.getController()).loadData(course);
+            ((CourseDetailsController)GLOBAL.PAGE_CTRL.getController()).setAdminView(this);
         });
-        itm2 = new MenuItem("Approve Course");
+        itm2 = new MenuItem("Approve");
         itm2.setOnAction(event -> {
-            Integer id = unapproved.getSelectionModel().getSelectedItem().getId();
-            Course.approveCourse(id);
-            loadData();
+            approveCourse(unapproved.getSelectionModel().getSelectedItem().getId());
         });
         contextMenu.getItems().add(itm1);
         contextMenu.getItems().add(itm2);
         unapproved.setContextMenu(contextMenu);
     }
+    public void approveCourse(Integer id){
+        Course.approveCourse(id);
+        loadData();
+    }
+    public void unapproveCourse(Integer id) {
+        Course.unapproveCourse(id);
+        loadData();
+    }
     private void setContextMenu1() {
         contextMenu1 = new ContextMenu();
         itm11 = new MenuItem("Show Details");
         itm11.setOnAction(event -> {
-            System.out.println(approved.getSelectionModel().getSelectedItem().getTitle());
-
+            Course course = approved.getSelectionModel().getSelectedItem();
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
+            ((CourseDetailsController)GLOBAL.PAGE_CTRL.getController()).loadData(course);
+            ((CourseDetailsController)GLOBAL.PAGE_CTRL.getController()).setAdminView(this);
+        });
+        itm22 = new MenuItem("Unapprove");
+        itm22.setOnAction(event -> {
+            unapproveCourse(approved.getSelectionModel().getSelectedItem().getId());
         });
         contextMenu1.getItems().add(itm11);
+        contextMenu1.getItems().add(itm22);
         approved.setContextMenu(contextMenu1);
     }
 
@@ -109,5 +123,6 @@ public class CourseListController implements Initializable {
         unapproved.setItems(list);
 
     }
+
 
 }

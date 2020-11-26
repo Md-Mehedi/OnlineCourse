@@ -1,12 +1,8 @@
-
-
 package Course.Overflow.Global;
-      
 
 import Course.Overflow.Course.Course;
 import Course.Overflow.DB;
 import Course.Overflow.Files.Files;
-import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,54 +17,71 @@ import javafx.scene.image.Image;
  */
 public class Person {
 
-    public enum AccountType{
+    public enum AccountType {
         Admin("Admin"), Student("Student"), Teacher("Teacher");
-        
+
         String name;
+
         private AccountType(String name) {
             this.name = name;
-        }        
+        }
     }
-    
+
     AccountType accountType;
-    String username;
-    String email;
-    String password;
-    String firstName;
-    String lastName;
+    String username = "";
+    String email = "";
+    String password = "";
+    String firstName = "";
+    String lastName = "";
     Date dob;
-    String institution;
-    String fbURL;
-    String linkedInURL;
+    String institution = "";
+    String fbURL = "";
+    String linkedInURL = "";
     Date signupDate;
-    String about;
+    String about = "";
     Country country;
     Files photo;
     CreditCard card;
-    String youtubeURL;
-    String website;
+    String youtubeURL = "";
+    String website = "";
     ArrayList<Language> languages;
 
-    public Person(String username){
+    public Person(String username) {
         this.username = username;
         ResultSet rs = DB.executeQuery("SELECT * FROM PERSON WHERE ID = '#'", username);
         try {
-            rs.next();
+            if(!rs.next()) return;
             this.email = rs.getString("EMAIL");
             this.password = rs.getString("PASSWORD");
             this.firstName = rs.getString("FIRST_NAME");
             this.lastName = rs.getString("LAST_NAME");
             this.dob = rs.getDate("DOB");
-            this.institution = rs.getString("INSTITUTION");
-            this.fbURL = rs.getString("FB_URL");
-            this.linkedInURL = rs.getString("LINKEDIN_URL");
             this.signupDate = rs.getDate("SIGNUP_DATE");
             this.about = rs.getString("ABOUT");
-            if(rs.getInt("COUNTRY_ID") != 0) this.country = new Country(rs.getInt("COUNTRY_ID"));
-            if(rs.getInt("PHOTO_ID") != 0) this.photo = new Files(rs.getInt("PHOTO_ID"));
-            if(rs.getInt("CARD_ID") != 0) this.card = new CreditCard(rs.getInt("CARD_ID"));
-            this.youtubeURL = rs.getString("YOUTUBE_URL");
-            this.website = rs.getString("WEBSITE");
+            if (rs.getString("INSTITUTION") != null) {
+                this.institution = rs.getString("INSTITUTION");
+            }
+            if (rs.getString("FB_URL") != null) {
+                this.fbURL = rs.getString("FB_URL");
+            }
+            if (rs.getString("LINKEDIN_URL") != null) {
+                this.linkedInURL = rs.getString("LINKEDIN_URL");
+            }
+            if (rs.getString("YOUTUBE_URL") != null) {
+                this.youtubeURL = rs.getString("YOUTUBE_URL");
+            }
+            if (rs.getString("WEBSITE") != null) {
+                this.website = rs.getString("WEBSITE");
+            }
+            if (rs.getInt("COUNTRY_ID") != 0) {
+                this.country = new Country(rs.getInt("COUNTRY_ID"));
+            }
+            if (rs.getInt("PHOTO_ID") != 0) {
+                this.photo = new Files(rs.getInt("PHOTO_ID"));
+            }
+            if (rs.getInt("CARD_ID") != 0) {
+                this.card = new CreditCard(rs.getInt("CARD_ID"));
+            }
             loadLanguages();
             rs.close();
         } catch (SQLException ex) {
@@ -76,15 +89,15 @@ public class Person {
         }
         try {
             rs = DB.executeQuery("SELECT ID FROM STUDENT WHERE ID = '#'", username);
-            if(rs.next()){
+            if (rs.next()) {
                 accountType = AccountType.Student;
             }
             rs = DB.executeQuery("SELECT ID FROM TEACHER WHERE ID = '#'", username);
-            if(rs.next()){
+            if (rs.next()) {
                 accountType = AccountType.Teacher;
             }
             rs = DB.executeQuery("SELECT ID FROM ADMIN WHERE ID = '#'", username);
-            if(rs.next()){
+            if (rs.next()) {
                 accountType = AccountType.Admin;
             }
             rs.close();
@@ -92,8 +105,8 @@ public class Person {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public Person(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about, Date dob){
+
+    public Person(AccountType accountType, String username, String email, String password, String firstName, String lastName, String about, Date dob) {
         HashPassword hp = new HashPassword();
         this.password = hp.hash(password);
         System.out.println(this.password);
@@ -104,35 +117,36 @@ public class Person {
         this.lastName = lastName;
         this.about = about;
         this.dob = dob;
-                
+
         DB.execute("INSERT INTO PERSON(ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, SIGNUP_DATE, ABOUT, DOB)"
-              + " VALUES('#', '#', '" + this.password + "', '#', '#', #, '#', #)"
-              , username, email, firstName, lastName, ToolKit.getCurTimeDB(), about, ToolKit.JDateToDDate(dob));
-    }    
-    
-    private void loadLanguages(){
+              + " VALUES('#', '#', '" + this.password + "', '#', '#', #, '#', #)",
+               username, email, firstName, lastName, ToolKit.getCurTimeDB(), about, ToolKit.JDateToDDate(dob));
+    }
+
+    private void loadLanguages() {
         languages = new ArrayList<>();
         String sql = "SELECT LANGUAGE_ID FROM PERSON_LANGUAGE WHERE PERSON_ID = '#'";
         ResultSet rs = DB.executeQuery(sql, username);
         try {
-            while(rs.next())
-            {
+            while (rs.next()) {
                 languages.add(new Language(rs.getInt("LANGUAGE_ID")));
             }
             rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     public static Person validUser(String username, String password) {
         HashPassword hp = new HashPassword();
         ResultSet rs = DB.executeQuery("SELECT PASSWORD FROM PERSON WHERE ID = '#'", username);
         try {
-            if(!rs.next()) return null;
+            if (!rs.next()) {
+                return null;
+            }
             String found = rs.getString("PASSWORD");
-            if(hp.authenticate(password, found)){
+            if (hp.authenticate(password, found)) {
                 return new Person(username);
             }
             rs.close();
@@ -141,17 +155,10 @@ public class Person {
         }
         return null;
     }
-    
-    
-    
-    
-    
-    
-    
+
     /*
      * Getter and Setter...
      */
-
     public AccountType getAccountType() {
         return accountType;
     }
@@ -172,7 +179,8 @@ public class Person {
         return password;
     }
 
-    public void setPassword(String password) {HashPassword hp = new HashPassword();
+    public void setPassword(String password) {
+        HashPassword hp = new HashPassword();
         this.password = hp.hash(password);
         System.out.println(this.password);
         DB.execute("UPDATE PERSON SET PASSWORD = '" + this.password + "' WHERE ID = '#'", username);
@@ -251,8 +259,11 @@ public class Person {
 
     public void setCountry(Country country) {
         this.country = country;
-        if(country!=null) DB.execute("UPDATE PERSON SET COUNTRY_ID = '#' WHERE ID = '#'", country.getId().toString(), username);
-        else DB.execute("UPDATE PERSON SET COUNTRY_ID = NULL WHERE ID = '#'", username);
+        if (country != null) {
+            DB.execute("UPDATE PERSON SET COUNTRY_ID = '#' WHERE ID = '#'", country.getId().toString(), username);
+        } else {
+            DB.execute("UPDATE PERSON SET COUNTRY_ID = NULL WHERE ID = '#'", username);
+        }
     }
 
     public Files getPhoto() {
@@ -269,7 +280,9 @@ public class Person {
     }
 
     public void setCard(CreditCard card) {
-        if(this.card != null) this.card.deleteCard();
+        if (this.card != null) {
+            this.card.deleteCard();
+        }
         this.card = card;
         DB.execute("UPDATE PERSON SET CARD_ID = '#' WHERE ID = '#'", card.getId().toString(), username);
     }
@@ -300,25 +313,25 @@ public class Person {
         this.languages = languages;
         ResultSet rs = DB.executeQuery("SELECT * FROM PERSON_LANGUAGE WHERE PERSON_ID = '#'", username);
         try {
-            while(rs.next()){
+            while (rs.next()) {
                 DB.execute("DELETE FROM PERSON_LANGUAGE WHERE ID = #", rs.getString("ID"));
             }
             rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(languages.size() == 0){
+        if (languages.size() == 0) {
             return;
         }
-        for(Language lang : languages){
+        for (Language lang : languages) {
             Integer id = DB.generateId("PERSON_LANGUAGE");
             DB.execute("INSERT INTO PERSON_LANGUAGE VALUES(#, '#', #)", id.toString(), username, lang.getId().toString());
         }
     }
-    
-    public Image getImage(){
-        if(photo != null){
-            return new Image(new File(ToolKit.makeAbsoluteLocation(photo.getContent())).toURI().toString());     
+
+    public Image getImage() {
+        if (photo != null) {
+            return ToolKit.makeImage(photo);
         }
         return null;
     }
@@ -326,26 +339,24 @@ public class Person {
     public String getFullName() {
         return firstName + " " + lastName;
     }
-    
-    public String getShortName(){
+
+    public String getShortName() {
         return (firstName.substring(0, 1) + lastName.substring(0, 1)).toUpperCase();
     }
-    
-    public ArrayList<Course> getMyCourses(){
+
+    public ArrayList<Course> getMyCourses() {
         try {
             ArrayList<Course> list = new ArrayList<>();
             ResultSet rs = null;
-            if(accountType == AccountType.Teacher){
+            if (accountType == AccountType.Teacher) {
                 rs = DB.executeQuery("SELECT ID FROM COURSE WHERE TEACHER_ID = '#' ORDER BY PUBLISH_DATE DESC", username);
-            }
-            else if(accountType == AccountType.Student){
+            } else if (accountType == AccountType.Student) {
                 rs = DB.executeQuery("SELECT COURSE_ID FROM PURCHASE_HISTORY WHERE STUDENT_ID = '#' ORDER BY TIME DESC", username);
             }
-            while(rs.next()){
-                if(accountType == AccountType.Teacher){
+            while (rs.next()) {
+                if (accountType == AccountType.Teacher) {
                     list.add(new Course(rs.getInt("ID")));
-                }
-                else if(accountType == AccountType.Student){
+                } else if (accountType == AccountType.Student) {
                     list.add(new Course(rs.getInt("COURSE_ID")));
                 }
             }
@@ -356,15 +367,14 @@ public class Person {
         }
         return null;
     }
-    
+
     public static ArrayList<Person> getList() {
         ArrayList<Person> list = new ArrayList<Person>();
-        ResultSet rs ;
-        String sql = "SELECT ID FROM PERSON";
+        ResultSet rs;
+        String sql = "SELECT ID FROM PERSON ORDER BY SIGNUP_DATE DESC";
         rs = DB.executeQuery(sql);
         try {
-            while(rs.next())
-            {
+            while (rs.next()) {
                 list.add(new Person(rs.getString("ID")));
             }
             rs.close();
@@ -373,8 +383,8 @@ public class Person {
         }
         return list;
     }
-    public static void deletePerson(String name)
-    {
+
+    public static void deletePerson(String name) {
         String sql = "DELETE FROM PERSON_LANGUAGE WHERE PERSON_ID = '#'";
         DB.execute(sql, name);
         sql = "DELETE FROM PERSON_LANGUAGE WHERE PERSON_ID = '#'";

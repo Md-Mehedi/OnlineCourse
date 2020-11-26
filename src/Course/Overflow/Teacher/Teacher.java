@@ -96,11 +96,11 @@ public class Teacher extends Person {
         return CourseRating.getValue(this);
     }
 
-    ArrayList<Course> getCourses() {
+    public ArrayList<Course> getCourses() {
         return Course.coursesOf(this);
     }
 
-    Integer getNumOfRating() {
+    public Integer getNumOfRating() {
         ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM RATING WHERE COURSE_ID = ANY(SELECT ID FROM COURSE WHERE TEACHER_ID = '#')", getUsername());
         Integer value = null;
         try {

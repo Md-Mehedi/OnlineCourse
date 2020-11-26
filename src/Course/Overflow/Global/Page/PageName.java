@@ -12,7 +12,7 @@ package Course.Overflow.Global.Page;
 public enum PageName {
       Home
     , Course
-    , TeacherDetails
+    , PersonDetails
     , MyCourse("My Course")
     , Wishlist("Wishlist")
     , PurchaseHistory("Purchase History")

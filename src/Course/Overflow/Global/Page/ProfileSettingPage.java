@@ -30,7 +30,7 @@ public class ProfileSettingPage extends Page{
 //                proSetCtrl.createEnvironmentForSignup();
 //            };
         } catch (IOException ex) {
-            Logger.getLogger(TeacherDetailsPage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonDetailsPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

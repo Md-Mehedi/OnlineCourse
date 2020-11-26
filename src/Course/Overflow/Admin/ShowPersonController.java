@@ -1,6 +1,9 @@
 package Course.Overflow.Admin;
 
+import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
+import Course.Overflow.Global.PersonPreviewController;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -53,6 +56,9 @@ public class ShowPersonController implements Initializable {
         itm1 = new MenuItem("Show Details");
         itm1.setOnAction(event -> {
             System.out.println(table.getSelectionModel().getSelectedItem().getFirstName());
+            GLOBAL.PAGE_CTRL.loadPage(PageName.PersonDetails);
+            PersonPreviewController ctrl = (PersonPreviewController) GLOBAL.PAGE_CTRL.getController();
+            ctrl.loadData(table.getSelectionModel().getSelectedItem());
 //            Person selected = table.getSelectionModel().getSelectedItem();
 //            ProfileSettingController profSetCtrl = (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
 //            profSetCtrl.createEnvironmentForSignup(selected.getEmail(), selected.getUsername(), selected.getPassword());
