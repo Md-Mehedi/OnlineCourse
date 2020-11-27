@@ -7,7 +7,7 @@
 package Course.Overflow.Global.Page;
 
 import Course.Overflow.Global.Communication.Anouncement;
-import Course.Overflow.Global.Communication.FAQ;
+import Course.Overflow.Global.Communication.FAQs;
 import Course.Overflow.Global.Communication.MessagePage;
 import Course.Overflow.Global.Customize.SVG;
 import Course.Overflow.Global.GLOBAL;
@@ -30,7 +30,7 @@ public class CommunicationPage extends Page{
     private FXMLLoader loader;
     private AnchorPane messengerPane;
     private MessagePage messengerPageCtrl;
-    private FAQ faqCtrl;
+    private FAQs faqCtrl;
     private AnchorPane faqPane;
     private AnchorPane reviewsPane;
     private Anouncement anouncementCtrl;
@@ -83,7 +83,7 @@ public class CommunicationPage extends Page{
     }
 
     private void addFAQPage() {
-        faqCtrl = new FAQ();
+        faqCtrl = new FAQs();
         faqPane = faqCtrl.getRoot();
         slidingPaneCtrl.addContent(faqPane, SVG.FAQ, PageName.FAQ);
     }

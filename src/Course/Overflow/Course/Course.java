@@ -2,7 +2,7 @@ package Course.Overflow.Course;
 
 import Course.Overflow.DB;
 import Course.Overflow.Files.Files;
-import Course.Overflow.Global.Communication.FAQ;
+import Course.Overflow.Global.Communication.FAQs;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Language;
 import Course.Overflow.Global.ToolKit;
@@ -325,11 +325,11 @@ public class Course {
         for (Property property : properties) {
             property.delete();
         }
-        // Delete FAQ
+        // Delete FAQs
         for (Week week : weeks) {
             week.delete();
         }
-        FAQ.delete(this);
+        FAQs.delete(this);
         Review.delete(this);
         CourseRating.delete(this);
         PurchaseHistory.delete(this);
