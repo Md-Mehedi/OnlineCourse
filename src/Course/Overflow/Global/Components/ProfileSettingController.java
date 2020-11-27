@@ -164,7 +164,6 @@ public class ProfileSettingController implements Initializable {
             }
             if (ps.getCard() != null) {
                 cardNo.setText(ps.getCard().getCardNo());
-            System.out.println("card");
                 nameOnCard.setText(ps.getCard().getNameOnCard());
                 expireDate.setValue(ToolKit.DateToLocalDate(ps.getCard().getExpireDate()));
             }
@@ -172,11 +171,9 @@ public class ProfileSettingController implements Initializable {
                 countryCB.setValue(ps.getCountry().getName());
             }
             if (ps.getAccountType() == AccountType.Student && GLOBAL.STUDENT.getEduStatus() != null) {
-                System.out.println("inside" + GLOBAL.STUDENT.getEduStatus().getType());
                 eduStatusCB.setValue(GLOBAL.STUDENT.getEduStatus().getType());
             }
             if (ps.getAccountType() == AccountType.Teacher && GLOBAL.TEACHER.getDesignation() != null) {
-                System.out.println("inside" + GLOBAL.TEACHER.getDesignation().getType());
                 eduStatusCB.setValue(GLOBAL.TEACHER.getDesignation().getType());
             }
             for (Language l : ps.getLanguages()) {
@@ -237,7 +234,6 @@ public class ProfileSettingController implements Initializable {
                     + "-fx-background-color: white;"
                     + "-fx-pref-width: 350;"
             );
-            System.out.println(language.getPrefWidth() + 100);
             container.setStyle(
                     container.getStyle()
                     + "-fx-alignment: center-left;"

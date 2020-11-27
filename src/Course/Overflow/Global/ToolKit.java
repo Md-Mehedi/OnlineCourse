@@ -374,7 +374,6 @@ public class ToolKit {
     }
 
     public static String JDateToDDate(Date date) {
-        System.out.println("makeDateForDB : " + date.toString());
         SimpleDateFormat df = new SimpleDateFormat(dateFormatJAVA());
         return "TO_DATE('" + df.format(date) + "', '" + dateFormatDB() + "')";
     }

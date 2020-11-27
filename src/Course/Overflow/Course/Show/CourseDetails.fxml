@@ -47,9 +47,13 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label styleClass="bold" text="Publish Date" />
+                              <Label styleClass="bold" text="Publish Date :" />
                               <Label fx:id="publish" text="29 October, 2019" />
-                              <Label styleClass="bold" text="Language" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label styleClass="bold" text="Language :" />
                               <Label fx:id="language" text="Language" />
                            </children>
                         </HBox>

@@ -142,13 +142,11 @@ public class PopupController implements Initializable {
             result.clear();
             if(type == IconType.FONT_AWESOME_ICON){
                 FontAwesomeIconView icon = (FontAwesomeIconView) node;
-                System.out.println(icon.getGlyphName());
                 result.put("type", IconType.FONT_AWESOME_ICON);
                 result.put("name", icon.getGlyphName());
             }
             if(type == IconType.SVG){
                 SVGView icon = (SVGView) node;
-                System.out.println(icon.getSVGName());
                 result.put("type", IconType.SVG);
                 result.put("name", icon.getSVGName());
             }

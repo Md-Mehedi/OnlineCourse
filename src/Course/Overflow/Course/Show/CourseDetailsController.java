@@ -316,8 +316,8 @@ public class CourseDetailsController implements Initializable {
     
     public void refreshData(){
         ratingStar.setRating(course.getRating());
-        rating.setText("(" + course.getNumOfRating() +" ratings)");
-        numOfStudent.setText(course.getTeacher().getNumOfStudent() + " students");
+        rating.setText("(" + course.getNumOfRating() + " ratings)");
+        numOfStudent.setText(course.getNumOfStudents().toString() + " students");
         
         instRating.setText(ToolKit.DoubleToString(course.getTeacher().getRating()));
         instReviews.setText(course.getTeacher().getNumOfReview().toString() + " reviews");

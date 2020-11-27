@@ -25,7 +25,6 @@ public class Icon extends StackPane{
         SVG("SVG");
         private String name;
         IconType(String s){
-            System.out.println(s);
             this.name = s;
         }
     }
