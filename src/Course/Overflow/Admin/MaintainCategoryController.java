@@ -97,8 +97,6 @@ public class MaintainCategoryController implements Initializable {
             selectedItem = categoryTree.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
                 selected = selectedItem.getValue();
-                System.out.println(selected);
-
             } else {
                 selected = "";
             }

@@ -179,7 +179,7 @@ public class Person {
         return password;
     }
 
-    public void setPassword(String password) {
+    public  void setPassword(String password) {
         HashPassword hp = new HashPassword();
         this.password = hp.hash(password);
         System.out.println(this.password);

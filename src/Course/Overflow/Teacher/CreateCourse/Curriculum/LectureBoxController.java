@@ -502,7 +502,6 @@ public class LectureBoxController implements Initializable {
 
     public Lecture uploadToDB(Week week) {
         this.week = week;
-        System.out.println("uploadDB" + lectureNameLabel.getText());
         Files file = null;
         switch (fileType) {
             case ARTICLE:
@@ -524,7 +523,6 @@ public class LectureBoxController implements Initializable {
             week.addLecture(lec);
             return;
         }
-        System.out.println("updateDB" + lectureNameLabel.getText());
         lecture.setLectureNo(Integer.parseInt(lectureNo.getText()));
         lecture.setTitle(lectureNameLabel.getText());
         lecture.setIsPreview(freeAvailableCkB.isSelected());

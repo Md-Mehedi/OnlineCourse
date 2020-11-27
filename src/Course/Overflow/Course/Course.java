@@ -191,7 +191,16 @@ public class Course {
     }
 
     public Integer getNumOfStudents() {
-        return numOfStudents;
+        try {
+            ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM PURCHASE_HISTORY WHERE COURSE_ID = #", id.toString());
+            rs.next();
+            Integer value = rs.getInt("COUNT(*)");
+            rs.close();
+            return value;
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 
     public void setNumOfStudents(Integer numOfStudents) {
@@ -351,7 +360,6 @@ public class Course {
         } catch (SQLException ex) {
             Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("inside approved course : total course = " + apCourses.size());
         return apCourses;
     }
     
@@ -446,7 +454,7 @@ public class Course {
         } catch (SQLException ex) {
             Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("inside unapproved course : total course = " + apCourses.size());
+//        System.out.println("inside unapproved course : total course = " + apCourses.size());
         return apCourses;
     }
     public static void approveCourse(Integer id)

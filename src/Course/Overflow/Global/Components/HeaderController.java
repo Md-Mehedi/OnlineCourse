@@ -219,7 +219,6 @@ public class HeaderController implements Initializable {
 
     private void loadProfilePhoto() {
         Person person = ToolKit.getCurrentPerson();
-        System.out.println(person);
         if(person.getPhoto() != null){
             if(profile.getChildren().contains(profileName)) profile.getChildren().remove(profileName);
             Image photo = ToolKit.makeImage(person.getPhoto());

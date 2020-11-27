@@ -95,7 +95,7 @@ public class PageController {
         {
             case Login : 
             case Signup: 
-            case FrogetPassword: return true;
+            case ForgetPassword: return true;
         }
         return false;
     }
@@ -213,6 +213,9 @@ public class PageController {
                 break;
             case AdminPanel:
                 page = new AdminPanel();
+                break;
+            case ForgetPassword :
+                loadFXML(GLOBAL.LOGIN_SIGNUP_LOCATION + "/ForgetPassword.fxml");
                 break;
         }
         if (!isLoadingWithoutLayout(pageName)) {

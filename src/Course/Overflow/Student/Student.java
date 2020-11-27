@@ -47,7 +47,6 @@ public class Student extends Person{
 
     public void setEduStatus(EducationalStatus eduStatus) {
         this.eduStatus = eduStatus;
-        System.out.println(eduStatus.getType());
         DB.execute("UPDATE STUDENT SET EDU_STATUS_ID = #", eduStatus.getId().toString());
     }
     

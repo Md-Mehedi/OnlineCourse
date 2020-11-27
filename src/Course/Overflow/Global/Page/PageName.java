@@ -33,7 +33,6 @@ public enum PageName {
     , Login()
     , Signup()
     , ProfileSetting()
-    , FrogetPassword()
     , Blank("Blank Page")
     , AdminPanel
     , AdminShowPerson("Users")
@@ -43,6 +42,7 @@ public enum PageName {
     , AdminMaintainEduStatus("Educational Status")
     , AdminMaintainLanguage("Language")
     , AdminCourseList("Courses")
+    , ForgetPassword()
     ;
     public String name;
 

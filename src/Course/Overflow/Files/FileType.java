@@ -36,7 +36,6 @@ public enum FileType {
                 System.err.println("no file data found");
             }
             rs.close();
-            System.out.println(typeName + " is ready to use.");
         } catch (SQLException ex) {
             Logger.getLogger(Files.class.getName()).log(Level.SEVERE, null, ex);
         }

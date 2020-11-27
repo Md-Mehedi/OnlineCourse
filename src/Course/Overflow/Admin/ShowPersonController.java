@@ -55,7 +55,6 @@ public class ShowPersonController implements Initializable {
         contextMenu = new ContextMenu();
         itm1 = new MenuItem("Show Details");
         itm1.setOnAction(event -> {
-            System.out.println(table.getSelectionModel().getSelectedItem().getFirstName());
             GLOBAL.PAGE_CTRL.loadPage(PageName.PersonDetails);
             PersonPreviewController ctrl = (PersonPreviewController) GLOBAL.PAGE_CTRL.getController();
             ctrl.loadData(table.getSelectionModel().getSelectedItem());

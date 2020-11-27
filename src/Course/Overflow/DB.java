@@ -69,7 +69,7 @@ public class DB {
         sql = sql.replace("&&&&&", "$");
         
         try {
-            System.out.println(sql);System.out.println("");
+           // System.out.println(sql);System.out.println("");
             st = con.createStatement();
             rs = st.executeQuery(sql);
         } catch (SQLException ex) {
@@ -91,7 +91,7 @@ public class DB {
         sql = sql.replace("&&&&&", "$");
         
         try {
-            System.out.println(sql);System.out.println("");
+            //System.out.println(sql);System.out.println("");
             return st.execute(sql);
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
@@ -121,6 +121,18 @@ public class DB {
     public static boolean valueExist(String table, String column, String val) {
         try {
             String sql = "SELECT * FROM # WHERE # = '#' ";
+            ResultSet rs = executeQuery(sql, table, column, val);
+            boolean f = rs.next();
+            rs.close();
+            return f;
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    public static boolean valueExistnew(String table, String column, String val) {
+        try {
+            String sql = "SELECT * FROM # WHERE # = # ";
             ResultSet rs = executeQuery(sql, table, column, val);
             boolean f = rs.next();
             rs.close();

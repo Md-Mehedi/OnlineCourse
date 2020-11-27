@@ -24,7 +24,6 @@ public class Designation {
                 return;
             }
             type = rs.getString("TYPE");
-            System.out.println(type);
             adminId = rs.getString("ADMIN_ID");
             rs.close();
         } catch (SQLException ex) {

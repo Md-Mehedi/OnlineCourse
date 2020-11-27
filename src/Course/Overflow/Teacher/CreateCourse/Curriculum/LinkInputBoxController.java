@@ -83,7 +83,6 @@ public class LinkInputBoxController implements Initializable {
             ToolKit.showWarning("Link field can't be empty");
             return false;
         }
-        System.out.println(linkDescField.getText().length());
         if (!(5 < linkDescField.getText().length() && linkDescField.getText().length() <= 1000)) {
             ToolKit.showWarning("Link description have to be between 50 to 1000 charecters");
             return false;

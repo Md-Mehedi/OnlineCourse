@@ -165,7 +165,6 @@ public class DetailsController implements Initializable {
                   + "-fx-background-color: white;"
                   + "-fx-pref-width: 350;"
             );
-            System.out.println(languageField.getPrefWidth() + 100);
             container.setStyle(
                   container.getStyle()
                   + "-fx-alignment: center-left;"
