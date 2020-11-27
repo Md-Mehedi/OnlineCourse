@@ -95,7 +95,7 @@ public class PageController {
         {
             case Login : 
             case Signup: 
-            case FrogetPassword: return true;
+            case ForgetPassword: return true;
         }
         return false;
     }

@@ -130,4 +130,16 @@ public class DB {
         }
         return false;
     }
+    public static boolean valueExistnew(String table, String column, String val) {
+        try {
+            String sql = "SELECT * FROM # WHERE # = # ";
+            ResultSet rs = executeQuery(sql, table, column, val);
+            boolean f = rs.next();
+            rs.close();
+            return f;
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

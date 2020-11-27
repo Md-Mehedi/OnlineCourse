@@ -33,7 +33,6 @@ public enum PageName {
     , Login()
     , Signup()
     , ProfileSetting()
-    , FrogetPassword()
     , Blank("Blank Page")
     , AdminPanel
     , AdminShowPerson("Users")

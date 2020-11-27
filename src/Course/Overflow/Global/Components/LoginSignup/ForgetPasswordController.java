@@ -1,6 +1,10 @@
 package Course.Overflow.Global.Components.LoginSignup;
 
 import Course.Overflow.DB;
+import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.Person;
+import Course.Overflow.Global.ToolKit;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -11,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -25,6 +30,7 @@ public class ForgetPasswordController implements Initializable {
     private DatePicker dob;
     @FXML
     private AnchorPane rootpanefp;
+    @FXML
     private Label message;
     @FXML
     private JFXButton confirm;
@@ -47,6 +53,8 @@ public class ForgetPasswordController implements Initializable {
     private Label very_strong;
     @FXML
     private Label pass_strength;
+    @FXML
+    private HBox strength;
 
     public ForgetPasswordController() {
 
@@ -56,7 +64,7 @@ public class ForgetPasswordController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         message.setText("Enter your username and birthdate to change your password");
         makeDefault(false);
-
+        addListener();
     }
 
     private void makeDefault(boolean flag) {
@@ -64,6 +72,7 @@ public class ForgetPasswordController implements Initializable {
         confirmpass.setVisible(flag);
         confirm.setVisible(flag);
         login.setVisible(flag);
+        strength.setVisible(flag);
     }
 
     public void RefreshWindow() {
@@ -99,7 +108,7 @@ public class ForgetPasswordController implements Initializable {
 //        });
         check.setOnMouseClicked(event -> {
             boolean a = DB.valueExist("PERSON", "ID", username.getText());
-            boolean b = DB.valueExist("PERSON", "DOB", dob.getValue().toString());
+            boolean b = DB.valueExistnew("PERSON", "DOB",ToolKit.JDateToDDate(ToolKit.localDateToDate(dob.getValue())) );               
             flag = a & b;
             if (flag) {
                 makeDefault(flag);
@@ -110,7 +119,16 @@ public class ForgetPasswordController implements Initializable {
         });
         confirm.setOnMouseClicked(event -> {
             if (!newpass.getText().isEmpty() && !confirmpass.getText().isEmpty()) {
-                
+                Person person = new Person(username.getText());
+                if(newpass.getText().equals(confirmpass.getText()))
+                {
+                    person.setPassword(newpass.getText());
+                    message.setText("Password updated successfully !");
+                }
+                else
+                {
+                    message.setText("New password should match with confirm password !");
+                }
             }
 
         });
@@ -135,12 +153,15 @@ public class ForgetPasswordController implements Initializable {
                 pass_strength.setText("very strong");
                 very_strong.setStyle(" -fx-background-color: #39FF14;");
             } else if (len == 0) {
-                pass_strength.setText("");
-                poor.setStyle(" -fx-background-color:  #E79D30;");
+                pass_strength.setText("poor");
+                poor.setStyle(" -fx-background-color:  red;");
                 medium.setStyle(" -fx-background-color:  #E79D30;");
                 strong.setStyle(" -fx-background-color:   #E79D30;");
                 very_strong.setStyle(" -fx-background-color:   #E79D30;");
             }
+        });
+        login.setOnMouseClicked(event ->{
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Login);
         });
     }
 

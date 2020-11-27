@@ -10,7 +10,6 @@ import Course.Overflow.Teacher.Teacher;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,7 +17,6 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javax.swing.JOptionPane;
 
@@ -138,13 +136,7 @@ public class LoginController implements Initializable {
 
         });
         forgetPass.setOnMouseClicked((event) -> {
-            try {
-                AnchorPane pane = FXMLLoader.load(getClass().getResource(GLOBAL.LOGIN_SIGNUP_LOCATION+"/ForgetPassword.fxml"));
-                
-            } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+            GLOBAL.PAGE_CTRL.loadPage(PageName.ForgetPassword);
         });
 
     }
