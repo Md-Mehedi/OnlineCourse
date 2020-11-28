@@ -523,7 +523,7 @@ public class ToolKit {
     }
 
     public static void showNoDataFound(Pane node){
-        ImageView iv = new ImageView(new Image(GLOBAL.PICTURE_LOCATION + "/No Data Found.jpg"));
+        ImageView iv = new ImageView(new Image(new File(makeAbsoluteLocation(GLOBAL.PICTURE_LOCATION + "/No Data Found.jpg")).toURI().toString()));
         iv.setFitWidth(GLOBAL.WIDTH*0.7);
         iv.setPreserveRatio(true);
         node.getChildren().clear();

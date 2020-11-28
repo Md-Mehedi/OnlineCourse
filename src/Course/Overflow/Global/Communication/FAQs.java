@@ -7,11 +7,21 @@
 package Course.Overflow.Global.Communication;
 
 import Course.Overflow.Course.Course;
-import Course.Overflow.DB;
+import Course.Overflow.Course.FAQ;
+import Course.Overflow.Course.Show.CourseBoxLittle;
+import Course.Overflow.Course.Show.FAQOutputBoxController;
+import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
-import javafx.scene.control.Label;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController.ViewerType;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Pair;
 
 /**
  *
@@ -29,31 +39,38 @@ public class FAQs {
         makeList();
     }
     
-    private VBox getaQA(){
-        Label q = new Label("Question sldkfjlksdj flksdjf kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri  s;lkfj ;lajs fljlskfj ljf lsjflksjdlfjlashfjkshfkljoiweroi??");
-        q.getStyleClass().add("title5");
-        Label a = new Label("Answer ajsfljsl fowo ojosa fweuo lsifu oiwer jzjoaiuf worijoif poiweir wir kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri  owroi...");
-        
-        return new VBox(q,a);
+    private Pane getaQA(FAQ faq){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_SHOW_LOCATION + "/FAQOutputBox.fxml"));
+            AnchorPane pane = loader.load();
+            FAQOutputBoxController ctrl = loader.getController();
+            ctrl.loadData(ViewerType.OwnerTeacherNormal, faq);
+            ctrl.getQuestionLabel().getStyleClass().add("title5");
+            return pane;
+        } catch (IOException ex) {
+            Logger.getLogger(FAQs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     private void makeList() {
-        ToolKit.showNoDataFound(root);
-//        for(int j=0; j<10; j++){
-//            CourseBoxLittle box = new CourseBoxLittle(course);
-//            container.getChildren().add(box);
-//            for(int i=0;i<5;i++){
-//                box.addData(getaQA());
-//            }
-//        }
+        ArrayList<Pair<Course, ArrayList<FAQ>>> list = FAQ.getFAQForTeacherView();
+        if(list.size() == 0){
+           ToolKit.showNoDataFound(root);
+        }
+        else{
+            for(int j=0; j<list.size(); j++){
+                CourseBoxLittle box = new CourseBoxLittle(list.get(j).getKey());
+                container.getChildren().add(box);
+                for(int i=0;i<list.get(j).getValue().size();i++){
+                    box.addData(getaQA(list.get(j).getValue().get(i)));
+                }
+            }
+        }
     }
     
     public AnchorPane getRoot(){
         return root;
-    }
-    
-    public static void delete(Course course) {
-        DB.execute("DELETE FROM FAQ WHERE COURSE_ID = #", course.getId().toString());
     }
     
 }

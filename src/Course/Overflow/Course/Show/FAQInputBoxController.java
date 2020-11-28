@@ -76,7 +76,7 @@ public class FAQInputBoxController extends FloatingPane implements Initializable
             faq.setAnswer(questionField.getText());
             questionField.setText("");
             faqOutputParent.removeAnswerBtn();
-            faqOutputParent.getParent().loadFAQ();
+            faqOutputParent.loadAnswer(faq);
             close();
         });
     }

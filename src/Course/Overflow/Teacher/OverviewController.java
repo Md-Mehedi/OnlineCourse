@@ -7,6 +7,7 @@ package Course.Overflow.Teacher;
 
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.ToolKit;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -41,6 +42,7 @@ public class OverviewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         addListener();
+        loadData();
     }    
 
     private void addListener() {
@@ -53,5 +55,14 @@ public class OverviewController implements Initializable {
         historyBtn.setOnMouseClicked((event) -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.PurchaseHistory);
         });
+    }
+
+    private void loadData() {
+        Teacher teacher = GLOBAL.TEACHER;
+        revenueField.setText(ToolKit.DoubleToString(teacher.getTotalRevenue()));
+        enrollmentField.setText(teacher.getNumOfStudent().toString());
+        reviewsField.setText(teacher.getNumOfReview().toString());
+        String ratingValue = teacher.getRating() + "" + (teacher.getNumOfRating()!=0 ? "(" + teacher.getNumOfRating() + " students)" : "");
+        ratingField.setText(ratingValue);
     }
 }

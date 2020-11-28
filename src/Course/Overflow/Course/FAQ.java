@@ -117,6 +117,10 @@ public class FAQ {
         this.teacher = teacher;
     }
     
+    public static void delete(Course course) {
+        DB.execute("DELETE FROM FAQ WHERE COURSE_ID = #", course.getId().toString());
+    }
+    
     public FAQ(Course course, Student student, String question){
         this.id = DB.generateId("FAQ");
         this.question = question;
@@ -143,10 +147,10 @@ public class FAQ {
     public static ArrayList<Pair<Course,ArrayList<FAQ>>> getFAQForTeacherView(){
         ArrayList<Pair<Course,ArrayList<FAQ>>> lists = new ArrayList();
         try {
-            ResultSet rsCourse = DB.executeQuery("SELECT COURSE_ID FROM FAQ WHERE COURSE_ID = ANY (SELECT ID FROM COURSE WHERE TEACHER_ID = '#') GROUP BY COURSE_ID ORDER BY MAX(TIME) DESC", GLOBAL.TEACHER.getUsername());
+            ResultSet rsCourse = DB.executeQuery("SELECT COURSE_ID FROM FAQ WHERE COURSE_ID = ANY (SELECT ID FROM COURSE WHERE TEACHER_ID = '#') GROUP BY COURSE_ID ORDER BY MAX(QUESTION_TIME) DESC", GLOBAL.TEACHER.getUsername());
             while(rsCourse.next()){
                 ArrayList list = new ArrayList();
-                ResultSet rsFAQ = DB.executeQuery("SELECT * FROM FAQ WHERE COURSE_ID = # ORDER BY TIME DESC", rsCourse.getString("COURSE_ID"));
+                ResultSet rsFAQ = DB.executeQuery("SELECT * FROM FAQ WHERE COURSE_ID = # ORDER BY QUESTION_TIME DESC", rsCourse.getString("COURSE_ID"));
                 while(rsFAQ.next()){
                     list.add(new FAQ(rsFAQ.getInt("ID")));
                 }

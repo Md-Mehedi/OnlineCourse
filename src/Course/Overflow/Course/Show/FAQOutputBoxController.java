@@ -9,6 +9,7 @@ import Course.Overflow.Course.FAQ;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController;
+import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController.ViewerType;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -63,9 +64,10 @@ public class FAQOutputBoxController implements Initializable {
     private CurriculumController.ViewerType viewer;
     @FXML
     private JFXButton answerBtn;
-    private Object ansInputPane;
     private FAQInputBoxController ansInputCtrl;
-    private CourseDetailsController parent;
+    private AnchorPane ansInputPane;
+    @FXML
+    private VBox questionContainer;
 
     /**
      * Initializes the controller class.
@@ -75,7 +77,8 @@ public class FAQOutputBoxController implements Initializable {
         // TODO
     }    
 
-    void loadData(FAQ faq) {
+    public void loadData(ViewerType viewer, FAQ faq) {
+        this.viewer = viewer;
         this.faq = faq;
         if(faq.getStudent().getPhoto() != null){
             ToolKit.removeNode(studentImageLabel);
@@ -88,23 +91,11 @@ public class FAQOutputBoxController implements Initializable {
         questionDate.setText(ToolKit.makeDateStructured(faq.getQuestionTime(), "hh:mm aa - dd MMMMM, yyyy"));
         question.setText(faq.getQuestion());
         if(faq.getAnswer() != null){
-            ToolKit.removeNode(noAnswerLabel);
-            ToolKit.removeNode(answerBtn);
-            if(faq.getTeacher().getPhoto() != null){
-                ToolKit.removeNode(teacherImageName);
-                teacherImageCircle.setFill(new ImagePattern(ToolKit.makeImage(faq.getTeacher().getPhoto())));
-            }
-            else{
-                teacherImageName.setText(faq.getTeacher().getShortName());
-            }
-            teacherName.setText(faq.getTeacher().getFullName());
-            answerDate.setText(ToolKit.makeDateStructured(faq.getAnswerTime(), "hh:mm aa - dd MMMMM, yyyy"));
-            answer.setText(faq.getAnswer());
+            loadAnswer(faq);
         }
         else if(viewer == CurriculumController.ViewerType.OwnerTeacherNormal){
             ToolKit.removeNode(answerContainer);
             ToolKit.removeNode(noAnswerLabel);
-            ToolKit.print(parent);
             connectAnswerInput();
         }
         else{
@@ -112,10 +103,27 @@ public class FAQOutputBoxController implements Initializable {
             ToolKit.removeNode(answerBtn);
         }
     }
+    
+    public void loadAnswer(FAQ faq) {
+        if(noAnswerLabel.getParent() != null) ToolKit.removeNode(noAnswerLabel);
+        if(answerBtn.getParent() != null) ToolKit.removeNode(answerBtn);
+        if(faq.getTeacher().getPhoto() != null){
+            ToolKit.removeNode(teacherImageName);
+            teacherImageCircle.setFill(new ImagePattern(ToolKit.makeImage(faq.getTeacher().getPhoto())));
+        }
+        else{
+            teacherImageName.setText(faq.getTeacher().getShortName());
+        }
+        teacherName.setText(faq.getTeacher().getFullName());
+        answerDate.setText(ToolKit.makeDateStructured(faq.getAnswerTime(), "hh:mm aa - dd MMMMM, yyyy"));
+        answer.setText(faq.getAnswer());
+        if(!questionContainer.getChildren().contains(answerContainer)) questionContainer.getChildren().add(answerContainer);
+    }
+    
     private void connectAnswerInput() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_SHOW_LOCATION + "/FAQInputBox.fxml"));
-            ansInputPane = loader.load();
+            ansInputPane = (AnchorPane) loader.load();
             ansInputCtrl = loader.<FAQInputBoxController>getController();
             ansInputCtrl.setParent(this);
             ansInputCtrl.setFAQ(faq);
@@ -128,19 +136,10 @@ public class FAQOutputBoxController implements Initializable {
         }
     }
 
-    void setViewer(CurriculumController.ViewerType viewer) {
-        this.viewer = viewer;
-    }
-    
-    public CourseDetailsController getParent(){
-        return parent;
-    }
-
-    void setParent(CourseDetailsController parent) {
-        this.parent = parent;
-    }
-
     void removeAnswerBtn() {
         ToolKit.removeNode(answerBtn);
+    }
+    public Label getQuestionLabel(){
+        return question;
     }
 }

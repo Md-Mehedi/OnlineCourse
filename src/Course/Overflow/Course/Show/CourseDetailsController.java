@@ -562,9 +562,7 @@ public class CourseDetailsController implements Initializable {
         try {
             AnchorPane pane = loader.load();
             faqOutputBoxCtrl = loader.<FAQOutputBoxController>getController();
-            faqOutputBoxCtrl.setParent(this);
-            faqOutputBoxCtrl.setViewer(viewer);
-            if(faq != null) faqOutputBoxCtrl.loadData(faq);
+            if(faq != null) faqOutputBoxCtrl.loadData(viewer, faq);
             faqContainer.getChildren().add(0, pane);
         } catch (IOException ex) {
             Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);

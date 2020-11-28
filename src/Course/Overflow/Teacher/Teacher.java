@@ -127,4 +127,18 @@ public class Teacher extends Person {
         }
         return courses;
     }
+
+    public Double getTotalRevenue() {
+        Double value = 0.0;
+        try {
+            ResultSet rs = DB.executeQuery("SELECT SUM(COST) FROM PURCHASE_HISTORY WHERE COURSE_ID = ANY(SELECT ID FROM COURSE WHERE TEACHER_ID = '#')", getUsername());
+            if(rs.next()){
+                value = rs.getDouble("SUM(COST)");
+            }
+            rs.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return value;
+    }
 }

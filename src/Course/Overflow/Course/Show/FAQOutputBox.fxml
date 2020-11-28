@@ -34,7 +34,7 @@
             <HBox>
                <children>
                   <Region minWidth="90.0" prefWidth="90.0" />
-                  <VBox>
+                  <VBox fx:id="questionContainer">
                      <children>
                         <Label fx:id="question" styleClass="centerRightWidth" text="kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri " />
                         <Label fx:id="noAnswerLabel" prefHeight="80.0" style="-fx-font-weight: bold;" styleClass="centerRightWidth" text="No answer yet." />

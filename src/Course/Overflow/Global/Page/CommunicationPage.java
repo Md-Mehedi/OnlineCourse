@@ -38,7 +38,6 @@ public class CommunicationPage extends Page{
     private AnchorPane overviewPane;
     private EnrolledStudentsView studentCtrl;
     private AnchorPane enrolledStudentPane;
-    private PageName pageName;
     private ReviewPage reviewsCtrl;
         
     public CommunicationPage(PageName pageName){
@@ -54,14 +53,15 @@ public class CommunicationPage extends Page{
         addMessengerPage();
         addFAQPage();
         addReviews();
-        addAnouncement();
+//        addAnouncement();
         
         this.pageName = pageName;
         switch(pageName){
+            case Overview: slidingPaneCtrl.setPage(overviewPane); break;
             case Messenger: slidingPaneCtrl.setPage(messengerPane); break;
             case FAQ: slidingPaneCtrl.setPage(faqPane); break;
             case Review: slidingPaneCtrl.setPage(reviewsPane); break;
-            case Anouncement: slidingPaneCtrl.setPage(anouncementPane); break;
+//            case Anouncement: slidingPaneCtrl.setPage(anouncementPane); break;
             case EnrolledStudents: slidingPaneCtrl.setPage(enrolledStudentPane); break;
         }
     }
