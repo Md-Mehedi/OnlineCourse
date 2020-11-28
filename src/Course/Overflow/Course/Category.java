@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.image.Image;
+import javafx.util.Pair;
 
 /**
  *
@@ -136,6 +137,27 @@ public class Category {
         sql = "DELETE FROM CATEGORY WHERE NAME = '#'";
         DB.execute(sql, name);
 
+    }
+
+    public static ArrayList<Pair<Category, ArrayList<Category>>> getTreeList() {
+        ArrayList<Pair<Category, ArrayList<Category>>> lists = new ArrayList();
+        try {
+            ResultSet rsMain = DB.executeQuery("SELECT ID FROM CATEGORY WHERE PARENT_ID IS NULL ORDER BY NAME ASC");
+            while(rsMain.next()){
+                Category main = new Category(rsMain.getInt("ID"));
+                ResultSet rsSub = DB.executeQuery("SELECT ID FROM CATEGORY WHERE PARENT_ID = # ORDER BY NAME ASC", main.getId().toString());
+                ArrayList<Category> list = new ArrayList();
+                while(rsSub.next()){
+                    list.add(new Category(rsSub.getInt("ID")));
+                }
+                lists.add(new Pair<Category, ArrayList<Category>>(main, list));
+                rsSub.close();
+            }
+            rsMain.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lists;
     }
 
 }

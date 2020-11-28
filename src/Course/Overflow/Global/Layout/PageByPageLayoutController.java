@@ -10,9 +10,9 @@ import Course.Overflow.Global.Components.CourseBoxController;
 import Course.Overflow.Global.Components.CourseBoxHorizontalController;
 import Course.Overflow.Global.Components.PersonSmallViewController;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.PersonPreviewController;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Student.PurchaseHistory;
-import Course.Overflow.Global.PersonPreviewController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
@@ -163,7 +163,11 @@ public class PageByPageLayoutController implements Initializable {
             itemContainer.getChildren().add(grid);
         }
         readyNumOfItemList();
-        makePageNumbers();
+        if(items.size()<=column){
+            removeHeader();
+            removeFooter();
+        }
+        else makePageNumbers();
         loadPage(1);
         estimateContainerWidth();
         listIcon.setOnMouseClicked((event) -> {
@@ -180,9 +184,6 @@ public class PageByPageLayoutController implements Initializable {
         });
         if (type == BoxViewType.PersonGrid) {
             stopViewChange();
-        }
-        if(items.size()<=column){
-            removeHeader();
         }
     }
 
@@ -360,5 +361,9 @@ public class PageByPageLayoutController implements Initializable {
     
     public void removeHeader(){
         ToolKit.removeNode(topContainer);
+    }
+    
+    private void removeFooter() {
+        ToolKit.removeNode(pageNumContainer);
     }
 }

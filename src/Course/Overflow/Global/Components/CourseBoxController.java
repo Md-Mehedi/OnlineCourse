@@ -8,7 +8,6 @@ package Course.Overflow.Global.Components;
 import Course.Overflow.Course.Course;
 import Course.Overflow.Course.Show.CourseDetailsController;
 import Course.Overflow.Global.GLOBAL;
-import Course.Overflow.Global.Page.CoursePage;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.ToolKit;
 import java.net.URL;
@@ -62,11 +61,10 @@ public class CourseBoxController implements Initializable {
         });
         container.setOnMouseClicked((event)->{
             GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
-            CoursePage page = (CoursePage) GLOBAL.PAGE_CTRL.getPage();
-            CourseDetailsController ctrl = page.getController();
+            CourseDetailsController ctrl = (CourseDetailsController) GLOBAL.PAGE_CTRL.getController();
             ctrl.loadData(course);
         });
-    }    
+    }
     
     public void setCourseTitle(String title){
         this.title.setText(title);

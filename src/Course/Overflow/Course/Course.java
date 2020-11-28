@@ -466,5 +466,19 @@ public class Course {
         String sql = "UPDATE COURSE SET IS_APPROVED = 'F' WHERE ID = #";
         DB.execute(sql, id.toString());
     }
+    
+    public static ArrayList<Course> getList(Category category){
+        ArrayList<Course> list = new ArrayList();
+        try {
+            ResultSet rs = DB.executeQuery("SELECT ID FROM COURSE WHERE CATEGORY_ID = ANY(SELECT ID FROM CATEGORY WHERE PARENT_ID = # OR ID = #) AND IS_APPROVED = 'T'", category.getId().toString(), category.getId().toString());
+            while(rs.next()){
+                list.add(new Course(rs.getInt("ID")));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 
 }

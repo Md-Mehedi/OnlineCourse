@@ -67,10 +67,15 @@ public class CourseListShowPage extends Page{
                 ctrl.setUpPage(courses, BoxViewType.ListView);
                 ctrl.stopViewChange();
             }
+            else if(pageName == PageName.CategorySearchPage){
+            }
             container.getChildren().add(pane);
         } catch (IOException ex) {
             Logger.getLogger(PersonDetailsPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public void loadData(ArrayList<Course> list, BoxViewType boxViewType, Integer column) {
+        ctrl.setUpPage(list, boxViewType, column);
+    }
 }

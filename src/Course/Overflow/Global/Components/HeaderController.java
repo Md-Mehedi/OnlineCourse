@@ -5,9 +5,13 @@
  */
 package Course.Overflow.Global.Components;
 
+import Course.Overflow.Course.Category;
+import Course.Overflow.Course.Course;
 import Course.Overflow.Global.Components.Notification.NotificationView;
 import Course.Overflow.Global.Customize.MyFadeTransition;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Layout.PageByPageLayoutController;
+import Course.Overflow.Global.Page.CourseListShowPage;
 import Course.Overflow.Global.Page.PageController;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
@@ -16,6 +20,7 @@ import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -33,6 +38,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import javafx.util.Pair;
 
 /**
  * FXML Controller class
@@ -82,7 +88,7 @@ public class HeaderController implements Initializable {
         loadProfilePhoto();
         addListener();
         Platform.runLater(()->{
-            //createCategories();
+            createCategories();
         });
     }    
     
@@ -138,36 +144,40 @@ public class HeaderController implements Initializable {
         new MyFadeTransition(profile, profilePane);
     }
     
-    private void addSubCategory(VBox subCatContainer){
+    private void addSubCategory(Category category, VBox subCatContainer){
         int pos = subCatContainer.getChildren().size() + 1;
-        Label label = new Label("Sub Category "+ pos);
+        Label label = new Label(category.getName());
         HBox box = new HBox(label);
         subCatContainer.getChildren().add(box);
         box.setOnMouseClicked((event) -> {
-            GLOBAL.PAGE_CTRL.loadPage(PageName.SearchResult);
+            GLOBAL.PAGE_CTRL.loadPage(PageName.CategorySearchPage);
+            CourseListShowPage ctrl = (CourseListShowPage) GLOBAL.PAGE_CTRL.getPage();
+            ctrl.loadData(Course.getList(category), PageByPageLayoutController.BoxViewType.GridView, 4);
         });
     }
     
-    private void addMainCategory(AnchorPane catRoot, VBox mainContainer){
+    private void addMainCategory(Pair<Category, ArrayList<Category>> pair, AnchorPane catRoot, VBox mainContainer){
         int pos = mainContainer.getChildren().size() + 1;
-        Label label = new Label("Main Category "+ pos);
+        Label label = new Label(pair.getKey().getName());
         Region r = new Region();
         FontAwesomeIconView iv = new FontAwesomeIconView(FontAwesomeIcon.ARROW_RIGHT);
         HBox box = new HBox(label,r,iv);
         HBox.setHgrow(r, Priority.ALWAYS);
         mainContainer.getChildren().add(box);
         box.setOnMouseClicked((event) -> {
-            GLOBAL.PAGE_CTRL.loadPage(PageName.SearchResult);
+            GLOBAL.PAGE_CTRL.loadPage(PageName.CategorySearchPage);
+            CourseListShowPage ctrl = (CourseListShowPage) GLOBAL.PAGE_CTRL.getPage();
+            ctrl.loadData(Course.getList(pair.getKey()), PageByPageLayoutController.BoxViewType.GridView, 4);
         });
         
         VBox subCatContainer = new VBox();
         AnchorPane subCatRoot = new AnchorPane(subCatContainer);
         subCatRoot.getStylesheets().add(GLOBAL.COMPONENTS_LOCATION + "/Components.css");
         ToolKit.setAnchor(subCatContainer, 0, 0, 0, 0);
-        int subCatNum = (int) ((Math.random()*100)%15);
+        int subCatNum = pair.getValue().size();
         if(subCatNum == 0) box.getChildren().remove(2);
-        for(int i=1;i<=subCatNum;i++){
-            addSubCategory(subCatContainer);
+        for(int i=0;i<subCatNum;i++){
+            addSubCategory(pair.getValue().get(i), subCatContainer);
         }
         subCatContainer.getStyleClass().add("catContainer");
         GLOBAL.rootPane.getChildren().add(subCatRoot);
@@ -198,8 +208,9 @@ public class HeaderController implements Initializable {
         catRoot.getStylesheets().add(GLOBAL.COMPONENTS_LOCATION + "/Components.css");
         mainCatTransition = new MyFadeTransition(categoriesBtn, catRoot, Duration.millis(200));
         ToolKit.setAnchor(catContainer, 0, 0, 0, 0);
-        for(int i=0; i<10; i++){
-            addMainCategory(catRoot, catContainer);
+        ArrayList<Pair<Category,ArrayList<Category>>> list = Category.getTreeList();
+        for(int i=0; i<list.size(); i++){
+            addMainCategory(list.get(i), catRoot, catContainer);
         }
         catContainer.getStyleClass().add("catContainer");
         GLOBAL.rootPane.getChildren().add(catRoot);

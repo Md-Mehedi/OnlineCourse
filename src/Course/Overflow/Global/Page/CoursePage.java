@@ -32,8 +32,4 @@ public class CoursePage extends Page{
             Logger.getLogger(CoursePage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public CourseDetailsController getController(){
-        return (CourseDetailsController) this.controller;
-    }
 }

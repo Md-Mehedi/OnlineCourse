@@ -159,9 +159,9 @@ public class PageController {
     }
 
     public void loadPage(PageName pageName) {
-        if (curPage == pageName) {
-            return;
-        }
+//        if (curPage == pageName) {
+//            return;
+//        }
         if (!container.getChildren().contains(scroll) && !isLoadingWithoutLayout(pageName)) {
             System.out.println(pageName);
             createLayout();
@@ -187,6 +187,9 @@ public class PageController {
                 } else if (GLOBAL.ACCOUNT_TYPE == Person.AccountType.Teacher) {
                     page = new PurchaseHistoryPage();
                 }
+                break;
+            case CategorySearchPage:
+                page = new CourseListShowPage(pageName);
                 break;
             case SearchResult:
                 page = new SearchResultPage();
