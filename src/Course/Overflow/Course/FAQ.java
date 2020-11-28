@@ -164,4 +164,25 @@ public class FAQ {
         }
         return lists;
     }
+
+    public static ArrayList<Pair<Course, ArrayList<FAQ>>> getFAQForStudentView() {
+        ArrayList<Pair<Course,ArrayList<FAQ>>> lists = new ArrayList();
+        try {
+            ResultSet rsCourse = DB.executeQuery("SELECT COURSE_ID FROM FAQ WHERE STUDENT_ID = '#' GROUP BY COURSE_ID ORDER BY MAX(QUESTION_TIME) DESC", GLOBAL.STUDENT.getUsername());
+            while(rsCourse.next()){
+                ArrayList list = new ArrayList();
+                ResultSet rsFAQ = DB.executeQuery("SELECT ID FROM FAQ WHERE COURSE_ID = # AND STUDENT_ID = '#' ORDER BY QUESTION_TIME DESC", rsCourse.getString("COURSE_ID"), GLOBAL.STUDENT.getUsername());
+                while(rsFAQ.next()){
+                    list.add(new FAQ(rsFAQ.getInt("ID")));
+                }
+                rsFAQ.close();
+                Pair<Course, ArrayList<FAQ>> pair = new Pair(new Course(rsCourse.getInt("COURSE_ID")), list);
+                lists.add(pair);
+            }
+            rsCourse.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Review.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lists;
+    }
 }

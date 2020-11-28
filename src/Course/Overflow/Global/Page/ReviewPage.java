@@ -6,6 +6,7 @@ import Course.Overflow.Course.Review;
 import Course.Overflow.Course.Show.CourseBoxLittle;
 import Course.Overflow.Course.Show.ReviewController;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Person.AccountType;
 import Course.Overflow.Global.ToolKit;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Pair;
 
 
 /**
@@ -47,16 +49,19 @@ public class ReviewPage{
         return pane;
     }
     private void makeList() {
-        ArrayList<ArrayList<Review>> lists = Review.getReviewsForTeacherView();
+        ArrayList<Pair<Course ,ArrayList<Review>>> lists = null;
+        if(GLOBAL.ACCOUNT_TYPE == AccountType.Teacher) lists = Review.getReviewsForTeacherView();
+        else if(GLOBAL.ACCOUNT_TYPE == AccountType.Student) lists = Review.getReviewsForStudentView();
+        
         if(lists.size() == 0){
             ToolKit.showNoDataFound(root);
             return;
         }
         for(int j=0; j<lists.size(); j++){
-            CourseBoxLittle box = new CourseBoxLittle(new Course(lists.get(j).get(0).getCourseId()));
+            CourseBoxLittle box = new CourseBoxLittle(lists.get(j).getKey());
             container.getChildren().add(box);
-            for(int i=0;i<lists.get(j).size();i++){
-                box.addData(getReviewBox(lists.get(j).get(i)));
+            for(int i=0;i<lists.get(j).getValue().size();i++){
+                box.addData(getReviewBox(lists.get(j).getValue().get(i)));
             }
         }
     }

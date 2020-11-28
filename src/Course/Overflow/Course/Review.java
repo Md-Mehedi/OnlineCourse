@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.util.Pair;
 
 /**
  *
@@ -139,8 +140,8 @@ public class Review {
         return false;
     }
     
-    public static ArrayList<ArrayList<Review>> getReviewsForTeacherView(){
-        ArrayList<ArrayList<Review>> lists = new ArrayList();
+    public static ArrayList<Pair<Course ,ArrayList<Review>>> getReviewsForTeacherView(){
+        ArrayList<Pair<Course ,ArrayList<Review>>> lists = new ArrayList();
         try {
             ResultSet rsCourse = DB.executeQuery("SELECT COURSE_ID FROM REVIEW WHERE COURSE_ID = ANY (SELECT ID FROM COURSE WHERE TEACHER_ID = '#') GROUP BY COURSE_ID ORDER BY MAX(TIME) DESC", GLOBAL.TEACHER.getUsername());
             while(rsCourse.next()){
@@ -155,8 +156,31 @@ public class Review {
                     r.setRating(new CourseRating(rsReview.getInt("COURSE_ID"), r.getStudent()));
                     list.add(r);
                 }
+                lists.add(new Pair<Course, ArrayList<Review>>(new Course(rsCourse.getInt("COURSE_ID")), list));
                 rsReview.close();
-                lists.add(list);
+            }
+            rsCourse.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Review.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lists;
+    }
+    
+    public static ArrayList<Pair<Course ,ArrayList<Review>>> getReviewsForStudentView() {
+        ArrayList<Pair<Course ,ArrayList<Review>>> lists = new ArrayList();
+        try {
+            ResultSet rsCourse = DB.executeQuery("SELECT * FROM REVIEW WHERE STUDENT_ID = '#' ORDER BY TIME DESC", GLOBAL.STUDENT.getUsername());
+            while(rsCourse.next()){
+                ArrayList list = new ArrayList();
+                Review r = new Review();
+                r.setId(rsCourse.getInt("ID"));
+                r.setStudent(GLOBAL.STUDENT);
+                r.setDate(rsCourse.getTimestamp("TIME"));
+                r.setText(rsCourse.getString("TEXT"));
+                r.setRating(new CourseRating(rsCourse.getInt("COURSE_ID"), r.getStudent()));
+                list.add(r);
+                Course course = new Course(rsCourse.getInt("COURSE_ID"));
+                lists.add(new Pair<Course, ArrayList<Review>>(course,list));
             }
             rsCourse.close();
         } catch (SQLException ex) {

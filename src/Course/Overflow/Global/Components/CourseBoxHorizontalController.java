@@ -8,7 +8,6 @@ package Course.Overflow.Global.Components;
 import Course.Overflow.Course.Course;
 import Course.Overflow.Course.Show.CourseDetailsController;
 import Course.Overflow.Global.GLOBAL;
-import Course.Overflow.Global.Page.CoursePage;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Student.PurchaseHistory;
@@ -66,8 +65,7 @@ public class CourseBoxHorizontalController implements Initializable {
         // TODO
         container.setOnMouseClicked((event) -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
-            CoursePage page = (CoursePage) GLOBAL.PAGE_CTRL.getPage();
-            CourseDetailsController ctrl = page.getController();
+            CourseDetailsController ctrl = (CourseDetailsController) GLOBAL.PAGE_CTRL.getController();
             ctrl.loadData(course);
         });
     }    

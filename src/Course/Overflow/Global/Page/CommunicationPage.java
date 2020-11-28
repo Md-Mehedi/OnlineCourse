@@ -13,6 +13,7 @@ import Course.Overflow.Global.Customize.SVG;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.LeftSlidingPane;
 import Course.Overflow.Global.Layout.LeftSlidingPane.Type;
+import Course.Overflow.Global.Person;
 import Course.Overflow.Teacher.EnrolledStudentsView;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -48,11 +49,18 @@ public class CommunicationPage extends Page{
         slidingPaneCtrl.removeTitleBar();
         root.getChildren().add(slidingPaneCtrl.getRoot());
         
-        addOverviewPage();
-        addStudentPage();
-        addMessengerPage();
-        addFAQPage();
-        addReviews();
+        if(GLOBAL.ACCOUNT_TYPE == Person.AccountType.Teacher){
+            addOverviewPage();
+            addStudentPage();
+            addMessengerPage();
+            addReviews();
+            addFAQPage();
+        }
+        else if(GLOBAL.ACCOUNT_TYPE == Person.AccountType.Student){
+            addMessengerPage();
+            addReviews();
+            addFAQPage();
+        }
 //        addAnouncement();
         
         this.pageName = pageName;

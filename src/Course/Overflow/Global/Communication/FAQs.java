@@ -11,6 +11,7 @@ import Course.Overflow.Course.FAQ;
 import Course.Overflow.Course.Show.CourseBoxLittle;
 import Course.Overflow.Course.Show.FAQOutputBoxController;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Person.AccountType;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController.ViewerType;
 import java.io.IOException;
@@ -44,7 +45,8 @@ public class FAQs {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_SHOW_LOCATION + "/FAQOutputBox.fxml"));
             AnchorPane pane = loader.load();
             FAQOutputBoxController ctrl = loader.getController();
-            ctrl.loadData(ViewerType.OwnerTeacherNormal, faq);
+            ViewerType viewer = (GLOBAL.ACCOUNT_TYPE == AccountType.Student ? ViewerType.NormalStudent : ViewerType.OwnerTeacherNormal);
+            ctrl.loadData(viewer, faq);
             ctrl.getQuestionLabel().getStyleClass().add("title5");
             return pane;
         } catch (IOException ex) {
@@ -54,7 +56,9 @@ public class FAQs {
     }
 
     private void makeList() {
-        ArrayList<Pair<Course, ArrayList<FAQ>>> list = FAQ.getFAQForTeacherView();
+        ArrayList<Pair<Course, ArrayList<FAQ>>> list = null;
+        if(GLOBAL.ACCOUNT_TYPE == AccountType.Teacher) list = FAQ.getFAQForTeacherView();
+        else if(GLOBAL.ACCOUNT_TYPE == AccountType.Student) list = FAQ.getFAQForStudentView();
         if(list.size() == 0){
            ToolKit.showNoDataFound(root);
         }
