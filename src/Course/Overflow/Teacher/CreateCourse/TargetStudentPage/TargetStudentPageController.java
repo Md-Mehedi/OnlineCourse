@@ -255,6 +255,7 @@ public class TargetStudentPageController implements Initializable {
 
     public void loadDate(Course course) {
         this.course = course;
+        newCourse = false;
         courseLearningContainer.getChildren().clear();
         courseOutcomesCtrls.clear();
         requContainer.getChildren().clear();
@@ -273,8 +274,8 @@ public class TargetStudentPageController implements Initializable {
         }
     }
     
-    public void createEnvironmentForCourseUpdate(Course course){
-        this.course = course;
-        newCourse = false;
-    }
+//    public void createEnvironmentForCourseUpdate(Course course){
+//        this.course = course;
+//        newCourse = false;
+//    }
 }

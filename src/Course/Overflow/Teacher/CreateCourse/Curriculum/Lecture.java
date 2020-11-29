@@ -35,7 +35,7 @@ public class Lecture {
             while(rs.next()){
                 lectureNo = rs.getInt("LECTURE_NO");
                 title = rs.getString("TITLE");
-                lastUpdate = rs.getDate("LAST_UPDATE");
+                lastUpdate = rs.getTimestamp("LAST_UPDATE");
                 isPreview = ToolKit.DBoolToJBool(rs.getString("IS_PREVIEW"));
                 file = new Files(rs.getInt("FILE_ID"));  
             }
@@ -60,7 +60,6 @@ public class Lecture {
         this.file = file;
         this.isPreview = isPreview;
         this.lastUpdate = ToolKit.getCurTime();
-        ToolKit.print(file.getId());
         DB.execute(
               "INSERT INTO LECTURE(ID, LECTURE_NO, TITLE, LAST_UPDATE, IS_PREVIEW, WEEK_ID, FILE_ID) VALUES(#, #, '#', #, '#', #, #)", 
               id.toString(), lectureNo.toString(), title, ToolKit.JDateToDDate(lastUpdate), ToolKit.JBoolToDBool(isPreview), week.getId().toString(), file.getId().toString()

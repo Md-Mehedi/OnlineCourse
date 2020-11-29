@@ -30,7 +30,7 @@
                <content>
                   <AnchorPane fx:id="scrollingPane">
                      <children>
-                        <VBox fx:id="messageContainer" style="-fx-spacing: 30; -fx-background-color: #54a7d7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="messageContainer" minWidth="780.0" style="-fx-spacing: 30; -fx-background-color: #54a7d7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <HBox styleClass="message2">
                                  <children>

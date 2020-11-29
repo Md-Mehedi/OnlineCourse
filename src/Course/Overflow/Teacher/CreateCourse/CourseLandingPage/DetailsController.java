@@ -344,6 +344,7 @@ public class DetailsController implements Initializable {
     
     public void loadData(Course course){
         this.course = course;
+        newCourse = false;
         courseTitle.setText(course.getTitle());
         courseSubTitle.setText(course.getSubTitle());
         courseDescription.setText(course.getDescription());
@@ -354,9 +355,9 @@ public class DetailsController implements Initializable {
         updateLanguage(course.getLanguages());
     }
 
-    public void createEnvironmentForCourseUpdate(Course course){
-        this.course = course;
-        newCourse = false;
-    }
+//    public void createEnvironmentForCourseUpdate(Course course){
+//        this.course = course;
+//        newCourse = false;
+//    }
     
 }

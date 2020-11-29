@@ -5,7 +5,11 @@
  */
 package Course.Overflow.Global.Communication;
 
+import Course.Overflow.Files.FileType;
+import Course.Overflow.Global.Person;
+import Course.Overflow.Global.ToolKit;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +18,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 /**
@@ -39,6 +44,7 @@ public class ChatHeadController implements Initializable {
     private Label lastMessage;
     private HBox selectedBox;
     private MessengerController messengerCtrl;
+    private MessagePage parent;
 
     /**
      * Initializes the controller class.
@@ -46,19 +52,29 @@ public class ChatHeadController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         selectedBox = new HBox();
-        chatBoxContainer.getChildren().clear();
-        for(int i=0;i<10;i++)
-            makeChatBox();
     }    
     
-    public void makeChatBox(){
+    public HBox makeChatBox(Person person){
         Circle c = new Circle(40);
-        Label l1 = new Label("Course namajsdfl sjflsd flsjf klsjf lskfj slf saljf ljflskfj klsj flskj fjjasd fe");
+        c.setFill(new ImagePattern(ToolKit.makeImage(person.getPhoto())));
+        
+        Label l1 = new Label("Course name");
         l1.getStyleClass().add("courseName");
-        Label l2 = new Label("Instructor najsljsl flsf klfjsljf lsjf lskjf dfk sdklfj slfj me");
+        
+        Label l2 = new Label(person.getFullName());
         l2.getStyleClass().add("teacherName");
-        Label l3 = new Label("Last message ad fsdjsd flsdjfldsjf sljf jf lsdjf lsdkf ...");
+        
+        Message lMessage = Message.getLastMessage(ToolKit.getCurrentPerson(), person);
+        String text = "";
+        if(lMessage.getMessage().getType() == FileType.PICTURE){
+            text = "Sent a message";
+        }
+        else{
+            text = lMessage.getMessage().getContent();
+        }
+        Label l3 = new Label(text);
         l3.getStyleClass().add("lastMessage");
+        
         HBox box = new HBox(c,new VBox(l1,l2,l3));
         box.getStyleClass().add("chatBox");
         chatBoxContainer.getChildren().add(box);
@@ -69,12 +85,35 @@ public class ChatHeadController implements Initializable {
             }
             box.getStyleClass().add("selectedChatBox");
             selectedBox = box;
-            messengerCtrl.loadMessage();
+            messengerCtrl.loadMessage(person);
         });
+        
+        return box;
     }
     
     public void setMessengerCtrl(MessengerController ctrl){
         this.messengerCtrl = ctrl;
+    }
+
+    public void loadChatBox() {
+        chatBoxContainer.getChildren().clear();
+        ArrayList<Person> list = Message.getMessageReceipentList(ToolKit.getCurrentPerson());
+        if(list.isEmpty()){
+            parent.showNoDataFound();
+            return;
+        }
+        for(int i=0;i<list.size();i++) {
+            HBox box = makeChatBox(list.get(i));
+            if(i==0){
+                box.getStyleClass().add("selectedChatBox");
+                selectedBox = box;
+                messengerCtrl.loadMessage(list.get(0));
+            }
+        }
+    }
+
+    void setParent(MessagePage parent) {
+        this.parent = parent;
     }
     
 }

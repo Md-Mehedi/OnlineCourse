@@ -312,8 +312,6 @@ public class PageByPageLayoutController implements Initializable {
                 Platform.runLater(()->{
                     Double width = ((Pane)grid.getChildren().get(0)).getPrefWidth();
                     int n = grid.getChildren().size();
-                    ToolKit.print(n);
-                    ToolKit.print(width);
                     if (n < column) {
                         grid.setPrefWidth(n * width + (n - 1) * offset);
                     } else {

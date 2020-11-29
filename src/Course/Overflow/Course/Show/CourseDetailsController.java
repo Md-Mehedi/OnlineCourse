@@ -36,8 +36,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javax.swing.JOptionPane;
 import org.controlsfx.control.Rating;
@@ -156,7 +154,7 @@ public class CourseDetailsController implements Initializable {
     @FXML
     private VBox studentRatingContainer;
     @FXML
-    private HBox buyNowBtnContainer;
+    private VBox buyNowBtnContainer;
     private CourseListController adminCtrl;
     @FXML
     private Label askQuestionBtn;
@@ -280,7 +278,7 @@ public class CourseDetailsController implements Initializable {
         
         defineViewerType();
         if(viewer == ViewerType.OwnerTeacherNormal){
-            makeBuyNowToUpdateCourse();
+            makeOwnerFunctionalityOption();
         }
         else if(viewer == ViewerType.Admin){
             makeBuyNowToApproveCourse();
@@ -443,22 +441,32 @@ public class CourseDetailsController implements Initializable {
         pane.getChildren().remove(buyNowContainer);
     }
     
-    public void makeBuyNowToUpdateCourse(){
+    public void makeOwnerFunctionalityOption(){
 //        Pane pane = (Pane) priceContainer.getParent();
 //        pane.getChildren().remove(priceContainer);
         buyNowButton.setText("Update");
+        
         JFXButton deleteBtn = new JFXButton("Delete");
         deleteBtn.getStyleClass().addAll("title1", "myButton");
         deleteBtn.setStyle("-fx-background-color: red;");
-        Region region = new Region();
-        region.setMinWidth(15);
-        HBox.setHgrow(region, Priority.ALWAYS);
-        buyNowBtnContainer.getChildren().addAll(region, deleteBtn);
+//        Region region = new Region();
+//        region.setMinWidth(15);
+//        HBox.setHgrow(region, Priority.ALWAYS);
+        JFXButton duplicateBtn = new JFXButton("Duplicate");
+        duplicateBtn.getStyleClass().addAll("title1", "myButton");
+        duplicateBtn.setStyle("-fx-background-color: cyan;");
+        
+        HBox box = new HBox(duplicateBtn, deleteBtn);
+        box.setSpacing(15);
+        buyNowBtnContainer.getChildren().addAll(box);
+        
         buyNowButton.setOnMouseClicked((event) -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.CreateCourse);
             CreateCourse cc = (CreateCourse) GLOBAL.PAGE_CTRL.getPage();
+            cc.createEnvironmentForCourseUpdate();
             cc.loadData(course);
         });
+        
         deleteBtn.setOnMouseClicked((event) -> {
             int state1 = JOptionPane.showConfirmDialog(null, "Do you want to delete your course?\nIf you delete this course, you will never recover it.", "Warning!!!", JOptionPane.CANCEL_OPTION);
             if (state1 == 0) {
@@ -466,9 +474,18 @@ public class CourseDetailsController implements Initializable {
                 GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
             }
         });
+        
+        duplicateBtn.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(PageName.CreateCourse);
+            CreateCourse cc = (CreateCourse) GLOBAL.PAGE_CTRL.getPage();
+            cc.createEnvironmentForCourseUpload();
+            cc.loadData(course);
+        });
+        
         Platform.runLater(()->{
-            buyNowButton.setPrefWidth(buyNowButton.getPrefWidth()/2-15);
-            deleteBtn.setPrefWidth(buyNowButton.getPrefWidth());
+            buyNowButton.setPrefWidth(buyNowButton.getPrefWidth());
+            deleteBtn.setPrefWidth(buyNowButton.getPrefWidth()/2 - box.getSpacing()/2);
+            duplicateBtn.setPrefWidth(buyNowButton.getPrefWidth()/2 - box.getSpacing()/2);
         });
     }
 

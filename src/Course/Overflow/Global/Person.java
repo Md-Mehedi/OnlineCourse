@@ -56,7 +56,7 @@ public class Person {
             this.firstName = rs.getString("FIRST_NAME");
             this.lastName = rs.getString("LAST_NAME");
             this.dob = rs.getDate("DOB");
-            this.signupDate = rs.getDate("SIGNUP_DATE");
+            this.signupDate = rs.getTimestamp("SIGNUP_DATE");
             this.about = rs.getString("ABOUT");
             if (rs.getString("INSTITUTION") != null) {
                 this.institution = rs.getString("INSTITUTION");

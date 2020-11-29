@@ -112,7 +112,6 @@ public class PurchaseHistoryPage extends Page{
               + "");
         studentLastName.setStyle(studentFirstName.getStyle());
         
-        ToolKit.print(list.get(row).getTime().toString());
         Label purchaseTime = new Label(ToolKit.makeDateStructured(list.get(row).getTime(), "hh:mm aa"));
         Label purchaseDate = new Label(ToolKit.makeDateStructured(list.get(row).getTime(), "dd MMMMM, yyyy"));
         VBox purchaseBox = new VBox(purchaseTime,purchaseDate);

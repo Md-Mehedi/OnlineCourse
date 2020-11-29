@@ -23,10 +23,6 @@ public class CourseBoxLittle extends AnchorPane{
     
     public CourseBoxLittle(Course course){
         this.course = course;
-        this.setOnMouseClicked(event ->{
-            GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
-            ((CourseDetailsController)GLOBAL.PAGE_CTRL.getController()).loadData(course);
-        });
         courseDetBoxContainer = new HBox();
         bottomContainer = new VBox();
         container = new VBox(courseDetBoxContainer, bottomContainer);
@@ -36,6 +32,10 @@ public class CourseBoxLittle extends AnchorPane{
         this.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
         this.getStylesheets().add(GLOBAL.COURSE_SHOW_LOCATION + "/CourseShow.css");
         this.getStyleClass().add("courseLittleBox");
+        courseDetBoxContainer.setOnMouseClicked(event ->{
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
+            ((CourseDetailsController)GLOBAL.PAGE_CTRL.getController()).loadData(course);
+        });
         courseDetBoxContainer.getStyleClass().add("courseHBox");
         courseDetBoxContainer.setStyle("-fx-cursor: hand;");
         bottomContainer.setStyle("-fx-spacing: 20;");

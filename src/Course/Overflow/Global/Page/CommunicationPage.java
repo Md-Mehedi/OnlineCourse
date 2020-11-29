@@ -27,7 +27,7 @@ import javafx.scene.layout.AnchorPane;
  * @author Md Mehedi Hasan
  */
 public class CommunicationPage extends Page{
-    private static LeftSlidingPane slidingPaneCtrl;
+    private LeftSlidingPane slidingPaneCtrl;
     private FXMLLoader loader;
     private AnchorPane messengerPane;
     private MessagePage messengerPageCtrl;
@@ -86,7 +86,7 @@ public class CommunicationPage extends Page{
         slidingPaneCtrl.addContent(messengerPane, SVG.MESSAGE, PageName.Messenger);
         Platform.runLater(()->{
             messengerPageCtrl.setPrefHeight(GLOBAL.HEIGHT - GLOBAL.HEADER.getRoot().getPrefHeight() - GLOBAL.TOP_MENU_BAR.getHeight()-10);
-            System.out.println(messengerPageCtrl.getRoot().getPrefHeight());
+//            System.out.println(messengerPageCtrl.getRoot().getPrefHeight());
         });
     }
 

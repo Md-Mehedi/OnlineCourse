@@ -32,7 +32,7 @@ public class CreditCard {
 
                 cardNo = rs.getString("CARD_NO");
                 nameOnCard = rs.getString("NAME_ON_CARD");
-                expireDate = ToolKit.makeDateForJAVA(rs.getDate("EXPIRE_DATE"));
+                expireDate = rs.getTimestamp("EXPIRE_DATE");
                 rs.close();
             } catch (SQLException ex) {
                 Logger.getLogger(CreditCard.class.getName()).log(Level.SEVERE, null, ex);

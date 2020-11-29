@@ -131,17 +131,18 @@ public class CreateCourse extends Page {
 
     public void loadData(Course course) {
         this.course = course;
-        targetStudentCtrl.createEnvironmentForCourseUpdate(course);
         targetStudentCtrl.loadDate(course);
-
-//        curriculumCtrl.createEnvironmentForCourseUpdate(course);
         curriculumCtrl.loadData(course, ViewerType.OwnerTeacherEditor);
-
-        detailsController.createEnvironmentForCourseUpdate(course);
         detailsController.loadData(course);
-
-        pricingController.createEnvironmentForCourseUpdate();
         pricingController.loadData(course);
+    }
+    
+    public void createEnvironmentForCourseUpdate(){
+        pricingController.createEnvironmentForCourseUpdate();
+    }
+    
+    public void createEnvironmentForCourseUpload(){
+        pricingController.createEnvironmentForCourseUpload();
     }
     
     public Course getCourse(){

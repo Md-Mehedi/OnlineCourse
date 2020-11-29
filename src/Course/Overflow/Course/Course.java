@@ -65,7 +65,7 @@ public class Course {
             subTitle = rs.getString("SUBTITLE");
             mainPrice = rs.getDouble("PRICE");
             off = rs.getDouble("OFFER");
-            publishDate = rs.getDate("PUBLISH_DATE");
+            publishDate = rs.getTimestamp("PUBLISH_DATE");
         
             isApproved = ToolKit.DBoolToJBool(rs.getString("IS_APPROVED"));
             teacher = new Teacher(rs.getString("TEACHER_ID"));

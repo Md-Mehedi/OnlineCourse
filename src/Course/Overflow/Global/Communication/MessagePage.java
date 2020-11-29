@@ -35,16 +35,21 @@ public class MessagePage {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COMMUNICATION_LOCATION + "/ChatHead.fxml"));
             pane = loader.load();
             chatHeadCtrl = loader.<ChatHeadController>getController();
+            chatHeadCtrl.setParent(this);
             box.getChildren().add(pane);
+            
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COMMUNICATION_LOCATION + "/Messenger.fxml"));
             pane = loader.load();
             messengerCtrl = loader.<MessengerController>getController();
+            messengerCtrl.setParent(this);
             box.getChildren().add(pane);
         } catch (IOException ex) {
             Logger.getLogger(MessagePage.class.getName()).log(Level.SEVERE, null, ex);
         }
         root.getChildren().add(box);
+        
         chatHeadCtrl.setMessengerCtrl(messengerCtrl);
+        chatHeadCtrl.loadChatBox();
     }
     
     public AnchorPane getRoot(){
@@ -53,5 +58,9 @@ public class MessagePage {
     
     public void setPrefHeight(double value){
         root.setMaxHeight(value);
+    }
+
+    void showNoDataFound() {
+        ToolKit.showNoDataFound(root);
     }
 }

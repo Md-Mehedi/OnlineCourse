@@ -409,7 +409,6 @@ public class LectureBoxController implements Initializable {
                 linkOutputCtrl = loader.getController();
                 linkOutputCtrl.setParent(this);
                 if(viewer != ViewerType.OwnerTeacherEditor){
-                    ToolKit.print(viewer);
                     linkOutputCtrl.stopEditingFunctionality();
                 }
                 this.setCancelVisible(false);

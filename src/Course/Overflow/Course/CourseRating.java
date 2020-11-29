@@ -35,7 +35,7 @@ public class CourseRating {
             rs.next();
             student = new Student(rs.getString("STUDENT_ID"));
             value = rs.getDouble("VALUE");
-            time = rs.getDate("TIME");
+            time = rs.getTimestamp("TIME");
             rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(CourseRating.class.getName()).log(Level.SEVERE, null, ex);
@@ -49,7 +49,7 @@ public class CourseRating {
             if(rs.next()){
                 id = rs.getInt("ID");
                 value = rs.getDouble("VALUE");
-                time = rs.getDate("TIME");
+                time = rs.getTimestamp("TIME");
             }
             rs.close();
         } catch (SQLException ex) {

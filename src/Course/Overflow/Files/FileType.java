@@ -19,6 +19,7 @@ public enum FileType {
     FONT_AWESOME_ICON("FontAwesomeIcon"),
     MATERIAL_ICON("MaterialIcon"),
     SVG("SVG"),
+    MESSAGE("Message"),
     ;
     
     Integer id;

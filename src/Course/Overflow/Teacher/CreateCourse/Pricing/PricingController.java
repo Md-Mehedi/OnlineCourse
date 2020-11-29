@@ -180,4 +180,15 @@ public class PricingController implements Initializable {
             ctrl.loadData(parent.getCourse());
         });
     }
+
+    public void createEnvironmentForCourseUpload() {
+        uploadBtn.setText("Upload");
+        uploadBtn.setOnMouseClicked((event) -> {
+            if(!parent.isPassedCondition()) return;
+            parent.uploadToDB();
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
+            CourseDetailsController ctrl = (CourseDetailsController) GLOBAL.PAGE_CTRL.getController();
+            ctrl.loadData(new Course(parent.getCourse().getId()));
+        });
+    }
 }
