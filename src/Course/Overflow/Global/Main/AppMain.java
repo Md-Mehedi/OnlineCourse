@@ -4,7 +4,6 @@ package Course.Overflow.Global.Main;
  * To change this license HEADER, choose License Headers in Project Properties. To change this
  * template file, choose ToolKit | Templates and open the template in the editor.
  */
-import Course.Overflow.Course.Course;
 import Course.Overflow.DB;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageController;
@@ -46,39 +45,11 @@ public class AppMain extends Application {
 // To show the main app, just toggle the bottom 2 line comments.
         System.out.println(System.getProperty("user.name"));
         if (System.getProperty("user.name").equals("ASUS")) {
-            int Testing = 0;
-            if (Testing == 1) {
-                GLOBAL.TEACHER = new Teacher("MehediHasan");
-                GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
-                GLOBAL.PAGE_CTRL = new PageController();
-
-                CreateCourse mp = new CreateCourse();
-                Course course = new Course(19);
-                mp.loadData(course);
-                pane = mp.getRoot();
-                root.getChildren().add(pane);
-
-            } else {
-                mehediTestPage();
-                scene = new Scene(root, GLOBAL.WIDTH, GLOBAL.HEIGHT);
-            }
+            mehediTestPage();
+            scene = new Scene(root, GLOBAL.WIDTH, GLOBAL.HEIGHT);
         } else {
-            int Testing = 0;
-            if (Testing == 1) {
-                System.out.println("USER : MEHEDI");
-                GLOBAL.TEACHER = new Teacher("MehediHasan");
-                GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
-                GLOBAL.PAGE_CTRL = new PageController();
-
-                CreateCourse mp = new CreateCourse();
-                Course course = new Course(19);
-                mp.loadData(course);
-                pane = mp.getRoot();
-                root.getChildren().add(pane);
-            } else {
-                shammyaTestPage();
-                scene = new Scene(root);
-            }
+            shammyaTestPage();
+            scene = new Scene(root);
         }
 
         GLOBAL.stage = primaryStage;

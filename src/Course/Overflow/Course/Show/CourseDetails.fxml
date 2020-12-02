@@ -200,55 +200,55 @@
                   </VBox>
                   <VBox>
                      <children>
-                        <VBox>
+                        <Label styleClass="title4" text="Rating" />
+                        <HBox style="-fx-spacing: 100;">
                            <children>
-                              <Label styleClass="title4" text="Rating" />
-                              <HBox style="-fx-spacing: 100;">
+                              <HBox style="-fx-spacing: 15;">
                                  <children>
-                                    <HBox style="-fx-spacing: 15;">
+                                    <VBox style="-fx-alignment: center-right;">
                                        <children>
-                                          <VBox style="-fx-alignment: center-right;">
-                                             <children>
-                                                <Rating fx:id="rating1" max="1" rating="1.0" styleClass="rating" />
-                                                <Rating fx:id="rating2" max="2" styleClass="rating" />
-                                                <Rating fx:id="rating3" max="3" rating="3.0" styleClass="rating" />
-                                                <Rating fx:id="rating4" max="4" rating="4.0" styleClass="rating" />
-                                                <Rating fx:id="rating5" rating="5.0" styleClass="rating" />
-                                             </children>
-                                          </VBox>
-                                          <VBox>
-                                             <children>
-                                                <Label fx:id="ratingCount1" text="Label" />
-                                                <Label fx:id="ratingCount2" text="Label" />
-                                                <Label fx:id="ratingCount3" text="Label" />
-                                                <Label fx:id="ratingCount4" text="Label" />
-                                                <Label fx:id="ratingCount5" text="Label" />
-                                             </children>
-                                          </VBox>
+                                          <Rating fx:id="rating1" max="1" rating="1.0" styleClass="rating" />
+                                          <Rating fx:id="rating2" max="2" styleClass="rating" />
+                                          <Rating fx:id="rating3" max="3" rating="3.0" styleClass="rating" />
+                                          <Rating fx:id="rating4" max="4" rating="4.0" styleClass="rating" />
+                                          <Rating fx:id="rating5" rating="5.0" styleClass="rating" />
                                        </children>
-                                    </HBox>
-                                    <VBox style="-fx-alignment: center; -fx-spacing: 20;">
+                                    </VBox>
+                                    <VBox>
                                        <children>
-                                          <HBox>
-                                             <children>
-                                                <Label text="Current rating : " />
-                                                <Label fx:id="curRatingValue" text="rating value" />
-                                                <Rating fx:id="curRating" partialRating="true" rating="5.0" styleClass="rating" />
-                                             </children>
-                                          </HBox>
-                                          <VBox fx:id="studentRatingContainer" style="-fx-alignment: center; -fx-spacing: 5;">
-                                             <children>
-                                                <Label fx:id="giveRatingLabel" text="Give a rating" />
-                                                <Rating fx:id="studentRating" rating="5.0" styleClass="rating" />
-                                                <JFXButton fx:id="ratingSubmit" styleClass="myButton" text="Submit" />
-                                             </children>
-                                          </VBox>
+                                          <Label fx:id="ratingCount1" text="Label" />
+                                          <Label fx:id="ratingCount2" text="Label" />
+                                          <Label fx:id="ratingCount3" text="Label" />
+                                          <Label fx:id="ratingCount4" text="Label" />
+                                          <Label fx:id="ratingCount5" text="Label" />
                                        </children>
                                     </VBox>
                                  </children>
                               </HBox>
+                              <VBox style="-fx-alignment: center; -fx-spacing: 20;">
+                                 <children>
+                                    <HBox>
+                                       <children>
+                                          <Label text="Current rating : " />
+                                          <Label fx:id="curRatingValue" text="rating value" />
+                                          <Rating fx:id="curRating" partialRating="true" rating="5.0" styleClass="rating" />
+                                       </children>
+                                    </HBox>
+                                    <VBox fx:id="studentRatingContainer" style="-fx-alignment: center; -fx-spacing: 5;">
+                                       <children>
+                                          <Label fx:id="giveRatingLabel" text="Give a rating" />
+                                          <Rating fx:id="studentRating" rating="5.0" styleClass="rating" />
+                                          <JFXButton fx:id="ratingSubmit" styleClass="myButton" text="Submit" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
                            </children>
-                        </VBox>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="reviewRootContainer">
+                     <children>
                         <Label styleClass="title4" text="Reviews" />
                         <Label fx:id="writeReviewBtn" style="-fx-font-size: 24;" text="Write a review">
                            <styleClass>
@@ -257,6 +257,18 @@
                            </styleClass>
                         </Label>
                         <VBox fx:id="reviewContainer" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="faqRootContainer">
+                     <children>
+                        <Label styleClass="title4" text="FAQ" />
+                        <Label fx:id="askQuestionBtn" style="-fx-font-size: 24;" text="Ask a question">
+                           <styleClass>
+                              <String fx:value="title4" />
+                              <String fx:value="myButton" />
+                           </styleClass>
+                        </Label>
+                        <VBox fx:id="faqContainer" />
                      </children>
                   </VBox>
                </children>

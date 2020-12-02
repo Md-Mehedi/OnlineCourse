@@ -4,6 +4,7 @@ import Course.Overflow.Admin.CourseListController;
 import Course.Overflow.Course.Contents.ReviewInputBoxController;
 import Course.Overflow.Course.Course;
 import Course.Overflow.Course.CourseRating;
+import Course.Overflow.Course.FAQ;
 import Course.Overflow.Course.Property;
 import Course.Overflow.Course.Review;
 import Course.Overflow.Global.Components.CheckoutPageController;
@@ -157,6 +158,17 @@ public class CourseDetailsController implements Initializable {
     @FXML
     private HBox buyNowBtnContainer;
     private CourseListController adminCtrl;
+    @FXML
+    private Label askQuestionBtn;
+    @FXML
+    private VBox faqContainer;
+    private AnchorPane questionInputPane;
+    private FAQInputBoxController questionInputCtrl;
+    private FAQOutputBoxController faqOutputBoxCtrl;
+    @FXML
+    private VBox reviewRootContainer;
+    @FXML
+    private VBox faqRootContainer;
 
     /**
      * Initializes the controller class.
@@ -166,6 +178,7 @@ public class CourseDetailsController implements Initializable {
         fixupRatings();
         connectCurriculum();
         connectReviewInputBox();
+        connectQuestionInputBox();
         connectCheckoutBox();
 
         addListener();
@@ -189,6 +202,18 @@ public class CourseDetailsController implements Initializable {
             reviewInputPane = loader.load();
             reviewInputCtrl = loader.<ReviewInputBoxController>getController();
             reviewInputCtrl.setParent(this);
+        } catch (IOException ex) {
+            Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void connectQuestionInputBox() {
+        try {
+            // FAQ input box added
+            loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_SHOW_LOCATION + "/FAQInputBox.fxml"));
+            questionInputPane = (AnchorPane) loader.load();
+            questionInputCtrl = loader.<FAQInputBoxController>getController();
+            questionInputCtrl.setParent(this);
         } catch (IOException ex) {
             Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -225,6 +250,9 @@ public class CourseDetailsController implements Initializable {
         });
         writeReviewBtn.setOnMouseClicked((event) -> {
             reviewInputCtrl.show();
+        });
+        askQuestionBtn.setOnMouseClicked(event -> {
+            questionInputCtrl.show();
         });
         buyNowButton.setOnMouseClicked((event) -> {
             checkoutCtrl.show();
@@ -265,6 +293,7 @@ public class CourseDetailsController implements Initializable {
         }
         if(viewer == ViewerType.NormalStudent || viewer == ViewerType.OwnerStudent){
             reviewInputCtrl.setCourse(course);
+            questionInputCtrl.setCourse(course);
         }
         
         title.setText(course.getTitle());
@@ -306,8 +335,9 @@ public class CourseDetailsController implements Initializable {
         
         addRating();
         addReview();
-        courseimage.setImage(ToolKit.makeImage(course.getCourseImage()));
+        addFAQ();
         refreshData();
+        courseimage.setImage(ToolKit.makeImage(course.getCourseImage()));
     }
     
     public void refreshCurriculum(){
@@ -503,5 +533,41 @@ public class CourseDetailsController implements Initializable {
 
     public void setAdminView(CourseListController adminCtrl) {
         this.adminCtrl = adminCtrl;
+    }
+
+    private void addFAQ() {
+        if(viewer != ViewerType.OwnerStudent && viewer != ViewerType.NormalStudent){
+            VBox parent = (VBox) askQuestionBtn.getParent();
+            int idx = parent.getChildren().indexOf(askQuestionBtn);
+            parent.getChildren().remove(askQuestionBtn);
+            parent.getChildren().add(idx, new Label("You can not ask question for this course."));
+        }
+        loadFAQ();
+    }
+    
+    public void loadFAQ(){
+        faqContainer.getChildren().clear();
+        ArrayList<FAQ> faqList = FAQ.getList(course);
+        for(FAQ faq : faqList){
+            addFAQBox(faq);
+        }
+    }
+
+    private void removeAskQuestionBtn() {
+        ToolKit.removeNode(askQuestionBtn);
+    }
+
+    public void addFAQBox(FAQ faq) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_SHOW_LOCATION + "/FAQOutputBox.fxml"));
+        try {
+            AnchorPane pane = loader.load();
+            faqOutputBoxCtrl = loader.<FAQOutputBoxController>getController();
+            faqOutputBoxCtrl.setParent(this);
+            faqOutputBoxCtrl.setViewer(viewer);
+            if(faq != null) faqOutputBoxCtrl.loadData(faq);
+            faqContainer.getChildren().add(0, pane);
+        } catch (IOException ex) {
+            Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
