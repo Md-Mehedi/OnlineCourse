@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javax.swing.JOptionPane;
 
@@ -94,50 +95,57 @@ public class LoginController implements Initializable {
 //            }
         });
         loginBtn.setOnMouseClicked((event) -> {
-            try {
-                Person person = Person.validUser(username.getText(), password.getText());
-                if (person != null) {
-                    System.out.println("successfully logged in to " + username.getText() + " account");
-                    if(Student.exist(username.getText())){
-                        GLOBAL.ACCOUNT_TYPE = Person.AccountType.Student;
-                        GLOBAL.STUDENT = new Student(username.getText());
-                        GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
-                    }
-                    else if(Teacher.exist(username.getText())){
-                        GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
-                        GLOBAL.TEACHER = new Teacher(username.getText());
-                        GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
-                    }
-                    else if(Admin.exist(username.getText())){
-                        GLOBAL.ACCOUNT_TYPE = Person.AccountType.Admin;
-                        GLOBAL.ADMIN = new Admin(username.getText());
-                        GLOBAL.PAGE_CTRL.loadPage(PageName.AdminPanel);
-                    }
-                } else {
-                    int state = JOptionPane.showConfirmDialog(null, "Invalid User ID or Password ! ", "select", JOptionPane.CANCEL_OPTION);
-                    if (state == 0) {
-                        username.setText("");
-                        password.setText("");
-                    } else {
-                        int state1 = JOptionPane.showConfirmDialog(null, "Do you wish to signup ! ", "select", JOptionPane.CANCEL_OPTION);
-                        if (state1 == 0) {
-                            GLOBAL.PAGE_CTRL.loadPage(PageName.Signup);
-                        } else {
-                            username.setText("");
-                            password.setText("");
-                        }
-
-                    }
-                }
-
-            } catch (Exception ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+           loginBtnAction();
+        });
+        password.setOnKeyPressed((event) -> {
+            if(event.getCode() == KeyCode.ENTER){
+                loginBtnAction();
             }
-
         });
         forgetPass.setOnMouseClicked((event) -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.ForgetPassword);
         });
 
+    }
+    private void loginBtnAction(){
+         try {
+            Person person = Person.validUser(username.getText(), password.getText());
+            if (person != null) {
+                System.out.println("successfully logged in to " + username.getText() + " account");
+                if(Student.exist(username.getText())){
+                    GLOBAL.ACCOUNT_TYPE = Person.AccountType.Student;
+                    GLOBAL.STUDENT = new Student(username.getText());
+                    GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
+                }
+                else if(Teacher.exist(username.getText())){
+                    GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
+                    GLOBAL.TEACHER = new Teacher(username.getText());
+                    GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
+                }
+                else if(Admin.exist(username.getText())){
+                    GLOBAL.ACCOUNT_TYPE = Person.AccountType.Admin;
+                    GLOBAL.ADMIN = new Admin(username.getText());
+                    GLOBAL.PAGE_CTRL.loadPage(PageName.AdminPanel);
+                }
+            } else {
+                int state = JOptionPane.showConfirmDialog(null, "Invalid User ID or Password ! ", "select", JOptionPane.CANCEL_OPTION);
+                if (state == 0) {
+                    username.setText("");
+                    password.setText("");
+                } else {
+                    int state1 = JOptionPane.showConfirmDialog(null, "Do you wish to signup ! ", "select", JOptionPane.CANCEL_OPTION);
+                    if (state1 == 0) {
+                        GLOBAL.PAGE_CTRL.loadPage(PageName.Signup);
+                    } else {
+                        username.setText("");
+                        password.setText("");
+                    }
+
+                }
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

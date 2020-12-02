@@ -5,6 +5,7 @@
  */
 package Course.Overflow.Global.Components;
 
+import Course.Overflow.Global.Communication.MessagePage;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
@@ -62,6 +63,7 @@ public class RightMenuPopOverController implements Initializable {
         });
         if(GLOBAL.ACCOUNT_TYPE == Person.AccountType.Admin){
             addLabel("Dashboard", PageName.AdminPanel);
+            addLabel("Message", PageName.Messenger);
         }
         else if (GLOBAL.ACCOUNT_TYPE == Person.AccountType.Student) {
             addLabel("My course", PageName.MyCourse);
@@ -82,6 +84,7 @@ public class RightMenuPopOverController implements Initializable {
         }
         addLabel("Account setting", PageName.ProfileSetting);
         addLabel("Sign out", PageName.Login, ()-> {
+            GLOBAL.PAGE_CTRL.clearHistory();
             GLOBAL.ACCOUNT_TYPE = null;
             GLOBAL.STUDENT = null;
             GLOBAL.TEACHER = null;
@@ -99,6 +102,12 @@ public class RightMenuPopOverController implements Initializable {
             try {
                 callBeforeLoad.call();
                 GLOBAL.PAGE_CTRL.loadPage(pageName);
+                if(pageName == PageName.Messenger){
+                    MessagePage ctrl = (MessagePage) GLOBAL.PAGE_CTRL.getPage();
+                    if(ctrl.getSelectedBox() == null){
+                        ctrl.showNoDataFound();
+                    }
+                }
             } catch (Exception ex) {
                 Logger.getLogger(RightMenuPopOverController.class.getName()).log(Level.SEVERE, null, ex);
             }

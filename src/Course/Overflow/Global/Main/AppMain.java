@@ -8,6 +8,8 @@ import Course.Overflow.DB;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageController;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.Person;
+import Course.Overflow.Student.Student;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -60,7 +62,16 @@ public class AppMain extends Application {
     }
 
     private void mehediTestPage() throws IOException {
-        PageController pageCtrl = new PageController(PageName.Login);
+        PageController pageCtrl = null;
+        int testing = 1;
+        if(testing == 1){
+            GLOBAL.ACCOUNT_TYPE = Person.AccountType.Student;
+            GLOBAL.STUDENT = new Student("mehediS");
+            pageCtrl = new PageController(PageName.Home);
+        }
+        else{
+            pageCtrl = new PageController(PageName.Login);
+        }
         GLOBAL.PAGE_CTRL = pageCtrl;
         pane = pageCtrl.getContainer();
 

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -61,6 +63,11 @@
             <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-alignment: top-left;">
                <children>
                   <ImageView fx:id="photo" fitHeight="295.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+                  <JFXButton fx:id="sendMessageBtn" styleClass="myButton" text="Send a message">
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
                   <VBox id="linkBox" fx:id="linkBox" style="-fx-spacing: 30;">
                      <children>
                         <VBox style="-fx-alignment: center-left; -fx-spacing: 5;">

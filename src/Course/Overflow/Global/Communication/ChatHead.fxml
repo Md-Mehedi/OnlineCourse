@@ -2,38 +2,25 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane id="AnchorPane" fx:id="container" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Communication.ChatHeadController">
+<AnchorPane id="AnchorPane" fx:id="root" styleClass="chatBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Communication.ChatHeadController">
    <children>
-      <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="14.0" layoutY="24.0" pannable="true" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <content>
-            <AnchorPane>
+      <HBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Circle fx:id="instPhoto" fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+            <VBox style="-fx-spacing: 0; -fx-alignment: center-left;">
                <children>
-                  <VBox fx:id="chatBoxContainer" style="-fx-spacing: 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <HBox styleClass="chatBox">
-                           <children>
-                              <Circle fx:id="instPhoto" fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
-                              <VBox style="-fx-spacing: 0; -fx-alignment: cenger-left;">
-                                 <children>
-                                    <Label fx:id="courseName" styleClass="courseName" text="Course Name" />
-                                    <Label fx:id="instName" styleClass="teacherName" text="Teacher Name" />
-                                    <Label fx:id="lastMessage" styleClass="lastMessage" text="Last Message" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
+                  <Label fx:id="instName" styleClass="teacherName" text="Teacher Name" />
+                  <Label fx:id="lastMessage" styleClass="lastMessage" text="Last Message" />
+                  <Label fx:id="time" styleClass="lastMessageTime" text="Course Name" />
                </children>
-            </AnchorPane>
-         </content>
-      </ScrollPane>
+            </VBox>
+         </children>
+      </HBox>
    </children>
    <stylesheets>
       <URL value="@../Global.css" />

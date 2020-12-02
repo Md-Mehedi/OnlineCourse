@@ -2,6 +2,7 @@
 package Course.Overflow.Global.Page;
 
 import Course.Overflow.Admin.AdminPanel;
+import Course.Overflow.Global.Communication.MessagePage;
 import Course.Overflow.Global.Components.HeaderController;
 import Course.Overflow.Global.Components.Notification.NotificationView;
 import Course.Overflow.Global.Components.RightMenuPopOverController;
@@ -194,9 +195,11 @@ public class PageController {
             case SearchResult:
                 page = new SearchResultPage();
                 break;
+            case Messenger:
+                page = new MessagePage();
+                break;
             case Overview:
             case EnrolledStudents:
-            case Messenger:
             case FAQ:
             case Review:
             case Anouncement:
@@ -225,6 +228,7 @@ public class PageController {
             loadPage(page);
         }
         curPage = pageName;
+        System.gc();
     }
     
     public void loadPreviousPage(){
@@ -254,5 +258,10 @@ public class PageController {
     
     public Object getController(){
         return page.getController();
+    }
+    
+    public void clearHistory(){
+        pages.clear();
+        pageIdx = -1;
     }
 }

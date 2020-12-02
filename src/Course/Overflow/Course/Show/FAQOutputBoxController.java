@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
@@ -82,7 +83,7 @@ public class FAQOutputBoxController implements Initializable {
         this.faq = faq;
         if(faq.getStudent().getPhoto() != null){
             ToolKit.removeNode(studentImageLabel);
-            studentImageCircle.setFill(new ImagePattern(ToolKit.makeImage(faq.getStudent().getPhoto())));
+            studentImageCircle.setFill(new ImagePattern(new Image(faq.getStudent().getPhoto().getContent())));
         }
         else{
             studentImageLabel.setText(faq.getStudent().getShortName());
@@ -109,7 +110,7 @@ public class FAQOutputBoxController implements Initializable {
         if(answerBtn.getParent() != null) ToolKit.removeNode(answerBtn);
         if(faq.getTeacher().getPhoto() != null){
             ToolKit.removeNode(teacherImageName);
-            teacherImageCircle.setFill(new ImagePattern(ToolKit.makeImage(faq.getTeacher().getPhoto())));
+            teacherImageCircle.setFill(new ImagePattern(new Image(faq.getTeacher().getPhoto().getContent())));
         }
         else{
             teacherImageName.setText(faq.getTeacher().getShortName());

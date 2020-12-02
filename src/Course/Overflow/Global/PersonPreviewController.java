@@ -6,10 +6,13 @@
 package Course.Overflow.Global;
 
 import Course.Overflow.Course.Course;
+import Course.Overflow.Global.Communication.MessagePage;
 import Course.Overflow.Global.Layout.PageByPageLayoutController;
 import Course.Overflow.Global.Layout.PageByPageLayoutController.BoxViewType;
+import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Student.Student;
 import Course.Overflow.Teacher.Teacher;
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -78,12 +81,15 @@ public class PersonPreviewController implements Initializable {
     private HBox topContainer;
     @FXML
     private VBox courseContainer;
+    @FXML
+    private JFXButton sendMessageBtn;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        addListener();
     }    
     
     private void  addCourses(Person person){
@@ -143,6 +149,9 @@ public class PersonPreviewController implements Initializable {
         else if(person.getAccountType() == Person.AccountType.Admin){
             addAdminProperties();
         }
+        if(person.getUsername().equals(ToolKit.getCurrentPerson().getUsername())){
+            ToolKit.removeNode(sendMessageBtn);
+        }
     }
 
     private void addTeacherProperties() {
@@ -172,6 +181,14 @@ public class PersonPreviewController implements Initializable {
     private void addAdminProperties() {
         ToolKit.removeNode(courseContainer);
         ToolKit.removeNode(topContainer);
+    }
+
+    private void addListener() {
+        sendMessageBtn.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Messenger);
+            MessagePage ctrl = (MessagePage) GLOBAL.PAGE_CTRL.getPage();
+            ctrl.addNewChatHead(person);
+        });
     }
     
     

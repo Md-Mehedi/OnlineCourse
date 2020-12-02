@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -25,19 +26,23 @@ import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javax.swing.JOptionPane;
@@ -403,6 +408,13 @@ public class ToolKit {
         String strDate = dateFormat.format(date);  
         return strDate;
     }
+    
+    public static long dateBetween(Date date1, Date date2){
+        LocalDate d1 = DateToLocalDate(date1);
+        LocalDate d2 = DateToLocalDate(date2);
+        Duration diff = Duration.between(d1.atStartOfDay(), d2.atStartOfDay());
+        return diff.toDays();
+    }
 
     /*
      * Date Related Function End
@@ -532,5 +544,18 @@ public class ToolKit {
 
     public static Image makeImage(Course.Overflow.Files.Files imageFile) {
         return new Image(new File(ToolKit.makeAbsoluteLocation(imageFile.getContent())).toURI().toString());
+    }
+
+    public static void makeCircularImage(ImageView cl) {
+        Rectangle clip = new Rectangle(cl.getFitWidth(), cl.getFitHeight());
+        clip.setArcWidth(cl.getFitWidth());
+        clip.setArcHeight(cl.getFitWidth());
+        cl.setClip(clip);
+        SnapshotParameters parameters = new SnapshotParameters();
+        parameters.setFill(Color.TRANSPARENT);
+        WritableImage image = cl.snapshot(parameters, null);
+        cl.setClip(null);
+        cl.setEffect(new DropShadow(15, Color.BLACK));
+        cl.setImage(image);
     }
 }

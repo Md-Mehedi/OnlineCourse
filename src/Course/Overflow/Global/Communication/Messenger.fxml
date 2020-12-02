@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Communication.MessengerController">
    <stylesheets>
@@ -26,16 +27,19 @@
                   <Label fx:id="teacherName" styleClass="title5" text="Teacher name" />
                </children>
             </HBox>
-            <ScrollPane fx:id="scroll" hbarPolicy="NEVER" nodeOrientation="LEFT_TO_RIGHT" pannable="true" prefHeight="2039.0" prefWidth="780.0" vvalue="1.0" VBox.vgrow="NEVER">
+            <ScrollPane fx:id="scroll" fitToWidth="true" hbarPolicy="NEVER" nodeOrientation="LEFT_TO_RIGHT" pannable="true" prefWidth="1040.0" vbarPolicy="NEVER" vvalue="1.0" VBox.vgrow="NEVER">
                <content>
-                  <AnchorPane fx:id="scrollingPane">
+                  <AnchorPane fx:id="scrollingPane" style="-fx-background-color: #54a7d7;">
                      <children>
-                        <VBox fx:id="messageContainer" minWidth="780.0" style="-fx-spacing: 30; -fx-background-color: #54a7d7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="messageContainer" prefWidth="100.0" style="-fx-spacing: 30; -fx-alignment: top-left;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <HBox styleClass="message2">
                                  <children>
                                     <Circle fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
-                                    <Label text="5.   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." />
+                                    <Label>
+                                       <graphic>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="5.   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.5.   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." wrappingWidth="748.0" />
+                                       </graphic></Label>
                                     <Circle fill="DODGERBLUE" opacity="0.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
                                  </children>
                               </HBox>
@@ -52,21 +56,21 @@
                               </HBox>
                            </children>
                            <padding>
-                              <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                              <Insets bottom="25.0" left="50.0" right="50.0" top="25.0" />
                            </padding>
                         </VBox>
                      </children>
                   </AnchorPane>
                </content>
             </ScrollPane>
-            <HBox>
+            <HBox style="-fx-spacing: 20;">
                <children>
                   <FontAwesomeIconView fx:id="addImageBtn" glyphName="IMAGE" size="40" />
                   <TextArea fx:id="inputField" prefColumnCount="1" prefHeight="70.0" promptText="Write something to send" HBox.hgrow="ALWAYS" />
                   <FontAwesomeIconView fx:id="sendBtn" glyphName="SEND_ALT" size="40" />
                </children>
                <padding>
-                  <Insets bottom="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                </padding>
             </HBox>
          </children>

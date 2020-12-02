@@ -2,7 +2,10 @@
 .message1, .message2{
     -fx-alignment: bottom-center;
     -fx-spacing: 15;
-    -fx-max-width: 730;
+    -fx-max-width: 960;
+}
+.message1 Label, .message2 Label{
+    -fx-max-width: 748;
 }
 .message1{
     -fx-alignment: bottom-right;
@@ -22,13 +25,15 @@
     -fx-background-radius: 25 25 25 0;
 }
 
+
 /*Chat Head CSS*/
 .chatBox{
+    -fx-pref-width: 400;
+}
+.chatBox HBox{
     -fx-alignment: center-left;
-    -fx-padding: 5 10 5 10;
-    -fx-background-color:#ffffff;
+    -fx-padding: 10 10 10 10;
     -fx-spacing: 0;
-    -fx-pref-width: 350;
 }
 .chatBox:hover{
     -fx-background-color: #e3e3e3;
@@ -37,16 +42,16 @@
     -fx-background-color: #e3e3e3;
     -fx-background-radius: 25;
 }
-.chatBox > VBox{
+.chatBox > HBox > VBox{
     -fx-alignment: center-left;
     -fx-spacing: 0;
 }
-.courseName{
+.teacherName{
     -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-max-height: 60;
 }
-.teacherName, .lastMessage{
+.lastMessageTime, .lastMessage{
     -fx-font-size: 17;
     -fx-pref-height: 30;
 }

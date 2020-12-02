@@ -9,15 +9,11 @@ import Course.Overflow.Files.FileType;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
@@ -29,90 +25,87 @@ import javafx.scene.shape.Circle;
 public class ChatHeadController implements Initializable {
 
     @FXML
-    private AnchorPane container;
-    @FXML
-    private ScrollPane scroll;
-    @FXML
-    private VBox chatBoxContainer;
-    @FXML
     private Circle instPhoto;
-    @FXML
-    private Label courseName;
     @FXML
     private Label instName;
     @FXML
     private Label lastMessage;
-    private HBox selectedBox;
+    @FXML
+    private Label time;
     private MessengerController messengerCtrl;
-    private MessagePage parent;
+    private Person person;
+    private Message lMessage;
+    @FXML
+    private AnchorPane root;
+    private ChatHeadContainerController parent;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        selectedBox = new HBox();
+        // TODO
     }    
-    
-    public HBox makeChatBox(Person person){
-        Circle c = new Circle(40);
-        c.setFill(new ImagePattern(ToolKit.makeImage(person.getPhoto())));
-        
-        Label l1 = new Label("Course name");
-        l1.getStyleClass().add("courseName");
-        
-        Label l2 = new Label(person.getFullName());
-        l2.getStyleClass().add("teacherName");
-        
-        Message lMessage = Message.getLastMessage(ToolKit.getCurrentPerson(), person);
-        String text = "";
-        if(lMessage.getMessage().getType() == FileType.PICTURE){
-            text = "Sent a message";
-        }
-        else{
-            text = lMessage.getMessage().getContent();
-        }
-        Label l3 = new Label(text);
-        l3.getStyleClass().add("lastMessage");
-        
-        HBox box = new HBox(c,new VBox(l1,l2,l3));
-        box.getStyleClass().add("chatBox");
-        chatBoxContainer.getChildren().add(box);
-        
-        box.setOnMouseClicked((event) -> {
-            if(selectedBox.getStyleClass().contains("selectedChatBox")){
-                selectedBox.getStyleClass().remove("selectedChatBox");
+
+    void setMessengerController(MessengerController messengerCtrl) {
+        this.messengerCtrl = messengerCtrl;
+    }
+
+    void setPerson(Person person) {
+        this.person = person;
+        instPhoto.setFill(new ImagePattern(ToolKit.makeImage(person.getPhoto())));
+        instName.setText(person.getFullName());
+        root.setOnMouseClicked((event) -> {
+            if(parent.getSelectedBox().getStyleClass().contains("selectedChatBox")){
+                parent.getSelectedBox().getStyleClass().remove("selectedChatBox");
             }
-            box.getStyleClass().add("selectedChatBox");
-            selectedBox = box;
+            root.getStyleClass().add("selectedChatBox");
+            parent.setSelectedBox(root);
+            Message newLastMessage = Message.getLastMessage(ToolKit.getCurrentPerson(), person);
+            if(newLastMessage == null){
+                lastMessage.setText("Send a message to start the chat");
+            }
+            else if(!newLastMessage.getMessage().getContent().equals(lMessage.getMessage().getContent())){
+                parent.popUpChatHead(root, newLastMessage);
+            }
+            messengerCtrl.setChatHeadBox(root);
             messengerCtrl.loadMessage(person);
         });
-        
-        return box;
     }
     
-    public void setMessengerCtrl(MessengerController ctrl){
-        this.messengerCtrl = ctrl;
-    }
-
-    public void loadChatBox() {
-        chatBoxContainer.getChildren().clear();
-        ArrayList<Person> list = Message.getMessageReceipentList(ToolKit.getCurrentPerson());
-        if(list.isEmpty()){
-            parent.showNoDataFound();
-            return;
+    void setLastMessage(Message lMessage){
+        this.lMessage = lMessage;
+        if(lMessage == null){
+            lastMessage.setText("Send a message to start the chat");
+            time.setText("");
         }
-        for(int i=0;i<list.size();i++) {
-            HBox box = makeChatBox(list.get(i));
-            if(i==0){
-                box.getStyleClass().add("selectedChatBox");
-                selectedBox = box;
-                messengerCtrl.loadMessage(list.get(0));
+        else{
+            if(lMessage.getMessage().getType() == FileType.PICTURE){
+                if(lMessage.getSenderId().equals(ToolKit.getCurrentPerson().getUsername())){
+                    lastMessage.setText("You sent a picture");
+                }
+                else{
+                    lastMessage.setText(person.getFirstName() + " sent a picture");
+                }
+            }
+            else{
+                if(lMessage.getSenderId().equals(ToolKit.getCurrentPerson().getUsername())){
+                    lastMessage.setText("You : " + lMessage.getMessage().getContent());
+                }
+                else{
+                    lastMessage.setText(lMessage.getMessage().getContent());
+                }
+            }
+            if(ToolKit.dateBetween(ToolKit.getCurTime(), lMessage.getMessage().getUploadTime()) > 1){
+                time.setText(ToolKit.makeDateStructured(lMessage.getMessage().getUploadTime(), "dd MMMMM, yyyy"));
+            }
+            else{
+                time.setText(ToolKit.makeDateStructured(lMessage.getMessage().getUploadTime(), "hh:mm aa"));
             }
         }
     }
 
-    void setParent(MessagePage parent) {
+    void setParent(ChatHeadContainerController parent) {
         this.parent = parent;
     }
     

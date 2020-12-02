@@ -52,12 +52,12 @@ public class CommunicationPage extends Page{
         if(GLOBAL.ACCOUNT_TYPE == Person.AccountType.Teacher){
             addOverviewPage();
             addStudentPage();
-            addMessengerPage();
+//            addMessengerPage();
             addReviews();
             addFAQPage();
         }
         else if(GLOBAL.ACCOUNT_TYPE == Person.AccountType.Student){
-            addMessengerPage();
+//            addMessengerPage();
             addReviews();
             addFAQPage();
         }

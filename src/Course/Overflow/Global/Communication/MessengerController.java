@@ -21,11 +21,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -53,32 +55,26 @@ public class MessengerController implements Initializable {
     private ImageView iv;
     private HBox box;
     
-    private Files userImage;
-    private Files opponentImage;
+    private Image userImage;
+    private Image opponentImage;
     @FXML
     private AnchorPane scrollingPane;
     private MessagePage parent;
     private Person receiver;
     private Person sender;
+    private ChatHeadContainerController chatHeadCtrl;
+    private AnchorPane chatHeadBox;
 
-    
-    public enum MessageType{
-        TEXT("TEXT"),
-        IMAGE("IMAGE");
-        String s;
-        private MessageType(String s) {
-            this.s = s;
-        }
-    }
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        messageContainer.getChildren().clear();
-//        userImage = new Image(GLOBAL.PICTURE_LOCATION + "/Person 1.jpg");
-//        opponentImage = new Image(GLOBAL.PICTURE_LOCATION + "/Person 2.jpg");
+//        messageContainer.getChildren().clear();
         addListener();
+        Platform.runLater(()->{
+            messageContainer.setPrefHeight(GLOBAL.HEIGHT - GLOBAL.HEADER.getRoot().getPrefHeight() - GLOBAL.TOP_MENU_BAR.getHeight()-10);
+        });
     }    
     
     private void addListener(){
@@ -96,29 +92,38 @@ public class MessengerController implements Initializable {
                 return;
             }
             Files files = new Files(file, FileType.PICTURE, "Message");
-            makeMessage(new Message(sender, receiver, files));
+            Message message = new Message(sender, receiver, files);
+            makeMessage(message);
+            chatHeadCtrl.popUpChatHead(chatHeadBox, message);
         });
     }
     
     private void sendAMessage(){
         if(!inputField.getText().equalsIgnoreCase("")){
-            String text = inputField.getText();
+            String text = inputField.getText().trim();
             inputField.clear();
             Files files = new Files(FileType.MESSAGE, "Message", text);
-            makeMessage(new Message(sender, receiver, files));
-//            setUpPersonImage(!text.startsWith("2"));
+            Message message = new Message(sender, receiver, files);
+            makeMessage(message);
+            chatHeadCtrl.popUpChatHead(chatHeadBox, message);
         }
     }
     
     private void createAMessageBox(Files file, boolean isUser){
-        ImageView cl = new ImageView();
-        ImageView cr = new ImageView();
+        ImageView cl = new ImageView(opponentImage);
         cl.setFitWidth(60);
         cl.setFitHeight(60);
+        ToolKit.makeCircularImage(cl);
+        
+        ImageView cr = new ImageView(userImage);
         cr.setFitWidth(60);
         cr.setFitHeight(60);
-        cl.setStyle("-fx-background-radius: 30");
-        cr.setStyle("-fx-background-radius: 30");
+        ToolKit.makeCircularImage(cr);
+//        Circle cl = new Circle(30);
+//        Circle cr = new Circle(30);
+////        cl.setFill(new ImagePattern(ToolKit.makeImage(opponentImage)));
+////        cr.setFill(new ImagePattern(ToolKit.makeImage(userImage)));
+        
         
         if(file.getType() == FileType.PICTURE){
             iv = new ImageView(ToolKit.makeImage(file));
@@ -128,61 +133,66 @@ public class MessengerController implements Initializable {
             box = new HBox(cl,iv,cr);
         }
         else if(file.getType() == FileType.MESSAGE){
-            lm = new Label(file.getContent());
+            Text text = new Text(file.getContent());
+            lm = new Label();
+            lm.setGraphic(text);
+            Platform.runLater(()->{
+                if(text.getLayoutBounds().getWidth() > lm.getMaxWidth() - lm.getPadding().getLeft()*2){
+                    text.setWrappingWidth(lm.getMaxWidth() - lm.getPadding().getLeft()*2);
+                }
+            });
             ToolKit.setTooltip(lm, ToolKit.makeDateStructured(file.getUploadTime(), "dd MMMMM, yyyy - hh:mm aa"), GLOBAL.rootPane);
             box = new HBox(cl,lm,cr);
         }
         if(isUser){
             cl.setOpacity(0);
-            ToolKit.print("Right side");
-            cr.setImage(ToolKit.makeImage(userImage));
             box.getStyleClass().add("message1");
         }
         else{
             cr.setOpacity(0);
-            ToolKit.print("Left side");
-            cl.setImage(ToolKit.makeImage(opponentImage));
             box.getStyleClass().add("message2");
         }
-        box.getStyleClass().add("message1");
         messageContainer.getChildren().add(box);
     }
     
     private void makeMessage(Message message){
         createAMessageBox(message.getMessage(), message.getSenderId().equals(sender.getUsername()));
-//        setUpPersonImage(message.getSenderId().equals(sender.getUsername()));
         Platform.runLater(()->{
             scroll.setVvalue(1);
         });
     }
     
-//    private void setUpPersonImage(boolean isUser){
-//        if(isUser){
-//            cl.setOpacity(0);
-//            cr.setFill(new ImagePattern(ToolKit.makeImage(userImage)));
-//            box.getStyleClass().add("message1");
-//        }
-//        else{
-//            cr.setOpacity(0);
-//            cl.setFill(new ImagePattern(ToolKit.makeImage(opponentImage)));
-//            box.getStyleClass().add("message2");
-//        }
-//    }
-    
     void loadMessage(Person person) {
         this.sender = ToolKit.getCurrentPerson();
         this.receiver = person;
+        teacherName.setText(person.getFullName());
         messageContainer.getChildren().clear();
-        userImage = sender.getPhoto();
-        opponentImage = person.getPhoto();
+        userImage = ToolKit.makeImage(ToolKit.getCurrentPerson().getPhoto());
+        opponentImage = ToolKit.makeImage(person.getPhoto());
         
         ArrayList<Message> messages = Message.getMessageList(sender, receiver);
+        System.out.println(messages.size());
         for(int i=0; i<messages.size(); i++){
+            System.out.println(i);
             makeMessage(messages.get(i));
         }
+        inputField.setFocusTraversable(true);
     }
 
     void setParent(MessagePage parent) {
         this.parent = parent;
+    }
+
+    void setChatHeadCtrl(ChatHeadContainerController chatHeadCtrl) {
+        this.chatHeadCtrl = chatHeadCtrl;
+    }
+
+    void setPrefWidth(double width) {
+//        scroll.setMinWidth(width);
+//        scrollingPane.setMinWidth(width);
+    }
+
+    void setChatHeadBox(AnchorPane box) {
+        this.chatHeadBox = box;
     }
 }
