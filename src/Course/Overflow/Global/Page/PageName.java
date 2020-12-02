@@ -43,6 +43,7 @@ public enum PageName {
     , AdminMaintainLanguage("Language")
     , AdminCourseList("Courses")
     , ForgetPassword()
+    , Filtering()
     ;
     public String name;
 

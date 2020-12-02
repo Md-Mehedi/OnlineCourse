@@ -1,9 +1,11 @@
 package Course.Overflow.Admin;
 
+import Course.Overflow.Course.Course;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.PersonPreviewController;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -11,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -42,6 +45,10 @@ public class ShowPersonController implements Initializable {
     private ContextMenu contextMenu;
     private MenuItem itm1;
     private MenuItem itm2;
+    @FXML
+    private JFXTextField searchkey;
+    @FXML
+    private Button search;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -72,6 +79,9 @@ public class ShowPersonController implements Initializable {
             if (selected != null) {
                 
             }
+        });
+        search.setOnMouseClicked(event -> {
+        Course.searchCourse(searchkey.getText());
         });
 
     }

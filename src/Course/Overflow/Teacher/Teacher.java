@@ -127,4 +127,20 @@ public class Teacher extends Person {
         }
         return courses;
     }
+    public static ArrayList<Teacher> getTeacherList()
+    {
+        String sql = "SELECT ID FROM TEACHER ";
+        ArrayList<Teacher> list = new ArrayList<Teacher>();
+        ResultSet rs = DB.executeQuery(sql);
+        try {
+            while(rs.next())
+            {
+                list.add(new Teacher(rs.getString("ID")));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 }

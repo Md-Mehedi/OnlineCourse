@@ -10,6 +10,8 @@ import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageController;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
+import Course.Overflow.Global.Person.AccountType;
+import Course.Overflow.Student.Student;
 import Course.Overflow.Teacher.CreateCourse.CreateCourse;
 import Course.Overflow.Teacher.Teacher;
 import java.io.IOException;
@@ -111,8 +113,11 @@ public class AppMain extends Application {
         DB.closeConnection();
     }
 
-    private void shammyaTestPage() {
-        PageController pageCtrl = new PageController(PageName.Login);
+    private void shammyaTestPage() throws IOException {
+        GLOBAL.ACCOUNT_TYPE = AccountType.Student;
+        GLOBAL.STUDENT = new Student("mehediS");
+        PageController pageCtrl = new PageController(PageName.Home);
+//        pageCtrl.loadFXML(GLOBAL.ADMIN_LOCATION+"/Filtering.fxml");
         GLOBAL.PAGE_CTRL = pageCtrl;
         pane = pageCtrl.getContainer();
 

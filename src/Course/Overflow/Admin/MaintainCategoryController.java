@@ -16,11 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javax.swing.JOptionPane;
 
-/**
- * FXML Controller class
- *
- * @author Asus
- */
 public class MaintainCategoryController implements Initializable {
 
     @FXML
