@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -55,12 +57,14 @@ public class Course {
     public Course() {
 
     }
-    
+
     public Course(Integer id) {
         this.id = id;
         ResultSet rs = DB.executeQuery("SELECT * FROM COURSE WHERE ID = #", id.toString());
         try {
-            if(!rs.next()) return;
+            if (!rs.next()) {
+                return;
+            }
             title = rs.getString("TITLE");
             subTitle = rs.getString("SUBTITLE");
             mainPrice = rs.getDouble("PRICE");
@@ -80,10 +84,16 @@ public class Course {
             description = rs.getString("DESCRIPTION");
 //            Rating will be added
 //            Review will be added
-            if(rs.getString("OUTCOMES") != null) outcomes = rs.getString("OUTCOMES").split("><");
-            else outcomes = new String[0];
-            if(rs.getString("PREREQUISITES") != null) prerequisitives = rs.getString("PREREQUISITES").split("><");
-            else prerequisitives = new String[0];
+            if (rs.getString("OUTCOMES") != null) {
+                outcomes = rs.getString("OUTCOMES").split("><");
+            } else {
+                outcomes = new String[0];
+            }
+            if (rs.getString("PREREQUISITES") != null) {
+                prerequisitives = rs.getString("PREREQUISITES").split("><");
+            } else {
+                prerequisitives = new String[0];
+            }
             rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,10 +122,10 @@ public class Course {
         );
     }
 
-    public String getTeacherName()
-    {
+    public String getTeacherName() {
         return teacherName;
     }
+
     public Integer getId() {
         return id;
     }
@@ -129,7 +139,9 @@ public class Course {
     }
 
     public void setSubTitle(String subTitle) {
-        if(this.subTitle.equals(subTitle)) return;
+        if (this.subTitle.equals(subTitle)) {
+            return;
+        }
         this.subTitle = subTitle;
         DB.execute("UPDATE COURSE SET SUBTITLE = '#' WHERE ID = #", subTitle, id.toString());
     }
@@ -176,15 +188,20 @@ public class Course {
     }
 
     public void setSubCategory(Category subCategory) {
-        if(this.subCategory != null)
-        if(this.subCategory.equals(subCategory)) return;
+        if (this.subCategory != null) {
+            if (this.subCategory.equals(subCategory)) {
+                return;
+            }
+        }
         this.subCategory = subCategory;
         this.mainCategory = subCategory.getParent();
         DB.execute("UPDATE COURSE SET CATEGORY_ID = # WHERE ID = #", subCategory.getId().toString(), id.toString());
     }
 
     public void setTitle(String title) {
-        if(this.title.equals(title)) return;
+        if (this.title.equals(title)) {
+            return;
+        }
         this.title = title;
         DB.execute("UPDATE COURSE SET TITLE = '#' WHERE ID = #", title, id.toString());
     }
@@ -211,8 +228,11 @@ public class Course {
     }
 
     public void setMainPrice(Double mainPrice) {
-        if(this.mainPrice != null)
-        if(this.mainPrice.equals(mainPrice)) return;
+        if (this.mainPrice != null) {
+            if (this.mainPrice.equals(mainPrice)) {
+                return;
+            }
+        }
         this.mainPrice = mainPrice;
         DB.execute("UPDATE COURSE SET PRICE = # WHERE ID = #", mainPrice.toString(), id.toString());
     }
@@ -222,8 +242,11 @@ public class Course {
     }
 
     public void setOff(Double off) {
-        if(this.off != null)
-        if(this.off.equals(off)) return;
+        if (this.off != null) {
+            if (this.off.equals(off)) {
+                return;
+            }
+        }
         this.off = off;
         DB.execute("UPDATE COURSE SET OFFER = # WHERE ID = #", off.toString(), id.toString());
     }
@@ -250,8 +273,11 @@ public class Course {
     }
 
     public void setLanguages(ArrayList<Language> languages) {
-        if(this.languages != null)
-        if(this.languages.equals(languages)) return;
+        if (this.languages != null) {
+            if (this.languages.equals(languages)) {
+                return;
+            }
+        }
         this.languages = languages;
         deleteCourseLanguage();
         for (Language lang : languages) {
@@ -274,7 +300,9 @@ public class Course {
     }
 
     public void setDescription(String description) {
-        if(this.description.equals(description)) return;
+        if (this.description.equals(description)) {
+            return;
+        }
         this.description = description;
         DB.execute("UPDATE COURSE SET DESCRIPTION = '#' WHERE ID = #", description, id.toString());
     }
@@ -361,17 +389,17 @@ public class Course {
         }
         return apCourses;
     }
-    
-    public void loadAllData(){
+
+    public void loadAllData() {
         weeks = Week.getWeeks(this);
         reveiws = Review.getList(this);
     }
-    
-    public Double getCurrentPrice(){
-        return getMainPrice() - getMainPrice()*getOff()/100.0;
+
+    public Double getCurrentPrice() {
+        return getMainPrice() - getMainPrice() * getOff() / 100.0;
     }
-    
-    public Integer getNumOfRating(){
+
+    public Integer getNumOfRating() {
         try {
             ResultSet rs = DB.executeQuery("SELECT COUNT(*) FROM RATING WHERE COURSE_ID = #", id.toString());
             rs.next();
@@ -387,7 +415,7 @@ public class Course {
     public Integer getRatingOf(Student student) {
         ResultSet rs = DB.executeQuery("SELECT VALUE FROM RATING WHERE COURSE_ID = # AND STUDENT_ID = '#'", id.toString(), student.getUsername());
         try {
-            if(rs.next()){
+            if (rs.next()) {
                 Integer value = rs.getInt("VALUE");
                 rs.close();
                 return value;
@@ -402,7 +430,7 @@ public class Course {
     public boolean isBoughtBy(Student student) {
         try {
             ResultSet rs = DB.executeQuery("SELECT * FROM PURCHASE_HISTORY WHERE COURSE_ID = # AND STUDENT_ID = '#'", id.toString(), student.getUsername());
-            if(rs.next()){
+            if (rs.next()) {
                 rs.close();
                 return true;
             }
@@ -416,7 +444,7 @@ public class Course {
         ArrayList<Course> list = new ArrayList<Course>();
         try {
             ResultSet rs = DB.executeQuery("SELECT ID FROM COURSE WHERE TEACHER_ID = '#'", teacher.getUsername());
-            while(rs.next()){
+            while (rs.next()) {
                 list.add(new Course(rs.getInt("ID")));
             }
             rs.close();
@@ -438,7 +466,7 @@ public class Course {
         }
         return 0;
     }
-    
+
     public static ArrayList<Course> getUnapprovedCourses() {
         ArrayList<Course> apCourses = new ArrayList<Course>();
         String sql = "SELECT ID FROM COURSE WHERE IS_APPROVED = 'F'";
@@ -456,12 +484,12 @@ public class Course {
 //        System.out.println("inside unapproved course : total course = " + apCourses.size());
         return apCourses;
     }
-    public static void approveCourse(Integer id)
-    {
+
+    public static void approveCourse(Integer id) {
         String sql = "UPDATE COURSE SET IS_APPROVED = 'T' WHERE ID = #";
         DB.execute(sql, id.toString());
     }
-    
+
     public static void unapproveCourse(Integer id) {
         String sql = "UPDATE COURSE SET IS_APPROVED = 'F' WHERE ID = #";
         DB.execute(sql, id.toString());
@@ -479,6 +507,23 @@ public class Course {
             Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
+    }
+
+    ;public static Set<Course> searchCourse(String name) {
+        Set<Course> courses = new HashSet<Course>();
+        ResultSet rs;
+        String sql = "SELECT c.id  FROM COURSE c,TEACHER t WHERE INSTR(LOWER(c.TITLE), LOWER('#')) >= 1 AND c.TEACHER_ID = t.ID";
+        try {
+            rs = DB.executeQuery(sql, name);
+            while (rs.next()) {
+                Integer id = new Integer(rs.getString("ID"));
+                courses.add(new Course(id));
+            }
+             rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return courses;
     }
 
 }

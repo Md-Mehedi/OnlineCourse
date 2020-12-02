@@ -51,7 +51,9 @@ public class PageController {
 //    public PageController() {
 //        this(PageName.Home);
 //    }
-    public PageController(){}
+    public PageController(){
+        
+    }
     public PageController(PageName pageName) {
         pages = new ArrayList<>();
         pageIdx = -1;
@@ -97,6 +99,7 @@ public class PageController {
             case Login : 
             case Signup: 
             case ForgetPassword: return true;
+            case Filtering: return true;
         }
         return false;
     }
@@ -223,6 +226,9 @@ public class PageController {
             case ForgetPassword :
                 loadFXML(GLOBAL.LOGIN_SIGNUP_LOCATION + "/ForgetPassword.fxml");
                 break;
+            case Filtering :
+                 loadFXML(GLOBAL.ADMIN_LOCATION + "/Filtering.fxml");
+                 break;
         }
         if (!isLoadingWithoutLayout(pageName)) {
             loadPage(page);

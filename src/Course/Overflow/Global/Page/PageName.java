@@ -44,6 +44,8 @@ public enum PageName {
     , AdminCourseList("Courses")
     , ForgetPassword()
     , CategorySearchPage;
+    , Filtering()
+    ;
     public String name;
 
     private PageName(String name) {

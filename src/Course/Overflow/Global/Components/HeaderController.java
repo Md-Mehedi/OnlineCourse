@@ -14,6 +14,7 @@ import Course.Overflow.Global.Layout.PageByPageLayoutController;
 import Course.Overflow.Global.Page.CourseListShowPage;
 import Course.Overflow.Global.Page.PageController;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.Page.SearchResultPage;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
 import com.jfoenix.controls.JFXTextField;
@@ -107,7 +108,9 @@ public class HeaderController implements Initializable {
         });
         searchField.setOnKeyReleased((event) -> {
             if(event.getCode()==KeyCode.ENTER){
-                //GLOBAL.PAGE_CTRL.loadPage(PageName.SearchResult);
+                GLOBAL.PAGE_CTRL.loadPage(PageName.SearchResult);
+                SearchResultPage ctrl = (SearchResultPage) GLOBAL.PAGE_CTRL.getPage();
+                ctrl.search(searchField.getText());
             }
         });
     }
