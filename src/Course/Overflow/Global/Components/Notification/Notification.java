@@ -98,7 +98,6 @@ public class Notification {
     }
     
     public AnchorPane getPane(){
-        
         return pane;
     }
 }

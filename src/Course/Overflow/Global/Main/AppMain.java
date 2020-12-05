@@ -10,9 +10,7 @@ import Course.Overflow.Global.Page.PageController;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.Person.AccountType;
-import Course.Overflow.Student.Student;
-import Course.Overflow.Teacher.CreateCourse.CreateCourse;
-import Course.Overflow.Teacher.Teacher;
+import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Student.Student;
 import java.io.IOException;
 import javafx.application.Application;
@@ -42,6 +40,8 @@ public class AppMain extends Application {
         pane = new AnchorPane();
         GLOBAL.WIDTH = 1460;
         GLOBAL.HEIGHT = 900;
+        root.setPrefWidth(GLOBAL.WIDTH);
+        root.setPrefHeight(GLOBAL.HEIGHT);
 
 // To show the main app, just toggle the bottom 2 line comments.
         System.out.println(System.getProperty("user.name"));
@@ -78,15 +78,8 @@ public class AppMain extends Application {
         }
         GLOBAL.PAGE_CTRL = pageCtrl;
         pane = pageCtrl.getContainer();
-
-        ScrollPane sc = new ScrollPane(pane);
-        sc.setPrefWidth(GLOBAL.WIDTH);
-        sc.setPrefHeight(GLOBAL.HEIGHT);
-        sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        root.getChildren().add(sc);
-
-        GLOBAL.rootScroll = sc;
+        root.getChildren().add(pane);
+        ToolKit.setAnchor(pane, 0, 0, 0, 0);
     }
 
     public static void main(String[] args) {
@@ -109,6 +102,6 @@ public class AppMain extends Application {
         sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         root.getChildren().add(sc);
 
-        GLOBAL.rootScroll = sc;
+//        GLOBAL.rootScroll = sc;
     }
 }

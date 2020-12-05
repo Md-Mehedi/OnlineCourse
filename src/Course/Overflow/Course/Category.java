@@ -91,14 +91,35 @@ public class Category {
         return parent;
     }
 
-    public static ArrayList<Category> getMainCategories() {
-        ArrayList<Category> list = new ArrayList<Category>();
-        ResultSet rs = DB.executeQuery("SELECT ID FROM CATEGORY WHERE PARENT_ID IS NULL");
+    public static ArrayList<Pair<Category, ArrayList<Category>>> getAllCategories() {
+        ArrayList<Pair<Category, ArrayList<Category>>> lists = new ArrayList<>();
+        ResultSet rsMainCat = DB.executeQuery("SELECT ID FROM CATEGORY WHERE PARENT_ID IS NULL");
         try {
-            while (rs.next()) {
-                list.add(new Category(rs.getInt("ID")));
+            while (rsMainCat.next()) {
+                Category mainCat = new Category(rsMainCat.getInt("ID"));
+                ArrayList<Category> subCatList = new ArrayList();
+                ResultSet rsSubCat = DB.executeQuery("SELECT ID FROM CATEGORY WHERE PARENT_ID = #", mainCat.getId().toString());
+                while(rsSubCat.next()){
+                    subCatList.add(new Category(rsSubCat.getInt("ID")));
+                }
+                rsSubCat.close();
+                lists.add(new Pair(mainCat, subCatList));
             }
-            rs.close();
+            rsMainCat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lists;
+    }
+
+    public static ArrayList<Category> getMainCategories() {
+        ArrayList<Category> list = new ArrayList<>();
+        ResultSet rsMainCat = DB.executeQuery("SELECT ID FROM CATEGORY WHERE PARENT_ID IS NULL");
+        try {
+            while (rsMainCat.next()) {
+                list.add(new Category(rsMainCat.getInt("ID")));
+            }
+            rsMainCat.close();
         } catch (SQLException ex) {
             Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
         }

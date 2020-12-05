@@ -85,7 +85,7 @@ public class CommunicationPage extends Page{
         messengerPane = messengerPageCtrl.getRoot();
         slidingPaneCtrl.addContent(messengerPane, SVG.MESSAGE, PageName.Messenger);
         Platform.runLater(()->{
-            messengerPageCtrl.setPrefHeight(GLOBAL.HEIGHT - GLOBAL.HEADER.getRoot().getPrefHeight() - GLOBAL.TOP_MENU_BAR.getHeight()-10);
+            messengerPageCtrl.setPrefHeight(GLOBAL.HEIGHT - GLOBAL.HEADER.getRoot().getPrefHeight() - 10);
 //            System.out.println(messengerPageCtrl.getRoot().getPrefHeight());
         });
     }

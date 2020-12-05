@@ -185,7 +185,7 @@ TextField{
     -fx-alignment: top-left;
 }
 .searchResultPageContainer > HBox{
-    -fx-alignment: center;
+    -fx-alignment: top-left;
 }
 
 .filterContainer, .courseBoxContainer, .filterContainer > VBox{

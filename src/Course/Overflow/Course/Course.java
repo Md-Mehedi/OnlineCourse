@@ -13,8 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -509,12 +507,11 @@ public class Course {
         return list;
     }
 
-    ;public static Set<Course> searchCourse(String name) {
-        Set<Course> courses = new HashSet<Course>();
+    public static ArrayList<Course> searchCourse(String sql) {
+        ArrayList<Course> courses = new ArrayList<Course>();
         ResultSet rs;
-        String sql = "SELECT c.id  FROM COURSE c,TEACHER t WHERE INSTR(LOWER(c.TITLE), LOWER('#')) >= 1 AND c.TEACHER_ID = t.ID";
         try {
-            rs = DB.executeQuery(sql, name);
+            rs = DB.executeQuery(sql);
             while (rs.next()) {
                 Integer id = new Integer(rs.getString("ID"));
                 courses.add(new Course(id));

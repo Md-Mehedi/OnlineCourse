@@ -128,7 +128,7 @@ public class HeaderController implements Initializable {
     
     public void setNotiPanePosition(){
         Platform.runLater(()->{
-            noti.setLayoutY(header.getHeight());
+            noti.setLayoutY(header.getPrefHeight());
             noti.setLayoutX(header.getWidth() - noti.getWidth());
             
             logo.setOnMouseClicked((event)->{
@@ -140,7 +140,7 @@ public class HeaderController implements Initializable {
 
     private void setProfilePanePosition() {
         Platform.runLater(()->{
-            profilePane.setLayoutY(header.getHeight());
+            profilePane.setLayoutY(header.getPrefHeight());
             profilePane.setLayoutX(header.getWidth() - profilePane.getWidth());
         });
         

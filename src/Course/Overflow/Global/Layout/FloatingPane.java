@@ -30,7 +30,6 @@ public class FloatingPane {
     public FloatingPane() {
         sPane = new StackPane();
         region = new Region();
-        region.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         region.setOpacity(0.5);
         sPane.getChildren().add(region);
         showTransition = new ScaleTransition(Duration.millis(400));
@@ -60,6 +59,7 @@ public class FloatingPane {
         showTransition.setNode(backPane);
         sPane.toFront();
         showTransition.play();
+        region.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
     }
     
     public void close(){
@@ -68,6 +68,7 @@ public class FloatingPane {
         closeTransition.setOnFinished((event) -> {
             sPane.toBack();
         });
+        region.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
     }
     public void setAnchorPane(AnchorPane pane)
     {

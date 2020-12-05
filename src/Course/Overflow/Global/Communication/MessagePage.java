@@ -56,7 +56,7 @@ public class MessagePage extends Page{
         chatHeadCtrl.loadChatHeads();
         messengerCtrl.setChatHeadCtrl(chatHeadCtrl);
         Platform.runLater(()->{
-            setPrefHeight(GLOBAL.HEIGHT - GLOBAL.HEADER.getRoot().getPrefHeight() - GLOBAL.TOP_MENU_BAR.getHeight()-10);
+            setPrefHeight(GLOBAL.HEIGHT - GLOBAL.HEADER.getRoot().getPrefHeight() -10);
         });
     }
     
