@@ -82,5 +82,10 @@ public class CourseBoxController implements Initializable {
         mainPrice.setText(course.getMainPrice().toString());
         Double offPrice = (course.getMainPrice() - course.getMainPrice()*course.getOff()/100);
         offerPrice.setText(offPrice.toString());
+        
+        if(course.getMainPrice() == 0){
+            offerPrice.setText("Free");
+            ToolKit.removeNode(mainPrice);
+        }
     }
 }

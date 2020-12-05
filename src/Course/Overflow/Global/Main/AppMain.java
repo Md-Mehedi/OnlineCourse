@@ -42,6 +42,15 @@ public class AppMain extends Application {
         GLOBAL.HEIGHT = 900;
         root.setPrefWidth(GLOBAL.WIDTH);
         root.setPrefHeight(GLOBAL.HEIGHT);
+        
+        
+//        ImageView iv = new ImageView(new Image("/Course/Overflow/Files/Picture/No Data Found.jpg"));
+//        iv.setFitHeight(GLOBAL.HEIGHT);
+//        iv.setPreserveRatio(true);
+//        System.out.println("adding");
+//        root.getChildren().add(iv);
+//        iv.toFront();
+//        System.out.println("new thread is running");
 
 // To show the main app, just toggle the bottom 2 line comments.
         System.out.println(System.getProperty("user.name"));

@@ -16,7 +16,7 @@
    <children>
       <VBox layoutX="20.0" style="-fx-alignment: center-left;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label style="-fx-alignment: center-left; -fx-text-alignment: left; -fx-padding: 0; -fx-font-weight: normal;" styleClass="title3" text="Label" />
+            <Label fx:id="title" style="-fx-alignment: center-left; -fx-text-alignment: left; -fx-padding: 0; -fx-font-weight: normal;" styleClass="title3" text="Label" />
             <AnchorPane>
                <children>
                   <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" style="-fx-border-color: transparent;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

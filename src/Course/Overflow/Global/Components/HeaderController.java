@@ -108,6 +108,7 @@ public class HeaderController implements Initializable {
         });
         searchField.setOnKeyReleased((event) -> {
             if(event.getCode()==KeyCode.ENTER){
+                if(searchField.getText().isEmpty()) return;
                 GLOBAL.PAGE_CTRL.loadPage(PageName.SearchResult);
                 SearchResultPage ctrl = (SearchResultPage) GLOBAL.PAGE_CTRL.getPage();
                 ctrl.search(searchField.getText());

@@ -173,7 +173,7 @@ public class PageController {
             System.out.println(pageName);
             createLayout();
         }
-
+        
         switch (pageName) {
             case Home:
                 page = new Homepage();

@@ -441,7 +441,11 @@ public class Course {
     public static ArrayList<Course> coursesOf(Teacher teacher) {
         ArrayList<Course> list = new ArrayList<Course>();
         try {
-            ResultSet rs = DB.executeQuery("SELECT ID FROM COURSE WHERE TEACHER_ID = '#'", teacher.getUsername());
+            String sql = "SELECT ID FROM COURSE WHERE IS_APPROVED = 'T' AND TEACHER_ID = '#'";
+            if(ToolKit.getCurrentPerson().getUsername().equals(teacher.getUsername())){
+                sql = "SELECT ID FROM COURSE WHERE TEACHER_ID = '#'";
+            }
+            ResultSet rs = DB.executeQuery(sql, teacher.getUsername());
             while (rs.next()) {
                 list.add(new Course(rs.getInt("ID")));
             }
@@ -496,7 +500,7 @@ public class Course {
     public static ArrayList<Course> getList(Category category){
         ArrayList<Course> list = new ArrayList();
         try {
-            ResultSet rs = DB.executeQuery("SELECT ID FROM COURSE WHERE CATEGORY_ID = ANY(SELECT ID FROM CATEGORY WHERE PARENT_ID = # OR ID = #) AND IS_APPROVED = 'T'", category.getId().toString(), category.getId().toString());
+            ResultSet rs = DB.executeQuery("SELECT ID FROM COURSE WHERE IS_APPROVED = 'T' AND CATEGORY_ID = ANY(SELECT ID FROM CATEGORY WHERE PARENT_ID = # OR ID = #) AND IS_APPROVED = 'T'", category.getId().toString(), category.getId().toString());
             while(rs.next()){
                 list.add(new Course(rs.getInt("ID")));
             }
@@ -522,5 +526,41 @@ public class Course {
         }
         return courses;
     }
+    
+    private static ArrayList<Course> getList(String sql){
+        ArrayList<Course> list = new ArrayList<Course>();
+        try{
+            ResultSet rs = DB.executeQuery(sql);
+            while (rs.next()) {
+                list.add(new Course(rs.getInt("ID")));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Course.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    public static ArrayList<Course> getBestSellerCourse() {
+        return getList("SELECT ID, NUM_OF_STUDENT(ID) NUM FROM COURSE WHERE IS_APPROVED = 'T' ORDER BY NUM DESC");
+    }
+    
+    public static ArrayList<Course> getMostReivewedCourse(){
+        return getList("SELECT ID, GET_REVIEW(ID) NUM FROM COURSE WHERE IS_APPROVED = 'T' ORDER BY NUM DESC");
+    }
+    
+    public static ArrayList<Course> getNewReleasedCourse(){
+        return getList("SELECT ID FROM COURSE WHERE IS_APPROVED = 'T' ORDER BY PUBLISH_DATE DESC");
+    }
+    
+    public static ArrayList<Course> getMostDiscountCourse(){
+        return getList("SELECT ID FROM COURSE WHERE IS_APPROVED = 'T' ORDER BY OFFER DESC");
+    }
+    
+    public static ArrayList<Course> getFreeCourse(){
+        return getList("SELECT ID FROM COURSE WHERE IS_APPROVED = 'T' AND (PRICE - PRICE*OFFER/100) = 0 ORDER BY PUBLISH_DATE DESC");
+    }
+    
+    
 
 }

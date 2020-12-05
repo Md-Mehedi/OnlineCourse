@@ -68,6 +68,7 @@ public class SearchResultPage extends Page {
     
     private enum Sort{
          NEW_REALESED("New realesed", "ORDER BY PUBLISH_DATE DESC\n")
+        ,BEST_SELLER("Best seller", "ORDER BY NUM_OF_STD DESC\n")
         ,MOST_REVIEWED("Most reviewed", "ORDER BY REVIEW_VALUE DESC\n")
         ,MOST_RATED("Most rated", "ORDER BY RATING_VALUE DESC")
         ,PRICE_LOW_TO_HIGH("Price low to high", "ORDER BY MAIN_PRICE ASC\n")
@@ -107,9 +108,10 @@ public class SearchResultPage extends Page {
         conditionLists.put("TEACHER", new ArrayList<String>());
         conditionLists.put("RATING", new ArrayList<String>());
         conditionLists.put("PRICING", new ArrayList<String>());
-        SQLmain = "SELECT DISTINCT C.ID, C.PUBLISH_DATE, (PRICE - PRICE*OFFER/100) MAIN_PRICE, GET_RATING(C.ID) RATING_VALUE, GET_REVIEW(C.ID) REVIEW_VALUE\n"
+        SQLmain = "SELECT DISTINCT C.ID, C.PUBLISH_DATE, (PRICE - PRICE*OFFER/100) MAIN_PRICE, GET_RATING(C.ID) RATING_VALUE, GET_REVIEW(C.ID) REVIEW_VALUE, NUM_OF_STUDENT(C.ID) NUM_OF_STD\n"
                 + "FROM COURSE C, COURSE_LANGUAGE L\n"
-                + "WHERE C.ID = L.COURSE_ID\n";
+                + "WHERE C.ID = L.COURSE_ID\n"
+                + "AND IS_APPROVED = 'T'\n";
         SQLorder = Sort.NEW_REALESED.getQuery();
         boxType = BoxViewType.GridView;
         
