@@ -115,6 +115,7 @@ public class PageController {
             GLOBAL.HEADER = headerCtrl;
             
             scroll = new ScrollPane(wrapper);
+            wrapper.setPrefWidth(GLOBAL.WIDTH);
             scroll.setPrefWidth(GLOBAL.WIDTH);
             Platform.runLater(()->{
                 scroll.setMaxHeight(GLOBAL.HEIGHT - header.getPrefHeight());

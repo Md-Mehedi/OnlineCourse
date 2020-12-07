@@ -64,6 +64,8 @@ public class AppMain extends Application {
 
         GLOBAL.stage = primaryStage;
         GLOBAL.rootPane = root;
+        
+        cssEffect();
 
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -112,5 +114,13 @@ public class AppMain extends Application {
         root.getChildren().add(sc);
 
 //        GLOBAL.rootScroll = sc;
+    }
+
+    private void cssEffect() {
+        root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
+        root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/LightTheme.css");
+        root.setId("mainRoot");
+//        ImagePattern ip = new ImagePattern(new Image(GLOBAL.ICON_LOCATION + "/White bg.png"), 100, 100, 500, 500, false);
+//        root.setBackground(new Background(new BackgroundFill(ip, CornerRadii.EMPTY, Insets.EMPTY)));    
     }
 }

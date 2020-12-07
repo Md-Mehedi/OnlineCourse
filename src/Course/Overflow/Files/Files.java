@@ -116,7 +116,8 @@ public class Files {
     }
     
     public void setFile(File file){
-        if(file.getAbsolutePath().equals(new File(ToolKit.makeAbsoluteLocation(content)).getAbsolutePath())) return;
+        String contentLocation = ToolKit.makeAbsoluteLocation(content).replace("/", "\\");
+        if(file.getAbsolutePath().equals(contentLocation)) return;
         deleteFile();
         setContent(ToolKit.copyFile(file, type, id));
     }

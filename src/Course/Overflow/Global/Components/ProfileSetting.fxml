@@ -1,226 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" styleClass="profileSettingRoot" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.ProfileSettingController">
-   <stylesheets>
-      <URL value="@../Global.css" />
-      <URL value="@Components.css" />
-   </stylesheets>
-   <children>
-      <VBox layoutX="50.0" layoutY="20.0" style="-fx-spacing: 50;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="20.0">
+
+<ScrollPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.ProfileSettingController">
+   <content>
+      <AnchorPane fx:id="root" styleClass="profileSettingRoot">
+         <stylesheets>
+            <URL value="@../Global.css" />
+            <URL value="@Components.css" />
+         </stylesheets>
          <children>
-            <VBox styleClass="profileSetting">
+            <VBox layoutX="50.0" layoutY="20.0" style="-fx-spacing: 50;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="20.0">
                <children>
-                  <Label styleClass="title1" text="Profile Details" />
-                  <HBox>
+                  <VBox styleClass="profileSetting">
                      <children>
-                        <VBox styleClass="first">
+                        <Label styleClass="title1" text="Profile Details" />
+                        <HBox>
                            <children>
-                              <VBox styleClass="fieldContainer">
+                              <VBox styleClass="first">
                                  <children>
-                                    <Label text="First Name" />
-                                    <TextField fx:id="firstName" />
+                                    <JFXTextField fx:id="firstName" labelFloat="true" prefHeight="20.0" promptText="First Name" text="First name" />
+                                    <JFXTextField fx:id="lastName" labelFloat="true" prefHeight="30.0" promptText="Last Name" />
+                                    <JFXTextField fx:id="language" labelFloat="true" prefHeight="30.0" promptText="Language" />
+                                    <JFXComboBox fx:id="countryCB" labelFloat="true" prefHeight="31.0" prefWidth="368.0" promptText="Country" />
+                                    <VBox>
+                                       <children>
+                                          <Label text="Date of Birth" />
+                                          <JFXDatePicker fx:id="dob" overLay="true" prefHeight="31.0" prefWidth="359.0" />
+                                       </children>
+                                    </VBox>
+                                    <JFXComboBox fx:id="eduStatusCB" labelFloat="true" prefHeight="31.0" prefWidth="368.0" promptText="Educational Status" />
                                  </children>
                               </VBox>
-                              <VBox styleClass="fieldContainer">
+                              <VBox styleClass="second">
                                  <children>
-                                    <Label text="Last Name" />
-                                    <TextField fx:id="lastName" />
-                                 </children>
-                              </VBox>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="Language" />
-                                    <TextField fx:id="language" editable="false" />
-                                 </children>
-                              </VBox>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="Country" />
-                                    <ChoiceBox fx:id="countryCB" prefWidth="150.0" />
-                                 </children>
-                              </VBox>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label fx:id="eduStatusLabel" text="Educational Status" />
-                                    <ChoiceBox fx:id="eduStatusCB" prefWidth="150.0" />
-                                 </children>
-                              </VBox>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="Date of birth" />
-                                    <DatePicker fx:id="dob" prefHeight="50.0" prefWidth="360.0" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </VBox>
-                        <VBox styleClass="second">
-                           <children>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="Institution" />
-                                    <TextField fx:id="institution" />
-                                 </children>
-                              </VBox>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="Website" />
-                                    <TextField fx:id="website" />
-                                 </children>
-                              </VBox>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="Facebook" />
+                                    <JFXTextField fx:id="institution" labelFloat="true" prefHeight="30.0" promptText="Institution" />
+                                    <JFXTextField fx:id="website" labelFloat="true" prefHeight="30.0" promptText="Website" />
                                     <HBox>
                                        <children>
-                                          <TextField disable="true" prefWidth="245.0" styleClass="disableField" text="http://www.facebook.com/" />
-                                          <TextField fx:id="facebook" HBox.hgrow="ALWAYS" />
+                                          <JFXTextField editable="false" labelFloat="true" prefHeight="30.0" promptText="Facebook" text="http://www.facebook.com/" />
+                                          <JFXTextField fx:id="facebook" labelFloat="true" prefHeight="30.0" />
                                        </children>
                                     </HBox>
-                                 </children>
-                              </VBox>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="Youtube" />
                                     <HBox>
                                        <children>
-                                          <TextField disable="true" styleClass="disableField" text="http://www.youtube.com/" />
-                                          <TextField fx:id="youtube" HBox.hgrow="ALWAYS" />
+                                          <JFXTextField editable="false" labelFloat="true" promptText="Youtube" text="http://www.youtube.com/" />
+                                          <JFXTextField fx:id="youtube" prefHeight="30.0" />
                                        </children>
                                     </HBox>
-                                 </children>
-                              </VBox>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="LinkedIn" />
                                     <HBox>
                                        <children>
-                                          <TextField disable="true" prefWidth="245.0" styleClass="disableField" text="http://www.linkedin.com/" />
-                                          <TextField fx:id="linkedin" HBox.hgrow="ALWAYS" />
+                                          <JFXTextField editable="false" labelFloat="true" promptText="LinkedIn" text="http://www.linkedin.com/" />
+                                          <JFXTextField fx:id="linkedin" prefHeight="30.0" />
                                        </children>
                                     </HBox>
-                                 </children>
-                              </VBox>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="About" />
-                                    <TextArea fx:id="about" prefHeight="100.0" />
+                                    <JFXTextArea fx:id="about" labelFloat="true" prefHeight="0.0" prefWidth="550.0" promptText="About" />
                                  </children>
                               </VBox>
                            </children>
-                        </VBox>
+                        </HBox>
                      </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox>
-               <children>
-                  <Label styleClass="title1" text="Profile Picture" />
-                  <ImageView fx:id="photo" fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Files/Picture/Person%201.jpg" />
-                     </image>
-                  </ImageView>
-                  <HBox styleClass="fileUploaderHbox">
+                  </VBox>
+                  <VBox>
                      <children>
-                        <Label fx:id="imageNameLabel" prefWidth="400.0" text="No file selected" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="upload" mnemonicParsing="false" text="Upload Photo" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox fx:id="securityBox1" maxWidth="930.0" prefWidth="930.0" style="-fx-padding: 0 150 0 150;" styleClass="profileSetting">
-               <children>
-                  <Label styleClass="title1" text="Credit Card Information" />
-                  <HBox>
-                     <children>
-                        <VBox style="-fx-pref-width: -1;" HBox.hgrow="ALWAYS">
+                        <Label styleClass="title1" text="Profile Picture" />
+                        <ImageView fx:id="photo" fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Files/Picture/Person%201.jpg" />
+                           </image>
+                        </ImageView>
+                        <HBox styleClass="fileUploaderHbox">
                            <children>
-                              <VBox styleClass="fieldContainer">
+                              <Label fx:id="imageNameLabel" prefWidth="400.0" text="No file selected" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="upload" mnemonicParsing="false" text="Upload Photo" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="securityBox1" maxWidth="930.0" prefWidth="930.0" style="-fx-padding: 0 150 0 150;" styleClass="profileSetting">
+                     <children>
+                        <Label styleClass="title1" text="Credit Card Information" />
+                        <HBox>
+                           <children>
+                              <VBox style="-fx-pref-width: -1;" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label text="Credit Card No" />
-                                    <TextField fx:id="cardNo" />
-                                 </children>
-                              </VBox>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="Name on Card" />
-                                    <TextField fx:id="nameOnCard" />
-                                 </children>
-                              </VBox>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="Expire Date" />
-                                    <AnchorPane>
+                                    <JFXTextField fx:id="cardNo" labelFloat="true" promptText="Credit Card No" />
+                                    <JFXTextField fx:id="nameOnCard" labelFloat="true" promptText="Name on Card" />
+                                    <VBox>
                                        <children>
-                                          <DatePicker fx:id="expireDate" prefHeight="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                          <Label text="Expire Date" />
+                                          <JFXDatePicker fx:id="expireDate" />
                                        </children>
-                                    </AnchorPane>
+                                    </VBox>
                                  </children>
                               </VBox>
                            </children>
-                        </VBox>
+                        </HBox>
                      </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox fx:id="securityBox" maxWidth="930.0" prefWidth="930.0" style="-fx-padding: 0 150 0 150;" styleClass="profileSetting">
-               <children>
-                  <Label styleClass="title1" text="Security" />
+                  </VBox>
+                  <VBox fx:id="securityBox" maxWidth="930.0" prefWidth="930.0" style="-fx-padding: 0 150 0 150;" styleClass="profileSetting">
+                     <children>
+                        <Label styleClass="title1" text="Security" />
+                        <HBox>
+                           <children>
+                              <VBox style="-fx-pref-width: -1;" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <JFXTextField fx:id="email" labelFloat="true" promptText="Email" />
+                                    <JFXTextField fx:id="oldPass" labelFloat="true" promptText="Old Password" />
+                                    <JFXTextField fx:id="newPass" labelFloat="true" promptText="New Password" />
+                                    <JFXTextField fx:id="newPassAgain" labelFloat="true" promptText="New Password (Again)" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                   <HBox>
                      <children>
-                        <VBox style="-fx-pref-width: -1;" HBox.hgrow="ALWAYS">
-                           <children>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="Email" />
-                                    <TextField fx:id="email" />
-                                 </children>
-                              </VBox>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="Old Password" />
-                                    <TextField fx:id="oldPass" />
-                                 </children>
-                              </VBox>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="New Password" />
-                                    <TextField fx:id="newPass" />
-                                 </children>
-                              </VBox>
-                              <VBox styleClass="fieldContainer">
-                                 <children>
-                                    <Label text="New Password (Again)" />
-                                    <TextField fx:id="newPassAgain" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </VBox>
+                        <JFXButton fx:id="save" text="Save" />
+                        <JFXButton fx:id="cancel" text="Cancel" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <HBox>
-               <children>
-                  <JFXButton fx:id="save" text="Save" />
-                  <JFXButton fx:id="cancel" text="Cancel" />
-               </children>
-            </HBox>
          </children>
-      </VBox>
-   </children>
-</AnchorPane>
+      </AnchorPane>
+   </content>
+</ScrollPane>

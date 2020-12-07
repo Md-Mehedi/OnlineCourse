@@ -16,6 +16,10 @@ import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Student.Student;
 import Course.Overflow.Teacher.Teacher;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,11 +33,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -47,21 +47,45 @@ import javax.swing.JOptionPane;
  */
 public class ProfileSettingController implements Initializable {
 
+
+    private String username;
+    private String password;
+    private AccountType accountType;
+    private ArrayList<Language> selectedLanguage;
+    private File photoFile;
+
+    private ObservableList<String> eduStatusList;
+    private ObservableList<String> countryList;
+    private Student student;
+    private Teacher teacher;
+
+    private HashMap<Integer, CheckBox> checkBoxes;
     @FXML
     private AnchorPane root;
     @FXML
-    private TextField firstName;
+    private JFXTextField firstName;
     @FXML
-    private TextField lastName;
+    private JFXTextField lastName;
     @FXML
-    private TextField language;
-    private TextArea biography;
+    private JFXTextField language;
     @FXML
-    private TextField website;
+    private JFXComboBox<String> countryCB;
     @FXML
-    private TextField facebook;
+    private JFXDatePicker dob;
     @FXML
-    private TextField youtube;
+    private JFXComboBox<String> eduStatusCB;
+    @FXML
+    private JFXTextField institution;
+    @FXML
+    private JFXTextField website;
+    @FXML
+    private JFXTextField facebook;
+    @FXML
+    private JFXTextField youtube;
+    @FXML
+    private JFXTextField linkedin;
+    @FXML
+    private JFXTextArea about;
     @FXML
     private ImageView photo;
     @FXML
@@ -69,54 +93,27 @@ public class ProfileSettingController implements Initializable {
     @FXML
     private Button upload;
     @FXML
-    private JFXButton save;
+    private VBox securityBox1;
     @FXML
-    private JFXButton cancel;
+    private JFXTextField cardNo;
     @FXML
-    private TextField email;
+    private JFXTextField nameOnCard;
     @FXML
-    private TextField oldPass;
-    @FXML
-    private TextField newPass;
-    @FXML
-    private TextField newPassAgain;
+    private JFXDatePicker expireDate;
     @FXML
     private VBox securityBox;
     @FXML
-    private ChoiceBox<String> countryCB;
+    private JFXTextField email;
     @FXML
-    private DatePicker dob;
+    private JFXTextField oldPass;
     @FXML
-    private TextArea about;
+    private JFXTextField newPass;
     @FXML
-    private TextField institution;
+    private JFXTextField newPassAgain;
     @FXML
-    private TextField linkedin;
-
-    private String username;
-    private String password;
-    private AccountType accountType;
-    private ArrayList<Language> selectedLanguage;
-    private File photoFile;
+    private JFXButton save;
     @FXML
-    private Label eduStatusLabel;
-    @FXML
-    private ChoiceBox<String> eduStatusCB;
-
-    private ObservableList<String> eduStatusList;
-    private ObservableList<String> countryList;
-    private Student student;
-    private Teacher teacher;
-
-    @FXML
-    private VBox securityBox1;
-    @FXML
-    private TextField cardNo;
-    @FXML
-    private TextField nameOnCard;
-    @FXML
-    private DatePicker expireDate;
-    private HashMap<Integer, CheckBox> checkBoxes;
+    private JFXButton cancel;
 
     /**
      * Initializes the controller class.
@@ -161,6 +158,9 @@ public class ProfileSettingController implements Initializable {
             }
             if (ps.getImage() != null) {
                 photo.setImage(ps.getImage());
+                photoFile = new File(ToolKit.makeAbsoluteLocation(ps.getPhoto().getContent()));
+                System.out.println(photoFile.getAbsolutePath());
+                System.out.println(ToolKit.makeAbsoluteLocation(ps.getPhoto().getContent()));
             }
             if (ps.getCard() != null) {
                 cardNo.setText(ps.getCard().getCardNo());
@@ -265,7 +265,7 @@ public class ProfileSettingController implements Initializable {
         eduStatusList = FXCollections.observableArrayList();
         eduStatusList.clear();
         eduStatusList.add("-- Select --");
-        eduStatusLabel.setText(accountType == AccountType.Student ? "Educational Status" : "Designation");
+        eduStatusCB.setPromptText(accountType == AccountType.Student ? "Educational Status" : "Designation");
 
         if (accountType == AccountType.Student) {
             ArrayList<EducationalStatus> list = EducationalStatus.getList();
