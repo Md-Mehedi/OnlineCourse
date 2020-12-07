@@ -27,12 +27,12 @@
                <children>
                   <Label fx:id="leftArrow" styleClass="cursorHand">
                      <graphic>
-                        <FontAwesomeIconView glyphName="ARROW_LEFT" size="40" />
+                        <FontAwesomeIconView glyphName="ARROW_LEFT" size="40" styleClass="cursorHand" />
                      </graphic>
                   </Label>
                   <Label fx:id="rightArrow" styleClass="cursorHand">
                      <graphic>
-                        <FontAwesomeIconView glyphName="ARROW_RIGHT" size="40" />
+                        <FontAwesomeIconView glyphName="ARROW_RIGHT" size="40" styleClass="cursorHand" />
                      </graphic>
                   </Label>
                </children>
@@ -42,7 +42,7 @@
                   <Image url="@../../Files/Icon/logo.png" />
                </image>
             </ImageView>
-            <Label id="categoriesLabel" fx:id="categoriesBtn" text="Categories" />
+            <Label id="categoriesLabel" fx:id="categoriesBtn" styleClass="cursorHand" text="Categories" />
             <HBox HBox.hgrow="ALWAYS">
                <children>
                   <Label styleClass="cursorHand">
@@ -57,8 +57,7 @@
                   </JFXTextField>
                </children>
             </HBox>
-            <Label fx:id="myCourse" styleClass="cursorHand" text="My courses" />
-            <ImageView id="themeToggle" fx:id="themeToggle" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="themeToggle" fx:id="themeToggle" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="cursorHand">
                <image>
                   <Image url="@../../Files/Icon/sunrise.png" />
                </image>
@@ -69,12 +68,12 @@
                      <children>
                         <Label styleClass="cursorHand">
                            <graphic>
-                              <FontAwesomeIconView glyphName="BELL_ALT" size="40" />
+                              <FontAwesomeIconView glyphName="BELL_ALT" size="40" styleClass="cursorHand" />
                            </graphic>
                         </Label>
-                        <Label fx:id="notificationCount" maxHeight="37.0" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="15.0" style="-fx-font-weight: bold; -fx-font-size: 30;" text="5" textFill="#ff1e1e">
+                        <Label id="notificationCount" fx:id="notificationCount" maxHeight="37.0" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="15.0" style="-fx-font-weight: bold; -fx-font-size: 30;" text="5" textFill="#ff1e1e">
                            <effect>
-                              <DropShadow color="WHITE" height="4.0" radius="1.75" spread="1.0" width="5.0" />
+                              <DropShadow color="#fffbfb" height="4.75" radius="1.9375" spread="1.0" width="5.0" />
                            </effect>
                         </Label>
                      </children>
@@ -83,7 +82,7 @@
             </VBox>
             <StackPane fx:id="profile" styleClass="cursorHand">
                <children>
-                  <Circle fx:id="profileCircle" fill="#9c467f" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Circle fx:id="profileCircle" fill="#9c467f" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="cursorHand" />
                   <Label fx:id="profileName" style="-fx-text-fill: white; -fx-font-weight: bold;" text="AA" />
                </children>
             </StackPane>

@@ -7,6 +7,7 @@ import Course.Overflow.Global.Components.HeaderController;
 import Course.Overflow.Global.Components.Notification.NotificationView;
 import Course.Overflow.Global.Components.RightMenuPopOverController;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.MediaPlayerController;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.CreateCourse.CreateCourse;
@@ -147,6 +148,11 @@ public class PageController {
             notificationPane = notificationCtrl.getContainer();
             wrapper.getChildren().add(notificationPane);
             headerCtrl.setNotificationCtrl(notificationCtrl);
+            
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.GLOBAL_LOCATION + "/MediaPlayer.fxml"));
+            loader.load();
+            GLOBAL.PLAYER_CTRL = loader.<MediaPlayerController>getController();
         } catch (IOException ex) {
             Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
         }

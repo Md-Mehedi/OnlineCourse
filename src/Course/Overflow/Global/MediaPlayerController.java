@@ -1,5 +1,6 @@
 package Course.Overflow.Global;
 
+import Course.Overflow.Global.Layout.FloatingPane;
 import com.jfoenix.controls.JFXSlider;
 import java.io.File;
 import java.net.URL;
@@ -20,10 +21,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
-public class MediaPlayerController implements Initializable {
+public class MediaPlayerController extends FloatingPane implements Initializable {
 
     @FXML
     private AnchorPane videoplayerpane;
@@ -45,7 +45,7 @@ public class MediaPlayerController implements Initializable {
     private Media media;
     @FXML
     private Button select;
-    private boolean playing = false;
+    private boolean playing;
     @FXML
     private ImageView playimage;
     @FXML
@@ -58,12 +58,14 @@ public class MediaPlayerController implements Initializable {
     private Duration duration;
     @FXML
     private ChoiceBox speed;
+    private File file;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.backPane = videoplayerpane;
         setSpeed();
         setTooltip();
-        adListener();
+//        addListener();
     }
 
     private void setTooltip() {
@@ -92,17 +94,16 @@ public class MediaPlayerController implements Initializable {
         });
     }
 
-    private void adListener() {
+    private void addListener() {
         speed.setOnMouseClicked(event -> {
         });
-        select.setOnMouseClicked(event -> {
-            FileChooser filechooser = new FileChooser();
-            File file = filechooser.showOpenDialog(null);
-            media = new Media(file.toURI().toString());
-            mediaPlayer = new MediaPlayer(media);
-            mediaview.setMediaPlayer(mediaPlayer);
+//        select.setOnMouseClicked(event -> {
+//            FileChooser filechooser = new FileChooser();
+//            file = filechooser.showOpenDialog(null);
+//            media = new Media(file.toURI().toString());
+//            mediaPlayer = new MediaPlayer(media);
+//            mediaview.setMediaPlayer(mediaPlayer);
 
-            volumeslider.setValue(mediaPlayer.getVolume() * 100);
             volumeslider.valueProperty().addListener(new InvalidationListener() {
                 @Override
                 public void invalidated(Observable observable) {
@@ -164,8 +165,6 @@ public class MediaPlayerController implements Initializable {
                 }
             });
 
-        });
-
         right.setOnMouseClicked(event -> {
             if (media != null) {
                 mediaPlayer.seek(duration.multiply(((mediaslider.getValue() + 1.0) / 100.0)));
@@ -203,6 +202,9 @@ public class MediaPlayerController implements Initializable {
                 }
 
             }
+        });
+        closeTransition.setOnFinished((event) -> {
+            mediaPlayer.pause();
         });
     }
 
@@ -266,6 +268,18 @@ public class MediaPlayerController implements Initializable {
                         elapsedSeconds);
             }
         }
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+        media = new Media(file.toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaview.setMediaPlayer(mediaPlayer);
+        volumeslider.setValue(mediaPlayer.getVolume() * 100);
+//        updateValues();
+        addListener();
+        playing = true;
+        mediaPlayer.play();
     }
 
 }
