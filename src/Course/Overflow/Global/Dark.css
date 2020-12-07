@@ -1,0 +1,10 @@
+
+/* 
+    Created on : Nov 26, 2020, 1:55:07 AM
+    Author     : Asus
+*/
+
+Label, TextField{
+/*    -fx-background-color: black;*/
+    -fx-text-fill: white;
+}
