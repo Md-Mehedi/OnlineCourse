@@ -58,8 +58,8 @@ public class AppMain extends Application {
             mehediTestPage();
             scene = new Scene(root, GLOBAL.WIDTH, GLOBAL.HEIGHT);
         } else {
-            mehediTestPage();
-//            shammyaTestPage();
+           // mehediTestPage();
+           shammyaTestPage();
             scene = new Scene(root);
         }
 
@@ -103,7 +103,7 @@ public class AppMain extends Application {
         GLOBAL.ACCOUNT_TYPE = AccountType.Student;
         GLOBAL.STUDENT = new Student("mehediS");
         PageController pageCtrl = new PageController(PageName.Login);
-        //pageCtrl.loadFXML(GLOBAL.GLOBAL_LOCATION+"/MediaPlayer.fxml");
+       // pageCtrl.loadFXML(GLOBAL.GLOBAL_LOCATION+"/MediaPlayer.fxml");
         GLOBAL.PAGE_CTRL = pageCtrl;
         pane = pageCtrl.getContainer();
 

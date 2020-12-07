@@ -12,6 +12,7 @@ import Course.Overflow.Global.Customize.Icon;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Language;
 import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.Person.AccountType;
 import Course.Overflow.Global.PersonPreviewController;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.CreateCourse.CreateCourse;
@@ -498,7 +499,7 @@ public class CourseDetailsController implements Initializable {
     }
 
     private void defineViewerType() {
-        if(GLOBAL.TEACHER != null){
+        if(GLOBAL.ACCOUNT_TYPE == AccountType.Teacher){
             if(GLOBAL.TEACHER.getUsername().equals(course.getTeacher().getUsername())){
                 viewer = ViewerType.OwnerTeacherNormal;
             }
@@ -506,7 +507,7 @@ public class CourseDetailsController implements Initializable {
                 viewer = ViewerType.NormalTeacher;
             }
         }
-        else if(GLOBAL.STUDENT != null){
+        else if(GLOBAL.ACCOUNT_TYPE == AccountType.Student){
             if(course.isBoughtBy(GLOBAL.STUDENT)){
                 viewer = ViewerType.OwnerStudent;
             }
