@@ -311,9 +311,17 @@ public class CourseDetailsController implements Initializable {
         lang = lang.replaceFirst(" ,", "");
         this.language.setText(lang);
         
-        mainPrice.setText(course.getMainPrice().toString());
-        offer.setText(ToolKit.DoubleToString(course.getOff()) + " % off");
-        price.setText(course.getCurrentPrice().toString());
+        if(course.getMainPrice() == 0){
+            price.setText("Free");
+            ToolKit.removeNode(offer);
+            ToolKit.removeNode(mainPrice);
+        }
+        else{
+            mainPrice.setText(course.getMainPrice().toString());
+            offer.setText(ToolKit.DoubleToString(course.getOff()) + " % off");
+            price.setText(course.getCurrentPrice().toString());
+        }
+        
         for(Property property : course.getProperties()){
             properties.getChildren().add(makeLabelWithIcon(property.getText(), property.getIcon().getContent()));
         }

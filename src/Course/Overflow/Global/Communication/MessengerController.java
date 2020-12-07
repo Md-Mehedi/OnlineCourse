@@ -73,7 +73,7 @@ public class MessengerController implements Initializable {
 //        messageContainer.getChildren().clear();
         addListener();
         Platform.runLater(()->{
-            messageContainer.setPrefHeight(GLOBAL.HEIGHT - GLOBAL.HEADER.getRoot().getPrefHeight() - GLOBAL.TOP_MENU_BAR.getHeight()-10);
+            messageContainer.setPrefHeight(GLOBAL.HEIGHT - GLOBAL.HEADER.getRoot().getPrefHeight() - 10);
         });
     }    
     

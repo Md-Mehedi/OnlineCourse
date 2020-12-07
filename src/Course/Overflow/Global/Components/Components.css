@@ -80,9 +80,6 @@ Label{
     -fx-background-size: cover;
     -fx-padding: 0; 
 }
-#container{
-    -fx-background-color: #eeeeee;
-}
 
 /**
  ** Carousel 
@@ -202,6 +199,7 @@ Label{
     -fx-alignment: CENTER;
 }
 .profileSetting HBox, .profileSetting VBox{
+    
 }
 .profileSetting > HBox{
     -fx-alignment: top-center;
@@ -243,4 +241,23 @@ Label{
 }
 .profileSetting ChoiceBox{
     -fx-padding: 0 10 0 10;
+}
+.profileSetting JFXTextField{
+    -fx-padding: 0;
+    -fx-pref-height: 20;
+}
+.profileSetting .second > HBox{
+    -fx-spacing: 0;
+}
+.profileSetting .first > VBox,
+.profileSetting > HBox > VBox > VBox{
+    -fx-alignment: top-left;
+}
+.profileSetting{
+    -fx-spacing: 40;
+}
+.profileSetting .first,
+.profileSetting .second,
+.profileSetting > HBox > VBox{
+    -fx-spacing: 70;
 }

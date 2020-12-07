@@ -1,0 +1,23 @@
+
+/* 
+    Created on : Nov 26, 2020, 1:55:07 AM
+    Author     : Asus
+*/
+
+Label, TextField, JFXTextFill, JFXTextArea, TextArea, CheckBox, ChoiceBox, JFXCheckBox, JFXComboBox, FontAwesomeIconView, MaterialIconView{
+/*    -fx-background-color: black;*/
+    -fx-text-fill: white;
+    -fx-fill: white;
+}
+
+#mainRoot{
+    -fx-background-image: url("../Files/Icon/DarkBG.jpg");
+    -fx-background-repeat: repeat;
+}
+
+/*CourseBox CSS*/
+.courseGridBoxContainer{
+    /*-fx-background-color: #303E47;*/
+    -fx-background-color: #111111;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 10, 0.5, 0.0, 0.0);
+}

@@ -3,12 +3,10 @@ package Course.Overflow.Global;
 
 import Course.Overflow.Admin.Admin;
 import Course.Overflow.Global.Components.HeaderController;
-import Course.Overflow.Global.Components.TopMenuBar.MenuBar;
 import Course.Overflow.Global.Page.PageController;
 import Course.Overflow.Global.Person.AccountType;
 import Course.Overflow.Student.Student;
 import Course.Overflow.Teacher.Teacher;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -62,11 +60,11 @@ public class GLOBAL {
     public static final double LEFT_WIDTH = 300;
     
     public static AnchorPane rootPane;
-    public static ScrollPane rootScroll;
+//    public static ScrollPane rootScroll;
     public static AnchorPane scrollingPane;
     public static PageController PAGE_CTRL;
     public static HeaderController HEADER;
-    public static MenuBar TOP_MENU_BAR;
+//    public static MenuBar TOP_MENU_BAR;
     public static AccountType ACCOUNT_TYPE;
     public static Student STUDENT;
     public static Teacher TEACHER;

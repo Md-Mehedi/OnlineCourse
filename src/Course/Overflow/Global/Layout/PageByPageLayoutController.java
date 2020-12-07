@@ -86,6 +86,9 @@ public class PageByPageLayoutController implements Initializable {
     private String fxmlName;
     private ArrayList<Course> courses;
     private Map<Course, PurchaseHistory> mp;
+    @FXML
+    private VBox rootContainer;
+    private boolean estimationDone;
 
 
     /**
@@ -113,6 +116,7 @@ public class PageByPageLayoutController implements Initializable {
         vItemContainer = new VBox();
         column = 4;
         offset = 20;
+        estimationDone = false;
 
         // if the item of the list is changed 
         listener = new ChangeListener<Number>() {
@@ -153,6 +157,9 @@ public class PageByPageLayoutController implements Initializable {
             ToolKit.showNoDataFound(itemContainer);
             return;
         }
+        else{
+            addHeader();
+        }
         updateIconOpacity();
 
         itemContainer.getChildren().clear();
@@ -164,10 +171,14 @@ public class PageByPageLayoutController implements Initializable {
         }
         readyNumOfItemList();
         if(items.size()<=column){
-            removeHeader();
+//            removeHeader();
             removeFooter();
         }
-        else makePageNumbers();
+        else{
+//            addHeader();
+            addFooter();
+            makePageNumbers();
+        }
         loadPage(1);
         estimateContainerWidth();
         listIcon.setOnMouseClicked((event) -> {
@@ -195,6 +206,10 @@ public class PageByPageLayoutController implements Initializable {
         setUpPage(items, type, column, 20);
     }
 
+    public <T> void setUpPage(ArrayList<T> items){
+        if(type == null) type = BoxViewType.GridView;
+        setUpPage(items, type);
+    }
     @SuppressWarnings("unchecked")
     private void readyNumOfItemList() {
         numOfItemList = FXCollections.observableArrayList();
@@ -337,14 +352,24 @@ public class PageByPageLayoutController implements Initializable {
     }
     
     private void estimateContainerWidth() {
-        Platform.runLater(()->{
-            Double width = 250.0;
-            if (type != BoxViewType.ListView) {
-                width = ((Pane)grid.getChildren().get(0)).getPrefWidth();
-            }
-            container.setPrefWidth(column*width + (column-1)*offset);
-            container.setMaxWidth(column*width + (column-1)*offset);
-        });
+        if(!estimationDone){
+            estimationDone = true;
+            Platform.runLater(()->{
+                Double width = 250.0;
+                if (type == BoxViewType.GridView) {
+                    width = column*width + (column-1)*offset;
+                }
+                else if(type == BoxViewType.PersonGrid){
+                    width = column*270.0 + (column-1)*offset;
+                }
+                else{
+                    width = 4*width + offset*3;
+                }
+                rootContainer.setPrefWidth(width);
+                rootContainer.setMaxWidth(width);
+                rootContainer.setMinWidth(width);
+            });
+        }
     }
     
     public void setPurchasyHistory(Map<Course, PurchaseHistory> mp){
@@ -361,7 +386,18 @@ public class PageByPageLayoutController implements Initializable {
         ToolKit.removeNode(topContainer);
     }
     
+    private void addFooter() {
+        if(rootContainer.getChildren().contains(pageNumContainer)) return;
+        rootContainer.getChildren().add(pageNumContainer);
+    }
+    
     private void removeFooter() {
         ToolKit.removeNode(pageNumContainer);
+    }
+
+    private void addHeader() {
+        if(!rootContainer.getChildren().contains(topContainer)){
+            rootContainer.getChildren().add(0, topContainer);
+        }
     }
 }

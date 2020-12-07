@@ -79,12 +79,16 @@ public class HeaderController implements Initializable {
     @FXML
     private Label notificationCount;
     private Integer notifcationCC;
+    @FXML
+    private ImageView themeToggle;
+    private boolean isLight;
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {        
+    public void initialize(URL url, ResourceBundle rb) {
+        isLight = false;
         leftArrow.setOpacity(0.1);
         rightArrow.setOpacity(0.1);
         loadProfilePhoto();
@@ -109,9 +113,28 @@ public class HeaderController implements Initializable {
         });
         searchField.setOnKeyReleased((event) -> {
             if(event.getCode()==KeyCode.ENTER){
+                if(searchField.getText().isEmpty()) return;
                 GLOBAL.PAGE_CTRL.loadPage(PageName.SearchResult);
                 SearchResultPage ctrl = (SearchResultPage) GLOBAL.PAGE_CTRL.getPage();
                 ctrl.search(searchField.getText());
+            }
+        });
+        themeToggle.setOnMouseClicked((event) -> {
+            if(this.isLight){
+                isLight = false;
+                themeToggle.setImage(new Image(GLOBAL.ICON_LOCATION + "/half-moon.png"));
+                if(GLOBAL.rootPane.getStylesheets().contains(GLOBAL.GLOBAL_LOCATION + "/LightTheme.css")){
+                    GLOBAL.rootPane.getStylesheets().remove(GLOBAL.GLOBAL_LOCATION + "/LightTheme.css");
+                }
+                GLOBAL.rootPane.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/DarkTheme.css");
+            }
+            else{
+                isLight = true;
+                themeToggle.setImage(new Image(GLOBAL.ICON_LOCATION + "/sunrise.png"));
+                if(GLOBAL.rootPane.getStylesheets().contains(GLOBAL.GLOBAL_LOCATION + "/DarkTheme.css")){
+                    GLOBAL.rootPane.getStylesheets().remove(GLOBAL.GLOBAL_LOCATION + "/DarkTheme.css");
+                }
+                GLOBAL.rootPane.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/LightTheme.css");
             }
         });
     }
@@ -148,7 +171,7 @@ public class HeaderController implements Initializable {
 
     private void setProfilePanePosition() {
         Platform.runLater(()->{
-            profilePane.setLayoutY(header.getHeight());
+            profilePane.setLayoutY(header.getPrefHeight());
             profilePane.setLayoutX(header.getWidth() - profilePane.getWidth());
         });
         

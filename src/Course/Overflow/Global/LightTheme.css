@@ -1,0 +1,25 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 6, 2020, 5:54:34 PM
+    Author     : ASUS
+*/
+Label, TextField, JFXTextFill, JFXTextArea, TextArea, CheckBox, ChoiceBox, JFXCheckBox, JFXComboBox, FontAwesomeIconView, MaterialIconView{
+/*    -fx-background-color: black;*/
+    -fx-text-fill: black;
+    -fx-fill: black;
+}
+
+#mainRoot{
+    -fx-background-image: url("../Files/Icon/LightBG.jpg");
+    -fx-background-repeat: repeat;
+}
+
+/*CourseBox CSS*/
+.courseGridBoxContainer{
+    -fx-background-color: #EEEEEE;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0.0, 0.0);
+}

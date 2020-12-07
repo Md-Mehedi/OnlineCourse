@@ -59,6 +59,8 @@ public class CarouselController implements Initializable {
     private Duration time;
     private boolean isFullScroll;
     private ArrayList<Course> courses;
+    @FXML
+    private Label title;
 
     /**
      * Initializes the controller class.
@@ -155,6 +157,10 @@ public class CarouselController implements Initializable {
     public void setCourses(ArrayList<Course> courses) {
         this.courses = courses;
         loadData();
+    }
+
+    public void setTitle(String text) {
+        title.setText(text);
     }
 
 }

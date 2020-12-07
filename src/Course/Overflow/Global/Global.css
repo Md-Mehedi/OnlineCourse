@@ -2,7 +2,8 @@
 Button{
     -fx-cursor: hand;
 }
-Label, Text, TextField, TextArea, DatePicker{
+Label, Text, TextField, TextArea, DatePicker,
+JFXTextField, JFXTextArea, CheckBox, ChoiceBox{
     /*-fx-font: 20 "open sans,helvetica neue,Helvetica,Arial,sans-serif";*/
     /*-fx-font: 20 "sf pro display,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol";*/
     -fx-font: 22 "Bell MT";
@@ -10,6 +11,9 @@ Label, Text, TextField, TextArea, DatePicker{
     -fx-padding: 0 10 0 10;
     -fx-text-alignment: justify;
     -fx-wrap-text: true;
+}
+.scroll-pane .viewport, .scroll-pane {
+    -fx-background-color: transparent;
 }
 TextArea{
     -fx-padding: 0;
@@ -185,7 +189,7 @@ TextField{
     -fx-alignment: top-left;
 }
 .searchResultPageContainer > HBox{
-    -fx-alignment: center;
+    -fx-alignment: top-left;
 }
 
 .filterContainer, .courseBoxContainer, .filterContainer > VBox{

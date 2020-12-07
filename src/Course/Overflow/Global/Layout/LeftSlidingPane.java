@@ -114,7 +114,7 @@ public class LeftSlidingPane extends BorderPaneController{
             setCenterHeight(
                   GLOBAL.HEIGHT 
                   - GLOBAL.HEADER.getRoot().getPrefHeight() 
-                  - GLOBAL.TOP_MENU_BAR.getHeight()
+//                  - GLOBAL.TOP_MENU_BAR.getHeight()
             );
         });
     }

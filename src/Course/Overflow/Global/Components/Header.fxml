@@ -58,11 +58,11 @@
                </children>
             </HBox>
             <Label fx:id="myCourse" styleClass="cursorHand" text="My courses" />
-            <Label styleClass="cursorHand">
-               <graphic>
-                  <FontAwesomeIconView glyphName="HEART_ALT" size="40" />
-               </graphic>
-            </Label>
+            <ImageView id="themeToggle" fx:id="themeToggle" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Files/Icon/sunrise.png" />
+               </image>
+            </ImageView>
             <VBox prefHeight="80.0">
                <children>
                   <StackPane fx:id="notificationIcon" alignment="BOTTOM_RIGHT" prefHeight="41.0">

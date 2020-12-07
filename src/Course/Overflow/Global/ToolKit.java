@@ -530,8 +530,10 @@ public class ToolKit {
     }
 
     public static void removeNode(Node node) {
-        Pane parent = (Pane) node.getParent();
-        parent.getChildren().remove(node);
+        if(node.getParent() != null){
+            Pane parent = (Pane) node.getParent();
+            parent.getChildren().remove(node);
+        }
     }
 
     public static void showNoDataFound(Pane node){

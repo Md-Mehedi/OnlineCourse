@@ -6,7 +6,6 @@ import Course.Overflow.Global.Communication.MessagePage;
 import Course.Overflow.Global.Components.HeaderController;
 import Course.Overflow.Global.Components.Notification.NotificationView;
 import Course.Overflow.Global.Components.RightMenuPopOverController;
-import Course.Overflow.Global.Components.TopMenuBar.MenuBar;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
@@ -41,7 +40,6 @@ public class PageController {
     private NotificationView notificationCtrl;
     private AnchorPane notificationPane;
     private AnchorPane menuBar;
-    private MenuBar menuBarCtrl;
     private AnchorPane wrapper;
     private RightMenuPopOverController profileCtrl;
     private AnchorPane profilePane;
@@ -108,25 +106,33 @@ public class PageController {
         try {
             verticalBox = new VBox();
             wrapper = new AnchorPane(verticalBox);
+            ToolKit.setAnchor(verticalBox, 0, 0, 0, 0);
             Platform.runLater(()->{
                 wrapper.setMaxWidth(GLOBAL.WIDTH);
             });
-            scroll = new ScrollPane(wrapper);
-            container.getChildren().clear();
-            container.getChildren().add(scroll);
-            ToolKit.setAnchor(verticalBox, 0, 0, 0, 0);
-            ToolKit.setAnchor(scroll, 0, 0, 0, 0);
-
+        
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/Header.fxml"));
             header = loader.load();
             headerCtrl = loader.<HeaderController>getController();
             GLOBAL.HEADER = headerCtrl;
-            verticalBox.getChildren().add(header);
+            
+            scroll = new ScrollPane(wrapper);
+            wrapper.setPrefWidth(GLOBAL.WIDTH);
+            scroll.setPrefWidth(GLOBAL.WIDTH);
+            Platform.runLater(()->{
+                scroll.setMaxHeight(GLOBAL.HEIGHT - header.getPrefHeight());
+            });
+            scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
-            menuBarCtrl = new MenuBar();
-            menuBar = menuBarCtrl.getMenuContainer();
-            GLOBAL.TOP_MENU_BAR = menuBarCtrl;
-            verticalBox.getChildren().add(menuBar);
+            VBox boxContainer = new VBox(header, scroll);
+            container.getChildren().clear();
+            container.getChildren().add(boxContainer);
+            ToolKit.setAnchor(boxContainer, 0, 0, 0, 0);
+//            menuBarCtrl = new MenuBar();
+//            menuBar = menuBarCtrl.getMenuContainer();
+//            GLOBAL.TOP_MENU_BAR = menuBarCtrl;
+//            verticalBox.getChildren().add(menuBar);
 
             idx = verticalBox.getChildren().size();
             verticalBox.getChildren().add(new Page(PageName.Blank).getRoot());
@@ -134,7 +140,7 @@ public class PageController {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COMPONENTS_LOCATION + "/RightMenuPopOver.fxml"));
             profilePane = loader.load();
             profileCtrl = loader.<RightMenuPopOverController>getController();
-            wrapper.getChildren().add(profilePane);
+            container.getChildren().add(profilePane);
             headerCtrl.setProfilePane(profilePane);
 
             notificationCtrl = new NotificationView();
@@ -170,7 +176,7 @@ public class PageController {
             System.out.println(pageName);
             createLayout();
         }
-
+        
         switch (pageName) {
             case Home:
                 page = new Homepage();

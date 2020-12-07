@@ -13,15 +13,15 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" fx:id="container" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Layout.PageByPageLayoutController">
+<AnchorPane id="AnchorPane" fx:id="container" styleClass="full" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Layout.PageByPageLayoutController">
    <children>
-      <VBox layoutX="339.0" layoutY="64.0" style="-fx-spacing: 50;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="rootContainer" layoutX="339.0" layoutY="64.0" style="-fx-spacing: 50;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox fx:id="topContainer" style="-fx-alignment: center-right;">
                <children>
-                  <Label fx:id="itemsNumDetails" text="Number of items in 1 page" />
+                  <Label fx:id="itemsNumDetails" minWidth="350.0" text="Number of items in 1 page" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <ComboBox fx:id="numOfItemChoiceBox" style="-fx-pref-width: 100; -fx-pref-height: 35;" styleClass="choiceBox" />
+                  <ComboBox fx:id="numOfItemChoiceBox" minWidth="100.0" style="-fx-pref-width: 100; -fx-pref-height: 35;" styleClass="choiceBox" />
                   <HBox fx:id="viewChangerContainer">
                      <children>
                         <FontAwesomeIconView fx:id="listIcon" glyphName="LIST" size="24" style="-fx-cursor: hand;">
