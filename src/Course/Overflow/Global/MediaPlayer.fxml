@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXSlider?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
+
+<AnchorPane id="AnchorPane" fx:id="videoplayerpane" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.MediaPlayerController">
+   <children>
+      <MediaView fx:id="mediaview" fitHeight="350.0" fitWidth="600.0" layoutY="14.0" />
+      <JFXSlider fx:id="volumeslider" indicatorPosition="RIGHT" layoutX="548.0" layoutY="351.0" orientation="VERTICAL" prefHeight="99.0" prefWidth="24.0" />
+      <JFXSlider fx:id="mediaslider" layoutX="14.0" layoutY="364.0" prefHeight="24.0" prefWidth="400.0" />
+      <Button fx:id="play" layoutX="22.0" layoutY="388.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="62.0">
+         <graphic>
+            <ImageView fx:id="playimage" fitHeight="66.0" fitWidth="42.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/D:/program/java/OnlineCourse/src/Course/Overflow/Files/Icon/play.png" />
+               </image>
+               <effect>
+                  <Blend />
+               </effect>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="volume" layoutX="474.0" layoutY="390.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="63.0">
+         <graphic>
+            <ImageView fx:id="volumeimage" fitHeight="122.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Files/Icon/soundon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="right" layoutX="205.0" layoutY="388.0" mnemonicParsing="false">
+         <graphic>
+            <ImageView fitHeight="43.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/D:/program/java/OnlineCourse/src/Course/Overflow/Files/Icon/right.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="left" layoutX="111.0" layoutY="388.0" mnemonicParsing="false">
+         <graphic>
+            <ImageView fitHeight="43.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/D:/program/java/OnlineCourse/src/Course/Overflow/Files/Icon/left.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="select" layoutX="391.0" layoutY="399.0" mnemonicParsing="false" text="select" />
+      <Label fx:id="playTime" layoutX="437.0" layoutY="364.0" prefHeight="24.0" prefWidth="89.0" />
+      <ChoiceBox fx:id="speed" layoutX="290.0" layoutY="399.0" prefHeight="31.0" prefWidth="80.0" />
+   </children>
+</AnchorPane>

@@ -11,9 +11,6 @@ import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.Person.AccountType;
 import Course.Overflow.Student.Student;
-import Course.Overflow.Teacher.CreateCourse.CreateCourse;
-import Course.Overflow.Teacher.Teacher;
-import Course.Overflow.Student.Student;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -97,8 +94,8 @@ public class AppMain extends Application {
     private void shammyaTestPage() throws IOException {
         GLOBAL.ACCOUNT_TYPE = AccountType.Student;
         GLOBAL.STUDENT = new Student("mehediS");
-        PageController pageCtrl = new PageController(PageName.Home);
-//        pageCtrl.loadFXML(GLOBAL.ADMIN_LOCATION+"/Filtering.fxml");
+        PageController pageCtrl = new PageController(PageName.Login);
+        //pageCtrl.loadFXML(GLOBAL.GLOBAL_LOCATION+"/MediaPlayer.fxml");
         GLOBAL.PAGE_CTRL = pageCtrl;
         pane = pageCtrl.getContainer();
 

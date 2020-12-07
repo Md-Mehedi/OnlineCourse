@@ -1,8 +1,3 @@
-/*
- * To change this license HEADER, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package Course.Overflow.Global.Components.Notification;
 
@@ -20,15 +15,17 @@ public class NotificationView {
     AnchorPane root;
     VBox container;
     ArrayList<AnchorPane> notificationList;
+    private Integer unseenCount;
     
 
     public NotificationView() {
         container = new VBox();
-        container.getChildren().add(new Notification(Notification.NotificationType.COURSE_BOUGHT).getPane());
-        container.getChildren().add(new Notification(Notification.NotificationType.COURSE_BOUGHT).getPane());
-        container.getChildren().add(new Notification(Notification.NotificationType.MESSAGE).getPane());
-        container.getChildren().add(new Notification(Notification.NotificationType.COURSE_BOUGHT).getPane());
-        container.getChildren().add(new Notification(Notification.NotificationType.COMMENT).getPane());
+        unseenCount = 0;
+        ArrayList<Notification> list = Notification.getList();
+        for(Notification notification : list){
+            container.getChildren().add(notification.getPane());
+            if(!notification.isSeen()) unseenCount++;
+        }
         
         
         ScrollPane scrollPane = new ScrollPane(container);
@@ -58,5 +55,9 @@ public class NotificationView {
     
     public AnchorPane getContainer() {
         return root;
+    }
+    
+    public Integer getUnseenCount(){
+        return unseenCount;
     }
 }

@@ -2,6 +2,7 @@ package Course.Overflow.Global.Components;
 
 import Course.Overflow.Files.FileType;
 import Course.Overflow.Files.Files;
+import Course.Overflow.Global.Components.Notification.Notification;
 import Course.Overflow.Global.Country;
 import Course.Overflow.Global.CreditCard;
 import Course.Overflow.Global.Customize.HoverEffect;
@@ -118,9 +119,6 @@ public class ProfileSettingController implements Initializable {
     private DatePicker expireDate;
     private HashMap<Integer, CheckBox> checkBoxes;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         clearPassword();
@@ -135,8 +133,8 @@ public class ProfileSettingController implements Initializable {
         addListener();
         loadData();
     }
-    
-    private void clearPassword(){
+
+    private void clearPassword() {
         oldPass.setText("");
         newPass.setText("");
         newPassAgain.setText("");
@@ -310,6 +308,7 @@ public class ProfileSettingController implements Initializable {
 //                case Admin:     person = (Admin) person; break;
             }
             setPersonInformations();
+            Notification.setRegistration(username);
             GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
         });
         cancel.setOnMouseClicked(event -> {
@@ -320,7 +319,9 @@ public class ProfileSettingController implements Initializable {
     private void addListener() {
         upload.setOnMouseClicked((event) -> {
             File chosenFile = ToolKit.chooseFile(FileType.PICTURE);
-            if(chosenFile!=null) photoFile = chosenFile;
+            if (chosenFile != null) {
+                photoFile = chosenFile;
+            }
             if (chosenFile != null) {
                 imageNameLabel.setText(chosenFile.getName());
                 photo.setImage(new Image(chosenFile.toURI().toString()));
@@ -337,7 +338,7 @@ public class ProfileSettingController implements Initializable {
             GLOBAL.PAGE_CTRL.loadPreviousPage();
             clearPassword();
         });
-        cancel.setOnMouseClicked(event ->{
+        cancel.setOnMouseClicked(event -> {
             GLOBAL.PAGE_CTRL.loadPreviousPage();
             clearPassword();
         });
@@ -375,37 +376,38 @@ public class ProfileSettingController implements Initializable {
             JOptionPane.showConfirmDialog(null, "Please Write or Select your date of birth !", "select", JOptionPane.CANCEL_OPTION);
             return false;
         }
-        if(!ToolKit.isOnlyNumber(cardNo.getText())){
+        if (!ToolKit.isOnlyNumber(cardNo.getText())) {
             JOptionPane.showConfirmDialog(null, "Card number contains only digits!", "select", JOptionPane.OK_OPTION);
             return false;
         }
         boolean a = !cardNo.getText().equals("");
         boolean b = !nameOnCard.getText().equals("");
         boolean c = expireDate.getValue() != null;
-        if (!((a & b & c) || (!a & !b & !c))){
+        if (!((a & b & c) || (!a & !b & !c))) {
             JOptionPane.showConfirmDialog(null, "Please provide all informations of credit card  !", "select", JOptionPane.OK_OPTION);
             return false;
         }
         a = !oldPass.getText().equals("");
         b = !newPass.getText().equals("");
         c = !newPassAgain.getText().equals("");
-        if (!((a & b & c) || (!a & !b & !c))){
+        if (!((a & b & c) || (!a & !b & !c))) {
             JOptionPane.showConfirmDialog(null, "Please fill up all password field!", "select", JOptionPane.OK_OPTION);
             return false;
         }
-        if(!newPass.getText().equals(newPassAgain.getText())){
+        if (!newPass.getText().equals(newPassAgain.getText())) {
             JOptionPane.showConfirmDialog(null, "New password is not matching!", "select", JOptionPane.OK_OPTION);
             return false;
         }
-        if(!oldPass.getText().equals("")){
+        if (!oldPass.getText().equals("")) {
             Person per = Person.validUser(ToolKit.getCurrentPerson().getUsername(), oldPass.getText());
-            if(per==null){
+            if (per == null) {
                 JOptionPane.showConfirmDialog(null, "Password is not matching.", "select", JOptionPane.OK_OPTION);
                 return false;
             }
         }
         return true;
     }
+
 
     private void setPersonInformations() {
         Person person = ToolKit.getCurrentPerson();
@@ -425,29 +427,28 @@ public class ProfileSettingController implements Initializable {
         } else {
             person.setCountry(null);
         }
-        
-        if(!cardNo.getText().equals("")){
-            if(person.getCard() == null) person.setCard(CreditCard.insertCreditCard(cardNo.getText(), nameOnCard.getText(), ToolKit.localDateToDate(expireDate.getValue())));
-            else{
+
+        if (!cardNo.getText().equals("")) {
+            if (person.getCard() == null) {
+                person.setCard(CreditCard.insertCreditCard(cardNo.getText(), nameOnCard.getText(), ToolKit.localDateToDate(expireDate.getValue())));
+            } else {
                 CreditCard card = person.getCard();
                 card.setCardNo(cardNo.getText());
                 card.setNameOnCard(nameOnCard.getText());
                 card.setExpireDate(ToolKit.localDateToDate(expireDate.getValue()));
             }
-        }
-        else if(person.getCard() != null){
+        } else if (person.getCard() != null) {
             person.setCard(null);
         }
-        
-        if(person.getPhoto() == null){
+
+        if (person.getPhoto() == null) {
             person.setPhoto(new Files(photoFile, FileType.PICTURE));
-        }
-        else{
+        } else {
             person.getPhoto().setFile(photoFile);
         }
-        
-        switch(accountType){
-            case Student:   
+
+        switch (accountType) {
+            case Student:
                 if (!eduStatusCB.getValue().equals("-- Select --")) {
                     student.setEduStatus(new EducationalStatus(eduStatusCB.getValue()));
                 }
@@ -457,7 +458,7 @@ public class ProfileSettingController implements Initializable {
                     teacher.setDesignation(new Designation(eduStatusCB.getValue()));
                 }
         }
-        if(!oldPass.getText().equals("")){
+        if (!oldPass.getText().equals("")) {
             ToolKit.getCurrentPerson().setPassword(newPass.getText());
         }
     }

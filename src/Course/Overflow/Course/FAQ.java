@@ -31,6 +31,7 @@ public class FAQ {
     Date answerTime;
     Student student;
     Teacher teacher;
+    Integer courseId;
 
     public FAQ() {
     }
@@ -46,6 +47,7 @@ public class FAQ {
                 this.questionTime = rs.getTimestamp("QUESTION_TIME");
                 this.answerTime = rs.getTimestamp("ANSWER_TIME");
                 this.student = new Student(rs.getString("STUDENT_ID"));
+                this.courseId = rs.getInt("COURSE_ID");
                 ResultSet rsT = DB.executeQuery("SELECT TEACHER_ID FROM COURSE WHERE ID = #", rs.getString("COURSE_ID"));
                 if(rsT.next()){
                     this.teacher = new Teacher(rsT.getString("TEACHER_ID"));
@@ -127,6 +129,7 @@ public class FAQ {
         this.questionTime = ToolKit.getCurTime();
         this.student = student;
         this.teacher = course.getTeacher();
+        this.courseId = course.getId();
         DB.execute("INSERT INTO FAQ(ID, COURSE_ID, STUDENT_ID, QUESTION, QUESTION_TIME) VALUES(#, #, '#', '#', #)", id.toString(), course.getId().toString(), student.getUsername(), question, ToolKit.JDateToDDate(questionTime));
     }
     
@@ -184,5 +187,13 @@ public class FAQ {
             Logger.getLogger(Review.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lists;
+    }
+
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 }

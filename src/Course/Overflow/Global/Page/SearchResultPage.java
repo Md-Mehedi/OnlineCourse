@@ -259,5 +259,4 @@ public class SearchResultPage extends Page {
             readyCourseBoxes(list);
         }
     }
-
 }

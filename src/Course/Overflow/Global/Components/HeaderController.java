@@ -57,15 +57,13 @@ public class HeaderController implements Initializable {
     @FXML
     private StackPane notificationIcon;
     @FXML
-    private Label notificationNum;
-    @FXML
     private StackPane profile;
     @FXML
     private Circle profileCircle;
     @FXML
     private Label profileName;
-    private NotificationView notiCtrl;
-    private AnchorPane noti;
+    private NotificationView notificationCtrl;
+    private AnchorPane notificationPane;
     @FXML
     private AnchorPane header;
     private AnchorPane profilePane;
@@ -78,6 +76,9 @@ public class HeaderController implements Initializable {
     @FXML
     private Label categoriesBtn;
     private MyFadeTransition mainCatTransition;
+    @FXML
+    private Label notificationCount;
+    private Integer notifcationCC;
 
     /**
      * Initializes the controller class.
@@ -116,9 +117,16 @@ public class HeaderController implements Initializable {
     }
     
     
-    public void setNotiPane(AnchorPane noti){
-        this.noti = noti;
+    public void setNotificationCtrl(NotificationView ctrl){
+        this.notificationCtrl = ctrl;
+        this.notificationPane = ctrl.getContainer();
+        setCount(ctrl.getUnseenCount());
         setNotiPanePosition();
+    }
+    
+    public void setCount(Integer count){
+        this.notifcationCC = count;
+        notificationCount.setText(count.toString());
     }
     
     public void setProfilePane(AnchorPane profile){
@@ -128,14 +136,14 @@ public class HeaderController implements Initializable {
     
     public void setNotiPanePosition(){
         Platform.runLater(()->{
-            noti.setLayoutY(header.getHeight());
-            noti.setLayoutX(header.getWidth() - noti.getWidth());
+            notificationPane.setLayoutY(header.getHeight());
+            notificationPane.setLayoutX(header.getWidth() - notificationPane.getWidth());
             
             logo.setOnMouseClicked((event)->{
                 GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
             });
         });
-        new MyFadeTransition(notificationIcon, noti);
+        new MyFadeTransition(notificationIcon, notificationPane);
     }
 
     private void setProfilePanePosition() {
@@ -242,5 +250,9 @@ public class HeaderController implements Initializable {
             if(!profile.getChildren().contains(profileName)) profile.getChildren().add(profileName);
             profileName.setText(ToolKit.getCurrentPerson().getShortName());
         }
+    }
+
+    public void decreaseNotification() {
+        setCount(notifcationCC-1);
     }
 }

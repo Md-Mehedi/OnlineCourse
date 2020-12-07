@@ -1,12 +1,9 @@
-/*
- * To change this license HEADER, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Course.Overflow.Teacher.CreateCourse.Pricing;
 
 import Course.Overflow.Course.Course;
 import Course.Overflow.Course.Show.CourseDetailsController;
+import Course.Overflow.Global.Components.Notification.Notification;
 import Course.Overflow.Global.Customize.ToolTip;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
@@ -32,11 +29,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
-/**
- * FXML Controller class
- *
- * @author ASUS
- */
+
 public class PricingController implements Initializable {
 
     @FXML
@@ -67,7 +60,7 @@ public class PricingController implements Initializable {
     private boolean newCourse;
     @FXML
     private JFXButton cancelBtn;
-    private Course course;
+    public Course course;
 
     /**
      * Initializes the controller class.
@@ -141,6 +134,8 @@ public class PricingController implements Initializable {
         uploadBtn.setOnMouseClicked((event) -> {
             if(!parent.isPassedCondition()) return;
             parent.uploadToDB();
+            course = parent.getCourse();
+            Notification.setCourseUpload(course);
             GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
             CourseDetailsController ctrl = (CourseDetailsController) GLOBAL.PAGE_CTRL.getController();
             ctrl.loadData(new Course(parent.getCourse().getId()));
@@ -186,6 +181,8 @@ public class PricingController implements Initializable {
         uploadBtn.setOnMouseClicked((event) -> {
             if(!parent.isPassedCondition()) return;
             parent.uploadToDB();
+            course = parent.getCourse();
+            Notification.setCourseUpload(course);
             GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
             CourseDetailsController ctrl = (CourseDetailsController) GLOBAL.PAGE_CTRL.getController();
             ctrl.loadData(new Course(parent.getCourse().getId()));

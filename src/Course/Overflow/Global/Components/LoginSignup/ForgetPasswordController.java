@@ -107,6 +107,8 @@ public class ForgetPasswordController implements Initializable {
 //            }
 //        });
         check.setOnMouseClicked(event -> {
+            if(!username.getText().isEmpty() && dob.getValue()!=null)
+            { 
             boolean a = DB.valueExist("PERSON", "ID", username.getText());
             boolean b = DB.valueExistnew("PERSON", "DOB",ToolKit.JDateToDDate(ToolKit.localDateToDate(dob.getValue())) );               
             flag = a & b;
@@ -115,6 +117,7 @@ public class ForgetPasswordController implements Initializable {
                 message.setText(" Now change your passoword ! ");
             } else {
                 message.setText("Invalid username or date of birth ! ");
+            }
             }
         });
         confirm.setOnMouseClicked(event -> {

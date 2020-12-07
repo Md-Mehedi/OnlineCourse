@@ -38,8 +38,8 @@ public class PageController {
     private static HeaderController headerCtrl;
     private AnchorPane header;
     private AnchorPane footer;
-    private NotificationView notiCtrl;
-    private AnchorPane noti;
+    private NotificationView notificationCtrl;
+    private AnchorPane notificationPane;
     private AnchorPane menuBar;
     private MenuBar menuBarCtrl;
     private AnchorPane wrapper;
@@ -137,10 +137,10 @@ public class PageController {
             wrapper.getChildren().add(profilePane);
             headerCtrl.setProfilePane(profilePane);
 
-            notiCtrl = new NotificationView();
-            noti = notiCtrl.getContainer();
-            wrapper.getChildren().add(noti);
-            headerCtrl.setNotiPane(noti);
+            notificationCtrl = new NotificationView();
+            notificationPane = notificationCtrl.getContainer();
+            wrapper.getChildren().add(notificationPane);
+            headerCtrl.setNotificationCtrl(notificationCtrl);
         } catch (IOException ex) {
             Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
         }

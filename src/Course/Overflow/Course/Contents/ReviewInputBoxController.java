@@ -9,6 +9,7 @@ import Course.Overflow.Course.Course;
 import Course.Overflow.Course.CourseRating;
 import Course.Overflow.Course.Review;
 import Course.Overflow.Course.Show.CourseDetailsController;
+import Course.Overflow.Global.Components.Notification.Notification;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.FloatingPane;
 import Course.Overflow.Global.ToolKit;
@@ -65,6 +66,7 @@ public class ReviewInputBoxController extends FloatingPane implements Initializa
                 courseRating = new CourseRating(course, GLOBAL.STUDENT, this.rating.getRating());
             }
             Review review = new Review(course, GLOBAL.STUDENT, reviewField.getText(), courseRating);
+            Notification.setReview(course, GLOBAL.STUDENT.getUsername()); //Review input Notification
             parentCtrl.addReviewBox(review);
             parentCtrl.refreshData();
             parentCtrl.addRating();

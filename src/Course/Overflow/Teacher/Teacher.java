@@ -140,6 +140,7 @@ public class Teacher extends Person {
             Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
         }
         return value;
+    }
     public static ArrayList<Teacher> getTeacherList()
     {
         String sql = "SELECT ID FROM TEACHER ";

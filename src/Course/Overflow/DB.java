@@ -91,7 +91,7 @@ public class DB {
         sql = sql.replace("&&&&&", "$");
         
         try {
-//            System.out.println(sql);System.out.println("");
+           System.out.println(sql);System.out.println("");
             return st.execute(sql);
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);

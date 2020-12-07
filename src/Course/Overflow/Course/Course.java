@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 public class Course {
 
     String teacherName;
+    String teacherUsername;
     Integer id;
     String title;
     String subTitle;
@@ -74,6 +75,7 @@ public class Course {
             isApproved = ToolKit.DBoolToJBool(rs.getString("IS_APPROVED"));
             teacher = new Teacher(rs.getString("TEACHER_ID"));
             teacherName = teacher.getFirstName();
+            teacherUsername = teacher.getUsername();
             imageFile = new Files(rs.getInt("COVER_ID"));
             subCategory = new Category(rs.getInt("CATEGORY_ID"));
             mainCategory = subCategory.getParent();
@@ -121,7 +123,11 @@ public class Course {
                 teacher.getUsername().toString(), imageFile.getId().toString(), subCategory.getId().toString()
         );
     }
-
+//    public String getTeacherUserame() {
+//        return teacherUsername;
+//    }
+    
+    
     public String getTeacherName() {
         return teacherName;
     }

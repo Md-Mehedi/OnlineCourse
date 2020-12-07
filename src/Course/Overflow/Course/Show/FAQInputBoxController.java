@@ -7,6 +7,7 @@ package Course.Overflow.Course.Show;
 
 import Course.Overflow.Course.Course;
 import Course.Overflow.Course.FAQ;
+import Course.Overflow.Global.Components.Notification.Notification;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.FloatingPane;
 import com.jfoenix.controls.JFXButton;
@@ -61,6 +62,7 @@ public class FAQInputBoxController extends FloatingPane implements Initializable
     private void addListener() {
         faqSubmitBtn.setOnMouseClicked((event) -> {
             FAQ faq = new FAQ(course, GLOBAL.STUDENT, questionField.getText());
+            Notification.setFaqQuestion(course, GLOBAL.STUDENT.getUsername()); //FAQ Question Notification
             questionField.setText("");
             courseDetailsParent.addFAQBox(faq);
             close();
@@ -71,10 +73,12 @@ public class FAQInputBoxController extends FloatingPane implements Initializable
     }
 
     void makeEnvironmentForAnswerInput() {
+        this.course = course;
         questionField.setPromptText("Write your answer : ");
         faqSubmitBtn.setOnMouseClicked((event) -> {
             faq.setAnswer(questionField.getText());
             questionField.setText("");
+            Notification.setFaqAnswer(new Course(faq.getCourseId()), GLOBAL.STUDENT.getUsername());
             faqOutputParent.removeAnswerBtn();
             faqOutputParent.loadAnswer(faq);
             close();
