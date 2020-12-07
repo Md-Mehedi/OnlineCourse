@@ -80,11 +80,13 @@ public class VideoShowBoxController implements Initializable {
             parent.getAvailableContentContainer().getChildren().remove(container);
             parent.getAvailableContentContainer().getChildren().add(pane);
         } else if (src == playBtn) {
-            me = new Media(file.toURI().toString());
-            mp = new MediaPlayer(me);
-            mediaView.setMediaPlayer(mp);
-            mp.setAutoPlay(true);
-            playBtn.setVisible(false);
+            GLOBAL.PLAYER_CTRL.setFile(file);
+            GLOBAL.PLAYER_CTRL.show();
+//            me = new Media(file.toURI().toString());
+//            mp = new MediaPlayer(me);
+//            mediaView.setMediaPlayer(mp);
+//            mp.setAutoPlay(true);
+//            playBtn.setVisible(false);
         }
     }
     

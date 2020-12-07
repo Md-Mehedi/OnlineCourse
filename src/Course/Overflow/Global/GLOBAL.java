@@ -71,4 +71,5 @@ public class GLOBAL {
     public static Admin ADMIN;
 //    public static Admin ADMIN;
     public static String FILE_CHOOSER_DIRECTORY = "C:";
+    public static MediaPlayerController PLAYER_CTRL;
 }

@@ -166,10 +166,7 @@ Label{
     -fx-text-fill: #00cccc;
 }
 .catContainer{
-    -fx-background-color: white;
     -fx-spacing: 0;
-    -fx-border-color: #009999;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0.0, 0.0);
 }
 .catContainer > HBox{
     -fx-padding: 0 10 0 10;
@@ -177,9 +174,6 @@ Label{
     -fx-pref-width: 300;
     -fx-alignment: CENTER_LEFT;
     -fx-cursor: hand;
-}
-.catContainer > HBox:hover{
-    -fx-background-color:#EDF2FA;
 }
 .catContainer > HBox:hover Label{
     -fx-text-fill:#00cccc;
