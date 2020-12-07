@@ -14,7 +14,6 @@ import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Student.Student;
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -119,11 +118,9 @@ public class AppMain extends Application {
     }
 
     private void cssEffect() {
-        Platform.runLater(()->{
-            root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
-            root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/LightTheme.css");
-            root.setId("mainRoot");
-        });
+        root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
+        root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/LightTheme.css");
+        root.setId("mainRoot");
 //        ImagePattern ip = new ImagePattern(new Image(GLOBAL.ICON_LOCATION + "/White bg.png"), 100, 100, 500, 500, false);
 //        root.setBackground(new Background(new BackgroundFill(ip, CornerRadii.EMPTY, Insets.EMPTY)));    
     }
