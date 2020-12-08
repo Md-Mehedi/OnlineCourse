@@ -76,7 +76,7 @@ public class PageController {
         }
         pages.add(page);
         pageIdx++;
-        headerCtrl.getRightArrow().setOpacity(0.1);
+        headerCtrl.getRightArrow().setOpacity(0.4);
         if (pageIdx != 0) {
             headerCtrl.getLeftArrow().setOpacity(1);
         }
@@ -127,6 +127,7 @@ public class PageController {
             scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
             VBox boxContainer = new VBox(header, scroll);
+            boxContainer.setStyle("-fx-alignment: top-center;");
             container.getChildren().clear();
             container.getChildren().add(boxContainer);
             ToolKit.setAnchor(boxContainer, 0, 0, 0, 0);
@@ -146,7 +147,7 @@ public class PageController {
 
             notificationCtrl = new NotificationView();
             notificationPane = notificationCtrl.getContainer();
-            wrapper.getChildren().add(notificationPane);
+            container.getChildren().add(notificationPane);
             headerCtrl.setNotificationCtrl(notificationCtrl);
             
             
@@ -162,12 +163,12 @@ public class PageController {
         verticalBox.getChildren().remove(idx);
         verticalBox.getChildren().add(idx, pages.get(pageIdx).getRoot());
         if (pageIdx == 0) {
-            headerCtrl.getLeftArrow().setOpacity(0.1);
+            headerCtrl.getLeftArrow().setOpacity(0.4);
         } else {
             headerCtrl.getLeftArrow().setOpacity(1);
         }
         if (pageIdx == pages.size() - 1) {
-            headerCtrl.getRightArrow().setOpacity(0.1);
+            headerCtrl.getRightArrow().setOpacity(0.4);
         } else {
             headerCtrl.getRightArrow().setOpacity(1);
         }
@@ -186,6 +187,7 @@ public class PageController {
         switch (pageName) {
             case Home:
                 page = new Homepage();
+                notificationCtrl.refresh();
                 break;
             case Course:
                 page = new CoursePage();

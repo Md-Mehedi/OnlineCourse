@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -42,7 +43,7 @@
                   <Image url="@../../Files/Icon/logo.png" />
                </image>
             </ImageView>
-            <Label id="categoriesLabel" fx:id="categoriesBtn" styleClass="cursorHand" text="Categories" />
+            <Label id="categoriesLabel" fx:id="categoriesBtn" style="-fx-font-weight: bold;" styleClass="cursorHand" text="Categories" />
             <HBox HBox.hgrow="ALWAYS">
                <children>
                   <Label styleClass="cursorHand">
@@ -57,10 +58,14 @@
                   </JFXTextField>
                </children>
             </HBox>
-            <ImageView id="themeToggle" fx:id="themeToggle" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="cursorHand">
+            <ImageView id="themeToggle" fx:id="themeToggle" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../Files/Icon/sunrise.png" />
                </image>
+               <styleClass>
+                  <String fx:value="cursorHand" />
+                  <String fx:value="shadow" />
+               </styleClass>
             </ImageView>
             <VBox prefHeight="80.0">
                <children>
@@ -82,7 +87,11 @@
             </VBox>
             <StackPane fx:id="profile" styleClass="cursorHand">
                <children>
-                  <Circle fx:id="profileCircle" fill="#9c467f" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="cursorHand" />
+                  <Circle fx:id="profileCircle" fill="#9c467f" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                     <styleClass>
+                        <String fx:value="cursorHand" />
+                        <String fx:value="shadow" />
+                     </styleClass></Circle>
                   <Label fx:id="profileName" style="-fx-text-fill: white; -fx-font-weight: bold;" text="AA" />
                </children>
             </StackPane>

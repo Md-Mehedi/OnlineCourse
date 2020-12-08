@@ -7,36 +7,82 @@ and open the template in the editor.
     Created on : Dec 6, 2020, 5:54:34 PM
     Author     : ASUS
 */
-Label, TextField, JFXTextField, JFXTextArea, TextArea, CheckBox, ChoiceBox, JFXCheckBox, JFXComboBox, FontAwesomeIconView, MaterialIconView{
+Label, TextField, CheckBox, ChoiceBox, Text, TextFlow,
+JFXTextField, JFXTextArea, TextArea,
+JFXCheckBox, JFXComboBox,
+FontAwesomeIconView, MaterialIconView{
 /*    -fx-background-color: black;*/
     -fx-text-fill: black;
     -fx-fill: black;
+    -fx-prompt-text-fill: black;
 }
 
 #mainRoot{
     -fx-background-image: url("../Files/Icon/LightBG.jpg");
     -fx-background-repeat: repeat;
 }
+.shadow{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0.0, 0.0);
+}
 
 /*CourseBox CSS*/
 .courseGridBoxContainer{
     -fx-background-color: #EEEEEE;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0.0, 0.0);
-}
-
-/*Header CSS*/
-#notificationCount{
-    -fx-text-fill: #FF1E1E;
-    -fx-effect: dropshadow(three-pass-box, rgba(255, 251, 251, 1), 5, 0.9, 0.0, 0.0);
-
 }
 
 /*Category*/
 .catContainer{
     -fx-background-color: #EAEAEA;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0.0, 0.0);
     -fx-border-color: #009999;
 }
 .catContainer > HBox:hover{
     -fx-background-color:#EDF2FA;
+}
+#categoriesLabel{
+    -fx-text-fill: #009999;
+}
+#categoriesLabel:hover{
+    -fx-text-fill: #9100F7;
+}
+.catContainer > HBox:hover Label{
+    -fx-text-fill:#00cccc;
+}
+.catContainer > HBox:hover FontAwesomeIconView{
+    -fx-fill: #00cccc;
+}
+
+/*Right Menu Pop Up*/
+#popUpContainer{
+    -fx-background-color: white;
+}
+#popUpContainer > HBox{
+    -fx-border-color: #cccccc;
+    -fx-background-color:#EEEEEE;
+}
+#popUpContainer Label:hover{
+    -fx-text-fill: #00cccc;
+}
+
+/*Notification pane*/
+#notificationCount{
+    -fx-text-fill: #FF1E1E;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 1), 10, 0.5, 0.0, 0.0);
+}
+#notificationPane{
+    -fx-background-color: white;
+}
+#notificationPane .seen, #notificationPane .unseen{
+    -fx-border-color:#DDDFE2;
+}
+#notificationPane .seen{
+    -fx-background-color: white;
+}
+#notificationPane .seen:hover{
+    -fx-background-color: #F2F2F2;
+}
+#notificationPane .unseen{
+    -fx-background-color: #cccccc;
+}
+#notificationPane .unseen:hover{
+    -fx-background-color: #dddddd;
 }

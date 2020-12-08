@@ -21,11 +21,7 @@ public class NotificationView {
     public NotificationView() {
         container = new VBox();
         unseenCount = 0;
-        ArrayList<Notification> list = Notification.getList();
-        for(Notification notification : list){
-            container.getChildren().add(notification.getPane());
-            if(!notification.isSeen()) unseenCount++;
-        }
+        refresh();
         
         
         ScrollPane scrollPane = new ScrollPane(container);
@@ -34,6 +30,7 @@ public class NotificationView {
         scrollPane.setId("notificationPane");
 //        scrollPane.setPrefSize(350,500);
         root = new AnchorPane(scrollPane);
+        root.getStyleClass().add("shadow");
 
 //        root.setOnMouseEntered((MouseEvent)->{
 //            root.setVisible(true);
@@ -51,6 +48,16 @@ public class NotificationView {
 //                root.setVisible(false);
 //            });
 //        });
+    }
+    
+    public void refresh(){
+        ArrayList<Notification> list = Notification.getList();
+        container.getChildren().clear();
+        for(Notification notification : list){
+            container.getChildren().add(notification.getPane());
+            if(!notification.isSeen()) unseenCount++;
+        }
+        GLOBAL.HEADER.setCount(unseenCount);
     }
     
     public AnchorPane getContainer() {

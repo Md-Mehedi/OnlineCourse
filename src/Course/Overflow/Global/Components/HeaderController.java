@@ -89,8 +89,8 @@ public class HeaderController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         isLight = false;
-        leftArrow.setOpacity(0.1);
-        rightArrow.setOpacity(0.1);
+        leftArrow.setOpacity(0.4);
+        rightArrow.setOpacity(0.4);
         loadProfilePhoto();
         addListener();
         Platform.runLater(()->{
@@ -137,6 +137,9 @@ public class HeaderController implements Initializable {
                 GLOBAL.rootPane.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/LightTheme.css");
             }
         });
+        notificationIcon.setOnMouseClicked((event) -> {
+            notificationCtrl.refresh();
+        });
     }
     
     
@@ -144,7 +147,7 @@ public class HeaderController implements Initializable {
         this.notificationCtrl = ctrl;
         this.notificationPane = ctrl.getContainer();
         setCount(ctrl.getUnseenCount());
-        setNotiPanePosition();
+        setNotificationPanePosition();
     }
     
     public void setCount(Integer count){
@@ -157,7 +160,7 @@ public class HeaderController implements Initializable {
         setProfilePanePosition();
     }
     
-    public void setNotiPanePosition(){
+    public void setNotificationPanePosition(){
         Platform.runLater(()->{
             notificationPane.setLayoutY(header.getHeight());
             notificationPane.setLayoutX(header.getWidth() - notificationPane.getWidth());
@@ -207,6 +210,7 @@ public class HeaderController implements Initializable {
         VBox subCatContainer = new VBox();
         AnchorPane subCatRoot = new AnchorPane(subCatContainer);
         subCatRoot.getStylesheets().add(GLOBAL.COMPONENTS_LOCATION + "/Components.css");
+        subCatRoot.getStyleClass().add("shadow");
         ToolKit.setAnchor(subCatContainer, 0, 0, 0, 0);
         int subCatNum = pair.getValue().size();
         if(subCatNum == 0) box.getChildren().remove(2);
@@ -237,6 +241,7 @@ public class HeaderController implements Initializable {
     public void createCategories(){
         VBox catContainer = new VBox();
         AnchorPane catRoot = new AnchorPane(catContainer);
+        catRoot.getStyleClass().add("shadow");
         catRoot.setLayoutX(categoriesBtn.getLayoutX());
         catRoot.setLayoutY(header.getPrefHeight());
         catRoot.getStylesheets().add(GLOBAL.COMPONENTS_LOCATION + "/Components.css");
