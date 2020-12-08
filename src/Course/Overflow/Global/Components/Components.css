@@ -107,48 +107,32 @@ Label{
 #notificationPane VBox{
     -fx-spacing: 0;
 }
-.notification{
+#notificationPane .seen, #notificationPane .unseen{
     -fx-pref-width: 480;
-    -fx-border-color:#DDDFE2;
 }
-.notification:hover{
-    -fx-background-color:#DDDDDD;
-}
-.notification TextFlow{
+#notificationPane TextFlow{
     -fx-padding: 10;
     -fx-text-alignment: justify;
 }
-.textNotification TextFlow{
+#notificationPane TextFlow{
     -fx-pref-width: 460;
-}
-.picNotification TextFlow{
-    -fx-max-width: 290;
-}
-.unread{
-    -fx-background-color: #EDF2FA;
 }
 /**
  ** Profile Icon Pop Over 
  **/
 #popUpContainer{
-    -fx-background-color: white;
     -fx-pref-width: 380;
     -fx-alignment: top-left;
     -fx-padding: 20;
 }
 #popUpContainer > HBox{
-    -fx-border-color: #cccccc;
     -fx-padding: 5;
     -fx-alignment: center-left;
     -fx-spacing: 20;
-    -fx-background-color:#EEEEEE;
 }
 #popUpContainer Label{
     -fx-font-size: 23;
     -fx-pref-width: 360;
-}
-#popUpContainer Label:hover{
-    -fx-text-fill: #00cccc;
 }
 
 /*Course Box Horizontal*/
@@ -160,10 +144,6 @@ Label{
 #categoriesLabel{
     -fx-font-size: 23;
     -fx-pref-height: 80;
-    -fx-text-fill: #009999;
-}
-#categoriesLabel:hover{
-    -fx-text-fill: #00cccc;
 }
 .catContainer{
     -fx-spacing: 0;
@@ -174,12 +154,6 @@ Label{
     -fx-pref-width: 300;
     -fx-alignment: CENTER_LEFT;
     -fx-cursor: hand;
-}
-.catContainer > HBox:hover Label{
-    -fx-text-fill:#00cccc;
-}
-.catContainer > HBox:hover FontAwesomeIconView{
-    -fx-fill: #00cccc;
 }
 .catContainer Label{
     -fx-font-size: 20;

@@ -4,37 +4,85 @@
     Author     : Asus
 */
 
-Label, TextField, JFXTextField, JFXTextArea, TextArea, CheckBox, ChoiceBox, JFXCheckBox, JFXComboBox, FontAwesomeIconView, MaterialIconView{
-    /*    -fx-background-color: black;*/
+Label, TextField, CheckBox, ChoiceBox, Text, TextFlow,
+JFXTextField, JFXTextArea, TextArea,
+JFXCheckBox, JFXComboBox,
+FontAwesomeIconView, MaterialIconView{
+/*    -fx-background-color: black;*/
     -fx-text-fill: white;
     -fx-fill: white;
+    -fx-prompt-text-fill: white;
 }
 
 #mainRoot{
     -fx-background-image: url("../Files/Icon/DarkBG.jpg");
     -fx-background-repeat: repeat;
 }
+.shadow{
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 10, 0.5, 0.0, 0.0);
+}
 
 /*CourseBox CSS*/
 .courseGridBoxContainer{
     /*-fx-background-color: #303E47;*/
-    -fx-background-color: #1A1A1A;
-    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 10, 0.5, 0.0, 0.0);
-}
-/*Header CSS*/
-#notificationCount{
-    -fx-text-fill: #FF1E1E;
-    -fx-effect: dropshadow(three-pass-box, rgba(64, 64, 64, 1), 1.94, 0.9, 0.0, 0.0);
-
+    -fx-background-color: #111111;
 }
 
 /*Category*/
 .catContainer{
-    -fx-background-color: #3F50AA;
-    -fx-effect: dropshadow(gaussian, rgba(64, 64, 64, 0.5), 10, 0.5, 0.0, 0.0);
-    -fx-border-color: #C55D36;
+    -fx-background-color: #22375A;
+    -fx-border-color: #013364;
 }
 .catContainer > HBox:hover{
+    -fx-background-color:#1B1C5D;
+}
+#categoriesLabel{
+    -fx-text-fill: cyan;
+}
+#categoriesLabel:hover{
+    -fx-text-fill: #33ccdd;
+}
+.catContainer > HBox:hover Label{
+    -fx-text-fill:#00EDF3;
+}
+.catContainer > HBox:hover FontAwesomeIconView{
+    -fx-fill: #00EDF3;
+}
+
+/*Right Menu Pop Up*/
+#popUpContainer{
+    -fx-background-color: #222034;
+}
+#popUpContainer > HBox{
+    -fx-border-color: #535353;
+    -fx-background-color:#424242;
+}
+#popUpContainer Label:hover{
+    -fx-text-fill:#00EDF3;
+}
+
+/*Notification pane*/
+#notificationCount{
+    -fx-text-fill: #FF1E1E;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 1), 10, 0.5, 0.0, 0.0);
+}
+#notificationPane{
+    -fx-background-color: black;
+}
+#notificationPane .seen, #notificationPane .unseen{
+    -fx-border-color:#DADADA;
+}
+#notificationPane .seen{
+    -fx-background-color: #000033;
+}
+#notificationPane .seen:hover{
+    -fx-background-color: #003333;
+}
+#notificationPane .unseen{
+    -fx-background-color: #003366;
+}
+#notificationPane .unseen:hover{
+    -fx-background-color: #330099;
     -fx-background-color:#455DBA;
 }
 

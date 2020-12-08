@@ -265,6 +265,12 @@ public class Notification {
                 makeFaqAnswerPane();
                 break;
         }
+        if(seen){
+            pane.getStyleClass().add("seen");
+        }
+        else{
+            pane.getStyleClass().add("unseen");
+        }
     }
 
     public Notification() {
