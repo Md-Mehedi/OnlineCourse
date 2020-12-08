@@ -5,7 +5,7 @@
 */
 
 Label, TextField, JFXTextField, JFXTextArea, TextArea, CheckBox, ChoiceBox, JFXCheckBox, JFXComboBox, FontAwesomeIconView, MaterialIconView{
-/*    -fx-background-color: black;*/
+    /*    -fx-background-color: black;*/
     -fx-text-fill: white;
     -fx-fill: white;
 }
@@ -18,7 +18,7 @@ Label, TextField, JFXTextField, JFXTextArea, TextArea, CheckBox, ChoiceBox, JFXC
 /*CourseBox CSS*/
 .courseGridBoxContainer{
     /*-fx-background-color: #303E47;*/
-    -fx-background-color: #111111;
+    -fx-background-color: #1A1A1A;
     -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 10, 0.5, 0.0, 0.0);
 }
 /*Header CSS*/
@@ -36,4 +36,28 @@ Label, TextField, JFXTextField, JFXTextArea, TextArea, CheckBox, ChoiceBox, JFXC
 }
 .catContainer > HBox:hover{
     -fx-background-color:#455DBA;
+}
+
+/*Admin Panel*/
+.redBtn{
+    -fx-text-fill: white;
+    -fx-background-color: #F55B50;
+    -fx-background-radius: 8;
+}
+.redColor{
+    -fx-background-color:   #F7BFD2;
+    -fx-text-fill: black;
+}
+
+.Header1{
+    -fx-background-color:    #F4BD4D;
+    
+}
+
+.Header2{
+    -fx-background-color:     #F7E0C1;
+}
+
+.CategoryPane{
+    -fx-background-color:      #303E47;
 }

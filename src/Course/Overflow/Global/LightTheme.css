@@ -40,3 +40,25 @@ Label, TextField, JFXTextField, JFXTextArea, TextArea, CheckBox, ChoiceBox, JFXC
 .catContainer > HBox:hover{
     -fx-background-color:#EDF2FA;
 }
+
+/*Admin Panel*/
+.redBtn{
+    -fx-text-fill: #2C2929;
+    -fx-background-color:  #F03B3F;
+    -fx-background-radius: 8;
+}
+.redColor{
+    -fx-background-color:  #F72F75;
+    -fx-text-fill: white;
+}
+.Header1{
+    -fx-background-color:   #EF7D3F;
+}
+
+.Header2{
+    -fx-background-color:      #717978;
+}
+
+.CategoryPane{
+    -fx-background-color:       #F7E0C1;
+}
