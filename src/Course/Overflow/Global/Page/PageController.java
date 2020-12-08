@@ -46,6 +46,7 @@ public class PageController {
     private AnchorPane profilePane;
     private Page page;
     private static int idx;
+    private VBox boxContainer;
 
 //    public PageController() {
 //        this(PageName.Home);
@@ -76,7 +77,7 @@ public class PageController {
         }
         pages.add(page);
         pageIdx++;
-        headerCtrl.getRightArrow().setOpacity(0.4);
+        headerCtrl.getRightArrow().setOpacity(0.3);
         if (pageIdx != 0) {
             headerCtrl.getLeftArrow().setOpacity(1);
         }
@@ -126,7 +127,7 @@ public class PageController {
             scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
             scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
-            VBox boxContainer = new VBox(header, scroll);
+            boxContainer = new VBox(header, scroll);
             boxContainer.setStyle("-fx-alignment: top-center;");
             container.getChildren().clear();
             container.getChildren().add(boxContainer);
@@ -163,12 +164,12 @@ public class PageController {
         verticalBox.getChildren().remove(idx);
         verticalBox.getChildren().add(idx, pages.get(pageIdx).getRoot());
         if (pageIdx == 0) {
-            headerCtrl.getLeftArrow().setOpacity(0.4);
+            headerCtrl.getLeftArrow().setOpacity(0.3);
         } else {
             headerCtrl.getLeftArrow().setOpacity(1);
         }
         if (pageIdx == pages.size() - 1) {
-            headerCtrl.getRightArrow().setOpacity(0.4);
+            headerCtrl.getRightArrow().setOpacity(0.3);
         } else {
             headerCtrl.getRightArrow().setOpacity(1);
         }
@@ -179,7 +180,7 @@ public class PageController {
 //        if (curPage == pageName) {
 //            return;
 //        }
-        if (!container.getChildren().contains(scroll) && !isLoadingWithoutLayout(pageName)) {
+        if (!container.getChildren().contains(boxContainer) && !isLoadingWithoutLayout(pageName)) {
             System.out.println(pageName);
             createLayout();
         }
