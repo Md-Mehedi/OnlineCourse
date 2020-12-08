@@ -146,7 +146,6 @@ public class HeaderController implements Initializable {
     public void setNotificationCtrl(NotificationView ctrl){
         this.notificationCtrl = ctrl;
         this.notificationPane = ctrl.getContainer();
-        setCount(ctrl.getUnseenCount());
         setNotificationPanePosition();
     }
     
