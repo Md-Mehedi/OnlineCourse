@@ -72,7 +72,7 @@ public class AppMain extends Application {
 
     private void mehediTestPage() throws IOException {
         PageController pageCtrl = null;
-        int testing = 0;
+        int testing = 1;
         if(testing == 1){
             GLOBAL.ACCOUNT_TYPE = Person.AccountType.Student;
             GLOBAL.STUDENT = new Student("mehediS");

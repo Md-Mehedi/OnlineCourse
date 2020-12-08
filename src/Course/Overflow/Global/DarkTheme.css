@@ -7,12 +7,37 @@
 Label, TextField, CheckBox, ChoiceBox, Text, TextFlow,
 JFXTextField, JFXTextArea, TextArea,
 JFXCheckBox, JFXComboBox,
+JFXButton, JFXDatePicker,
 FontAwesomeIconView, MaterialIconView{
-/*    -fx-background-color: black;*/
     -fx-text-fill: white;
     -fx-fill: white;
     -fx-prompt-text-fill: white;
 }
+JFXTextField, JFXTextArea, JFXDatePicker, JFXComboBox{
+    -jfx-focus-color: #F78D46;
+}
+.jfx-date-picker .jfx-text-field,
+JFXComboBox .jfx-text-field{
+    -fx-text-fill: white;
+}
+.jfx-combo-box .arrow,
+.choice-box .arrow {
+    -fx-background-color: white;   
+}
+.combo-box .cell {
+    -fx-background-color: #2A2A2A;
+    -fx-text-fill: white;
+}
+.combo-box .cell:hover {
+    -fx-background-color: #0066cc;
+}
+.combo-box .cell:selected {
+    -fx-background-color: #0066cc;
+}
+.backContainer{
+    -fx-background-color: #2A2A2A;
+}
+
 
 #mainRoot{
     -fx-background-image: url("../Files/Icon/DarkBG.jpg");
@@ -44,6 +69,7 @@ FontAwesomeIconView, MaterialIconView{
 }
 .catContainer > HBox:hover Label{
     -fx-text-fill:#00EDF3;
+    -fx-font-weight: bold;
 }
 .catContainer > HBox:hover FontAwesomeIconView{
     -fx-fill: #00EDF3;
@@ -64,7 +90,7 @@ FontAwesomeIconView, MaterialIconView{
 /*Notification pane*/
 #notificationCount{
     -fx-text-fill: #FF1E1E;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 1), 10, 0.5, 0.0, 0.0);
+    -fx-effect: dropshadow(gaussian, rgba(42, 42, 42, 1),  4, 1, 0.0, 0.0);
 }
 #notificationPane{
     -fx-background-color: black;

@@ -118,14 +118,14 @@ public class HeaderController implements Initializable {
                 ctrl.search(searchField.getText());
             }
         });
-        themeToggle.setOnMouseClicked((event) -> {System.out.println("okkkk");
+        themeToggle.setOnMouseClicked((event) -> {
             setTheme();
         });
         notificationIcon.setOnMouseClicked((event) -> {
             notificationCtrl.refresh();
         });
     }
-    public void setTheme(){System.out.println("initialize");
+    public void setTheme(){
         if(GLOBAL.IS_LIGHT){
             GLOBAL.IS_LIGHT = false;
             themeToggle.setImage(new Image(GLOBAL.ICON_LOCATION + "/half-moon.png"));

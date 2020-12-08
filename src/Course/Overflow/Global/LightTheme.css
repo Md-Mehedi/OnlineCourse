@@ -10,11 +10,26 @@ and open the template in the editor.
 Label, TextField, CheckBox, ChoiceBox, Text, TextFlow,
 JFXTextField, JFXTextArea, TextArea,
 JFXCheckBox, JFXComboBox,
+JFXButton, JFXDatePicker,
 FontAwesomeIconView, MaterialIconView{
 /*    -fx-background-color: black;*/
     -fx-text-fill: black;
     -fx-fill: black;
     -fx-prompt-text-fill: black;
+}
+JFXTextField, JFXTextArea, JFXDatePicker, JFXComboBox{
+    -jfx-focus-color: blue;
+}
+.jfx-date-picker .jfx-text-field,
+JFXComboBox .jfx-text-field{
+    -fx-text-fill: black;
+}
+.jfx-combo-box .arrow,
+.choice-box .arrow {
+    -fx-background-color: black;   
+}
+.backContainer{
+    -fx-background-color: white;
 }
 
 #mainRoot{
@@ -32,11 +47,24 @@ FontAwesomeIconView, MaterialIconView{
 
 /*Category*/
 .catContainer{
-    -fx-background-color: #EAEAEA;
+    -fx-background-color: #efefef;
     -fx-border-color: #009999;
 }
 .catContainer > HBox:hover{
     -fx-background-color:#EDF2FA;
+}
+#categoriesLabel{
+    -fx-text-fill: #00cccc;
+}
+#categoriesLabel:hover{
+    -fx-text-fill: #559999;
+}
+.catContainer > HBox:hover Label{
+    -fx-text-fill: #009999;
+    -fx-font-weight: bold;
+}
+.catContainer > HBox:hover FontAwesomeIconView{
+    -fx-fill: #009999;
 }
 
 /*Admin Panel*/
@@ -60,18 +88,6 @@ FontAwesomeIconView, MaterialIconView{
 .CategoryPane{
     -fx-background-color:       #F7E0C1;
 }
-#categoriesLabel{
-    -fx-text-fill: #009999;
-}
-#categoriesLabel:hover{
-    -fx-text-fill: #9100F7;
-}
-.catContainer > HBox:hover Label{
-    -fx-text-fill:#00cccc;
-}
-.catContainer > HBox:hover FontAwesomeIconView{
-    -fx-fill: #00cccc;
-}
 
 /*Right Menu Pop Up*/
 #popUpContainer{
@@ -88,7 +104,7 @@ FontAwesomeIconView, MaterialIconView{
 /*Notification pane*/
 #notificationCount{
     -fx-text-fill: #FF1E1E;
-    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 1), 10, 0.5, 0.0, 0.0);
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 1), 4, 1, 0.0, 0.0);
 }
 #notificationPane{
     -fx-background-color: white;

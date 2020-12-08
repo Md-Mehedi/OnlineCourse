@@ -31,41 +31,47 @@
                      <children>
                         <VBox layoutX="23.0" layoutY="32.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Label alignment="CENTER" style="-fx-background-color: #2C323D;" styleClass="btn" text="Log in and enjoy learning !" textFill="#e79d30">
+                              <Label alignment="CENTER" style="-fx-background-color: #2C323D; -fx-text-fill: #e79d30;" styleClass="btn" text="Log in and enjoy learning !" textFill="#e79d30">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <VBox>
+                              <VBox style="-fx-spacing: 30;">
                                  <children>
                                     <HBox>
                                        <children>
                                           <MaterialDesignIconView glyphName="ACCOUNT_CIRCLE" size="35" />
-                                          <JFXTextField fx:id="username" focusColor="#061646" prefHeight="28.0" prefWidth="160.0" promptText="Username">
+                                          <JFXTextField fx:id="username" focusColor="#061646" labelFloat="true" prefHeight="15.0" prefWidth="160.0" promptText="Username" style="-fx-font-size: 17; -fx-font-family: &quot;Bell MT&quot;; -fx-padding: 0; -fx-font-weight: bold; -fx-prompt-text-fill: black; -fx-text-fill: black;">
                                              <font>
                                                 <Font name="Bell MT Bold" size="17.0" />
                                              </font>
                                           </JFXTextField>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
                                     </HBox>
                                     <HBox>
                                        <children>
                                           <MaterialDesignIconView glyphName="SECURITY" size="35" />
-                                          <JFXPasswordField fx:id="password" focusColor="#0f1f4d" prefHeight="33.0" prefWidth="160.0" promptText="Password">
+                                          <JFXPasswordField fx:id="password" focusColor="#0f1f4d" labelFloat="true" prefHeight="15.0" prefWidth="160.0" promptText="Password" style="-fx-text-fill: black; -fx-prompt-text-fill: black;">
                                              <font>
                                                 <Font name="Bell MT Bold" size="17.0" />
                                              </font>
                                           </JFXPasswordField>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
                                     </HBox>
                                  </children>
                               </VBox>
-                              <JFXButton fx:id="loginBtn" prefHeight="42.0" style="-fx-background-color: #EC5252;" styleClass="btn" text="Log In">
+                              <JFXButton fx:id="loginBtn" prefHeight="42.0" style="-fx-background-color: #EC5252; -fx-text-fill: black;" styleClass="btn" text="Log In">
                                  <font>
                                     <Font name="Bell MT" size="18.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton fx:id="forgetPass" prefHeight="31.0" style="-fx-background-color: #E79D30; -fx-background-radius: 10;" text="forgot password ?" underline="true" />
+                              <JFXButton fx:id="forgetPass" prefHeight="31.0" style="-fx-background-color: #E79D30; -fx-background-radius: 10; -fx-text-fill: black;" text="forgot password ?" underline="true" />
                            </children>
                         </VBox>
                      </children>
@@ -87,7 +93,7 @@
                                     </ImageView>
                                     <VBox>
                                        <children>
-                                          <Label text="Course" textFill="#f89858">
+                                          <Label style="-fx-text-fill: #f89585;" text="Course" textFill="#f89858">
                                              <font>
                                                 <Font name="Bell MT Bold" size="35.0" />
                                              </font>
@@ -95,7 +101,7 @@
                                                 <Insets />
                                              </opaqueInsets>
                                           </Label>
-                                          <Label text="Overflow" textFill="WHITE">
+                                          <Label style="-fx-text-fill: white;" text="Overflow" textFill="WHITE">
                                              <font>
                                                 <Font name="Broadway" size="32.0" />
                                              </font>
@@ -106,12 +112,12 @@
                               </HBox>
                               <VBox>
                                  <children>
-                                    <Label text="Dont have any account ?" textFill="#f2a532">
+                                    <Label style="-fx-text-fill: #f2a532;" text="Dont have any account ?" textFill="#f2a532">
                                        <font>
                                           <Font name="Bell MT Bold" size="25.0" />
                                        </font>
                                     </Label>
-                                    <JFXButton fx:id="signUpBtn" style="-fx-background-color: #53D4F6;" styleClass="btn" text="Sign Up">
+                                    <JFXButton fx:id="signUpBtn" style="-fx-background-color: #53D4F6; -fx-text-fill: black;" styleClass="btn" text="Sign Up">
                                        <font>
                                           <Font name="Bodoni MT" size="18.0" />
                                        </font>

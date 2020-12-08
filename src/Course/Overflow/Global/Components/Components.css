@@ -109,6 +109,8 @@ Label{
 }
 #notificationPane .seen, #notificationPane .unseen{
     -fx-pref-width: 480;
+    -fx-border-color:#DDDFE2;
+    -fx-cursor: hand;
 }
 #notificationPane TextFlow{
     -fx-padding: 10;
@@ -133,6 +135,7 @@ Label{
 #popUpContainer Label{
     -fx-font-size: 23;
     -fx-pref-width: 360;
+    -fx-cursor: hand;
 }
 
 /*Course Box Horizontal*/
@@ -198,7 +201,7 @@ Label{
 .fieldContainer > HBox > .disableField{
     -fx-pref-width: 260;
 }
-.profileSettingRoot JFXButton{
+.profileSettingRoot .btn{
     -fx-background-color: #009999;
     -fx-text-fill: white;
     -fx-font-size: 21;

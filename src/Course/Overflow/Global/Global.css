@@ -1,16 +1,22 @@
 
-Button{
+Button, JFXButton{
     -fx-cursor: hand;
 }
 Label, Text, TextField, TextArea, DatePicker,
-JFXTextField, JFXTextArea, CheckBox, ChoiceBox{
+JFXTextField, JFXTextArea,CheckBox, ChoiceBox{
     /*-fx-font: 20 "open sans,helvetica neue,Helvetica,Arial,sans-serif";*/
     /*-fx-font: 20 "sf pro display,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol";*/
-    -fx-font: 22 "Bell MT";
+    -fx-font: 22 "Cambria Math";
     /*-fx-font: 22 "Comic Sans ms";*/
+}
+Label, Text, TextField, TextArea, DatePicker,
+JFXTextField, JFXTextArea, ChoiceBox{
     -fx-padding: 0 10 0 10;
     -fx-text-alignment: justify;
     -fx-wrap-text: true;
+}
+CheckBox{
+    -fx-font-size: 17;
 }
 .scroll-pane .viewport, .scroll-pane {
     -fx-background-color: transparent;
@@ -125,9 +131,9 @@ TextField{
 }
 .fileUploaderHbox Button{
     -fx-pref-height: 38;
-    -fx-pref-width: 102;
-    -fx-min-width: 102;
-    -fx-max-width: 102;
+    -fx-pref-width: 140;
+    -fx-min-width: 140;
+    -fx-max-width: 140;
     -fx-background-color: #009999;
     -fx-font-weight: bold;
     -fx-text-fill: white;
