@@ -25,7 +25,7 @@ FontAwesomeIconView, MaterialIconView{
 /*CourseBox CSS*/
 .courseGridBoxContainer{
     /*-fx-background-color: #303E47;*/
-    -fx-background-color: #111111;
+    -fx-background-color: #2B2B2B;
 }
 
 /*Category*/
@@ -83,4 +83,29 @@ FontAwesomeIconView, MaterialIconView{
 }
 #notificationPane .unseen:hover{
     -fx-background-color: #330099;
+    -fx-background-color:#455DBA;
+}
+
+/*Admin Panel*/
+.redBtn{
+    -fx-text-fill: white;
+    -fx-background-color: #F55B50;
+    -fx-background-radius: 8;
+}
+.redColor{
+    -fx-background-color:   #F7BFD2;
+    -fx-text-fill: black;
+}
+
+.Header1{
+    -fx-background-color:    #F4BD4D;
+    
+}
+
+.Header2{
+    -fx-background-color:     #F7E0C1;
+}
+
+.CategoryPane{
+    -fx-background-color:      #303E47;
 }

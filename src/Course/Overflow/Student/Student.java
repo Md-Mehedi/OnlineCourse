@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package Course.Overflow.Student;
 
@@ -25,6 +20,15 @@ import java.util.logging.Logger;
 public class Student extends Person{
 
     private EducationalStatus eduStatus;
+    private Integer courseOwned;
+
+    public Integer getCourseOwned() {
+        return courseOwned;
+    }
+
+    public void setCourseOwned(Integer courseOwned) {
+        this.courseOwned = courseOwned;
+    }
 
     public ArrayList<Course> getCourses() {
         try {
@@ -62,10 +66,19 @@ public class Student extends Person{
         try {
             rs.next();
             if(rs.getInt("EDU_STATUS_ID")!=0) eduStatus = new EducationalStatus(rs.getInt("EDU_STATUS_ID"));
-            rs.close();
+            sql = "SELECT ID FROM PURCHASE_HISTORY WHERE STUDENT_ID = '#'";
+            ResultSet rs1 = DB.executeQuery(sql, username);
+            int count = 0;
+            while(rs1.next())
+            {
+                count++;
+            }
+            this.courseOwned = new Integer(count);
+            rs1.close();
         } catch (SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //System.out.println(this.courseOwned);
     }
     
     public static boolean exist(String username) {
@@ -100,5 +113,21 @@ public class Student extends Person{
             Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
         }
         return value;
+    }
+    public static ArrayList<Student> getStudentList()
+    {
+        String sql = "SELECT ID FROM STUDENT ";
+        ArrayList<Student> list = new ArrayList<Student>();
+        ResultSet rs = DB.executeQuery(sql);
+        try {
+            while(rs.next())
+            {
+                list.add(new Student(rs.getString("ID")));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
 }
