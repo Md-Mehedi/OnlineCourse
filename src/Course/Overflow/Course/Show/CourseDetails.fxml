@@ -6,6 +6,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -17,9 +18,9 @@
 
 <AnchorPane id="CourseDetailsRoot" fx:id="root" prefWidth="600.0" styleClass="fullWidth" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Course.Show.CourseDetailsController">
    <children>
-      <VBox layoutX="36.0" layoutY="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="36.0" layoutY="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="15.0">
          <children>
-            <HBox id="TopHBox" prefWidth="1435.0" VBox.vgrow="ALWAYS">
+            <HBox id="TopHBox" prefWidth="1435.0" style="-fx-background-color: #2A2A2A;" VBox.vgrow="ALWAYS">
                <children>
                   <VBox minWidth="800.0" prefWidth="800.0" style="-fx-alignment: top-left;">
                      <children>
@@ -38,7 +39,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label fx:id="topInstName" style="-fx-font-weight: bold;" text="Teacher name">
+                              <Label fx:id="topInstName" style="-fx-font-weight: bold;" styleClass="link" text="Teacher name">
                                  <graphic>
                                     <Label text="Created by :" />
                                  </graphic>
@@ -81,7 +82,10 @@
                               </HBox>
                               <VBox fx:id="buyNowBtnContainer">
                                  <children>
-                                    <JFXButton fx:id="buyNowButton" prefHeight="74.0" prefWidth="483.0" text="Buy now">
+                                    <JFXButton id="buyNowBtn" fx:id="buyNowButton" prefHeight="74.0" prefWidth="483.0" style="-fx-text-fill: black;" text="Buy now">
+                                       <effect>
+                                          <InnerShadow choke="0.5" />
+                                       </effect>
                                        <styleClass>
                                           <String fx:value="title1" />
                                           <String fx:value="myButton" />
@@ -94,7 +98,7 @@
                         <VBox VBox.vgrow="ALWAYS">
                            <children>
                               <Label styleClass="title4" text="This course included" />
-                              <VBox fx:id="properties" VBox.vgrow="ALWAYS" />
+                              <VBox id="propertiesContainer" fx:id="properties" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                      </children>
@@ -104,6 +108,10 @@
                   </VBox>
                   <Region minWidth="30.0" />
                </children>
+               <styleClass>
+                  <String fx:value="shadow" />
+                  <String fx:value="courseDetailsTopHBox" />
+               </styleClass>
             </HBox>
             <VBox>
                <children>
@@ -136,10 +144,10 @@
                         <Label styleClass="title4" text="Instructor" />
                         <VBox>
                            <children>
-                              <Label fx:id="instName" style="-fx-font-weight: bold; -fx-font-size: 23;" text="Instructor name" />
+                              <Label fx:id="instName" style="-fx-font-weight: bold; -fx-font-size: 23;" styleClass="link" text="Instructor name" />
                               <HBox style="-fx-spacing: 30;">
                                  <children>
-                                    <ImageView fx:id="instPhoto" fitHeight="128.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="instPhoto" fitHeight="128.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" styleClass="link" />
                                     <VBox HBox.hgrow="NEVER">
                                        <children>
                                           <HBox>
@@ -235,7 +243,7 @@
                                        <children>
                                           <Label fx:id="giveRatingLabel" text="Give a rating" />
                                           <Rating fx:id="studentRating" rating="5.0" styleClass="rating" />
-                                          <JFXButton fx:id="ratingSubmit" styleClass="myButton" text="Submit" />
+                                          <JFXButton fx:id="ratingSubmit" styleClass="blueBtn-m" text="Submit" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -247,24 +255,14 @@
                   <VBox fx:id="reviewRootContainer">
                      <children>
                         <Label styleClass="title4" text="Reviews" />
-                        <Label fx:id="writeReviewBtn" style="-fx-font-size: 24;" text="Write a review">
-                           <styleClass>
-                              <String fx:value="title4" />
-                              <String fx:value="myButton" />
-                           </styleClass>
-                        </Label>
+                        <JFXButton fx:id="writeReviewBtn" styleClass="blueBtn-m" text="Write a review" />
                         <VBox fx:id="reviewContainer" />
                      </children>
                   </VBox>
                   <VBox fx:id="faqRootContainer">
                      <children>
                         <Label styleClass="title4" text="FAQ" />
-                        <Label fx:id="askQuestionBtn" style="-fx-font-size: 24;" text="Ask a question">
-                           <styleClass>
-                              <String fx:value="title4" />
-                              <String fx:value="myButton" />
-                           </styleClass>
-                        </Label>
+                        <JFXButton fx:id="askQuestionBtn" styleClass="blueBtn-m" text="Ask a question" />
                         <VBox fx:id="faqContainer" />
                      </children>
                   </VBox>

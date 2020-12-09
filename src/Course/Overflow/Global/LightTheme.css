@@ -7,6 +7,10 @@ and open the template in the editor.
     Created on : Dec 6, 2020, 5:54:34 PM
     Author     : ASUS
 */
+
+/*
+ *   Mehedi
+ */
 Label, TextField, CheckBox, ChoiceBox, Text, TextFlow,
 JFXTextField, JFXTextArea, TextArea,
 JFXCheckBox, JFXComboBox,
@@ -37,9 +41,20 @@ JFXComboBox .jfx-text-field{
     -fx-background-repeat: repeat;
 }
 .shadow{
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0.0, 0.0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 15, 0.5, 0.0, 0.0);
 }
-
+/*Buttons*/
+.blueBtn-m{
+    -fx-background-color:  #755FE9;
+    -fx-background-radius: 8;
+    -fx-font: 17 "Consolos";
+    -fx-text-fill: #fcf8f8;
+    -fx-padding: 10;
+    -fx-font-weight: bold;
+}
+.blueBtn-m:hover{
+    -fx-background-color:  #957FFA;
+}
 /*CourseBox CSS*/
 .courseGridBoxContainer{
     -fx-background-color: #EEEEEE;
@@ -66,29 +81,6 @@ JFXComboBox .jfx-text-field{
 .catContainer > HBox:hover FontAwesomeIconView{
     -fx-fill: #009999;
 }
-
-/*Admin Panel*/
-.redBtn{
-    -fx-text-fill: #2C2929;
-    -fx-background-color:  #F03B3F;
-    -fx-background-radius: 8;
-}
-.redColor{
-    -fx-background-color:  #F72F75;
-    -fx-text-fill: white;
-}
-.Header1{
-    -fx-background-color:   #EF7D3F;
-}
-
-.Header2{
-    -fx-background-color:      #717978;
-}
-
-.CategoryPane{
-    -fx-background-color:       #F7E0C1;
-}
-
 /*Right Menu Pop Up*/
 #popUpContainer{
     -fx-background-color: white;
@@ -123,4 +115,40 @@ JFXComboBox .jfx-text-field{
 }
 #notificationPane .unseen:hover{
     -fx-background-color: #dddddd;
+}
+
+/*Course Details Page*/
+#propertiesContainer FontAwesomeIconView{
+    -fx-fill: black;
+}
+
+
+
+
+
+
+/*
+ *   Shammya
+ */
+
+/*Admin Panel*/
+.redBtn{
+    -fx-text-fill: #2C2929;
+    -fx-background-color:  #F03B3F;
+    -fx-background-radius: 8;
+}
+.redColor{
+    -fx-background-color:  #F72F75;
+    -fx-text-fill: white;
+}
+.Header1{
+    -fx-background-color:   #EF7D3F;
+}
+
+.Header2{
+    -fx-background-color:      #717978;
+}
+
+.CategoryPane{
+    -fx-background-color:       #F7E0C1;
 }

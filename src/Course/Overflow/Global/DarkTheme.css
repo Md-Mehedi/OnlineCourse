@@ -1,8 +1,7 @@
 
-/* 
-    Created on : Nov 26, 2020, 1:55:07 AM
-    Author     : Asus
-*/
+/*
+ *   Mehedi
+ */
 
 Label, TextField, CheckBox, ChoiceBox, Text, TextFlow,
 JFXTextField, JFXTextArea, TextArea,
@@ -44,9 +43,20 @@ JFXComboBox .jfx-text-field{
     -fx-background-repeat: repeat;
 }
 .shadow{
-    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 10, 0.5, 0.0, 0.0);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.5), 15, 0.5, 0.0, 0.0);
 }
-
+/*Buttons*/
+.blueBtn-m{
+    -fx-background-color:   #BCEAC9;
+    -fx-background-radius: 8;
+    -fx-font: 17 "Consolos";
+    -fx-text-fill: black;
+    -fx-padding: 10;
+    -fx-font-weight: bold;
+}
+.blueBtn-m:hover{
+    -fx-background-color:  #9CCAA9;
+}
 /*CourseBox CSS*/
 .courseGridBoxContainer{
     /*-fx-background-color: #303E47;*/
@@ -112,6 +122,17 @@ JFXComboBox .jfx-text-field{
     -fx-background-color:#455DBA;
 }
 
+/*Course Details Page*/
+#propertiesContainer FontAwesomeIconView{
+    -fx-fill: black;
+}
+
+
+
+
+/*
+ *   Shammya
+ */
 /*Admin Panel*/
 .redBtn{
     -fx-text-fill: white;

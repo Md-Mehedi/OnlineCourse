@@ -4,9 +4,9 @@ Button, JFXButton{
 }
 Label, Text, TextField, TextArea, DatePicker,
 JFXTextField, JFXTextArea,CheckBox, ChoiceBox{
-    /*-fx-font: 20 "open sans,helvetica neue,Helvetica,Arial,sans-serif";*/
+    -fx-font: 18 "open sans,helvetica neue,Helvetica,Arial,sans-serif";
     /*-fx-font: 20 "sf pro display,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol";*/
-    -fx-font: 22 "Cambria Math";
+    /*-fx-font: 22 "Cambria Math";*/
     /*-fx-font: 22 "Comic Sans ms";*/
 }
 Label, Text, TextField, TextArea, DatePicker,
@@ -17,6 +17,12 @@ JFXTextField, JFXTextArea, ChoiceBox{
 }
 CheckBox{
     -fx-font-size: 17;
+}
+.link{
+    -fx-cursor: hand;
+}
+.link:hover{
+    -fx-underline: true;
 }
 .scroll-pane .viewport, .scroll-pane {
     -fx-background-color: transparent;
@@ -180,7 +186,6 @@ TextField{
     -fx-cursor: hand;
     -fx-background-color:#99ff99;
     -fx-padding: 3 10 3 10;
-    -fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.8 ), 10, 0, 0, 0 );
 }
 .floaTingPane{
     -fx-background-color: white;

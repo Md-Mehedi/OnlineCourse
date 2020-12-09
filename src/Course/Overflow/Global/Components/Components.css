@@ -20,7 +20,7 @@ Label{
     -fx-padding: 0 10 10 10;
 }
 #wrapper{
-    -fx-padding: 5;
+    -fx-padding: 13;
 }
 .courseName, .courseTeacher{
     -fx-pref-width: 220;
