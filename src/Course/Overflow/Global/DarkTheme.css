@@ -12,8 +12,10 @@ FontAwesomeIconView, MaterialIconView{
     -fx-fill: white;
     -fx-prompt-text-fill: white;
 }
-JFXTextField, JFXTextArea, JFXDatePicker, JFXComboBox{
+JFXTextField, JFXTextArea, 
+JFXDatePicker, JFXComboBox{
     -jfx-focus-color: #F78D46;
+    -jfx-default-color: #F78D46;
 }
 .jfx-date-picker .jfx-text-field,
 JFXComboBox .jfx-text-field{
@@ -47,7 +49,7 @@ JFXComboBox .jfx-text-field{
 }
 /*Buttons*/
 .blueBtn-m{
-    -fx-background-color:   #BCEAC9;
+    -fx-background-color: #D6B3EF;
     -fx-background-radius: 8;
     -fx-font: 17 "Consolos";
     -fx-text-fill: black;
@@ -55,7 +57,29 @@ JFXComboBox .jfx-text-field{
     -fx-font-weight: bold;
 }
 .blueBtn-m:hover{
-    -fx-background-color:  #9CCAA9;
+    -fx-background-color:  #F6D3FF;
+}
+.greenBtn-m{
+    -fx-background-color: #BCEAC9;
+    -fx-background-radius: 8;
+    -fx-font: 17 "Consolos";
+    -fx-text-fill: black;
+    -fx-padding: 10;
+    -fx-font-weight: bold;
+}
+.greenBtn-m:hover{
+    -fx-background-color: #9CCAA9;
+}
+.redBtn-m{
+    -fx-background-color: #F7BFD2;
+    -fx-background-radius: 8;
+    -fx-font: 17 "Consolos";
+    -fx-text-fill: black;
+    -fx-padding: 10;
+    -fx-font-weight: bold;
+}
+.redBtn-m:hover{
+    -fx-background-color: #D79FB2;
 }
 /*CourseBox CSS*/
 .courseGridBoxContainer{
@@ -126,8 +150,31 @@ JFXComboBox .jfx-text-field{
 #propertiesContainer FontAwesomeIconView{
     -fx-fill: black;
 }
-
-
+/*Checkout Page*/
+#checkoutBottomContainer{
+    -fx-border-color: azure; /*white*/
+    -fx-background-color: black;
+}
+/*Signup Page*/
+#signupRoot JFXTextField,
+#signupRoot JFXComboBox{
+    -jfx-focus-color: black;
+    -jfx-default-color: black;
+}
+#signupRoot .jfx-combo-box .arrow,
+#signupRoot .choice-box .arrow {
+    -fx-background-color: black;   
+}
+#signupRoot .combo-box .cell {
+    -fx-background-color: orange;
+    -fx-text-fill: black;
+}
+#signupRoot .combo-box .cell:hover {
+    -fx-background-color: #0066cc;
+}
+#signupRoot .combo-box .cell:selected {
+    -fx-background-color: #0066cc;
+}
 
 
 /*
@@ -143,16 +190,13 @@ JFXComboBox .jfx-text-field{
     -fx-background-color:   #F7BFD2;
     -fx-text-fill: black;
 }
-
 .Header1{
     -fx-background-color:    #F4BD4D;
     
 }
-
 .Header2{
     -fx-background-color:     #F7E0C1;
 }
-
 .CategoryPane{
     -fx-background-color:      #303E47;
 }

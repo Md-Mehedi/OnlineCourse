@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -19,13 +20,21 @@
                <children>
                   <StackPane>
                      <children>
-                        <Circle fx:id="studentImageCircle" fill="#a11fff" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="studentImageCircle" fill="#a11fff" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                           <styleClass>
+                              <String fx:value="shadow" />
+                              <String fx:value="link" />
+                           </styleClass></Circle>
                         <Label fx:id="studentImageLabel" style="-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: white; -fx-pref-width: 80; -fx-alignment: center;" text="MH" />
                      </children>
                   </StackPane>
                   <VBox>
                      <children>
-                        <Label fx:id="studentName" styleClass="title4" text="Name" />
+                        <Label fx:id="studentName" text="Name">
+                           <styleClass>
+                              <String fx:value="title4" />
+                              <String fx:value="link" />
+                           </styleClass></Label>
                         <Label fx:id="questionDate" text="Date" />
                      </children>
                   </VBox>
@@ -38,7 +47,7 @@
                      <children>
                         <Label fx:id="question" styleClass="centerRightWidth" text="kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri kfj slfj lasjf lsjf lsjf lsjf lksaj fwru owijljo iwoir jljoiuwo rowieri " />
                         <Label fx:id="noAnswerLabel" prefHeight="80.0" style="-fx-font-weight: bold;" styleClass="centerRightWidth" text="No answer yet." />
-                        <JFXButton fx:id="answerBtn" styleClass="myButton" text="Answer this question">
+                        <JFXButton fx:id="answerBtn" styleClass="blueBtn-m" text="Answer this question">
                            <VBox.margin>
                               <Insets top="20.0" />
                            </VBox.margin>
@@ -49,13 +58,21 @@
                                  <children>
                                     <StackPane>
                                        <children>
-                                          <Circle fx:id="teacherImageCircle" fill="#a11fff" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                          <Circle fx:id="teacherImageCircle" fill="#a11fff" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                                             <styleClass>
+                                                <String fx:value="shadow" />
+                                                <String fx:value="link" />
+                                             </styleClass></Circle>
                                           <Label fx:id="teacherImageName" style="-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: white; -fx-pref-width: 80; -fx-alignment: center;" text="MH" />
                                        </children>
                                     </StackPane>
                                     <VBox>
                                        <children>
-                                          <Label fx:id="teacherName" styleClass="title4" text="Name" />
+                                          <Label fx:id="teacherName" text="Name">
+                                             <styleClass>
+                                                <String fx:value="title4" />
+                                                <String fx:value="link" />
+                                             </styleClass></Label>
                                           <Label fx:id="answerDate" text="Date" />
                                        </children>
                                     </VBox>

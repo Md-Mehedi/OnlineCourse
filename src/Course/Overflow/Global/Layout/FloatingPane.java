@@ -20,7 +20,7 @@ import javafx.util.Duration;
  * @author Md Mehedi Hasan
  */
 public class FloatingPane {
-    public AnchorPane root;
+    public AnchorPane globalRootPane;
     public AnchorPane backPane;
     public StackPane sPane;
     private Region region;
@@ -39,14 +39,15 @@ public class FloatingPane {
         closeTransition.setToX(0);
         closeTransition.setToY(0);
         Platform.runLater(()->{
-            backPane.getStyleClass().add("floatingPane");
+            backPane.getStyleClass().add("backContainer");
+            backPane.getStyleClass().add("shadow");
             backPane.setMaxSize(backPane.getPrefWidth(), backPane.getPrefHeight());
             
             backPane.setScaleX(0);
             backPane.setScaleY(0);
             sPane.getChildren().add(backPane);
-            root = GLOBAL.rootPane;
-            root.getChildren().add(sPane);
+            globalRootPane = GLOBAL.rootPane;
+            globalRootPane.getChildren().add(sPane);
             sPane.setPrefSize(GLOBAL.WIDTH, GLOBAL.HEIGHT);
             sPane.toBack();
         });

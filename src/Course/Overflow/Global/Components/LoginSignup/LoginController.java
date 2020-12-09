@@ -111,6 +111,7 @@ public class LoginController implements Initializable {
          try {
             Person person = Person.validUser(username.getText(), password.getText());
             if (person != null) {
+                GLOBAL.IS_LIGHT = !GLOBAL.IS_LIGHT;
                 System.out.println("successfully logged in to " + username.getText() + " account");
                 if(Student.exist(username.getText())){
                     GLOBAL.ACCOUNT_TYPE = Person.AccountType.Student;

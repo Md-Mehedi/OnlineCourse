@@ -78,7 +78,7 @@ public class FAQInputBoxController extends FloatingPane implements Initializable
         faqSubmitBtn.setOnMouseClicked((event) -> {
             faq.setAnswer(questionField.getText());
             questionField.setText("");
-            Notification.setFaqAnswer(new Course(faq.getCourseId()), GLOBAL.STUDENT.getUsername());
+            Notification.setFaqAnswer(new Course(faq.getCourseId()), faq.getStudent().getUsername());
             faqOutputParent.removeAnswerBtn();
             faqOutputParent.loadAnswer(faq);
             close();

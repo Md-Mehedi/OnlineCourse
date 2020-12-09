@@ -76,7 +76,7 @@
                               <FontAwesomeIconView glyphName="BELL_ALT" size="40" styleClass="cursorHand" />
                            </graphic>
                         </Label>
-                        <Label id="notificationCount" fx:id="notificationCount" maxHeight="37.0" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="15.0" style="-fx-font-weight: bold; -fx-font-size: 30;" text="5" textFill="#ff1e1e">
+                        <Label id="notificationCount" fx:id="notificationCount" maxHeight="37.0" minHeight="0.0" minWidth="0.0" prefHeight="37.0" prefWidth="35.0" style="-fx-font-weight: bold; -fx-font-size: 30; -fx-text-alignment: right; -fx-alignment: bottom-right;" text="5" textFill="#ff1e1e">
                            <effect>
                               <DropShadow color="#fffbfb" height="4.75" radius="1.9375" spread="1.0" width="5.0" />
                            </effect>

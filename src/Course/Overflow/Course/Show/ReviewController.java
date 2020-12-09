@@ -6,6 +6,9 @@
 package Course.Overflow.Course.Show;
 
 import Course.Overflow.Course.Review;
+import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.PersonPreviewController;
 import Course.Overflow.Global.ToolKit;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -66,6 +69,16 @@ public class ReviewController implements Initializable {
         date.setText(ToolKit.makeDateStructured(review.getDate(), "hh:mm aa - dd MMMMM, yyyy"));
         setPic(review.getStudent().getImage());
         setPicName(review.getStudent().getShortName());
+        name.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(PageName.PersonDetails);
+            PersonPreviewController ctrl = (PersonPreviewController) GLOBAL.PAGE_CTRL.getController();
+            ctrl.loadData(review.getStudent());
+        });
+        imageCircle.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(PageName.PersonDetails);
+            PersonPreviewController ctrl = (PersonPreviewController) GLOBAL.PAGE_CTRL.getController();
+            ctrl.loadData(review.getStudent());
+        });
     }
 
     private void setPic(Image image) {

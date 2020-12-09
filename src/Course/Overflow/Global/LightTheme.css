@@ -21,8 +21,10 @@ FontAwesomeIconView, MaterialIconView{
     -fx-fill: black;
     -fx-prompt-text-fill: black;
 }
-JFXTextField, JFXTextArea, JFXDatePicker, JFXComboBox{
-    -jfx-focus-color: blue;
+JFXTextField, JFXTextArea, 
+JFXDatePicker, JFXComboBox{
+    -jfx-focus-color: #19A7F0;
+    -jfx-default-color: #19A7F0;
 }
 .jfx-date-picker .jfx-text-field,
 JFXComboBox .jfx-text-field{
@@ -53,7 +55,29 @@ JFXComboBox .jfx-text-field{
     -fx-font-weight: bold;
 }
 .blueBtn-m:hover{
-    -fx-background-color:  #957FFA;
+    -fx-background-color: #957FFA;
+}
+.greenBtn-m{
+    -fx-background-color: #00A668;
+    -fx-background-radius: 8;
+    -fx-font: 17 "Consolos";
+    -fx-text-fill: #fcf8f8;
+    -fx-padding: 10;
+    -fx-font-weight: bold;
+}
+.greenBtn-m:hover{
+    -fx-background-color: #20C688;
+}
+.redBtn-m{
+    -fx-background-color: #F72F75;
+    -fx-background-radius: 8;
+    -fx-font: 17 "Consolos";
+    -fx-text-fill: #fcf8f8;
+    -fx-padding: 10;
+    -fx-font-weight: bold;
+}
+.redBtn:hover{
+    -fx-background-color: #F74F95;
 }
 /*CourseBox CSS*/
 .courseGridBoxContainer{
@@ -121,9 +145,17 @@ JFXComboBox .jfx-text-field{
 #propertiesContainer FontAwesomeIconView{
     -fx-fill: black;
 }
-
-
-
+/*Checkout Page*/
+#checkoutBottomContainer{
+    -fx-border-color: black;
+    -fx-background-color: white;
+}
+/*Signup Page*/
+#signupRoot JFXTextField,
+#signupRoot JFXComboBox{
+    -jfx-focus-color: black;
+    -jfx-default-color: black;
+}
 
 
 

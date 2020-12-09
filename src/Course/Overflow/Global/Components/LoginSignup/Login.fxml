@@ -41,7 +41,7 @@
                                     <HBox>
                                        <children>
                                           <MaterialDesignIconView glyphName="ACCOUNT_CIRCLE" size="35" />
-                                          <JFXTextField fx:id="username" focusColor="#061646" labelFloat="true" prefHeight="15.0" prefWidth="160.0" promptText="Username" style="-fx-font-size: 17; -fx-font-family: &quot;Bell MT&quot;; -fx-padding: 0; -fx-font-weight: bold; -fx-prompt-text-fill: black; -fx-text-fill: black;">
+                                          <JFXTextField fx:id="username" focusColor="#061646" labelFloat="true" prefHeight="15.0" prefWidth="160.0" promptText="Username" style="-fx-font-size: 17; -fx-font-family: &quot;Bell MT&quot;; -fx-padding: 0; -fx-font-weight: bold; -fx-prompt-text-fill: black; -fx-text-fill: black; -jfx-focus-color: black;">
                                              <font>
                                                 <Font name="Bell MT Bold" size="17.0" />
                                              </font>

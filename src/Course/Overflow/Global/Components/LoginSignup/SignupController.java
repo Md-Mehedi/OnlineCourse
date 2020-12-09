@@ -12,6 +12,7 @@ import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person.AccountType;
 import Course.Overflow.Global.ToolKit;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
@@ -22,7 +23,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -62,7 +62,7 @@ public class SignupController implements Initializable {
     @FXML
     private JFXTextField email;
     @FXML
-    private ChoiceBox<String> accountTypeCB;
+    private JFXComboBox<String> accountTypeCB;
 //    int stat = 0;
 //    int[] state = new int[]{0, 0, 0, 0};
 
@@ -176,6 +176,7 @@ public class SignupController implements Initializable {
                                 GLOBAL.ACCOUNT_TYPE = AccountType.valueOf(accountTypeCB.getValue());
                                 ProfileSettingController profSetCtrl = (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
                                 profSetCtrl.createEnvironmentForSignup(em, un, pwd);
+                                GLOBAL.IS_LIGHT = !GLOBAL.IS_LIGHT;
                             } else {
                                 int stat = JOptionPane.showConfirmDialog(null, "The username or email is already taken !\n log in instead ", "select", JOptionPane.CANCEL_OPTION);
                                 if (stat == 0) {
@@ -244,8 +245,9 @@ public class SignupController implements Initializable {
 
     private void setUpAccountTypeChoiceBox() {
         numOfItemList = FXCollections.observableArrayList();
-        numOfItemList.addAll("Student", "Teacher");
+        numOfItemList.addAll("Select type","Student", "Teacher");
         accountTypeCB.setItems(numOfItemList);
+        accountTypeCB.setValue("Select type");
     }
 
     @FXML

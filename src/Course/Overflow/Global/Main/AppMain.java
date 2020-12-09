@@ -40,8 +40,8 @@ public class AppMain extends Application {
         pane = new AnchorPane();
         GLOBAL.WIDTH = 1460;
         GLOBAL.HEIGHT = 900;
-        boolean ligthTheme = true;
-        GLOBAL.IS_LIGHT = !ligthTheme;
+//        boolean ligthTheme = true;
+        GLOBAL.IS_LIGHT = false;
         GLOBAL.rootPane = root;
         root.setPrefWidth(GLOBAL.WIDTH);
         root.setPrefHeight(GLOBAL.HEIGHT);

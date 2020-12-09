@@ -7,6 +7,9 @@ package Course.Overflow.Course.Show;
 
 import Course.Overflow.Course.FAQ;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Page.PageName;
+import Course.Overflow.Global.Person;
+import Course.Overflow.Global.PersonPreviewController;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController.ViewerType;
@@ -103,6 +106,18 @@ public class FAQOutputBoxController implements Initializable {
             ToolKit.removeNode(answerContainer);
             ToolKit.removeNode(answerBtn);
         }
+        studentImageCircle.setOnMouseClicked((event) -> {
+            loadPersonPreview(faq.getStudent());
+        });
+        studentImageLabel.setOnMouseClicked((event) -> {
+            loadPersonPreview(faq.getStudent());
+        });
+    }
+    
+    private void loadPersonPreview(Person person){
+        GLOBAL.PAGE_CTRL.loadPage(PageName.PersonDetails);
+        PersonPreviewController ctrl = (PersonPreviewController) GLOBAL.PAGE_CTRL.getController();
+        ctrl.loadData(person);
     }
     
     public void loadAnswer(FAQ faq) {
@@ -119,6 +134,12 @@ public class FAQOutputBoxController implements Initializable {
         answerDate.setText(ToolKit.makeDateStructured(faq.getAnswerTime(), "hh:mm aa - dd MMMMM, yyyy"));
         answer.setText(faq.getAnswer());
         if(!questionContainer.getChildren().contains(answerContainer)) questionContainer.getChildren().add(answerContainer);
+        teacherImageCircle.setOnMouseClicked((event) -> {
+            loadPersonPreview(faq.getTeacher());
+        });
+        teacherName.setOnMouseClicked((event) -> {
+            loadPersonPreview(faq.getTeacher());
+        });
     }
     
     private void connectAnswerInput() {
