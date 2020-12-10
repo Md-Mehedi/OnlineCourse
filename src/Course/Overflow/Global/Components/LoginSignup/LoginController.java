@@ -10,6 +10,7 @@ import Course.Overflow.Teacher.Teacher;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -49,6 +50,7 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        connectForgotPassword();
 
 //        Platform.runLater(() -> {
 //            rootContainer = (Pane) root.getParent();
@@ -103,7 +105,7 @@ public class LoginController implements Initializable {
             }
         });
         forgetPass.setOnMouseClicked((event) -> {
-            GLOBAL.PAGE_CTRL.loadPage(PageName.ForgetPassword);
+            forgetPassCtrl.show();
         });
 
     }
@@ -146,6 +148,16 @@ public class LoginController implements Initializable {
             }
 
         } catch (Exception ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void connectForgotPassword() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(GLOBAL.LOGIN_SIGNUP_LOCATION + "/ForgetPassword.fxml"));
+            loader.load();
+            forgetPassCtrl = loader.getController();
+        } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

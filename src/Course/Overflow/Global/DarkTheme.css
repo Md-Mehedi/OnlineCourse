@@ -27,7 +27,7 @@ JFXComboBox .jfx-text-field{
     -fx-background-color: white;   
 }
 .combo-box .cell {
-    -fx-background-color: #2A2A2A;
+    -fx-background-color: #445F67;
     -fx-text-fill: white;
 }
 .combo-box .cell:hover {
@@ -37,7 +37,7 @@ JFXComboBox .jfx-text-field{
     -fx-background-color: #0066cc;
 }
 .backContainer{
-    -fx-background-color: #2A2A2A;
+    -fx-background-color: #445F67;
 }
 
 
@@ -88,7 +88,8 @@ JFXComboBox .jfx-text-field{
 /*CourseBox CSS*/
 .courseGridBoxContainer{
     /*-fx-background-color: #303E47;*/
-    -fx-background-color: #2B2B2B;
+    /*-fx-background-color: #2B2B2B;*/
+    -fx-background-color: #445F67;
 }
 
 /*Category*/
@@ -137,17 +138,21 @@ JFXComboBox .jfx-text-field{
     -fx-border-color:#DADADA;
 }
 #notificationPane .seen{
-    -fx-background-color: #000033;
+    /*-fx-background-color: #000033;*/
+    -fx-background-color: #445F67;
 }
 #notificationPane .seen:hover{
-    -fx-background-color: #003333;
+    /*-fx-background-color: #003333;*/
+    -fx-background-color: #49646B;
 }
 #notificationPane .unseen{
-    -fx-background-color: #003366;
+    /*-fx-background-color: #003366;*/
+    -fx-background-color: #647F87;
 }
 #notificationPane .unseen:hover{
-    -fx-background-color: #330099;
-    -fx-background-color:#455DBA;
+    /*-fx-background-color: #330099;*/
+    /*-fx-background-color:#455DBA;*/
+    -fx-background-color: #69848B;
 }
 
 /*Course Details Page*/
@@ -161,9 +166,12 @@ JFXComboBox .jfx-text-field{
 }
 /*Signup Page*/
 #signupRoot JFXTextField,
-#signupRoot JFXComboBox{
+#signupRoot JFXComboBox,
+#signupRoot MaterialDesignIconView{
     -jfx-focus-color: black;
     -jfx-default-color: black;
+    -jfx-unfocus-color: black;
+    -fx-prompt-text-fill: black;
 }
 #signupRoot .jfx-combo-box .arrow,
 #signupRoot .choice-box .arrow {
@@ -272,4 +280,18 @@ JFXComboBox .jfx-text-field{
 .PaneColor{
     -fx-background-color:       #717978;
     -fx-text-fill: white;
+}
+/*Admin panel*/
+.adminpanel #menuContainer{
+    -fx-background-color: #445F67;
+}    
+.adminpanel .leftMenuHovering{
+    -fx-background-color:  #647F87;
+}
+#runningPane{
+    -fx-background-color: #EC5252;
+}
+.adminpanel .name, .adminpanel .icon FontAwesomeIconView, .icon SVGPath{
+    -fx-text-fill: white;
+    -fx-fill: white;
 }

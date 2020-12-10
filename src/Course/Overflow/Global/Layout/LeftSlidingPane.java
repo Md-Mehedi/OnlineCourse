@@ -270,7 +270,11 @@ public class LeftSlidingPane extends BorderPaneController{
         addContent(pane, iconLabel, nameLabel, pageName, ()-> true);
     }
     public void addContent(AnchorPane pane, Image icon, PageName pageName){
-        Label iconLabel = iconWrapper(new ImageView(icon));
+        ImageView iv = new ImageView(icon);
+        iv.setFitWidth(40);
+        iv.setFitHeight(40);
+        iv.setPreserveRatio(true);
+        Label iconLabel = iconWrapper(iv);
         Label nameLabel = new Label(pageName.name);
         addContent(pane, iconLabel, nameLabel, pageName, ()-> true);
     }
@@ -283,6 +287,10 @@ public class LeftSlidingPane extends BorderPaneController{
         nameToPane.put(paneName, pane);
         nameToFunc.put(paneName, conditionFunc);
         iconToFunc.put(iconLabel, conditionFunc);
+        
+        iconLabel.getStyleClass().add("icon");
+        paneName.getStyleClass().add("name");
+        
         iconContainer.getChildren().add(iconLabel);
         labelContainer.getChildren().add(paneName);
         addEventListenerForVerticalMenuItem(iconLabel,pane, pageName);

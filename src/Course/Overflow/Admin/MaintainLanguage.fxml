@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="LanguageMaintainPane" prefHeight="550.0" prefWidth="1035.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Admin.MaintainLanguageController">
    <children>
-      <TableView fx:id="table" layoutX="462.0" prefHeight="550.0" prefWidth="561.0" AnchorPane.rightAnchor="12.0">
+      <TableView fx:id="table" layoutX="462.0" prefHeight="550.0" prefWidth="561.0" styleClass="shadow" AnchorPane.rightAnchor="12.0">
         <columns>
           <TableColumn fx:id="id_col" prefWidth="134.0" styleClass="TableColumn" text="ID" />
           <TableColumn fx:id="language_col" prefWidth="261.0" styleClass="TableColumn" text="Language" />

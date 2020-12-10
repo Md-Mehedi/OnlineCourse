@@ -5,7 +5,6 @@
  */
 package Course.Overflow.Admin;
 
-import Course.Overflow.Global.Customize.SVG;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.LeftSlidingPane;
 import Course.Overflow.Global.Page.CommunicationPage;
@@ -15,6 +14,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -39,6 +39,7 @@ public class AdminPanel extends Page{
         slidingPaneCtrl.removeFooter();
         slidingPaneCtrl.removeTitleBar();
         root.getChildren().add(slidingPaneCtrl.getRoot());
+        slidingPaneCtrl.getRoot().getStyleClass().add("adminpanel");
         
         addShowPerson();
         addCourseList();
@@ -55,7 +56,7 @@ public class AdminPanel extends Page{
         try {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.ADMIN_LOCATION + "/ShowPerson.fxml"));
             showPersonPane = (AnchorPane)loader.load();
-            slidingPaneCtrl.addContent(showPersonPane, SVG.OVERVIEW, PageName.AdminShowPerson);
+            slidingPaneCtrl.addContent(showPersonPane, new Image(GLOBAL.ICON_LOCATION + "/person.png"), PageName.AdminShowPerson);
         } catch (IOException ex) {
             Logger.getLogger(CommunicationPage.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -65,7 +66,7 @@ public class AdminPanel extends Page{
         try {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.ADMIN_LOCATION + "/CourseList.fxml"));
             courseListPane = (AnchorPane)loader.load();
-            slidingPaneCtrl.addContent(courseListPane, SVG.OVERVIEW, PageName.AdminCourseList);
+            slidingPaneCtrl.addContent(courseListPane, new Image(GLOBAL.ICON_LOCATION + "/list.png"), PageName.AdminCourseList);
         } catch (IOException ex) {
             Logger.getLogger(CommunicationPage.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -75,7 +76,7 @@ public class AdminPanel extends Page{
         try {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.ADMIN_LOCATION + "/MaintainCountry.fxml"));
             countryList = (AnchorPane)loader.load();
-            slidingPaneCtrl.addContent(countryList, SVG.OVERVIEW, PageName.AdminMaintainCountry);
+            slidingPaneCtrl.addContent(countryList, new Image(GLOBAL.ICON_LOCATION + "/country.png"), PageName.AdminMaintainCountry);
         } catch (IOException ex) {
             Logger.getLogger(CommunicationPage.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -85,7 +86,7 @@ public class AdminPanel extends Page{
         try {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.ADMIN_LOCATION + "/MaintainCategory.fxml"));
             categoryList = (AnchorPane)loader.load();
-            slidingPaneCtrl.addContent(categoryList, SVG.OVERVIEW, PageName.AdminMaintainCategory);
+            slidingPaneCtrl.addContent(categoryList, new Image(GLOBAL.ICON_LOCATION + "/root.png"), PageName.AdminMaintainCategory);
         } catch (IOException ex) {
             Logger.getLogger(CommunicationPage.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -95,7 +96,7 @@ public class AdminPanel extends Page{
         try {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.ADMIN_LOCATION + "/MaintainDesignation.fxml"));
             designationPane = (AnchorPane)loader.load();
-            slidingPaneCtrl.addContent(designationPane, SVG.OVERVIEW, PageName.AdminMaintainDesignation);
+            slidingPaneCtrl.addContent(designationPane,new Image(GLOBAL.ICON_LOCATION + "/designation.png"), PageName.AdminMaintainDesignation);
         } catch (IOException ex) {
             Logger.getLogger(CommunicationPage.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -105,7 +106,7 @@ public class AdminPanel extends Page{
         try {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.ADMIN_LOCATION + "/MaintainEduStatus.fxml"));
             eduStatusePane = (AnchorPane)loader.load();
-            slidingPaneCtrl.addContent(eduStatusePane, SVG.OVERVIEW, PageName.AdminMaintainEduStatus);
+            slidingPaneCtrl.addContent(eduStatusePane, new Image(GLOBAL.ICON_LOCATION + "/edustatus.png"), PageName.AdminMaintainEduStatus);
         } catch (IOException ex) {
             Logger.getLogger(CommunicationPage.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -115,7 +116,7 @@ public class AdminPanel extends Page{
         try {
             loader = new FXMLLoader(getClass().getResource(GLOBAL.ADMIN_LOCATION + "/MaintainLanguage.fxml"));
             languagePane = (AnchorPane)loader.load();
-            slidingPaneCtrl.addContent(languagePane, SVG.OVERVIEW, PageName.AdminMaintainLanguage);
+            slidingPaneCtrl.addContent(languagePane, new Image(GLOBAL.ICON_LOCATION + "/language.png"), PageName.AdminMaintainLanguage);
         } catch (IOException ex) {
             Logger.getLogger(CommunicationPage.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -2,17 +2,18 @@ package Course.Overflow.Global.Components.LoginSignup;
 
 import Course.Overflow.DB;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Layout.FloatingPane;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.ToolKit;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -22,12 +23,12 @@ import javafx.scene.layout.HBox;
  *
  * @author Shammya
  */
-public class ForgetPasswordController implements Initializable {
+public class ForgetPasswordController extends FloatingPane implements Initializable {
 
     @FXML
     private JFXTextField username;
     @FXML
-    private DatePicker dob;
+    private JFXDatePicker dob;
     @FXML
     private AnchorPane rootpanefp;
     @FXML
@@ -62,6 +63,7 @@ public class ForgetPasswordController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.backPane = rootpanefp;
         message.setText("Enter your username and birthdate to change your password");
         makeDefault(false);
         addListener();
@@ -127,6 +129,7 @@ public class ForgetPasswordController implements Initializable {
                 {
                     person.setPassword(newpass.getText());
                     message.setText("Password updated successfully !");
+                    close();
                 }
                 else
                 {

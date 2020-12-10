@@ -1,6 +1,7 @@
 package Course.Overflow.Global;
 
 import Course.Overflow.Global.Layout.FloatingPane;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
 import java.io.File;
 import java.net.URL;
@@ -12,7 +13,6 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -43,8 +43,6 @@ public class MediaPlayerController extends FloatingPane implements Initializable
     private Button play;
     private MediaPlayer mediaPlayer;
     private Media media;
-    @FXML
-    private Button select;
     private boolean playing;
     @FXML
     private ImageView playimage;
@@ -57,7 +55,7 @@ public class MediaPlayerController extends FloatingPane implements Initializable
     private boolean atEndOfMedia = false;
     private Duration duration;
     @FXML
-    private ChoiceBox speed;
+    private JFXComboBox<String> speed;
     private File file;
 
     @Override

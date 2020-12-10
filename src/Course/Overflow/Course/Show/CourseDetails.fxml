@@ -20,7 +20,7 @@
    <children>
       <VBox layoutX="36.0" layoutY="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="15.0">
          <children>
-            <HBox id="TopHBox" prefWidth="1435.0" style="-fx-background-color: #2A2A2A;" VBox.vgrow="ALWAYS">
+            <HBox id="TopHBox" prefWidth="1435.0" style="-fx-background-color: #303E47;" VBox.vgrow="ALWAYS">
                <children>
                   <VBox minWidth="800.0" prefWidth="800.0" style="-fx-alignment: top-left;">
                      <children>

@@ -158,10 +158,12 @@ JFXComboBox .jfx-text-field{
 }
 /*Signup Page*/
 #signupRoot JFXTextField,
-#signupRoot JFXComboBox{
+#signupRoot JFXComboBox,
+#signupRoot MaterialDesignIconView{
     -jfx-focus-color: black;
     -jfx-default-color: black;
     -jfx-unfocus-color: black;
+    -fx-prompt-text-fill: black;
 }
 /*Create Course Functionality*/
 .addAnswerHbox Label{
@@ -256,4 +258,18 @@ JFXComboBox .jfx-text-field{
 
 .CategoryPane{
     -fx-background-color:       #F7E0C1;
+}
+/*Admin panel*/
+.adminpanel #menuContainer{
+    -fx-background-color:     #F4BD4D;
+}    
+.adminpanel .leftMenuHovering{
+    -fx-background-color:     #EF7D3F;
+}
+#runningPane{
+    -fx-background-color: #445F67;
+}
+.adminpanel .name, .adminpanel .icon FontAwesomeIconView, .icon SVGPath{
+    -fx-text-fill: black;
+    -fx-fill: black;
 }
