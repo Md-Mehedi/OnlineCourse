@@ -94,7 +94,7 @@ public class CourseDetailsController implements Initializable {
 
     private AnchorPane courseContent;
     @FXML
-    private Label writeReviewBtn;
+    private JFXButton writeReviewBtn;
     private FXMLLoader loader;
     private AnchorPane reviewInputPane;
     private ReviewInputBoxController reviewInputCtrl;
@@ -158,7 +158,7 @@ public class CourseDetailsController implements Initializable {
     private VBox buyNowBtnContainer;
     private CourseListController adminCtrl;
     @FXML
-    private Label askQuestionBtn;
+    private JFXButton askQuestionBtn;
     @FXML
     private VBox faqContainer;
     private AnchorPane questionInputPane;

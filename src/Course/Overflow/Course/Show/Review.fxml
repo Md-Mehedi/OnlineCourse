@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,13 +19,21 @@
                <children>
                   <StackPane>
                      <children>
-                        <Circle fx:id="imageCircle" fill="#a11fff" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fx:id="imageCircle" fill="#a11fff" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                           <styleClass>
+                              <String fx:value="link" />
+                              <String fx:value="shadow" />
+                           </styleClass></Circle>
                         <Label fx:id="imageLabel" style="-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: white; -fx-pref-width: 80; -fx-alignment: center;" text="MH" />
                      </children>
                   </StackPane>
                   <VBox>
                      <children>
-                        <Label fx:id="name" styleClass="title4" text="Name" />
+                        <Label fx:id="name" text="Name">
+                           <styleClass>
+                              <String fx:value="title4" />
+                              <String fx:value="link" />
+                           </styleClass></Label>
                         <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-spacing: 30;">
                            <children>
                               <Rating fx:id="ratingBox" focusTraversable="false" />

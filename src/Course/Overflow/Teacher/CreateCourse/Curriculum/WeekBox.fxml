@@ -6,8 +6,6 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -123,14 +121,8 @@
    <styleClass>
       <String fx:value="container" />
       <String fx:value="centerRightWidth" />
+      <String fx:value="shadow" />
    </styleClass>
-   <effect>
-      <DropShadow height="5.0" radius="2.0" width="5.0">
-         <input>
-            <InnerShadow />
-         </input>
-      </DropShadow>
-   </effect>
    <stylesheets>
       <URL value="@../../../Global/Global.css" />
       <URL value="@Curriculum.css" />

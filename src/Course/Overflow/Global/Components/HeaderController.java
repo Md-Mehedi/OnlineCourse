@@ -81,16 +81,15 @@ public class HeaderController implements Initializable {
     private Integer notifcationCC;
     @FXML
     private ImageView themeToggle;
-    private boolean isLight;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        isLight = false;
-        leftArrow.setOpacity(0.4);
-        rightArrow.setOpacity(0.4);
+        setTheme();
+        leftArrow.setOpacity(0.3);
+        rightArrow.setOpacity(0.3);
         loadProfilePhoto();
         addListener();
         Platform.runLater(()->{
@@ -120,33 +119,35 @@ public class HeaderController implements Initializable {
             }
         });
         themeToggle.setOnMouseClicked((event) -> {
-            if(this.isLight){
-                isLight = false;
-                themeToggle.setImage(new Image(GLOBAL.ICON_LOCATION + "/half-moon.png"));
-                if(GLOBAL.rootPane.getStylesheets().contains(GLOBAL.GLOBAL_LOCATION + "/LightTheme.css")){
-                    GLOBAL.rootPane.getStylesheets().remove(GLOBAL.GLOBAL_LOCATION + "/LightTheme.css");
-                }
-                GLOBAL.rootPane.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/DarkTheme.css");
-            }
-            else{
-                isLight = true;
-                themeToggle.setImage(new Image(GLOBAL.ICON_LOCATION + "/sunrise.png"));
-                if(GLOBAL.rootPane.getStylesheets().contains(GLOBAL.GLOBAL_LOCATION + "/DarkTheme.css")){
-                    GLOBAL.rootPane.getStylesheets().remove(GLOBAL.GLOBAL_LOCATION + "/DarkTheme.css");
-                }
-                GLOBAL.rootPane.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/LightTheme.css");
-            }
+            setTheme();
         });
         notificationIcon.setOnMouseClicked((event) -> {
             notificationCtrl.refresh();
         });
+    }
+    public void setTheme(){
+        if(GLOBAL.IS_LIGHT){
+            GLOBAL.IS_LIGHT = false;
+            themeToggle.setImage(new Image(GLOBAL.ICON_LOCATION + "/half-moon.png"));
+            if(GLOBAL.rootPane.getStylesheets().contains(GLOBAL.GLOBAL_LOCATION + "/LightTheme.css")){
+                GLOBAL.rootPane.getStylesheets().remove(GLOBAL.GLOBAL_LOCATION + "/LightTheme.css");
+            }
+            GLOBAL.rootPane.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/DarkTheme.css");
+        }
+        else{
+            GLOBAL.IS_LIGHT = true;
+            themeToggle.setImage(new Image(GLOBAL.ICON_LOCATION + "/sunrise.png"));
+            if(GLOBAL.rootPane.getStylesheets().contains(GLOBAL.GLOBAL_LOCATION + "/DarkTheme.css")){
+                GLOBAL.rootPane.getStylesheets().remove(GLOBAL.GLOBAL_LOCATION + "/DarkTheme.css");
+            }
+            GLOBAL.rootPane.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/LightTheme.css");
+        }
     }
     
     
     public void setNotificationCtrl(NotificationView ctrl){
         this.notificationCtrl = ctrl;
         this.notificationPane = ctrl.getContainer();
-        setCount(ctrl.getUnseenCount());
         setNotificationPanePosition();
     }
     
@@ -162,7 +163,7 @@ public class HeaderController implements Initializable {
     
     public void setNotificationPanePosition(){
         Platform.runLater(()->{
-            notificationPane.setLayoutY(header.getHeight());
+            notificationPane.setLayoutY(80);
             notificationPane.setLayoutX(header.getWidth() - notificationPane.getWidth());
             
             logo.setOnMouseClicked((event)->{

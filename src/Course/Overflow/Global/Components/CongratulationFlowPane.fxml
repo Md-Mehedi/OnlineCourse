@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" fx:id="container" prefHeight="520.0" prefWidth="1003.0" styleClass="floaTingPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.CongratulationFlowPaneController">
+<AnchorPane id="AnchorPane" fx:id="container" prefHeight="520.0" prefWidth="1003.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.CongratulationFlowPaneController">
    <stylesheets>
       <URL value="@../Global.css" />
       <URL value="@Components.css" />
@@ -21,7 +21,7 @@
                <children>
                   <ImageView fitHeight="520.0" fitWidth="910.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../Files/Picture/Congratulation%202.jpg" />
+                        <Image url="@../../Files/Picture/Congratulation%202.png" />
                      </image>
                   </ImageView>
                   <Label styleClass="title2" text="You have successfully own" />

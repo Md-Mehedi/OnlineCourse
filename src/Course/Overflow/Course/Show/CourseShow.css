@@ -56,3 +56,6 @@ Label{
     -fx-pref-height: 40;
     -fx-max-height: 40;
 }
+#buyNowBtn{
+    -fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.8 ), 10, 0, 0, 0 );
+}

@@ -6,12 +6,12 @@
 package Course.Overflow.Teacher.CreateCourse.Pricing;
 
 import Course.Overflow.Global.Customize.ToolTip;
+import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -27,7 +27,7 @@ public class OfferController implements Initializable {
       @FXML
       private FontAwesomeIconView infoOffer;
       @FXML
-      private TextField offerField;
+      private JFXTextField offerField;
 
       /**
        * Initializes the controller class.

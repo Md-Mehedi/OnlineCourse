@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,21 +19,33 @@
                <children>
                   <Label text="What will students learn in your course?" />
                   <VBox fx:id="courseLearningContainer" />
-                  <Label fx:id="addLearning" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" styleClass="addAnswerBtn" text="+ Add an answer" />
+                  <Label fx:id="addLearning" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="+ Add an answer">
+                     <styleClass>
+                        <String fx:value="addAnswerBtn" />
+                        <String fx:value="blueBtn-m" />
+                     </styleClass></Label>
                </children>
             </VBox>
             <VBox>
                <children>
                   <Label text="Are there any course requirements or prerequisites" />
                   <VBox fx:id="requContainer" />
-                  <Label fx:id="addRequirement" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" styleClass="addAnswerBtn" text="+ Add an answer" />
+                  <Label fx:id="addRequirement" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="+ Add an answer">
+                     <styleClass>
+                        <String fx:value="addAnswerBtn" />
+                        <String fx:value="blueBtn-m" />
+                     </styleClass></Label>
                </children>
             </VBox>
             <VBox>
                <children>
                   <Label text="Write down the properties in brief with attractive icons" />
                   <VBox fx:id="propertiesContainer" />
-                  <Label fx:id="addProperties" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" styleClass="addAnswerBtn" text="+ Add an answer" />
+                  <Label fx:id="addProperties" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="+ Add an answer">
+                     <styleClass>
+                        <String fx:value="addAnswerBtn" />
+                        <String fx:value="blueBtn-m" />
+                     </styleClass></Label>
                </children>
             </VBox>
          </children>

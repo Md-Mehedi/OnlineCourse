@@ -113,6 +113,7 @@ and open the template in the editor.
 }
 #PageNumHolder Label{
     -fx-background-color: cyan;
+    -fx-background-radius: 5;
     -fx-border-color: black;
     -fx-pref-height: 50;
     -fx-pref-width: 50;

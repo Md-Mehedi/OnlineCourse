@@ -13,12 +13,12 @@ import Course.Overflow.Global.Components.Notification.Notification;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.FloatingPane;
 import Course.Overflow.Global.ToolKit;
+import com.jfoenix.controls.JFXTextArea;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.Rating;
 
@@ -34,7 +34,7 @@ public class ReviewInputBoxController extends FloatingPane implements Initializa
     @FXML
     private Rating rating;
     @FXML
-    private TextArea reviewField;
+    private JFXTextArea reviewField;
     @FXML
     private Label submtBtn;
     @FXML

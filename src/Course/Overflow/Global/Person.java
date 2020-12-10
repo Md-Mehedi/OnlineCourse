@@ -311,15 +311,7 @@ public class Person {
 
     public void setLanguages(ArrayList<Language> languages) {
         this.languages = languages;
-        ResultSet rs = DB.executeQuery("SELECT * FROM PERSON_LANGUAGE WHERE PERSON_ID = '#'", username);
-        try {
-            while (rs.next()) {
-                DB.execute("DELETE FROM PERSON_LANGUAGE WHERE ID = #", rs.getString("ID"));
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        DB.execute("DELETE FROM PERSON_LANGUAGE WHERE PERSON_ID = '#'", username);
         if (languages.size() == 0) {
             return;
         }

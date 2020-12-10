@@ -1,27 +1,90 @@
 
-/* 
-    Created on : Nov 26, 2020, 1:55:07 AM
-    Author     : Asus
-*/
+/*
+ *   Mehedi
+ */
 
 Label, TextField, CheckBox, ChoiceBox, Text, TextFlow,
 JFXTextField, JFXTextArea, TextArea,
 JFXCheckBox, JFXComboBox,
-FontAwesomeIconView, MaterialIconView{
-/*    -fx-background-color: black;*/
+JFXButton, JFXDatePicker,
+FontAwesomeIconView, MaterialDesignIconView{
     -fx-text-fill: white;
     -fx-fill: white;
     -fx-prompt-text-fill: white;
 }
+JFXTextField, JFXTextArea, 
+JFXDatePicker, JFXComboBox{
+    -jfx-focus-color: #F78D46; /* It is used bottom */
+    -jfx-default-color: #F78D46;
+    -jfx-unfocus-color: white;
+}
+.jfx-date-picker .jfx-text-field,
+JFXComboBox .jfx-text-field{
+    -fx-text-fill: white;
+}
+.jfx-combo-box .arrow,
+.choice-box .arrow {
+    -fx-background-color: white;   
+}
+.combo-box .cell {
+    -fx-background-color: #2A2A2A;
+    -fx-text-fill: white;
+}
+.combo-box .cell:hover {
+    -fx-background-color: #0066cc;
+}
+.combo-box .cell:selected {
+    -fx-background-color: #0066cc;
+}
+.backContainer{
+    -fx-background-color: #2A2A2A;
+}
+
 
 #mainRoot{
     -fx-background-image: url("../Files/Icon/DarkBG.jpg");
     -fx-background-repeat: repeat;
 }
 .shadow{
-    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 10, 0.5, 0.0, 0.0);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.5), 15, 0.5, 0.0, 0.0);
 }
-
+/*Buttons*/
+.blueBtn-m{
+    -fx-background-color: #D6B3EF;
+    -fx-background-radius: 8;
+    -fx-font: 17 "Consolas";
+    -fx-text-fill: black;
+    -fx-padding: 10;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.blueBtn-m:hover{
+    -fx-background-color:  #F6D3FF;
+}
+.greenBtn-m{
+    -fx-background-color: #BCEAC9;
+    -fx-background-radius: 8;
+    -fx-font: 17 "Consolas";
+    -fx-text-fill: black;
+    -fx-padding: 10;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.greenBtn-m:hover{
+    -fx-background-color: #9CCAA9;
+}
+.redBtn-m{
+    -fx-background-color: #F7BFD2;
+    -fx-background-radius: 8;
+    -fx-font: 17 "Consolas";
+    -fx-text-fill: black;
+    -fx-padding: 10;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.redBtn-m:hover{
+    -fx-background-color: #D79FB2;
+}
 /*CourseBox CSS*/
 .courseGridBoxContainer{
     /*-fx-background-color: #303E47;*/
@@ -44,6 +107,7 @@ FontAwesomeIconView, MaterialIconView{
 }
 .catContainer > HBox:hover Label{
     -fx-text-fill:#00EDF3;
+    -fx-font-weight: bold;
 }
 .catContainer > HBox:hover FontAwesomeIconView{
     -fx-fill: #00EDF3;
@@ -64,7 +128,7 @@ FontAwesomeIconView, MaterialIconView{
 /*Notification pane*/
 #notificationCount{
     -fx-text-fill: #FF1E1E;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 1), 10, 0.5, 0.0, 0.0);
+    -fx-effect: dropshadow(gaussian, rgba(42, 42, 42, 1),  4, 1, 0.0, 0.0);
 }
 #notificationPane{
     -fx-background-color: black;
@@ -86,6 +150,62 @@ FontAwesomeIconView, MaterialIconView{
     -fx-background-color:#455DBA;
 }
 
+/*Course Details Page*/
+#courseDetailsPropertiesContainer FontAwesomeIconView{
+    -fx-fill: black;
+}
+/*Checkout Page*/
+#checkoutBottomContainer{
+    -fx-border-color: azure; /*white*/
+    -fx-background-color: black;
+}
+/*Signup Page*/
+#signupRoot JFXTextField,
+#signupRoot JFXComboBox{
+    -jfx-focus-color: black;
+    -jfx-default-color: black;
+}
+#signupRoot .jfx-combo-box .arrow,
+#signupRoot .choice-box .arrow {
+    -fx-background-color: black;   
+}
+#signupRoot .combo-box .cell {
+    -fx-background-color: orange;
+    -fx-text-fill: black;
+}
+#signupRoot .combo-box .cell:hover {
+    -fx-background-color: #0066cc;
+}
+#signupRoot .combo-box .cell:selected {
+    -fx-background-color: #0066cc;
+}
+/*Create Course Functionality*/
+.addAnswerHbox Label{
+    -fx-border-color: white;
+}
+.addAnswerHbox JFXTextField:focused .addAnswerHbox Label{
+    -fx-border-color: #F78D46;
+}
+#WeekBoxPane Label, 
+#WeekBoxPane TextField,
+#WeekBoxPane TextArea,
+#WeekBoxPane JFXTextField,
+#WeekBoxPane JFXTextArea,
+#WeekBoxPane FontAwesomeIconView,
+#WeekBoxPane MaterialDesignIconView{
+    -fx-text-fill: black;
+    -fx-fill: black;
+    -jfx-prompt-text-fill: black;
+    -fx-focus-color: black;
+    -jfx-default-color: black;
+}
+/*Course Box Horizontal*/
+#CourseBoxHorizontal{
+    -fx-background-color: #224364;
+}
+/*
+ *   Shammya
+ */
 /*Admin Panel*/
 .table-view:row-selection .table-row-cell:selected .table-cell {
     -fx-background-color:   #EF7D3F;
@@ -132,7 +252,6 @@ FontAwesomeIconView, MaterialIconView{
     -fx-text-fill: black;
     -fx-background-radius: 8;
 }
-
 .Header2{
     -fx-background-color:     #F7E0C1;
     -fx-text-fill: black;
@@ -147,7 +266,6 @@ FontAwesomeIconView, MaterialIconView{
     -fx-background-color:   transparent;
     -fx-text-fill: white;
 }
-
 .CategoryPane{
     -fx-background-color:      #303E47;
 }

@@ -12,6 +12,7 @@ import Course.Overflow.Files.Files;
 import Course.Overflow.Global.Customize.ToolTip;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.ToolKit;
+import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +27,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -64,7 +64,7 @@ public class PropertiesController extends Object implements Initializable {
     @FXML
     private ImageView iconPicBox;
     @FXML
-    private TextField answerField;
+    private JFXTextField answerField;
     private File iconPicFile;
     private Property property;
 

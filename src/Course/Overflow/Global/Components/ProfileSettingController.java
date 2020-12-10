@@ -150,7 +150,6 @@ public class ProfileSettingController implements Initializable {
             youtube.setText(ps.getYoutubeURL());
             about.setText(ps.getAbout());
             email.setText(ps.getEmail());
-            email.setDisable(true);
             if (ps.getDob() != null) {
                 dob.setValue(ToolKit.DateToLocalDate(ps.getDob()));
             }
@@ -174,6 +173,7 @@ public class ProfileSettingController implements Initializable {
             if (ps.getAccountType() == AccountType.Teacher && GLOBAL.TEACHER.getDesignation() != null) {
                 eduStatusCB.setValue(GLOBAL.TEACHER.getDesignation().getType());
             }
+            selectedLanguage.clear();
             for (Language l : ps.getLanguages()) {
                 CheckBox cb = checkBoxes.get(l.getId());
                 cb.setSelected(true);
@@ -199,8 +199,10 @@ public class ProfileSettingController implements Initializable {
         ArrayList<Language> list = Language.getList();
         VBox container = new VBox();
         AnchorPane root = new AnchorPane(container);
+        ToolKit.setAnchor(container, 0, 0, 0, 0);
         root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
-
+        root.getStyleClass().add("backContainer");
+        root.getStyleClass().add("shadow");
         for (Language l : list) {
             CheckBox cb = new CheckBox(l.getName());
             checkBoxes.put(l.getId(), cb);
@@ -208,7 +210,6 @@ public class ProfileSettingController implements Initializable {
             //checkBoxes.get(l.getId()).setSelected(true);
 
             container.getChildren().add(cb);
-            cb.setStyle(cb.getStyle() + "-fx-font-size: 18;");
             cb.setOnMouseClicked((event) -> {
                 if (cb.isSelected()) {
                     selectedLanguage.add(l);
@@ -229,13 +230,13 @@ public class ProfileSettingController implements Initializable {
         Platform.runLater(() -> {
             root.setStyle(
                     root.getStyle()
-                    + "-fx-background-color: white;"
                     + "-fx-pref-width: 350;"
             );
             container.setStyle(
                     container.getStyle()
                     + "-fx-alignment: center-left;"
                     + "-fx-spacing: 5; "
+                    + "-fx-padding: 5; "
             );
         });
     }
@@ -243,7 +244,6 @@ public class ProfileSettingController implements Initializable {
     private void refreshLanguageString() {
         String text = "";
         String[] languages = new String[selectedLanguage.size()];
-
         for (int i = 0; i < selectedLanguage.size(); i++) {
             languages[i] = selectedLanguage.get(i).getName();
         }

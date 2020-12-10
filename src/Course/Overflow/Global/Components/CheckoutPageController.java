@@ -12,6 +12,9 @@ import Course.Overflow.Global.Layout.FloatingPane;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Student.Student;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,9 +23,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -36,11 +37,11 @@ public class CheckoutPageController extends FloatingPane implements Initializabl
     @FXML
     private AnchorPane container;
     @FXML
-    private TextField cardNameField;
+    private JFXTextField cardNameField;
     @FXML
-    private TextField cardNumberField;
+    private JFXTextField cardNumberField;
     @FXML
-    private DatePicker expireField;
+    private JFXDatePicker expireField;
     @FXML
     private Label discountPrice;
     @FXML
@@ -48,7 +49,7 @@ public class CheckoutPageController extends FloatingPane implements Initializabl
     @FXML
     private Label originalPrice;
     @FXML
-    private Label completeBtn;
+    private JFXButton completeBtn;
     @FXML
     private ImageView coursePhoto;
     @FXML

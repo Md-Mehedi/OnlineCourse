@@ -14,14 +14,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane fx:id="root" styleClass="profileSettingRoot" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.ProfileSettingController">
-   <stylesheets>
-      <URL value="@../Global.css" />
-      <URL value="@Components.css" />
-   </stylesheets>
    <children>
-      <VBox layoutX="50.0" layoutY="20.0" style="-fx-spacing: 50;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="20.0">
+      <VBox layoutX="86.0" layoutY="55.0" style="-fx-spacing: 50;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
          <children>
             <VBox styleClass="profileSetting">
                <children>
@@ -30,14 +25,14 @@
                      <children>
                         <VBox styleClass="first">
                            <children>
-                              <JFXTextField fx:id="firstName" labelFloat="true" prefHeight="20.0" promptText="First Name" text="First name" />
+                              <JFXTextField fx:id="firstName" labelFloat="true" prefHeight="20.0" promptText="First Name" />
                               <JFXTextField fx:id="lastName" labelFloat="true" prefHeight="30.0" promptText="Last Name" />
                               <JFXTextField fx:id="language" labelFloat="true" prefHeight="30.0" promptText="Language" />
                               <JFXComboBox fx:id="countryCB" labelFloat="true" prefHeight="31.0" prefWidth="368.0" promptText="Country" />
                               <VBox>
                                  <children>
                                     <Label text="Date of Birth" />
-                                    <JFXDatePicker fx:id="dob" overLay="true" prefHeight="31.0" prefWidth="359.0" />
+                                    <JFXDatePicker fx:id="dob" prefHeight="31.0" prefWidth="655.0" />
                                  </children>
                               </VBox>
                               <JFXComboBox fx:id="eduStatusCB" labelFloat="true" prefHeight="31.0" prefWidth="368.0" promptText="Educational Status" />
@@ -83,7 +78,7 @@
                   <HBox styleClass="fileUploaderHbox">
                      <children>
                         <Label fx:id="imageNameLabel" prefWidth="400.0" text="No file selected" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="upload" mnemonicParsing="false" text="Upload Photo" />
+                        <Button fx:id="upload" maxWidth="136.0" mnemonicParsing="false" prefWidth="136.0" text="Upload Photo" />
                      </children>
                   </HBox>
                </children>
@@ -100,7 +95,7 @@
                               <VBox>
                                  <children>
                                     <Label text="Expire Date" />
-                                    <JFXDatePicker fx:id="expireDate" prefHeight="31.0" prefWidth="655.0" />
+                                    <JFXDatePicker fx:id="expireDate" prefHeight="31.0" prefWidth="655.0" showWeekNumbers="true" />
                                  </children>
                               </VBox>
                            </children>
@@ -116,7 +111,7 @@
                      <children>
                         <VBox style="-fx-pref-width: -1;" HBox.hgrow="ALWAYS">
                            <children>
-                              <JFXTextField fx:id="email" labelFloat="true" promptText="Email" />
+                              <JFXTextField fx:id="email" editable="false" labelFloat="true" promptText="Email" />
                               <JFXTextField fx:id="oldPass" labelFloat="true" promptText="Old Password" />
                               <JFXTextField fx:id="newPass" labelFloat="true" promptText="New Password" />
                               <JFXTextField fx:id="newPassAgain" labelFloat="true" promptText="New Password (Again)" />
@@ -128,11 +123,15 @@
             </VBox>
             <HBox>
                <children>
-                  <JFXButton fx:id="save" text="Save" />
-                  <JFXButton fx:id="cancel" text="Cancel" />
+                  <JFXButton fx:id="save" styleClass="btn" text="Save" />
+                  <JFXButton fx:id="cancel" styleClass="btn" text="Cancel" />
                </children>
             </HBox>
          </children>
       </VBox>
    </children>
+   <stylesheets>
+      <URL value="@../Global.css" />
+      <URL value="@Components.css" />
+   </stylesheets>
 </AnchorPane>

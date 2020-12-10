@@ -13,8 +13,10 @@ import Course.Overflow.Global.Person;
 import Course.Overflow.Global.Person.AccountType;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Student.Student;
+import Course.Overflow.Teacher.Teacher;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -41,18 +43,14 @@ public class AppMain extends Application {
         pane = new AnchorPane();
         GLOBAL.WIDTH = 1460;
         GLOBAL.HEIGHT = 900;
+//        boolean ligthTheme = true;
+        GLOBAL.IS_LIGHT = false;
+        GLOBAL.rootPane = root;
         root.setPrefWidth(GLOBAL.WIDTH);
         root.setPrefHeight(GLOBAL.HEIGHT);
+        root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
+        root.setId("mainRoot");
         
-        
-//        ImageView iv = new ImageView(new Image("/Course/Overflow/Files/Picture/No Data Found.jpg"));
-//        iv.setFitHeight(GLOBAL.HEIGHT);
-//        iv.setPreserveRatio(true);
-//        System.out.println("adding");
-//        root.getChildren().add(iv);
-//        iv.toFront();
-//        System.out.println("new thread is running");
-
 // To show the main app, just toggle the bottom 2 line comments.
         System.out.println(System.getProperty("user.name"));
         if (System.getProperty("user.name").equals("ASUS")) {
@@ -65,9 +63,6 @@ public class AppMain extends Application {
         }
 
         GLOBAL.stage = primaryStage;
-        GLOBAL.rootPane = root;
-        
-        cssEffect();
 
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -82,9 +77,13 @@ public class AppMain extends Application {
         PageController pageCtrl = null;
         int testing = 1;
         if(testing == 1){
-            GLOBAL.ACCOUNT_TYPE = Person.AccountType.Student;
-            GLOBAL.STUDENT = new Student("mehediS");
+            GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
+            GLOBAL.TEACHER = new Teacher("mehediT");
             pageCtrl = new PageController(PageName.Home);
+            Platform.runLater(()->{
+            GLOBAL.PAGE_CTRL.loadPage(PageName.CreateCourse);
+                
+            });
         }
         else{
             pageCtrl = new PageController(PageName.Login);
@@ -116,13 +115,5 @@ public class AppMain extends Application {
         root.getChildren().add(sc);
 
 //        GLOBAL.rootScroll = sc;
-    }
-
-    private void cssEffect() {
-        root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
-        root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/LightTheme.css");
-        root.setId("mainRoot");
-//        ImagePattern ip = new ImagePattern(new Image(GLOBAL.ICON_LOCATION + "/White bg.png"), 100, 100, 500, 500, false);
-//        root.setBackground(new Background(new BackgroundFill(ip, CornerRadii.EMPTY, Insets.EMPTY)));    
     }
 }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.LoginSignup.SignupController">
+<AnchorPane id="signupRoot" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.LoginSignup.SignupController">
    <children>
       <ImageView fitHeight="900.0" fitWidth="1438.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -41,7 +41,7 @@
                                     </ImageView>
                                     <VBox>
                                        <children>
-                                          <Label text="Course" textFill="#f89858">
+                                          <Label style="-fx-text-fill: #f89858;" text="Course" textFill="#f89858">
                                              <font>
                                                 <Font name="Bell MT Bold" size="35.0" />
                                              </font>
@@ -49,7 +49,7 @@
                                                 <Insets />
                                              </opaqueInsets>
                                           </Label>
-                                          <Label text="Overflow" textFill="WHITE">
+                                          <Label style="-fx-text-fill: white;" text="Overflow" textFill="WHITE">
                                              <font>
                                                 <Font name="Broadway" size="32.0" />
                                              </font>
@@ -60,12 +60,12 @@
                               </HBox>
                               <VBox>
                                  <children>
-                                    <Label text="Already have an account ?" textFill="#f2a532">
+                                    <Label style="-fx-text-fill: #f2a532;" text="Already have an account ?" textFill="#f2a532">
                                        <font>
                                           <Font name="Bell MT Bold" size="25.0" />
                                        </font>
                                     </Label>
-                                    <JFXButton fx:id="loginBtn" style="-fx-background-color: #BBF801;" styleClass="btn" text="Log In">
+                                    <JFXButton fx:id="loginBtn" style="-fx-background-color: #BBF801; -fx-text-fill: black;" styleClass="btn" text="Log In">
                                        <font>
                                           <Font name="Bodoni MT" size="18.0" />
                                        </font>
@@ -84,23 +84,23 @@
                      <children>
                         <VBox layoutY="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Label alignment="CENTER" style="-fx-background-color: #2C323D;" styleClass="btn" text="Sign up and start learning !" textFill="#e79d30">
+                              <Label alignment="CENTER" style="-fx-background-color: #2C323D; -fx-text-fill: #e79d30;" styleClass="btn" text="Sign up and start learning !" textFill="#e79d30">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <VBox>
+                              <VBox style="-fx-spacing: 20;">
                                  <children>
                                     <HBox>
                                        <children>
                                           <MaterialDesignIconView glyphName="ACCOUNT_MULTIPLE" size="35" />
-                                          <ChoiceBox fx:id="accountTypeCB" prefHeight="33.0" prefWidth="160.0" />
+                                          <JFXComboBox fx:id="accountTypeCB" prefHeight="31.0" prefWidth="160.0" />
                                        </children>
                                     </HBox>
                                     <HBox>
                                        <children>
                                           <MaterialDesignIconView glyphName="FILE_DOCUMENT_BOX" size="35" />
-                                          <JFXTextField fx:id="email" focusColor="#061646" prefHeight="28.0" prefWidth="160.0" promptText="E-mail">
+                                          <JFXTextField fx:id="email" focusColor="#061646" labelFloat="true" prefHeight="20.0" prefWidth="160.0" promptText="E-mail" style="-fx-padding: 0; -fx-font-family: &quot;Bell MT&quot;; -fx-font-size: 17; -fx-font-weight: bold; -fx-prompt-text-fill: black; -fx-text-fill: black; -jfx-focus-color: black;">
                                              <font>
                                                 <Font name="Bell MT Bold" size="17.0" />
                                              </font>
@@ -110,7 +110,7 @@
                                     <HBox>
                                        <children>
                                           <MaterialDesignIconView glyphName="ACCOUNT_CIRCLE" size="35" />
-                                          <JFXTextField fx:id="username" focusColor="#061646" prefHeight="28.0" prefWidth="160.0" promptText="Username">
+                                          <JFXTextField fx:id="username" focusColor="#061646" labelFloat="true" prefHeight="20.0" prefWidth="160.0" promptText="Username" style="-fx-padding: 0; -fx-font-family: &quot;Bell MT&quot;; -fx-font-size: 17; -fx-font-weight: bold; -fx-prompt-text-fill: black; -fx-text-fill: black; -jfx-focus-color: black;">
                                              <font>
                                                 <Font name="Bell MT Bold" size="17.0" />
                                              </font>
@@ -120,7 +120,7 @@
                                     <HBox>
                                        <children>
                                           <MaterialDesignIconView glyphName="SECURITY" size="35" />
-                                          <JFXPasswordField fx:id="password" focusColor="#0f1f4d" onAction="#pass_clk" onMouseClicked="#check_pass_strength" prefHeight="33.0" prefWidth="160.0" promptText="Password">
+                                          <JFXPasswordField fx:id="password" focusColor="#0f1f4d" labelFloat="true" onAction="#pass_clk" onMouseClicked="#check_pass_strength" prefHeight="20.0" prefWidth="160.0" promptText="Password" style="-fx-prompt-text-fill: black; -fx-text-fill: black;">
                                              <font>
                                                 <Font name="Bell MT Bold" size="17.0" />
                                              </font>
@@ -164,12 +164,12 @@
                                     </HBox>
                                  </children>
                               </VBox>
-                              <JFXButton fx:id="signupBtn" style="-fx-background-color: #1558A5;" styleClass="btn" text="Sign Up" textFill="WHITE">
+                              <JFXButton fx:id="signupBtn" style="-fx-background-color: #1558A5; -fx-text-fill: white;" styleClass="btn" text="Sign Up" textFill="WHITE">
                                  <font>
                                     <Font name="Bell MT" size="18.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton onAction="#TandC_clk" prefHeight="31.0" prefWidth="362.0" style="-fx-background-color: #E79D30; -fx-background-radius: 10;" text="By signing up, you agree to our Terms of Use and Privacy Policy." underline="true">
+                              <JFXButton onAction="#TandC_clk" prefHeight="31.0" prefWidth="362.0" style="-fx-background-color: #E79D30; -fx-background-radius: 10; -fx-text-fill: black;" text="By signing up, you agree to our Terms of Use and Privacy Policy." underline="true">
                                  <font>
                                     <Font size="12.0" />
                                  </font>

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.Rating?>
 
-<AnchorPane id="CourseBoxHorizontal" fx:id="container" style="-fx-background-color: pink;" styleClass="cursorHand" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.CourseBoxHorizontalController">
+<AnchorPane id="CourseBoxHorizontal" fx:id="container" styleClass="cursorHand" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.CourseBoxHorizontalController">
    <stylesheets>
       <URL value="@../Global.css" />
       <URL value="@Components.css" />

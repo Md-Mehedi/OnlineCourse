@@ -6,14 +6,14 @@
 package Course.Overflow.Teacher.CreateCourse.Curriculum;
 
 import Course.Overflow.Global.ToolKit;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -29,13 +29,13 @@ public class ArticleInputBoxController implements Initializable {
     @FXML
     private AnchorPane container;
     @FXML
-    private TextArea article;
+    private JFXTextArea article;
     @FXML
     private Button saveBtn;
     @FXML
     private Button cancelBtn;
     @FXML
-    private TextField title;
+    private JFXTextField title;
     private String oldArticle;
     private String oldTitle;
 

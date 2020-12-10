@@ -53,6 +53,7 @@ public class NotificationView {
     public void refresh(){
         ArrayList<Notification> list = Notification.getList();
         container.getChildren().clear();
+        unseenCount = 0;
         for(Notification notification : list){
             container.getChildren().add(notification.getPane());
             if(!notification.isSeen()) unseenCount++;

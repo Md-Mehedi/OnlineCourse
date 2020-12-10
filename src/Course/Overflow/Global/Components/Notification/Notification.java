@@ -32,7 +32,6 @@ public class Notification {
         container.getChildren().addAll(t1, t2);
         pane.getChildren().add(container);
         pane.setOnMouseClicked((event) -> {
-            GLOBAL.HEADER.decreaseNotification();
             seenUpdate();
             GLOBAL.PAGE_CTRL.loadPage(PageName.PersonDetails);
             PersonPreviewController ctrl = (PersonPreviewController) GLOBAL.PAGE_CTRL.getController();
@@ -104,7 +103,6 @@ public class Notification {
         container.getChildren().addAll(t1, t2);
         pane.getChildren().add(container);
         pane.setOnMouseClicked((event) -> {
-            GLOBAL.HEADER.decreaseNotification();
             seenUpdate();
             GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
             CourseDetailsController ctrl = (CourseDetailsController) GLOBAL.PAGE_CTRL.getController();
@@ -121,7 +119,6 @@ public class Notification {
         container.getChildren().addAll(t1, t2, t3);
         pane.getChildren().add(container);
         pane.setOnMouseClicked((event) -> {
-            GLOBAL.HEADER.decreaseNotification();
             seenUpdate();
             GLOBAL.PAGE_CTRL.loadPage(PageName.Review);
             CourseDetailsController ctrl = (CourseDetailsController) GLOBAL.PAGE_CTRL.getController();
@@ -138,7 +135,6 @@ public class Notification {
         container.getChildren().addAll(t1, t2, t3);
         pane = new AnchorPane(container);
         pane.setOnMouseClicked((event) -> {
-            GLOBAL.HEADER.decreaseNotification();
             seenUpdate();
             GLOBAL.PAGE_CTRL.loadPage(PageName.FAQ);
 //            CourseDetailsController ctrl = (CourseDetailsController) GLOBAL.PAGE_CTRL.getController();
@@ -155,7 +151,6 @@ public class Notification {
         container.getChildren().addAll(t1, t2, t3);
         pane.getChildren().add(container);
         pane.setOnMouseClicked((event) -> {
-            GLOBAL.HEADER.decreaseNotification();
             seenUpdate();
             GLOBAL.PAGE_CTRL.loadPage(PageName.FAQ);
 //            CourseDetailsController ctrl = (CourseDetailsController) GLOBAL.PAGE_CTRL.getController();
@@ -164,7 +159,11 @@ public class Notification {
     }
 
     private void seenUpdate() {
-        DB.execute("UPDATE NOTIFICATION SET SEEN = 'T' WHERE ID = #", id.toString());
+        if(!seen){
+            pane.getStyleClass().add("seen");
+            GLOBAL.HEADER.decreaseNotification();
+            DB.execute("UPDATE NOTIFICATION SET SEEN = 'T' WHERE ID = #", id.toString());
+        }
     }
 
     public enum NotificationType {

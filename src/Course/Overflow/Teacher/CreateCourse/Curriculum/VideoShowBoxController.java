@@ -40,14 +40,10 @@ public class VideoShowBoxController implements Initializable {
     @FXML
     private VBox playBtn;
     @FXML
-    private Label descriptionLabel;
-    @FXML
     private Label description;
     @FXML
     private Button updateBtn;
     private LectureBoxController parent;
-    @FXML
-    private Label fileNameLabel;
     private File file;
     private Media me;
     private MediaPlayer mp;
@@ -60,7 +56,7 @@ public class VideoShowBoxController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         playBtn.setOpacity(0);
         description.setPrefWidth(GLOBAL.LABEL_PREF_WIDTH - mediaView.getFitWidth() - 20);
-        fileNameLabel.setPrefWidth(GLOBAL.LABEL_PREF_WIDTH - mediaView.getFitWidth() - 20);
+//        fileNameLabel.setPrefWidth(GLOBAL.LABEL_PREF_WIDTH - mediaView.getFitWidth() - 20);
     }
 
     void setParent(LectureBoxController parent) {
@@ -96,7 +92,7 @@ public class VideoShowBoxController implements Initializable {
 
     void setFile(File f) {
         this.file = f;
-        fileNameLabel.setText(file.getName());
+//        fileNameLabel.setText(file.getName());
     }
 
     @FXML
