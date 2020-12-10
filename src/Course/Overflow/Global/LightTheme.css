@@ -184,6 +184,10 @@ JFXComboBox .jfx-text-field{
     -jfx-default-color: black;
 }
 
+/*Course Box Horizontal*/
+#CourseBoxHorizontal{
+    -fx-background-color: #ADD9F7;
+}
 
 
 /*

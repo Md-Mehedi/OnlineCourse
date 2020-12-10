@@ -199,7 +199,10 @@ JFXComboBox .jfx-text-field{
     -fx-focus-color: black;
     -jfx-default-color: black;
 }
-
+/*Course Box Horizontal*/
+#CourseBoxHorizontal{
+    -fx-background-color: #224364;
+}
 /*
  *   Shammya
  */

@@ -13,6 +13,7 @@ import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.PersonPreviewController;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Student.PurchaseHistory;
+import com.jfoenix.controls.JFXComboBox;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
@@ -30,7 +31,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -62,7 +62,7 @@ public class PageByPageLayoutController implements Initializable {
     @FXML
     private HBox pageNumContainer;
     @FXML
-    private ComboBox<String> numOfItemChoiceBox;
+    private JFXComboBox<String> numOfItemChoiceBox;
     private ObservableList<String> numOfItemList;
     @FXML
     private AnchorPane container;
@@ -231,6 +231,7 @@ public class PageByPageLayoutController implements Initializable {
         totalPageNums = (int) Math.ceil(1.0 * items.size() / totalItem1page);
         for (int i = 1; i <= totalPageNums; i++) {
             Label label = new Label(i + "");
+            label.getStyleClass().add("shadow");
             pageNumContainer.getChildren().add(label);
 
             label.setOnMouseEntered(event -> {
