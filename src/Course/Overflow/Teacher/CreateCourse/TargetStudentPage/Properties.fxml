@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
 <AnchorPane id="container" fx:id="container" prefWidth="600.0" styleClass="centerRightWidth" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Teacher.CreateCourse.TargetStudentPage.PropertiesController">
-   <stylesheets>
-      <URL value="@../../../Global/Global.css" />
-      <URL value="@TargetStudentPage.css" />
-   </stylesheets>
    <children>
       <HBox layoutX="162.0" layoutY="132.0" styleClass="addAnswerHbox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox style="-fx-spacing: 0;">
                <children>
-                  <Label id="uploadBtn" fx:id="selectIconBtn" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" style="-fx-text-alignment: right;" styleClass="cursorHand" text="Select Icon" />
+                  <Label id="uploadBtn" fx:id="selectIconBtn" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" style="-fx-text-alignment: right; -fx-background-radius: 0;" text="Select Icon">
+                     <styleClass>
+                        <String fx:value="cursorHand" />
+                        <String fx:value="blueBtn-m" />
+                     </styleClass></Label>
                   <StackPane>
                      <children>
                         <Label fx:id="iconBox">
@@ -33,7 +34,7 @@
                   </StackPane>
                </children>
             </HBox>
-            <TextField fx:id="answerField" prefWidth="1000.0" />
+            <JFXTextField fx:id="answerField" prefHeight="48.0" prefWidth="1000.0" />
             <HBox style="-fx-spacing: 0;" styleClass="addAnswerIconBox">
                <children>
                   <Label fx:id="deleteIcon" onMouseClicked="#mouseClicked" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" styleClass="cursorHand">
@@ -56,4 +57,8 @@
          </children>
       </HBox>
    </children>
+   <stylesheets>
+      <URL value="@../../../Global/Global.css" />
+      <URL value="@TargetStudentPage.css" />
+   </stylesheets>
 </AnchorPane>

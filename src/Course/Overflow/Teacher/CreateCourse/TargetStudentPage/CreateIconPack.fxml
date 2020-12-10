@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="264.0" styleClass="iconBoxContainer" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Teacher.CreateCourse.TargetStudentPage.CreateIconPackController">
+<AnchorPane id="AnchorPane" prefHeight="264.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Teacher.CreateCourse.TargetStudentPage.CreateIconPackController">
    <children>
       <VBox alignment="CENTER" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="8.0">
          <children>
@@ -81,11 +82,9 @@
       <URL value="@../../../Global/Global.css" />
       <URL value="@TargetStudentPage.css" />
    </stylesheets>
-   <effect>
-      <DropShadow height="0.0" offsetY="-1.0" radius="4.5" width="20.0">
-         <input>
-            <InnerShadow height="8.0" radius="3.5" width="8.0" />
-         </input>
-      </DropShadow>
-   </effect>
+   <styleClass>
+      <String fx:value="iconBoxContainer" />
+      <String fx:value="backContainer" />
+      <String fx:value="shadow" />
+   </styleClass>
 </AnchorPane>

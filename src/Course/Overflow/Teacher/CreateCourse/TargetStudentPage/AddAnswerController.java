@@ -6,12 +6,12 @@
 package Course.Overflow.Teacher.CreateCourse.TargetStudentPage;
 
 import Course.Overflow.Global.ToolKit;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -26,7 +26,7 @@ public class AddAnswerController implements Initializable {
     @FXML
     private AnchorPane container;
     @FXML
-    private TextField answerField;
+    private JFXTextField answerField;
     @FXML
     private Label deleteIcon;
     @FXML

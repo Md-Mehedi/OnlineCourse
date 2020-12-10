@@ -12,8 +12,10 @@ import Course.Overflow.Global.Person;
 import Course.Overflow.Global.Person.AccountType;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Student.Student;
+import Course.Overflow.Teacher.Teacher;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -74,9 +76,13 @@ public class AppMain extends Application {
         PageController pageCtrl = null;
         int testing = 1;
         if(testing == 1){
-            GLOBAL.ACCOUNT_TYPE = Person.AccountType.Student;
-            GLOBAL.STUDENT = new Student("mehediS");
+            GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
+            GLOBAL.TEACHER = new Teacher("mehediT");
             pageCtrl = new PageController(PageName.Home);
+            Platform.runLater(()->{
+            GLOBAL.PAGE_CTRL.loadPage(PageName.CreateCourse);
+                
+            });
         }
         else{
             pageCtrl = new PageController(PageName.Login);

@@ -21,31 +21,33 @@ Label{
     -fx-spacing: 0;
 }
 StackPane{
-    -fx-background-color: #ccffff;
+    /*-fx-background-color: #ccffff;*/
+}
+/*
+ * TargetStudentPage.fxml
+ */
+.addAnswerHbox JFXTextField{
+    -fx-pref-height: 46;
+    -fx-pref-width: 1000;
 }
 .addAnswerHbox Label{
     -fx-pref-width: 50;
     -fx-min-width: 50;
     -fx-max-width: 50;
     -fx-pref-height: 50;
-    -fx-border-color: #009999;
-    -fx-background-color: #ccffff;
+    -fx-border-width: 0 0 1 0;
     -fx-alignment: center;
 }
-.addAnswerHbox TextField{
-    -fx-border-color: #009999;
-    -fx-background-color: #eeffff;
-}
 .addAnswerIconBox{
-    -fx-opacity: 0.1;
+    -fx-opacity: 0.3;
 }
 .addAnswerHbox:hover .addAnswerIconBox{
     -fx-opacity: 1;
 }
 #uploadBtn{
-    -fx-background-color: #009999;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
+    /*-fx-background-color: #009999;*/
+    /*-fx-text-fill: white;*/
+    /*-fx-font-weight: bold;*/
     -fx-min-width: 135;
     -fx-text-alignment: center;
 }
@@ -54,18 +56,10 @@ StackPane{
 }
 
 /*
- * TargetStudentPage.fxml
- */
-.addAnswerBtn{
-    -fx-text-fill: #009999;
-    -fx-font-weight: bold;
-    -fx-font-size: 22;
-}
-/*
  * CreateIconPack.fxml
  */
 .iconBoxContainer{
-    -fx-background-color: #eeffff;
+    /*-fx-background-color: #eeffff;*/
     -fx-pref-width: 185;
     -fx-max-width: 185;
     -fx-min-width: 185;
@@ -73,9 +67,11 @@ StackPane{
 .iconBoxContainer Label{
     -fx-background-color: #88ffff;
     -fx-cursor: Hand;
+    -fx-text-fill: black;
 }
 .iconBoxContainer FontAwesomeIconView{
     -fx-cursor: hand;
+    /*-fx-fill: black;*/
 }
 .iconBoxContainer FontAwesomeIconView:hover{
     -fx-scale-x: 1.2;

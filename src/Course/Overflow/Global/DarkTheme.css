@@ -7,15 +7,16 @@ Label, TextField, CheckBox, ChoiceBox, Text, TextFlow,
 JFXTextField, JFXTextArea, TextArea,
 JFXCheckBox, JFXComboBox,
 JFXButton, JFXDatePicker,
-FontAwesomeIconView, MaterialIconView{
+FontAwesomeIconView, MaterialDesignIconView{
     -fx-text-fill: white;
     -fx-fill: white;
     -fx-prompt-text-fill: white;
 }
 JFXTextField, JFXTextArea, 
 JFXDatePicker, JFXComboBox{
-    -jfx-focus-color: #F78D46;
+    -jfx-focus-color: #F78D46; /* It is used bottom */
     -jfx-default-color: #F78D46;
+    -jfx-unfocus-color: white;
 }
 .jfx-date-picker .jfx-text-field,
 JFXComboBox .jfx-text-field{
@@ -51,10 +52,11 @@ JFXComboBox .jfx-text-field{
 .blueBtn-m{
     -fx-background-color: #D6B3EF;
     -fx-background-radius: 8;
-    -fx-font: 17 "Consolos";
+    -fx-font: 17 "Consolas";
     -fx-text-fill: black;
     -fx-padding: 10;
     -fx-font-weight: bold;
+    -fx-cursor: hand;
 }
 .blueBtn-m:hover{
     -fx-background-color:  #F6D3FF;
@@ -62,10 +64,11 @@ JFXComboBox .jfx-text-field{
 .greenBtn-m{
     -fx-background-color: #BCEAC9;
     -fx-background-radius: 8;
-    -fx-font: 17 "Consolos";
+    -fx-font: 17 "Consolas";
     -fx-text-fill: black;
     -fx-padding: 10;
     -fx-font-weight: bold;
+    -fx-cursor: hand;
 }
 .greenBtn-m:hover{
     -fx-background-color: #9CCAA9;
@@ -73,10 +76,11 @@ JFXComboBox .jfx-text-field{
 .redBtn-m{
     -fx-background-color: #F7BFD2;
     -fx-background-radius: 8;
-    -fx-font: 17 "Consolos";
+    -fx-font: 17 "Consolas";
     -fx-text-fill: black;
     -fx-padding: 10;
     -fx-font-weight: bold;
+    -fx-cursor: hand;
 }
 .redBtn-m:hover{
     -fx-background-color: #D79FB2;
@@ -147,7 +151,7 @@ JFXComboBox .jfx-text-field{
 }
 
 /*Course Details Page*/
-#propertiesContainer FontAwesomeIconView{
+#courseDetailsPropertiesContainer FontAwesomeIconView{
     -fx-fill: black;
 }
 /*Checkout Page*/
@@ -174,6 +178,13 @@ JFXComboBox .jfx-text-field{
 }
 #signupRoot .combo-box .cell:selected {
     -fx-background-color: #0066cc;
+}
+/*Create Course Functionality*/
+.addAnswerHbox Label{
+    -fx-border-color: white;
+}
+.addAnswerHbox JFXTextField:focused .addAnswerHbox Label{
+    -fx-border-color: #F78D46;
 }
 
 

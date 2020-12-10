@@ -19,7 +19,7 @@ Label{
 }
 .mainTopic{
     -fx-alignment: center;
-    -fx-background-color:  #E8E9EB;
+    /*-fx-background-color:  #E8E9EB;*/
 }
 .mainTopic>Label{
     -fx-pref-width: 1010;

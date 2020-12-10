@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -17,18 +16,16 @@
    <children>
       <VBox layoutX="14.0" layoutY="14.0" styleClass="tipsContainer" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0">
          <children>
-            <VBox style="-fx-background-color: E8E9EB;" styleClass="mainTopic">
+            <VBox>
                <children>
                   <Label styleClass="title2" text="There's a course in you. Plan it out." />
                   <Label style="-fx-font-size: 30;" styleClass="largeFont" text="Planning your course carefully will create a clear learning path for students and help you once you film. Think down to the details of each lecture including the skill you'll teach, estimated video length, practical activities to include, and how you'll create introductions and summaries" />
                </children>
-               <effect>
-                  <DropShadow height="25.0" radius="12.0" width="25.0">
-                     <input>
-                        <InnerShadow height="15.0" radius="7.0" width="15.0" />
-                     </input>
-                  </DropShadow>
-               </effect>
+               <styleClass>
+                  <String fx:value="mainTopic" />
+                  <String fx:value="backContainer" />
+                  <String fx:value="shadow" />
+               </styleClass>
             </VBox>
             <VBox styleClass="topic">
                <children>

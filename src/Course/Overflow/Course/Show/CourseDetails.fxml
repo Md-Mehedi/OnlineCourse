@@ -98,7 +98,7 @@
                         <VBox VBox.vgrow="ALWAYS">
                            <children>
                               <Label styleClass="title4" text="This course included" />
-                              <VBox id="propertiesContainer" fx:id="properties" VBox.vgrow="ALWAYS" />
+                              <VBox id="courseDetailsPropertiesContainer" fx:id="properties" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                      </children>
