@@ -7,36 +7,36 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="1035.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Admin.MaintainCategoryController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="1035.0" styleClass="a" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Admin.MaintainCategoryController">
    <children>
-      <Label fx:id="countrylabel" alignment="CENTER" layoutX="631.0" layoutY="26.0" prefHeight="38.0" prefWidth="169.0" style="-fx-background-color: #F36F65;" text="Category List" textFill="WHITE">
+      <Label fx:id="countrylabel" alignment="CENTER" layoutX="560.0" layoutY="23.0" prefHeight="38.0" prefWidth="169.0" styleClass="Header2" text="Category List" textFill="WHITE">
          <font>
             <Font name="Bell MT Bold" size="20.0" />
          </font>
       </Label>
-      <TreeView fx:id="categoryTree" layoutX="452.0" layoutY="79.0" prefHeight="444.0" prefWidth="526.0" />
-      <JFXButton fx:id="add" layoutX="140.0" layoutY="293.0" prefHeight="39.0" prefWidth="104.0" style="-fx-background-color: #66CCE1;" text="Add" textFill="WHITE">
+      <TreeView fx:id="categoryTree" layoutX="452.0" layoutY="79.0" prefHeight="444.0" prefWidth="385.0" styleClass="myTree" />
+      <JFXButton fx:id="add" layoutX="140.0" layoutY="293.0" prefHeight="39.0" prefWidth="104.0" styleClass="GreenButton" text="Add" textFill="WHITE">
          <font>
             <Font name="Bell MT Bold" size="20.0" />
          </font>
       </JFXButton>
       <JFXTextField fx:id="Name" alignment="CENTER" labelFloat="true" layoutX="97.0" layoutY="227.0" opacity="0.45" prefHeight="31.0" prefWidth="219.0" promptText="Category / Sub CategoryName" />
-      <Label fx:id="countrylabel1" alignment="CENTER" layoutX="122.0" layoutY="163.0" prefHeight="38.0" prefWidth="169.0" style="-fx-background-color: #764B96;" text="Category Section" textFill="WHITE">
+      <Label fx:id="countrylabel1" alignment="CENTER" layoutX="122.0" layoutY="163.0" prefHeight="38.0" prefWidth="169.0" styleClass="Header1" text="Category Section" textFill="WHITE">
          <font>
             <Font name="Bell MT Bold" size="20.0" />
          </font>
       </Label>
-      <JFXButton fx:id="delete" layoutX="140.0" layoutY="348.0" prefHeight="39.0" prefWidth="104.0" style="-fx-background-color: #EB0072;" text="Delete" textFill="WHITE">
+      <JFXButton fx:id="delete" layoutX="130.0" layoutY="353.0" prefHeight="39.0" prefWidth="104.0" styleClass="RedButton" text="Delete" textFill="WHITE">
          <font>
             <Font name="Bell MT Bold" size="20.0" />
          </font>
       </JFXButton>
-      <Label fx:id="countrylabel11" alignment="CENTER" layoutX="35.0" layoutY="431.0" prefHeight="38.0" prefWidth="313.0" text="1 . Select Category or Subcategory to delete">
+      <Label fx:id="countrylabel11" alignment="CENTER" layoutX="35.0" layoutY="431.0" prefHeight="38.0" prefWidth="313.0" styleClass="TransparentLabel" text="1 . Select Category or Subcategory to delete">
          <font>
             <Font name="Bell MT" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="countrylabel111" alignment="CENTER" layoutX="42.0" layoutY="469.0" prefHeight="38.0" prefWidth="313.0" text="2 . Select Root or Category to add new option">
+      <Label fx:id="countrylabel111" alignment="CENTER" layoutX="42.0" layoutY="469.0" prefHeight="38.0" prefWidth="313.0" styleClass="TransparentLabel" text="2 . Select Root or Category to add new option">
          <font>
             <Font name="Bell MT" size="16.0" />
          </font>
