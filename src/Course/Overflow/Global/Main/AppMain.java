@@ -4,6 +4,7 @@ package Course.Overflow.Global.Main;
  * To change this license HEADER, choose License Headers in Project Properties. To change this
  * template file, choose ToolKit | Templates and open the template in the editor.
  */
+import Course.Overflow.Admin.Admin;
 import Course.Overflow.DB;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageController;
@@ -100,9 +101,9 @@ public class AppMain extends Application {
     }
 
     private void shammyaTestPage() throws IOException {
-        GLOBAL.ACCOUNT_TYPE = AccountType.Student;
-        GLOBAL.STUDENT = new Student("mehediS");
-        PageController pageCtrl = new PageController(PageName.Login);
+        GLOBAL.ACCOUNT_TYPE = AccountType.Admin;
+        GLOBAL.ADMIN = new Admin("shammya");
+        PageController pageCtrl = new PageController(PageName.AdminPanel);
        // pageCtrl.loadFXML(GLOBAL.GLOBAL_LOCATION+"/MediaPlayer.fxml");
         GLOBAL.PAGE_CTRL = pageCtrl;
         pane = pageCtrl.getContainer();

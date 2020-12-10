@@ -8,26 +8,26 @@
 
 <AnchorPane id="CategoryPane" prefHeight="550.0" prefWidth="1035.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Admin.CourseListController">
    <children>
-      <TableView fx:id="approved" layoutX="45.0" layoutY="69.0" prefHeight="478.0" prefWidth="469.0">
+      <TableView fx:id="approved" layoutX="45.0" layoutY="69.0">
          <columns>
-            <TableColumn fx:id="id_col" prefWidth="63.0" text="ID" />
-            <TableColumn fx:id="title_col" prefWidth="267.0" text="Title" />
-            <TableColumn fx:id="name_col" prefWidth="138.0" text="Teacher" />
+            <TableColumn fx:id="id_col" prefWidth="63.0" styleClass="TableColumn" text="ID" />
+            <TableColumn fx:id="title_col" prefWidth="267.0" styleClass="TableColumn" text="Title" />
+            <TableColumn fx:id="name_col" prefWidth="138.0" styleClass="TableColumn" text="Teacher" />
          </columns>
       </TableView>
-      <Label fx:id="countrylabel" alignment="CENTER" layoutX="142.0" layoutY="12.0" prefHeight="38.0" prefWidth="275.0" styleClass="redColor" text="Approved Course List" textFill="WHITE">
+      <Label fx:id="countrylabel" alignment="CENTER" layoutX="142.0" layoutY="12.0" styleClass="Header1" text="Approved Course List" textFill="WHITE">
          <font>
             <Font name="Bell MT Bold" size="22.0" />
          </font>
       </Label>
-      <TableView fx:id="unapproved" layoutX="547.0" layoutY="69.0" prefHeight="478.0" prefWidth="459.0">
+      <TableView fx:id="unapproved" layoutX="547.0" layoutY="69.0">
          <columns>
-            <TableColumn fx:id="id_col1" prefWidth="55.0" text="ID" />
-            <TableColumn fx:id="title_col1" prefWidth="261.0" text="Title" />
-            <TableColumn fx:id="name_col1" prefWidth="142.0" text="Teacher" />
+            <TableColumn fx:id="id_col1" prefWidth="55.0" styleClass="TableColumn" text="ID" />
+            <TableColumn fx:id="title_col1" prefWidth="261.0" styleClass="TableColumn" text="Title" />
+            <TableColumn fx:id="name_col1" prefWidth="142.0" styleClass="TableColumn" text="Teacher" />
          </columns>
       </TableView>
-      <Label id="Header2" fx:id="countrylabel1" alignment="CENTER" layoutX="639.0" layoutY="12.0" prefHeight="38.0" prefWidth="275.0" text="Unapproved Course List" textFill="WHITE">
+      <Label fx:id="countrylabel1" alignment="CENTER" layoutX="639.0" layoutY="12.0" styleClass="Header2" text="Unapproved Course List" textFill="WHITE">
          <font>
             <Font name="Bell MT Bold" size="22.0" />
          </font>

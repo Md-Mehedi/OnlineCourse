@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -46,9 +47,12 @@ public class CourseListController implements Initializable {
     private ContextMenu contextMenu1;
     private MenuItem itm11;
     private MenuItem itm22;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        unapproved.getSelectionModel().setSelectionMode(
+                SelectionMode.MULTIPLE
+        );
         setFactory();
         adListener();
         loadData();
@@ -65,15 +69,15 @@ public class CourseListController implements Initializable {
         name_col1.setCellValueFactory(new PropertyValueFactory<Course, String>("teacherName"));
 
     }
-    
+
     private void setContextMenu2() {
         contextMenu = new ContextMenu();
         itm1 = new MenuItem("Show Details");
         itm1.setOnAction(event -> {
             Course course = unapproved.getSelectionModel().getSelectedItem();
             GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
-            ((CourseDetailsController)GLOBAL.PAGE_CTRL.getController()).loadData(course);
-            ((CourseDetailsController)GLOBAL.PAGE_CTRL.getController()).setAdminView(this);
+            ((CourseDetailsController) GLOBAL.PAGE_CTRL.getController()).loadData(course);
+            ((CourseDetailsController) GLOBAL.PAGE_CTRL.getController()).setAdminView(this);
         });
         itm2 = new MenuItem("Approve");
         itm2.setOnAction(event -> {
@@ -83,22 +87,25 @@ public class CourseListController implements Initializable {
         contextMenu.getItems().add(itm2);
         unapproved.setContextMenu(contextMenu);
     }
-    public void approveCourse(Integer id){
+
+    public void approveCourse(Integer id) {
         Course.approveCourse(id);
         loadData();
     }
+
     public void unapproveCourse(Integer id) {
         Course.unapproveCourse(id);
         loadData();
     }
+
     private void setContextMenu1() {
         contextMenu1 = new ContextMenu();
         itm11 = new MenuItem("Show Details");
         itm11.setOnAction(event -> {
             Course course = approved.getSelectionModel().getSelectedItem();
             GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
-            ((CourseDetailsController)GLOBAL.PAGE_CTRL.getController()).loadData(course);
-            ((CourseDetailsController)GLOBAL.PAGE_CTRL.getController()).setAdminView(this);
+            ((CourseDetailsController) GLOBAL.PAGE_CTRL.getController()).loadData(course);
+            ((CourseDetailsController) GLOBAL.PAGE_CTRL.getController()).setAdminView(this);
         });
         itm22 = new MenuItem("Unapprove");
         itm22.setOnAction(event -> {
@@ -123,6 +130,5 @@ public class CourseListController implements Initializable {
         unapproved.setItems(list);
 
     }
-
 
 }

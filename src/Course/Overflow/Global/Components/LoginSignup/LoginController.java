@@ -95,10 +95,10 @@ public class LoginController implements Initializable {
 //            }
         });
         loginBtn.setOnMouseClicked((event) -> {
-           loginBtnAction();
+            loginBtnAction();
         });
         password.setOnKeyPressed((event) -> {
-            if(event.getCode() == KeyCode.ENTER){
+            if (event.getCode() == KeyCode.ENTER) {
                 loginBtnAction();
             }
         });
@@ -107,26 +107,30 @@ public class LoginController implements Initializable {
         });
 
     }
-    private void loginBtnAction(){
-         try {
+
+    private void loginBtnAction() {
+        try {
             Person person = Person.validUser(username.getText(), password.getText());
             if (person != null) {
                 System.out.println("successfully logged in to " + username.getText() + " account");
-                if(Student.exist(username.getText())){
+                if (Student.exist(username.getText())) {
                     GLOBAL.ACCOUNT_TYPE = Person.AccountType.Student;
                     GLOBAL.STUDENT = new Student(username.getText());
                     GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
-                }
-                else if(Teacher.exist(username.getText())){
+                } else if (Teacher.exist(username.getText())) {
                     GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
                     GLOBAL.TEACHER = new Teacher(username.getText());
                     GLOBAL.PAGE_CTRL.loadPage(PageName.Home);
-                }
-                else if(Admin.exist(username.getText())){
+                } else if (Admin.exist(username.getText())) {
                     GLOBAL.ACCOUNT_TYPE = Person.AccountType.Admin;
                     GLOBAL.ADMIN = new Admin(username.getText());
                     GLOBAL.PAGE_CTRL.loadPage(PageName.AdminPanel);
                 }
+//                String sql = "DECLARE "
+//                        + "BEGIN "
+//                        + "	ERASE_NOTIFICATION(4,'#'); "
+//                        + " END;";
+//                DB.execute(sql, person.getUsername());
             } else {
                 int state = JOptionPane.showConfirmDialog(null, "Invalid User ID or Password ! ", "select", JOptionPane.CANCEL_OPTION);
                 if (state == 0) {

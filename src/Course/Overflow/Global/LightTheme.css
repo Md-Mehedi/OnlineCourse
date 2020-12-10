@@ -40,6 +40,11 @@ FontAwesomeIconView, MaterialIconView{
 }
 
 /*Admin Panel*/
+.myTree {
+   -fx-stroke: #eeeeee;
+   -fx-background-color: #2E3B44;
+   -fx-text-fill: #ffffff;
+   }
 .redBtn{
     -fx-text-fill: #2C2929;
     -fx-background-color:  #F03B3F;
@@ -49,12 +54,43 @@ FontAwesomeIconView, MaterialIconView{
     -fx-background-color:  #F72F75;
     -fx-text-fill: white;
 }
+.BlueButton{
+    -fx-text-fill: white;
+    -fx-background-color:   #755FE9;
+    -fx-background-radius: 8;
+}
+.GreenButton{
+    -fx-text-fill: white;
+    -fx-background-color:    #00A668;
+    -fx-background-radius: 8;
+}
+.RedButton{
+    -fx-text-fill: white;
+    -fx-background-color:       #F72F75;
+    -fx-background-radius: 8;
+}
 .Header1{
     -fx-background-color:   #EF7D3F;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
 }
 
 .Header2{
     -fx-background-color:      #717978;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+}
+.TableColumn{
+    -fx-background-color:    #F7E0C1;
+    -fx-text-fill: black;
+}
+.TransparentLabel{
+    -fx-background-color:   transparent;
+    -fx-text-fill: black;
+}
+.PaneColor{
+    -fx-background-color:   #2E3B44;
+    -fx-text-fill: black;
 }
 
 .CategoryPane{

@@ -10,30 +10,30 @@
 
 <AnchorPane id="AnchorPane" fx:id="EduStatusMaintainPane" prefHeight="550.0" prefWidth="1035.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Admin.MaintainEduStatusController">
    <children>
-      <TableView fx:id="table" layoutX="462.0" prefHeight="550.0" prefWidth="435.0" AnchorPane.rightAnchor="138.0">
+      <TableView fx:id="table" layoutX="462.0" prefHeight="550.0" prefWidth="564.0" AnchorPane.rightAnchor="9.0">
          <columns>
-            <TableColumn fx:id="id_col" prefWidth="113.0" style="-fx-background-color: #F86BAB;" text="ID" />
-            <TableColumn fx:id="type_col" prefWidth="225.0" style="-fx-background-color: #8ACCC3;" text="Educational Status" />
-            <TableColumn fx:id="adminid_col" prefWidth="96.0" style="-fx-background-color: #F8B35C;" text="AdminID" />
+            <TableColumn fx:id="id_col" prefWidth="152.0" styleClass="TableColumn" text="ID" />
+            <TableColumn fx:id="type_col" prefWidth="233.0" styleClass="TableColumn" text="Educational Status" />
+            <TableColumn fx:id="adminid_col" prefWidth="178.0" styleClass="TableColumn" text="AdminID" />
          </columns>
       </TableView>
-      <JFXButton fx:id="add" layoutX="197.0" layoutY="286.0" prefHeight="39.0" prefWidth="104.0" style="-fx-background-color: #66CCE1;" text="Add" textFill="WHITE">
+      <JFXButton fx:id="add" layoutX="197.0" layoutY="286.0" prefHeight="39.0" prefWidth="104.0" styleClass="GreenButton" text="Add" textFill="WHITE">
          <font>
             <Font name="Bell MT Bold" size="20.0" />
          </font>
       </JFXButton>
-      <Label alignment="CENTER" layoutX="132.0" layoutY="145.0" prefHeight="38.0" prefWidth="235.0" style="-fx-background-color: #764B96;" text="Educational Status Name" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="118.0" layoutY="145.0" prefHeight="38.0" prefWidth="263.0" styleClass="Header1" text="Educational Status Name" textFill="WHITE">
          <font>
             <Font name="Bell MT Bold" size="20.0" />
          </font>
       </Label>
       <JFXTextField fx:id="statusName" layoutX="168.0" layoutY="201.0" />
-      <JFXButton fx:id="update" layoutX="197.0" layoutY="349.0" prefHeight="39.0" prefWidth="104.0" style="-fx-background-color: #F8BE00;" text="Update" textFill="WHITE">
+      <JFXButton fx:id="update" layoutX="197.0" layoutY="349.0" prefHeight="39.0" prefWidth="104.0" styleClass="BlueButton" text="Update" textFill="WHITE">
          <font>
             <Font name="Bell MT Bold" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="delete" layoutX="197.0" layoutY="412.0" prefHeight="39.0" prefWidth="104.0" style="-fx-background-color: #F87758;" text="Delete" textFill="WHITE">
+      <JFXButton fx:id="delete" layoutX="197.0" layoutY="412.0" prefHeight="39.0" prefWidth="104.0" styleClass="RedButton" text="Delete" textFill="WHITE">
          <font>
             <Font name="Bell MT Bold" size="20.0" />
          </font>

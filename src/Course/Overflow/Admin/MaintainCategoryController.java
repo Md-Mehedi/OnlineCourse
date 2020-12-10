@@ -43,6 +43,7 @@ public class MaintainCategoryController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        categoryTree.getStyleClass().add("myTree"); 
         loadData();
         adListener();
 
@@ -97,15 +98,18 @@ public class MaintainCategoryController implements Initializable {
             }
         });
         add.setOnMouseClicked(event -> {
-            if (!selected.isEmpty() && !DB.valueExist("CATEGORY", "NAME", Name.getText())) {
-                if (selected.equals("Category List")) {
-                    Category.createNewCategory(Name.getText());
-                } else {
-                    Category.createNewSubCategory(Name.getText(), selected);
+            if (selectedItem != null) {
+                if (!Name.getText().isEmpty()&&!selected.isEmpty() && !DB.valueExist("CATEGORY", "NAME", Name.getText())) {
+                    if (selected.equals("Category List")) {
+                        Category.createNewCategory(Name.getText());
+                    } else {
+                        Category.createNewSubCategory(Name.getText(), selected);
+                    }
+                    loadData();
+                    selected = "";
                 }
-                loadData();
-                selected = "";
             }
+            Name.setText("");
         });
         delete.setOnMouseClicked(event -> {
             if (selectedItem != null) {
@@ -119,7 +123,7 @@ public class MaintainCategoryController implements Initializable {
                 }
             }
             loadData();
-            selected="";
+            selected = "";
         });
 
     }
