@@ -53,6 +53,8 @@ public class CourseListController implements Initializable {
         unapproved.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE
         );
+        approved.setId("blue_cell");
+        unapproved.setId("blue_cell");
         setFactory();
         adListener();
         loadData();

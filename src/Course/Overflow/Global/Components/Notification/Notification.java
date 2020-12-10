@@ -185,6 +185,11 @@ public class Notification {
     private AnchorPane pane;
 
     public static ArrayList<Notification> getList() {
+                String sql = "DECLARE "
+                + "BEGIN "
+                + "     ERASE_NOTIFICATION(10,'#'); "
+                + "END;";
+        DB.execute(sql,ToolKit.getCurrentPerson().getUsername());
         try {
             ArrayList<Notification> list = new ArrayList<Notification>();
             ResultSet rs = DB.executeQuery("SELECT * FROM NOTIFICATION WHERE USER_ID = '#' ORDER BY TIME DESC", ToolKit.getCurrentPerson().getUsername());

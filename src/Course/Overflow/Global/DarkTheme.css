@@ -87,6 +87,15 @@ FontAwesomeIconView, MaterialIconView{
 }
 
 /*Admin Panel*/
+.table-view:row-selection .table-row-cell:selected .table-cell {
+    -fx-background-color:   #EF7D3F;
+}
+.table-view:row-selection .table-row-cell:hover .table-cell {
+    -fx-background-color:    #F4BD4D;
+}
+.table-row-cell:selected{
+    -fx-background-color: blue;
+}
 .myTree {
    -fx-stroke: #eeeeee;
    -fx-background-color: #2E3B44;

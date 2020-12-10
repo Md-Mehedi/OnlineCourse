@@ -126,11 +126,7 @@ public class LoginController implements Initializable {
                     GLOBAL.ADMIN = new Admin(username.getText());
                     GLOBAL.PAGE_CTRL.loadPage(PageName.AdminPanel);
                 }
-//                String sql = "DECLARE "
-//                        + "BEGIN "
-//                        + "	ERASE_NOTIFICATION(4,'#'); "
-//                        + " END;";
-//                DB.execute(sql, person.getUsername());
+
             } else {
                 int state = JOptionPane.showConfirmDialog(null, "Invalid User ID or Password ! ", "select", JOptionPane.CANCEL_OPTION);
                 if (state == 0) {

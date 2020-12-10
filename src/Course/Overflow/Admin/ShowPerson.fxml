@@ -6,29 +6,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="1035.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Admin.ShowPersonController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="1035.0" stylesheets="@../Global/Global.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Admin.ShowPersonController">
    <children>
-      <TableView fx:id="teachertable" layoutX="57.0" layoutY="72.0" prefHeight="478.0" prefWidth="432.0">
+      <TableView fx:id="teachertable" layoutX="32.0" layoutY="72.0" prefHeight="478.0" prefWidth="497.0">
         <columns>
-          <TableColumn fx:id="usernamet" prefWidth="141.0" styleClass="TableColumn" text="Username" />
-          <TableColumn fx:id="coursecreated" prefWidth="136.0" styleClass="TableColumn" text="Course Created" />
-            <TableColumn fx:id="coursepurchased" prefWidth="153.0" styleClass="TableColumn" text="Course Purchased" />
+          <TableColumn fx:id="usernamet" prefWidth="126.0" styleClass="TableColumn" text="Username" />
+          <TableColumn fx:id="coursecreated" prefWidth="172.0" styleClass="TableColumn" text="Course Created" />
+            <TableColumn fx:id="coursepurchased" prefWidth="198.0" styleClass="TableColumn" text="Course Purchased" />
         </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="199.0" layoutY="14.0" prefHeight="38.0" prefWidth="148.0" styleClass="Header1" text="Teacher List" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="207.0" layoutY="14.0" prefHeight="38.0" prefWidth="148.0" styleClass="Header1" text="Teacher List" textFill="WHITE">
          <font>
             <Font name="Bell MT Bold" size="24.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="699.0" layoutY="14.0" prefHeight="38.0" prefWidth="142.0" styleClass="Header2" text="Student List" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="701.0" layoutY="14.0" prefHeight="38.0" prefWidth="142.0" styleClass="Header2" text="Student List" textFill="WHITE">
          <font>
             <Font name="Bell MT Bold" size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="studenttable" layoutX="554.0" layoutY="72.0" prefHeight="478.0" prefWidth="432.0">
+      <TableView fx:id="studenttable" layoutX="558.0" layoutY="72.0" prefHeight="478.0" prefWidth="428.0">
          <columns>
-            <TableColumn fx:id="usernames" prefWidth="249.0" styleClass="TableColumn" text="Username" />
-            <TableColumn fx:id="courseowned" prefWidth="182.0" styleClass="TableColumn" text="Course Owned" />
+            <TableColumn fx:id="usernames" prefWidth="242.0" styleClass="TableColumn" text="Username" />
+            <TableColumn fx:id="courseowned" prefWidth="189.0" styleClass="TableColumn" text="Course Owned" />
          </columns>
       </TableView>
    </children>

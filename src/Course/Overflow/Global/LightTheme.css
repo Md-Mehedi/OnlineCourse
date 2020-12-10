@@ -40,6 +40,9 @@ FontAwesomeIconView, MaterialIconView{
 }
 
 /*Admin Panel*/
+.table-row-cell:selected{
+    -fx-background-color: blue;
+}
 .myTree {
    -fx-stroke: #eeeeee;
    -fx-background-color: #2E3B44;
@@ -84,14 +87,17 @@ FontAwesomeIconView, MaterialIconView{
     -fx-background-color:    #F7E0C1;
     -fx-text-fill: black;
 }
+.table-view:row-selection .table-row-cell:selected .table-cell {
+    -fx-background-color:  #AADAF1;
+}
 .TransparentLabel{
     -fx-background-color:   transparent;
     -fx-text-fill: black;
 }
-.PaneColor{
+/*.PaneColor{
     -fx-background-color:   #2E3B44;
     -fx-text-fill: black;
-}
+}*/
 
 .CategoryPane{
     -fx-background-color:       #F7E0C1;
