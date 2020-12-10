@@ -13,6 +13,7 @@ import Course.Overflow.Teacher.CreateCourse.CreateCourse;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController;
 import Course.Overflow.Teacher.CreateCourse.TargetStudentPage.TargetStudentPageController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
@@ -24,7 +25,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -33,7 +33,7 @@ import javafx.scene.layout.HBox;
 public class PricingController implements Initializable {
 
     @FXML
-    private TextField price;
+    private JFXTextField price;
     @FXML
     private CheckBox offerCkBox;
     @FXML

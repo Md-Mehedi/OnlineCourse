@@ -43,11 +43,16 @@
             </GridPane>
             <HBox alignment="CENTER" spacing="20.0">
                <children>
-                  <Button id="Save" fx:id="saveBtn" mnemonicParsing="false" onMouseClicked="#mouseClicked" styleClass="minScaleHover" text="Save" />
+                  <Button id="Save" fx:id="saveBtn" mnemonicParsing="false" onMouseClicked="#mouseClicked" text="Save">
+                     <styleClass>
+                        <String fx:value="minScaleHover" />
+                        <String fx:value="greenBtn-m" />
+                     </styleClass></Button>
                   <Button id="Cancel" fx:id="cancelBtn" mnemonicParsing="false" onMouseClicked="#mouseClicked" text="Cancel">
                      <styleClass>
                         <String fx:value="minScaleHover" />
                         <String fx:value="cursorHand" />
+                        <String fx:value="redBtn-m" />
                      </styleClass></Button>
                </children>
             </HBox>

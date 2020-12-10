@@ -46,6 +46,7 @@ public class CreateIconPackController implements Initializable {
         if (src == upBtn) {
             File file = ToolKit.chooseFile(FileType.PICTURE);
             parentController.setIconPackVisibility(false);
+            if(file == null) return;
             parentController.setIconPic(file);
         } else {
             FontAwesomeIconView selectIcon = (FontAwesomeIconView) src;

@@ -45,6 +45,9 @@ JFXComboBox .jfx-text-field{
 .shadow{
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 15, 0.5, 0.0, 0.0);
 }
+.innerShadow{
+     -fx-effect: innershadow(three-pass-box, rgba(0,0,0,0.75),1,0,1,1);
+}
 /*Buttons*/
 .blueBtn-m{
     -fx-background-color:  #755FE9;
@@ -166,6 +169,19 @@ JFXComboBox .jfx-text-field{
 }
 .addAnswerHbox JFXTextField:focused .addAnswerHbox Label{
     -fx-border-color: #19A7F0;
+}
+#WeekBoxPane Label, 
+#WeekBoxPane TextField,
+#WeekBoxPane TextArea,
+#WeekBoxPane JFXTextField,
+#WeekBoxPane JFXTextArea,
+#WeekBoxPane FontAwesomeIconView,
+#WeekBoxPane MaterialDesignIconView{
+    -fx-text-fill: black;
+    -fx-fill: black;
+    -jfx-prompt-text-fill: black;
+    -fx-focus-color: black;
+    -jfx-default-color: black;
 }
 
 

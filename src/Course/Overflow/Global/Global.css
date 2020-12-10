@@ -155,10 +155,10 @@ TextField{
 .choiceBox{
     -fx-pref-width: 300;
     -fx-pref-height: 45;
-    -fx-background-color: #ccffff;
-    -fx-border-color: gray;
-    -fx-border-radius: 5;
-    -fx-padding: 0 10 0 10;
+    /*-fx-background-color: #ccffff;*/
+    /*-fx-border-color: gray;*/
+    /*-fx-border-radius: 5;*/
+    /*-fx-padding: 0 10 0 10;*/
     -fx-alignment: center;   
 }
 .choiceBoxContainer{
@@ -181,6 +181,9 @@ TextField{
 }
 .infoHbox{
     -fx-spacing: 0;
+}
+.innerShadow{
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2),30,30,0,0);
 }
 
 /*Button CSS*/

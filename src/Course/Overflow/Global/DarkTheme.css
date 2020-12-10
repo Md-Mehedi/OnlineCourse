@@ -186,7 +186,19 @@ JFXComboBox .jfx-text-field{
 .addAnswerHbox JFXTextField:focused .addAnswerHbox Label{
     -fx-border-color: #F78D46;
 }
-
+#WeekBoxPane Label, 
+#WeekBoxPane TextField,
+#WeekBoxPane TextArea,
+#WeekBoxPane JFXTextField,
+#WeekBoxPane JFXTextArea,
+#WeekBoxPane FontAwesomeIconView,
+#WeekBoxPane MaterialDesignIconView{
+    -fx-text-fill: black;
+    -fx-fill: black;
+    -jfx-prompt-text-fill: black;
+    -fx-focus-color: black;
+    -jfx-default-color: black;
+}
 
 /*
  *   Shammya

@@ -38,11 +38,9 @@
                   </VBox>
                   <VBox spacing="30.0" style="-fx-alignment: top-left;">
                      <children>
-                        <Label fx:id="fileNameLabel" styleClass="title" wrapText="true" />
                         <VBox spacing="10.0" style="-fx-alignment: top-left;">
                            <children>
-                              <Label fx:id="descriptionLabel" styleClass="caption" text="Description: " wrapText="true" />
-                              <Label fx:id="description" textAlignment="JUSTIFY" wrapText="true" />
+                              <Label fx:id="description" style="-fx-alignment: top-left; -fx-text-alignment: left;" textAlignment="JUSTIFY" wrapText="true" />
                            </children>
                         </VBox>
                      </children>
@@ -55,6 +53,7 @@
                      <styleClass>
                         <String fx:value="minScaleHover" />
                         <String fx:value="cursorHand" />
+                        <String fx:value="blueBtn-m" />
                      </styleClass></Button>
                </children>
             </HBox>

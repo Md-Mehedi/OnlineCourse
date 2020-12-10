@@ -25,6 +25,7 @@
                      <styleClass>
                         <String fx:value="minScaleHover" />
                         <String fx:value="cursorHand" />
+                        <String fx:value="blueBtn-m" />
                      </styleClass></Button>
                </children>
             </HBox>

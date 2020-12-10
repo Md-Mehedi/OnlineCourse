@@ -17,6 +17,9 @@ import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.CreateCourse.Curriculum.CurriculumController;
 import Course.Overflow.Teacher.CreateCourse.Pricing.PricingController;
 import Course.Overflow.Teacher.CreateCourse.TargetStudentPage.TargetStudentPageController;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,8 +38,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -55,19 +56,17 @@ public class DetailsController implements Initializable {
 //      private ChoiceBox<String> languageCB;
 //      private ChoiceBox<String> selectLevelCB;
     @FXML
-    private ChoiceBox<String> mainCategoryCB;
+    private JFXComboBox<String> mainCategoryCB;
     @FXML
-    private ChoiceBox<String> subCategoryCB;
+    private JFXComboBox<String> subCategoryCB;
     @FXML
     private AnchorPane container;
     @FXML
-    private TextField courseTitle;
+    private JFXTextField courseTitle;
     @FXML
-    private TextField courseSubTitle;
+    private JFXTextField courseSubTitle;
     @FXML
-    private TextArea courseDescription;
-    @FXML
-    private TextField primTaught;
+    private JFXTextArea courseDescription;
     @FXML
     private ImageView courseImage;
     @FXML
@@ -85,13 +84,10 @@ public class DetailsController implements Initializable {
     private FontAwesomeIconView taughtInfoIcon;
     @FXML
     private FontAwesomeIconView imageInfoIcon;
-//      private FontAwesomeIconView videoInfoIcon;
-    @FXML
-    private Label ct;
     private AnchorPane parentPane;
     private File photoFile;
     @FXML
-    private TextField languageField;
+    private JFXTextField languageField;
     private HashMap<Integer, CheckBox> checkBoxes;
     private ArrayList<Language> selectedLanguage;
     private PricingController pricingCtrl;
@@ -133,7 +129,7 @@ public class DetailsController implements Initializable {
         VBox container = new VBox();
         AnchorPane root = new AnchorPane(container);
         root.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
-
+        root.getStyleClass().addAll("backContainer", "shadow");
         for (Language l : list) {
             CheckBox cb = new CheckBox(l.getName());
             checkBoxes.put(l.getId(), cb);
@@ -141,7 +137,7 @@ public class DetailsController implements Initializable {
             //checkBoxes.get(l.getId()).setSelected(true);
 
             container.getChildren().add(cb);
-            cb.setStyle(cb.getStyle() + "-fx-font-size: 18;");
+//            cb.setStyle(cb.getStyle() + "-fx-font-size: 18;");
             cb.setOnMouseClicked((event) -> {
                 if (cb.isSelected()) {
                     selectedLanguage.add(l);
@@ -162,7 +158,6 @@ public class DetailsController implements Initializable {
         Platform.runLater(() -> {
             root.setStyle(
                   root.getStyle()
-                  + "-fx-background-color: white;"
                   + "-fx-pref-width: 350;"
             );
             container.setStyle(

@@ -39,10 +39,6 @@ public class PDFShowBoxController implements Initializable {
     @FXML
     private VBox openBtn;
     @FXML
-    private Label fileNameLabel;
-    @FXML
-    private Label descriptionLabel;
-    @FXML
     private Label description;
     @FXML
     private Button updateBtn;
@@ -59,7 +55,7 @@ public class PDFShowBoxController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         openBtn.setOpacity(0);
         description.setPrefWidth(GLOBAL.LABEL_PREF_WIDTH - pdfThumbView.getFitWidth() - 20);
-        fileNameLabel.setPrefWidth(GLOBAL.LABEL_PREF_WIDTH - pdfThumbView.getFitWidth() - 20);
+//        fileNameLabel.setPrefWidth(GLOBAL.LABEL_PREF_WIDTH - pdfThumbView.getFitWidth() - 20);
     }
 
     void setParent(LectureBoxController parent) {
@@ -94,7 +90,7 @@ public class PDFShowBoxController implements Initializable {
     void setFile(File f) {
         this.file = f;
         this.oldFile = f;
-        fileNameLabel.setText(file.getName());
+//        fileNameLabel.setText(file.getName());
     }
 
     void setDescription(String description) {
