@@ -53,23 +53,36 @@ public class ShowPersonController implements Initializable {
         contextMenu = new ContextMenu();
         itm1 = new MenuItem("Show Details");
         itm1.setOnAction(event -> {
-            GLOBAL.PAGE_CTRL.loadPage(PageName.PersonDetails);
-            PersonPreviewController ctrl = (PersonPreviewController) GLOBAL.PAGE_CTRL.getController();
-            ctrl.loadData(studenttable.getSelectionModel().getSelectedItem());
+            if (studenttable.getSelectionModel().getSelectedItem() != null) {
+                GLOBAL.PAGE_CTRL.loadPage(PageName.PersonDetails);
+                PersonPreviewController ctrl = (PersonPreviewController) GLOBAL.PAGE_CTRL.getController();
+                ctrl.loadData(studenttable.getSelectionModel().getSelectedItem());
+            } else {
+                studenttable.setSelectionModel(null);
+            }
+
 //            Person selected = table.getSelectionModel().getSelectedItem();
 //            ProfileSettingController profSetCtrl = (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
 //            profSetCtrl.createEnvironmentForSignup(selected.getEmail(), selected.getUsername(), selected.getPassword());
         });
+
         contextMenu.getItems().add(itm1);
         studenttable.setContextMenu(contextMenu);
     }
-     private void setContextMenut() {
+
+    private void setContextMenut() {
         contextMenu = new ContextMenu();
         itm1 = new MenuItem("Show Details");
         itm1.setOnAction(event -> {
-            GLOBAL.PAGE_CTRL.loadPage(PageName.PersonDetails);
-            PersonPreviewController ctrl = (PersonPreviewController) GLOBAL.PAGE_CTRL.getController();
-            ctrl.loadData(teachertable.getSelectionModel().getSelectedItem());
+            if (teachertable.getSelectionModel().getSelectedItem() != null) {
+                GLOBAL.PAGE_CTRL.loadPage(PageName.PersonDetails);
+                PersonPreviewController ctrl = (PersonPreviewController) GLOBAL.PAGE_CTRL.getController();
+                ctrl.loadData(teachertable.getSelectionModel().getSelectedItem());
+            }
+            else {
+                teachertable.setSelectionModel(null);
+            }
+
 //            Person selected = table.getSelectionModel().getSelectedItem();
 //            ProfileSettingController profSetCtrl = (ProfileSettingController) GLOBAL.PAGE_CTRL.loadFXML(GLOBAL.COMPONENTS_LOCATION + "/ProfileSetting.fxml");
 //            profSetCtrl.createEnvironmentForSignup(selected.getEmail(), selected.getUsername(), selected.getPassword());
@@ -79,7 +92,7 @@ public class ShowPersonController implements Initializable {
     }
 
     private void adListener() {
-    
+
     }
 
     private void setFactory() {
