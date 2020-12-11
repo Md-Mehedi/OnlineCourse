@@ -55,7 +55,7 @@ public class Language {
 
     public static ArrayList<Language> getList() {
         ArrayList<Language> list = new ArrayList<>();
-        ResultSet rs = DB.executeQuery("SELECT * FROM LANGUAGE");
+        ResultSet rs = DB.executeQuery("SELECT * FROM LANGUAGE ORDER BY NAME");
         try {
             while (rs.next()) {
                 list.add(new Language(rs.getInt("ID"), rs.getString("NAME"), rs.getString("ADMIN_ID")));

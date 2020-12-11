@@ -56,7 +56,7 @@ public class Country {
 
     public static ArrayList<Country> getList() {
         ArrayList<Country> list = new ArrayList<>();
-        ResultSet rs = DB.executeQuery("SELECT * FROM COUNTRY");
+        ResultSet rs = DB.executeQuery("SELECT * FROM COUNTRY ORDER BY NAME ");
         try {
             while (rs.next()) {
                 list.add(new Country(rs.getInt("ID"), rs.getString("NAME"), rs.getString("ADMIN_ID")));

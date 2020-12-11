@@ -165,12 +165,12 @@ public class MediaPlayerController extends FloatingPane implements Initializable
 
         right.setOnMouseClicked(event -> {
             if (media != null) {
-                mediaPlayer.seek(duration.multiply(((mediaslider.getValue() + 1.0) / 100.0)));
+                mediaPlayer.seek(duration.multiply(((mediaslider.getValue() + 4.0) / 100.0)));
             }
         });
         left.setOnMouseClicked(event -> {
             if (media != null) {
-                mediaPlayer.seek(duration.multiply(((mediaslider.getValue() - 1.0) / 100.0)));
+                mediaPlayer.seek(duration.multiply(((mediaslider.getValue() - 4.0) / 100.0)));
             }
         });
 

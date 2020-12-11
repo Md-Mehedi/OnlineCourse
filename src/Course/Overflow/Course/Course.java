@@ -379,7 +379,7 @@ public class Course {
 
     public static ArrayList<Course> getApprovedCourses() {
         ArrayList<Course> apCourses = new ArrayList<Course>();
-        String sql = "SELECT ID FROM COURSE WHERE IS_APPROVED = 'T'";
+        String sql = "SELECT ID FROM COURSE WHERE IS_APPROVED = 'T' ORDER BY PUBLISH_DATE DESC";
         ResultSet rs = DB.executeQuery(sql);
         try {
             while (rs.next()) {
@@ -477,7 +477,7 @@ public class Course {
 
     public static ArrayList<Course> getUnapprovedCourses() {
         ArrayList<Course> apCourses = new ArrayList<Course>();
-        String sql = "SELECT ID FROM COURSE WHERE IS_APPROVED = 'F'";
+        String sql = "SELECT ID FROM COURSE WHERE IS_APPROVED = 'F'ORDER BY PUBLISH_DATE DESC";
         ResultSet rs = DB.executeQuery(sql);
         try {
             while (rs.next()) {

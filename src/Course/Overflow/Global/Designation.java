@@ -54,7 +54,7 @@ public class Designation {
 
     public static ArrayList<Designation> getList() {
         ArrayList<Designation> list = new ArrayList<>();
-        ResultSet rs = DB.executeQuery("SELECT * FROM DESIGNATION");
+        ResultSet rs = DB.executeQuery("SELECT * FROM DESIGNATION ORDER BY TYPE ");
         try {
             while (rs.next()) {
                 list.add(new Designation(rs.getInt("ID"), rs.getString("TYPE"), rs.getString("ADMIN_ID")));

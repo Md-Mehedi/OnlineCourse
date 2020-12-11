@@ -55,7 +55,7 @@ public class EducationalStatus {
 
     public static ArrayList<EducationalStatus> getList() {
         ArrayList<EducationalStatus> list = new ArrayList<>();
-        ResultSet rs = DB.executeQuery("SELECT * FROM EDUCATIONAL_STATUS");
+        ResultSet rs = DB.executeQuery("SELECT * FROM EDUCATIONAL_STATUS ORDER BY TYPE");
         try {
             while (rs.next()) {
                 list.add(new EducationalStatus(rs.getInt("ID"), rs.getString("TYPE"), rs.getString("ADMIN_ID")));

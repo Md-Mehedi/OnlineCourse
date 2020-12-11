@@ -185,7 +185,7 @@ public class Teacher extends Person {
     }
     public static ArrayList<Teacher> getTeacherList()
     {
-        String sql = "SELECT ID FROM TEACHER ";
+        String sql = "SELECT ID FROM TEACHER ORDER BY ID";
         ArrayList<Teacher> list = new ArrayList<Teacher>();
         ResultSet rs = DB.executeQuery(sql);
         try {

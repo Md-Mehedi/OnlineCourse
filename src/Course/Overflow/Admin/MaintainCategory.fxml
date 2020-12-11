@@ -22,14 +22,14 @@
       </VBox>
       <VBox layoutX="50.0" layoutY="120.0" prefHeight="356.0" prefWidth="449.0" style="-fx-spacing: 60;">
          <children>
-            <VBox>
+            <VBox prefHeight="79.0" prefWidth="321.0" style="-fx-spacing: 40;">
                <children>
                   <Label fx:id="countrylabel1" alignment="CENTER" prefHeight="38.0" prefWidth="169.0" styleClass="Header1" text="Category Section" textFill="WHITE">
                      <font>
                         <Font name="Bell MT Bold" size="20.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="Name" alignment="CENTER" labelFloat="true" opacity="0.45" prefHeight="31.0" prefWidth="219.0" promptText="Category / Sub CategoryName" />
+                  <JFXTextField fx:id="Name" alignment="CENTER" labelFloat="true" opacity="0.45" prefHeight="31.0" prefWidth="388.0" promptText="Category / Sub CategoryName" />
                </children>
             </VBox>
             <VBox>

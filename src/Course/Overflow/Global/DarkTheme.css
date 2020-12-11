@@ -215,11 +215,18 @@ JFXComboBox .jfx-text-field{
  *   Shammya
  */
 /*Admin Panel*/
+.tree-cell {
+    -fx-background-color: #445F67 ;
+    -fx-text-fill: white ;
+}
+.table-row-cell{
+-fx-border-color: #647F87;
+-fx-table-cell-border-color:#647F87;}
 .table-view:row-selection .table-row-cell:selected .table-cell {
-    -fx-background-color:   #EF7D3F;
+    -fx-background-color:   #445F67;
 }
 .table-view:row-selection .table-row-cell:hover .table-cell {
-    -fx-background-color:    #F4BD4D;
+    -fx-background-color:    #647F87;
 }
 .table-row-cell:selected{
     -fx-background-color: blue;
