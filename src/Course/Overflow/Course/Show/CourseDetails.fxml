@@ -18,7 +18,7 @@
 
 <AnchorPane id="CourseDetailsRoot" fx:id="root" prefWidth="600.0" styleClass="fullWidth" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Course.Show.CourseDetailsController">
    <children>
-      <VBox layoutX="36.0" layoutY="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="15.0">
+      <VBox fx:id="boxRoot" layoutX="36.0" layoutY="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="15.0">
          <children>
             <HBox id="TopHBox" prefWidth="1435.0" style="-fx-background-color: #303E47;" VBox.vgrow="ALWAYS">
                <children>
@@ -39,11 +39,20 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label fx:id="topInstName" style="-fx-font-weight: bold;" styleClass="link" text="Teacher name">
-                                 <graphic>
-                                    <Label text="Created by :" />
-                                 </graphic>
+                              <Label text="Created by :" />
+                              <Label fx:id="topInstName" style="-fx-font-weight: bold;" styleClass="link" text="Teacher name" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label fx:id="mainCatName" text="Main Category">
+                                 <styleClass>
+                                    <String fx:value="bold" />
+                                    <String fx:value="link" />
+                                 </styleClass>
                               </Label>
+                              <FontAwesomeIconView glyphName="ANGLE_DOUBLE_RIGHT" style="-fx-fill: white; -glyph-size: 25;" />
+                              <Label fx:id="subCatName" style="-fx-font-weight: bold;" styleClass="link" text="Sub Category" />
                            </children>
                         </HBox>
                         <HBox>

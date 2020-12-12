@@ -23,6 +23,24 @@ import javafx.scene.text.TextFlow;
 
 public class Notification {
 
+    public enum NotificationType {
+        REVIEW,
+        REGISTRATION,
+        FAQQUESTION,
+        FAQANSWER,
+        COURSEUPLOAD,
+        COURSEPURCHASE;
+    }
+
+    private Integer id;
+    private Integer courseId;
+    private String userId;
+    private String from_id;
+    private Date time;
+    private boolean seen;
+    private NotificationType type;
+    private AnchorPane pane;
+    
     private void makeRegistrationPane() {
         String s = "Md. Mehedi Hasan registered.";
         TextFlow container = new TextFlow();
@@ -110,6 +128,22 @@ public class Notification {
         });
     }
 
+    private void makeCoursePurchasePane() {
+        String s = "Md. Mehedi Hasan purchased courseName.";
+        TextFlow container = new TextFlow();
+        Text t1 = makeBoldText(new Person(from_id).getFullName());
+        Text t2 = new Text(" purchased ");
+        Text t3 = makeBoldText(new Course(courseId).getTitle());
+        container.getChildren().addAll(t1, t2, t3);
+        pane.getChildren().add(container);
+        pane.setOnMouseClicked((event) -> {
+            seenUpdate();
+            GLOBAL.PAGE_CTRL.loadPage(PageName.EnrolledStudents);
+//            CourseDetailsController ctrl = (CourseDetailsController) GLOBAL.PAGE_CTRL.getController();
+//            ctrl.loadData(new Course(courseId));
+        });
+    }
+
     private void makeReviewPane() {
         String s = "Md. Mehedi Hasan reviewed courseName.";
         TextFlow container = new TextFlow();
@@ -166,22 +200,6 @@ public class Notification {
         }
     }
 
-    public enum NotificationType {
-        REVIEW,
-        REGISTRATION,
-        FAQQUESTION,
-        FAQANSWER,
-        COURSEUPLOAD;
-    }
-
-    private Integer id;
-    private Integer courseId;
-    private String userId;
-    private String from_id;
-    private Date time;
-    private boolean seen;
-    private NotificationType type;
-    private AnchorPane pane;
 
     public static ArrayList<Notification> getList() {
                 String sql = "DECLARE "
@@ -218,6 +236,12 @@ public class Notification {
     public static void setFaqQuestion(Course course, String from_id) {
         String sql = "INSERT INTO NOTIFICATION (USER_ID,FROM_ID,TIME,SEEN,COURSE_ID,TYPE)"
                 + "VALUES('#','#',#,'F',#,'FAQQUESTION')";
+        DB.execute(sql, course.getTeacher().getUsername(), from_id, ToolKit.getCurTimeDB(), course.getId().toString());
+    }
+
+    public static void setCoursePurchase(Course course, String from_id) {
+        String sql = "INSERT INTO NOTIFICATION (USER_ID,FROM_ID,TIME,SEEN,COURSE_ID,TYPE)"
+                + "VALUES('#','#',#,'F',#,'COURSEPURCHASE')";
         DB.execute(sql, course.getTeacher().getUsername(), from_id, ToolKit.getCurTimeDB(), course.getId().toString());
     }
 
@@ -267,6 +291,9 @@ public class Notification {
                 break;
             case FAQANSWER:
                 makeFaqAnswerPane();
+                break;
+            case COURSEPURCHASE:
+                makeCoursePurchasePane();
                 break;
         }
         if(seen){

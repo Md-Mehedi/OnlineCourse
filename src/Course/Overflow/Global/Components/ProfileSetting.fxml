@@ -54,20 +54,20 @@
                               <JFXTextField fx:id="website" labelFloat="true" prefHeight="30.0" promptText="Website" />
                               <HBox>
                                  <children>
-                                    <JFXTextField editable="false" labelFloat="true" prefHeight="30.0" promptText="Facebook" text="http://www.facebook.com/" />
-                                    <JFXTextField fx:id="facebook" labelFloat="true" prefHeight="30.0" />
+                                    <JFXTextField editable="false" labelFloat="true" prefHeight="30.0" promptText="Facebook" style="-fx-pref-width: 220;" text="http://www.facebook.com/" HBox.hgrow="ALWAYS" />
+                                    <JFXTextField fx:id="facebook" labelFloat="true" prefHeight="30.0" style="-fx-pref-width: 340;" HBox.hgrow="NEVER" />
                                  </children>
                               </HBox>
                               <HBox>
                                  <children>
-                                    <JFXTextField editable="false" labelFloat="true" promptText="Youtube" text="http://www.youtube.com/" />
-                                    <JFXTextField fx:id="youtube" prefHeight="30.0" />
+                                    <JFXTextField editable="false" labelFloat="true" promptText="Youtube" style="-fx-pref-width: 220;" text="http://www.youtube.com/" HBox.hgrow="ALWAYS" />
+                                    <JFXTextField fx:id="youtube" prefHeight="30.0" style="-fx-pref-width: 340;" HBox.hgrow="NEVER" />
                                  </children>
                               </HBox>
                               <HBox>
                                  <children>
-                                    <JFXTextField editable="false" labelFloat="true" promptText="LinkedIn" text="http://www.linkedin.com/" />
-                                    <JFXTextField fx:id="linkedin" prefHeight="30.0" />
+                                    <JFXTextField editable="false" labelFloat="true" promptText="LinkedIn" style="-fx-pref-width: 220;" text="http://www.linkedin.com/" HBox.hgrow="ALWAYS" />
+                                    <JFXTextField fx:id="linkedin" prefHeight="30.0" style="-fx-pref-width: 340;" HBox.hgrow="NEVER" />
                                  </children>
                               </HBox>
                               <HBox>

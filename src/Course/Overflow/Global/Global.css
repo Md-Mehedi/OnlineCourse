@@ -27,6 +27,9 @@ CheckBox{
 .link:hover{
     -fx-underline: true;
 }
+.link:hover Label{
+    -fx-underline: true;
+}
 .scroll-pane .viewport, .scroll-pane {
     -fx-background-color: transparent;
 }
@@ -174,7 +177,7 @@ TextField{
     -fx-text-wrap: true;
     -fx-font-size: 18;
     -fx-max-width: 300;
-    -fx-background-color: #ccffff;
+    /*-fx-background-color: #ccffff;*/
     -fx-padding: 10;
     -fx-text-alignment: justify;
     -fx-opacity:1;
@@ -213,8 +216,8 @@ TextField{
 }
 .filterLabel{
     -fx-pref-height: 50;
-    -fx-background-color:#ccffff;
-    -fx-border-color: black;
+    /*-fx-background-color:#55, 48, 105;*/
+    /*-fx-border-color: black;*/
     -fx-alignment: center-left;
     -fx-padding: 0 10 0 10;
 }
@@ -225,7 +228,7 @@ TextField{
     -fx-padding: 0 5 0 0;
 }
 .subFilterContainer{
-    -fx-background-color:#99ffcc;
+    /*-fx-background-color:#99ffcc;*/
     -fx-padding: 10 10 10 10;
 }
 

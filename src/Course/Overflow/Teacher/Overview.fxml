@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -17,58 +17,52 @@
          <children>
             <GridPane id="overviewGrid" alignment="CENTER_LEFT" StackPane.alignment="CENTER">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="365.0" minWidth="10.0" prefWidth="351.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.0" minWidth="10.0" prefWidth="199.0" />
               </columnConstraints>
               <rowConstraints>
+                  <RowConstraints />
                 <RowConstraints vgrow="SOMETIMES" />
                   <RowConstraints vgrow="SOMETIMES" />
                   <RowConstraints vgrow="SOMETIMES" />
                 <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <VBox>
+                  <VBox style="-fx-alignment: center-right;" GridPane.rowIndex="2">
                      <children>
                         <Label text="Total revenue" />
                         <Label fx:id="revenueField" styleClass="value" text="\$18.79" />
                      </children>
                   </VBox>
-                  <Label fx:id="historyBtn" text="See the history" GridPane.columnIndex="1">
-                     <styleClass>
-                        <String fx:value="myButton" />
-                        <String fx:value="button" />
-                     </styleClass>
-                  </Label>
-                  <VBox GridPane.rowIndex="1">
+                  <VBox style="-fx-alignment: center-right;" GridPane.rowIndex="3">
                      <children>
                         <Label text="Total enrollments" />
                         <Label fx:id="enrollmentField" styleClass="value" text="35389" />
                      </children>
                   </VBox>
-                  <Label fx:id="enrollStudentBtn" text="See the students" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <styleClass>
-                        <String fx:value="myButton" />
-                        <String fx:value="button" />
-                     </styleClass>
-                  </Label>
-                  <VBox GridPane.rowIndex="2">
+                  <VBox style="-fx-alignment: center-right;" GridPane.rowIndex="4">
                      <children>
                         <Label text="Total reviews" />
                         <Label fx:id="reviewsField" styleClass="value" text="5935793" />
                      </children>
                   </VBox>
-                  <Label fx:id="reviewerBtn" text="See the reviews" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <styleClass>
-                        <String fx:value="myButton" />
-                        <String fx:value="button" />
-                     </styleClass>
-                  </Label>
-                  <VBox GridPane.rowIndex="3">
+                  <VBox style="-fx-alignment: center-right;" GridPane.rowIndex="5">
                      <children>
                         <Label text="Total rating" />
                         <Label fx:id="ratingField" styleClass="value" text="3.87" />
                      </children>
                   </VBox>
+                  <JFXButton fx:id="historyBtn" styleClass="blueBtn-m" text="See history" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <JFXButton fx:id="enrollStudentBtn" styleClass="blueBtn-m" text="See students" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <JFXButton fx:id="reviewerBtn" styleClass="blueBtn-m" text="See reviews" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <VBox style="-fx-alignment: center-right;" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Total Course" />
+                        <Label fx:id="courseNum" styleClass="value" text="10" />
+                     </children>
+                  </VBox>
+                  <JFXButton fx:id="courseBtn" styleClass="blueBtn-m" text="See courses" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <StackPane.margin>
                   <Insets />

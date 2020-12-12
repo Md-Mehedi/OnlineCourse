@@ -29,7 +29,7 @@ public class DB {
                 con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "COURSE_OVERFLOW", "co");
             }
             st = con.createStatement();
-            System.out.println("Connection established");
+//            System.out.println("Connection established");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -73,7 +73,7 @@ public class DB {
             st = con.createStatement();
             rs = st.executeQuery(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
             startConnection();
         }
         return rs;
@@ -91,10 +91,10 @@ public class DB {
         sql = sql.replace("&&&&&", "$");
         
         try {
-           System.out.println(sql);System.out.println("");
+//           System.out.println(sql);System.out.println("");
             return st.execute(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
             startConnection();
         }
         return false;
@@ -108,7 +108,7 @@ public class DB {
             rs.close();
             return IN;
         } catch (SQLException ex) {
-            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -126,7 +126,7 @@ public class DB {
             rs.close();
             return f;
         } catch (SQLException ex) {
-            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -138,7 +138,7 @@ public class DB {
             rs.close();
             return f;
         } catch (SQLException ex) {
-            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

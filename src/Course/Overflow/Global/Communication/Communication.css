@@ -17,11 +17,11 @@
     -fx-padding: 10;
 }
 .message1 Label{
-    -fx-background-color: #c7e4f6;
+    /*-fx-background-color: #c7e4f6;*/
     -fx-background-radius: 25 25 0 25;
 }
 .message2 Label{
-    -fx-background-color: #F6F8F6;
+    /*-fx-background-color: #F6F8F6;*/
     -fx-background-radius: 25 25 25 0;
 }
 
@@ -35,11 +35,8 @@
     -fx-padding: 10 10 10 10;
     -fx-spacing: 0;
 }
-.chatBox:hover{
-    -fx-background-color: #e3e3e3;
-}
-.selectedChatBox{
-    -fx-background-color: #e3e3e3;
+.selectedChatBox > HBox{
+/*    -fx-background-color: #e3e3e3;*/
     -fx-background-radius: 25;
 }
 .chatBox > HBox > VBox{

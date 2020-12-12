@@ -172,6 +172,7 @@ JFXComboBox .jfx-text-field{
     -jfx-default-color: black;
     -jfx-unfocus-color: black;
     -fx-prompt-text-fill: black;
+    -fx-fill: black;
 }
 #signupRoot .jfx-combo-box .arrow,
 #signupRoot .choice-box .arrow {
@@ -188,6 +189,21 @@ JFXComboBox .jfx-text-field{
     -fx-background-color: #0066cc;
 }
 /*Create Course Functionality*/
+.createCourseSlider #menuContainer{
+    -fx-background-color: #52143E;
+}    
+.createCourseSlider .leftMenuHovering{
+    -fx-background-color: #853C64;
+}
+.createCourseSlider #runningPane{
+    -fx-background-color: #EC5252;
+}
+.createCourseSlider .name, 
+.createCourseSlider .icon FontAwesomeIconView, 
+.createCourseSlider .icon SVGPath{
+    -fx-text-fill: white;
+    -fx-fill: white;
+}
 .addAnswerHbox Label{
     -fx-border-color: white;
 }
@@ -210,6 +226,97 @@ JFXComboBox .jfx-text-field{
 /*Course Box Horizontal*/
 #CourseBoxHorizontal{
     -fx-background-color: #224364;
+}
+/*Purchase History For Teacher*/
+.purchaseHistoryTeacher{
+    -fx-background-color: #224364;
+}
+
+/*Teacher Communication*/
+.teacherCommunication #menuContainer{
+    -fx-background-color: #082B69;
+}    
+.teacherCommunication .leftMenuHovering{
+    -fx-background-color: #183B79;
+}
+.teacherCommunication #runningPane{
+    -fx-background-color: red;
+}
+.teacherCommunication .name, 
+.teacherCommunication .icon FontAwesomeIconView, 
+.teacherCommunication .icon SVGPath{
+    -fx-text-fill: white;
+    -fx-fill: white;
+}
+/*Student Communication*/
+.studentCommunication #menuContainer{
+    -fx-background-color: #373069;
+}    
+.studentCommunication .leftMenuHovering{
+    -fx-background-color: #474079;
+}
+.studentCommunication #runningPane{
+    -fx-background-color: #E11820;
+}
+.studentCommunication .name, 
+.studentCommunication .icon FontAwesomeIconView, 
+.studentCommunication .icon SVGPath{
+    -fx-text-fill: white;
+    -fx-fill: white;
+}
+/*Course Little Box*/
+.courseLittleBox{
+    /*-fx-background-color: transparent;*/
+}
+.courseHBoxColor{
+    -fx-border-color: #F2F2F2;
+    -fx-border-radius: 30;
+    -fx-background-color: rgba(64, 64, 64, 0.2);
+    -fx-background-radius: 30;
+}
+/*Search Filter Page*/
+.filterLabel{
+    -fx-background-color: #373069;
+    -fx-border-color: #cccccc;
+}
+.subFilterContainer{
+    -fx-background-color: #575089;
+    -fx-border-color: #cccccc;
+}
+/*Messenger*/
+#chatHeadContainer{
+    -fx-border-color: white;
+    -fx-border-width: 0 4 0 0;
+}
+.chatBox > HBox:hover{
+    -fx-background-color: #312A5F;
+}
+.selectedChatBox > HBox{
+    -fx-background-color: #514a7f;
+}
+#messengerBackground{
+    -fx-background-color: rgba(64, 64, 64, 0.2);
+}
+#messengerBackground ImageView{
+    -fx-opacity: 0;
+}
+.message1 Label{
+    -fx-background-color: #7539BE;
+}
+.message1 Text{
+    -fx-fill: white;
+}
+.message2 Label{
+    -fx-background-color: #0090E1;
+}
+.message2 Text{
+    -fx-fill: white;
+}
+/*ToolTip*/
+.toolTipLabel, .toolTipTriangle{
+    -fx-background-color: #E7CFC8;
+    -fx-fill: #E7CFC8;
+    -fx-text-fill: black;
 }
 /*
  *   Shammya
@@ -295,10 +402,10 @@ JFXComboBox .jfx-text-field{
 .adminpanel .leftMenuHovering{
     -fx-background-color:  #647F87;
 }
-#runningPane{
+.adminpanel #runningPane{
     -fx-background-color: #EC5252;
 }
-.adminpanel .name, .adminpanel .icon FontAwesomeIconView, .icon SVGPath{
+.adminpanel .name, .adminpanel .icon FontAwesomeIconView, .adminpanel .icon SVGPath{
     -fx-text-fill: white;
     -fx-fill: white;
 }

@@ -47,6 +47,10 @@ public class CommunicationPage extends Page{
         slidingPaneCtrl.removeHeader();
         slidingPaneCtrl.removeFooter();
         slidingPaneCtrl.removeTitleBar();
+        slidingPaneCtrl.getRoot().getStyleClass().add(
+              GLOBAL.ACCOUNT_TYPE == Person.AccountType.Student ? 
+                "studentCommunication" : "teacherCommunication"
+        );
         root.getChildren().add(slidingPaneCtrl.getRoot());
         
         if(GLOBAL.ACCOUNT_TYPE == Person.AccountType.Teacher){
