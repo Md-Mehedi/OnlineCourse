@@ -28,6 +28,7 @@ public class ReviewPage{
     
     public ReviewPage(){
         container = new VBox();
+        container.setSpacing(30);
         root = new AnchorPane(container);
         ToolKit.setAnchor(container, 0, 0, 0, 0);
         

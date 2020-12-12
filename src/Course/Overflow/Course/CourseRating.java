@@ -67,7 +67,7 @@ public class CourseRating {
     public static Double getValue(Course course){
         ResultSet rs = DB.executeQuery("SELECT AVG(VALUE) AVG FROM RATING WHERE COURSE_ID = #", course.getId().toString());
         try {
-            rs.next();
+            if(!rs.next()) return 0.0;
             Double value = rs.getDouble("AVG");
             rs.close();
             return value;

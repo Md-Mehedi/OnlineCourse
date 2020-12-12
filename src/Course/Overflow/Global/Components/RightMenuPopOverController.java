@@ -9,6 +9,7 @@ import Course.Overflow.Global.Communication.MessagePage;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
+import Course.Overflow.Global.PersonPreviewController;
 import Course.Overflow.Global.ToolKit;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -59,7 +60,9 @@ public class RightMenuPopOverController implements Initializable {
         labelContainer.getChildren().clear();
         labelContainer.getChildren().add(setting);
         setting.setOnMouseClicked((event) -> {
-            GLOBAL.PAGE_CTRL.loadPage(PageName.ProfileSetting);
+            GLOBAL.PAGE_CTRL.loadPage(PageName.PersonDetails);
+            PersonPreviewController ctrl = (PersonPreviewController) GLOBAL.PAGE_CTRL.getController();
+            ctrl.loadData(ToolKit.getCurrentPerson());
         });
         if(GLOBAL.ACCOUNT_TYPE == Person.AccountType.Admin){
             addLabel("Dashboard", PageName.AdminPanel);
@@ -136,7 +139,7 @@ public class RightMenuPopOverController implements Initializable {
             imageCircle.setFill(new ImagePattern(image));
             imageLabel.setText("");
         } else {
-            imageLabel.setText(ToolKit.getCurrentPerson().getShortName());
+//            imageLabel.setText(ToolKit.getCurrentPerson().getShortName());
         }
     }
 }

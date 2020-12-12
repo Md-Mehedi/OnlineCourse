@@ -26,18 +26,19 @@ public class CourseBoxLittle extends AnchorPane{
         courseDetBoxContainer = new HBox();
         bottomContainer = new VBox();
         container = new VBox(courseDetBoxContainer, bottomContainer);
-        this.getChildren().add(container);
-        ToolKit.setAnchor(container, 0, 0, 0, 0);
+        AnchorPane temp = new AnchorPane();
+        temp.getStyleClass().add("courseHBoxColor");
+        temp.getStyleClass().add("shadow");
+        this.getChildren().addAll(temp, container);
+        ToolKit.setAnchor(temp, 0, 0, 0, 0);
+        ToolKit.setAnchor(container, 10, 10, 10, 10);
         
         this.getStylesheets().add(GLOBAL.GLOBAL_LOCATION + "/Global.css");
         this.getStylesheets().add(GLOBAL.COURSE_SHOW_LOCATION + "/CourseShow.css");
         this.getStyleClass().add("courseLittleBox");
-        courseDetBoxContainer.setOnMouseClicked(event ->{
-            GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
-            ((CourseDetailsController)GLOBAL.PAGE_CTRL.getController()).loadData(course);
-        });
+
         courseDetBoxContainer.getStyleClass().add("courseHBox");
-        courseDetBoxContainer.setStyle("-fx-cursor: hand;");
+//        courseDetBoxContainer.setStyle("-fx-cursor: hand;");
         bottomContainer.setStyle("-fx-spacing: 20;");
         container.setStyle("-fx-alignment: top-center;");
         
@@ -50,8 +51,20 @@ public class CourseBoxLittle extends AnchorPane{
         iv.setFitWidth(180);
         iv.setFitHeight(120);
         iv.setPreserveRatio(true);
+        iv.getStyleClass().add("link");
+        iv.setOnMouseClicked(event ->{
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
+            ((CourseDetailsController)GLOBAL.PAGE_CTRL.getController()).loadData(course);
+        });
+        
         Label courseName = new Label(course.getTitle());
         courseName.getStyleClass().add("title5");
+        courseName.getStyleClass().add("link");
+        courseName.setOnMouseClicked(event ->{
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
+            ((CourseDetailsController)GLOBAL.PAGE_CTRL.getController()).loadData(course);
+        });
+        
         Label instName = new Label(course.getTeacher().getFullName());
         instName.getStyleClass().add("instName");
         Label shortDesc = new Label(course.getSubTitle());

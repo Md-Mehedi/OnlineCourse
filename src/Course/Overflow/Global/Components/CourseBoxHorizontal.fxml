@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.Rating?>
 
-<AnchorPane id="CourseBoxHorizontal" fx:id="container" styleClass="cursorHand" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.CourseBoxHorizontalController">
+<AnchorPane id="CourseBoxHorizontal" fx:id="container" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Course.Overflow.Global.Components.CourseBoxHorizontalController">
    <stylesheets>
       <URL value="@../Global.css" />
       <URL value="@Components.css" />
@@ -49,4 +50,8 @@
          </children>
       </HBox>
    </children>
+   <styleClass>
+      <String fx:value="cursorHand" />
+      <String fx:value="shadow" />
+   </styleClass>
 </AnchorPane>

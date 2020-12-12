@@ -6,6 +6,9 @@
 
 package Course.Overflow.Global.Page;
 
+import Course.Overflow.Course.Show.CourseDetailsController;
+import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.PersonPreviewController;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Student.PurchaseHistory;
 import java.util.ArrayList;
@@ -72,7 +75,8 @@ public class PurchaseHistoryPage extends Page{
             grid.getRowConstraints().add(rc);
             
             Region rg = new Region();
-            rg.setStyle("-fx-background-color: #e5e5ea;");
+            rg.getStyleClass().add("purchaseHistoryTeacher");
+//            rg.setStyle("-fx-background-color: black;");
   
             Platform.runLater(()->{
                 rg.setPrefSize(1130, 90);
@@ -88,6 +92,12 @@ public class PurchaseHistoryPage extends Page{
         coursePhoto.setFitHeight(70);
         coursePhoto.setFitWidth(120);
         coursePhoto.setPreserveRatio(true);
+        coursePhoto.getStyleClass().add("link");
+        coursePhoto.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
+            CourseDetailsController ctrl = (CourseDetailsController) GLOBAL.PAGE_CTRL.getController();
+            ctrl.loadData(list.get(row).getCourse());
+        });
         
         Label courseName = new Label(list.get(row).getCourse().getTitle());
         courseName.setStyle(courseName.getStyle() + ""
@@ -95,11 +105,23 @@ public class PurchaseHistoryPage extends Page{
               + font
               + bold
               + "");
+        courseName.getStyleClass().add("link");
+        courseName.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(PageName.Course);
+            CourseDetailsController ctrl = (CourseDetailsController) GLOBAL.PAGE_CTRL.getController();
+            ctrl.loadData(list.get(row).getCourse());
+        });
         
         ImageView studentPhoto = new ImageView(ToolKit.makeImage(list.get(row).getStudent().getPhoto()));
         studentPhoto.setFitHeight(70);
         studentPhoto.setFitWidth(70);
         studentPhoto.setPreserveRatio(true);
+        studentPhoto.getStyleClass().add("link");
+        studentPhoto.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(PageName.PersonDetails);
+            PersonPreviewController ctrl = (PersonPreviewController) GLOBAL.PAGE_CTRL.getController();
+            ctrl.loadData(list.get(row).getStudent());
+        });
         
         Label studentFirstName = new Label(list.get(row).getStudent().getFirstName());
         Label studentLastName = new Label(list.get(row).getStudent().getLastName());
@@ -111,6 +133,12 @@ public class PurchaseHistoryPage extends Page{
               + bold
               + "");
         studentLastName.setStyle(studentFirstName.getStyle());
+        nameBox.getStyleClass().add("link");
+        nameBox.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(PageName.PersonDetails);
+            PersonPreviewController ctrl = (PersonPreviewController) GLOBAL.PAGE_CTRL.getController();
+            ctrl.loadData(list.get(row).getStudent());
+        });
         
         Label purchaseTime = new Label(ToolKit.makeDateStructured(list.get(row).getTime(), "hh:mm aa"));
         Label purchaseDate = new Label(ToolKit.makeDateStructured(list.get(row).getTime(), "dd MMMMM, yyyy"));

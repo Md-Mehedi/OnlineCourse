@@ -54,7 +54,7 @@
                   </VBox>
                   <VBox fx:id="courseContainer">
                      <children>
-                        <Label style="-fx-font-weight: bold;" text="My courses" />
+                        <Label fx:id="myCourseLabel" style="-fx-font-weight: bold;" text="My courses" />
                         <AnchorPane fx:id="gridContainer" />
                      </children>
                   </VBox>
@@ -63,7 +63,7 @@
             <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-alignment: top-left;">
                <children>
                   <ImageView fx:id="photo" fitHeight="295.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
-                  <JFXButton fx:id="sendMessageBtn" styleClass="myButton" text="Send a message">
+                  <JFXButton fx:id="sendMessageBtn" styleClass="greenBtn-m" text="Send a message">
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>

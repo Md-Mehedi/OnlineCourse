@@ -153,9 +153,10 @@ public class ToolKit {
                 triangleBase, 0.0,
                 triangleBase / 2, triangleHeight
         );
-        triangle.setStyle(""
-                + "-fx-fill: #ccffff;"
-        );
+        triangle.getStyleClass().add("toolTipTriangle");
+//        triangle.setStyle(""
+//                + "-fx-fill: #ccffff;"
+//        );
         AnchorPane triangleWrapper = new AnchorPane(triangle);
         VBox box = new VBox(content, triangleWrapper);
         contentContainer.getChildren().add(box);
@@ -171,7 +172,8 @@ public class ToolKit {
         effect.setRadius(tooltipOffset);
         effect.setSpread(0.0001);
         effect.setInput(inShadow);
-        contentContainer.setEffect(effect);
+//        contentContainer.setEffect(effect);
+        contentContainer.getStyleClass().add("shadow");
         contentContainer.setVisible(false);
         contentContainer.setDisable(true);
         return triangle;
@@ -557,7 +559,7 @@ public class ToolKit {
         parameters.setFill(Color.TRANSPARENT);
         WritableImage image = cl.snapshot(parameters, null);
         cl.setClip(null);
-        cl.setEffect(new DropShadow(15, Color.BLACK));
+        cl.getStyleClass().add("shadow");
         cl.setImage(image);
     }
 }

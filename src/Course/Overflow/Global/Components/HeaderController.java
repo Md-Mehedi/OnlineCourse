@@ -277,7 +277,7 @@ public class HeaderController implements Initializable {
         }
         else {
             if(!profile.getChildren().contains(profileName)) profile.getChildren().add(profileName);
-            profileName.setText(ToolKit.getCurrentPerson().getShortName());
+//            profileName.setText(ToolKit.getCurrentPerson().getShortName());
         }
     }
 

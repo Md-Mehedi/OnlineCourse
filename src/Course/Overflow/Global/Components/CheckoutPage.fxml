@@ -88,7 +88,7 @@
                   </AnchorPane>
                </children>
             </HBox>
-            <VBox id="checkoutBottomContainer" style="-fx-alignment: top-left; -fx-border-radius: 10;" styleClass="shadow">
+            <VBox id="checkoutBottomContainer" style="-fx-alignment: top-left; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="shadow">
                <children>
                   <Label styleClass="title3" text="Order details">
                      <VBox.margin>

@@ -7,6 +7,7 @@ package Course.Overflow.Global.Components;
 
 import Course.Overflow.Course.Course;
 import Course.Overflow.Course.Show.CourseDetailsController;
+import Course.Overflow.Global.Components.Notification.Notification;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Layout.FloatingPane;
 import Course.Overflow.Global.ToolKit;
@@ -84,6 +85,7 @@ public class CheckoutPageController extends FloatingPane implements Initializabl
         completeBtn.setOnMouseClicked((event) -> {
             if(!isPassedCondition()) return;
             GLOBAL.STUDENT.boughtCourse(course);
+            Notification.setCoursePurchase(course, GLOBAL.STUDENT.getUsername());
             cngCtrl.loadData(course);
             close();
             parent.removeBuyNowBtn();

@@ -57,6 +57,7 @@ public class CreateCourse extends Page {
             lsPane.removeHeader();
             lsPane.removeFooter();
             lsPane.removeTitleBar();
+            lsPane.getRoot().getStyleClass().add("createCourseSlider");
             
             loader = new FXMLLoader(getClass().getResource(GLOBAL.COURSE_TARGET_STUDENT_PAGE + "/TargetStudentPage.fxml"));
             targetStudentPane = loader.load();

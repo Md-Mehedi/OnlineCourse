@@ -39,13 +39,12 @@ Label{
 /*FAQ Main Box*/
 .courseLittleBox{
     /*-fx-pref-width: 800;*/
-    -fx-background-color:#ccffcc;
-    -fx-background-radius: 30;
+    /*-fx-background-color:#ccffcc;*/
     -fx-padding: 10;
 }
-.courseLittleBox:hover{
+/*.courseLittleBox:hover{
     -fx-background-color:#99ff99;
-}
+}*/
 .courseLittleBox VBox, .courseLittleBox HBox{
     -fx-spacing: 0;
     -fx-alignment: center-left;

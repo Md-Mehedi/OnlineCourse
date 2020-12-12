@@ -8,8 +8,11 @@ package Course.Overflow.Global.Communication;
 import Course.Overflow.Files.FileType;
 import Course.Overflow.Files.Files;
 import Course.Overflow.Global.GLOBAL;
+import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
+import Course.Overflow.Global.PersonPreviewController;
 import Course.Overflow.Global.ToolKit;
+import com.jfoenix.controls.JFXTextArea;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.File;
 import java.net.URL;
@@ -20,7 +23,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -47,7 +49,7 @@ public class MessengerController implements Initializable {
     @FXML
     private FontAwesomeIconView addImageBtn;
     @FXML
-    private TextArea inputField;
+    private JFXTextArea inputField;
     @FXML
     private FontAwesomeIconView sendBtn;
 
@@ -73,7 +75,8 @@ public class MessengerController implements Initializable {
 //        messageContainer.getChildren().clear();
         addListener();
         Platform.runLater(()->{
-            messageContainer.setPrefHeight(GLOBAL.HEIGHT - GLOBAL.HEADER.getRoot().getPrefHeight() - 10);
+            messageContainer.setPrefHeight(GLOBAL.HEIGHT - GLOBAL.HEADER.getRoot().getPrefHeight() - 110);
+            System.out.println(GLOBAL.HEIGHT - GLOBAL.HEADER.getRoot().getPrefHeight() - 110);
         });
     }    
     
@@ -166,6 +169,11 @@ public class MessengerController implements Initializable {
         this.sender = ToolKit.getCurrentPerson();
         this.receiver = person;
         teacherName.setText(person.getFullName());
+        teacherName.setOnMouseClicked((event) -> {
+            GLOBAL.PAGE_CTRL.loadPage(PageName.PersonDetails);
+            PersonPreviewController ctrl = (PersonPreviewController) GLOBAL.PAGE_CTRL.getController();
+            ctrl.loadData(person);
+        });
         messageContainer.getChildren().clear();
         userImage = ToolKit.makeImage(ToolKit.getCurrentPerson().getPhoto());
         opponentImage = ToolKit.makeImage(person.getPhoto());

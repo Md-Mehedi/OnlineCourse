@@ -11,6 +11,8 @@ import Course.Overflow.Global.Components.CheckoutPageController;
 import Course.Overflow.Global.Customize.Icon;
 import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Language;
+import Course.Overflow.Global.Layout.PageByPageLayoutController;
+import Course.Overflow.Global.Page.CourseListShowPage;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person.AccountType;
 import Course.Overflow.Global.PersonPreviewController;
@@ -28,10 +30,10 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -168,6 +170,12 @@ public class CourseDetailsController implements Initializable {
     private VBox reviewRootContainer;
     @FXML
     private VBox faqRootContainer;
+    @FXML
+    private VBox boxRoot;
+    @FXML
+    private Label mainCatName;
+    @FXML
+    private Label subCatName;
 
     /**
      * Initializes the controller class.
@@ -298,6 +306,18 @@ public class CourseDetailsController implements Initializable {
         title.setText(course.getTitle());
         subTitle.setText(course.getSubTitle());
         topInstName.setText(course.getTeacher().getFullName());
+        mainCatName.setText(course.getMainCategory().getName());
+        subCatName.setText(course.getSubCategory().getName());
+        mainCatName.setOnMouseClicked((event) -> {    
+            GLOBAL.PAGE_CTRL.loadPage(PageName.CategorySearchPage);
+            CourseListShowPage ctrl = (CourseListShowPage) GLOBAL.PAGE_CTRL.getPage();
+            ctrl.loadData(Course.getList(course.getMainCategory()), PageByPageLayoutController.BoxViewType.GridView, 4);
+        });
+        subCatName.setOnMouseClicked((event) -> {    
+            GLOBAL.PAGE_CTRL.loadPage(PageName.CategorySearchPage);
+            CourseListShowPage ctrl = (CourseListShowPage) GLOBAL.PAGE_CTRL.getPage();
+            ctrl.loadData(Course.getList(course.getSubCategory()), PageByPageLayoutController.BoxViewType.GridView, 4);
+        });
         publish.setText(ToolKit.makeDateStructured(course.getPublishDate(), "dd MMMMM, yyyy"));
         
         ArrayList<Language> language = course.getLanguages();
@@ -453,23 +473,26 @@ public class CourseDetailsController implements Initializable {
     public void makeOwnerFunctionalityOption(){
 //        Pane pane = (Pane) priceContainer.getParent();
 //        pane.getChildren().remove(priceContainer);
-        buyNowButton.setText("Update");
+        removeBuyNowBtn();
+        
+        JFXButton updateBtn = new JFXButton("Update");
+        updateBtn.getStyleClass().addAll("title1", "greenBtn-m");
+        
+        JFXButton duplicateBtn = new JFXButton("Duplicate");
+        duplicateBtn.getStyleClass().addAll("title1", "blueBtn-m");
         
         JFXButton deleteBtn = new JFXButton("Delete");
-        deleteBtn.getStyleClass().addAll("title1", "myButton");
-        deleteBtn.setStyle("-fx-background-color: red;");
-//        Region region = new Region();
-//        region.setMinWidth(15);
-//        HBox.setHgrow(region, Priority.ALWAYS);
-        JFXButton duplicateBtn = new JFXButton("Duplicate");
-        duplicateBtn.getStyleClass().addAll("title1", "myButton");
-        duplicateBtn.setStyle("-fx-background-color: cyan;");
+        deleteBtn.getStyleClass().addAll("title1", "redBtn-m");
+                
+        HBox box = new HBox(updateBtn, duplicateBtn, deleteBtn);
+        box.setStyle(""
+              + "-fx-spacing: 15;"
+              + "-fx-alignment: center;");
+        boxRoot.getChildren().add(1, box);
+        VBox.setMargin(box, new Insets(20));
+//        buyNowBtnContainer.setStyle("-fx-spacing: 15");
         
-        HBox box = new HBox(duplicateBtn, deleteBtn);
-        box.setSpacing(15);
-        buyNowBtnContainer.getChildren().addAll(box);
-        
-        buyNowButton.setOnMouseClicked((event) -> {
+        updateBtn.setOnMouseClicked((event) -> {
             GLOBAL.PAGE_CTRL.loadPage(PageName.CreateCourse);
             CreateCourse cc = (CreateCourse) GLOBAL.PAGE_CTRL.getPage();
             cc.createEnvironmentForCourseUpdate();
@@ -491,11 +514,11 @@ public class CourseDetailsController implements Initializable {
             cc.loadData(course);
         });
         
-        Platform.runLater(()->{
-            buyNowButton.setPrefWidth(buyNowButton.getPrefWidth());
-            deleteBtn.setPrefWidth(buyNowButton.getPrefWidth()/2 - box.getSpacing()/2);
-            duplicateBtn.setPrefWidth(buyNowButton.getPrefWidth()/2 - box.getSpacing()/2);
-        });
+//        Platform.runLater(()->{
+//            buyNowButton.setPrefWidth(buyNowButton.getPrefWidth());
+//            deleteBtn.setPrefWidth(buyNowButton.getPrefWidth()/2 - box.getSpacing()/2);
+//            duplicateBtn.setPrefWidth(buyNowButton.getPrefWidth()/2 - box.getSpacing()/2);
+//        });
     }
 
     private void defineViewerType() {

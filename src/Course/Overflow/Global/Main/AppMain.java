@@ -12,8 +12,10 @@ import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
 import Course.Overflow.Global.Person.AccountType;
 import Course.Overflow.Global.ToolKit;
+import Course.Overflow.Teacher.Teacher;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -41,7 +43,7 @@ public class AppMain extends Application {
         GLOBAL.WIDTH = 1460;
         GLOBAL.HEIGHT = 900;
 //        boolean ligthTheme = true;
-        GLOBAL.IS_LIGHT = false;
+        GLOBAL.IS_LIGHT = true;
         GLOBAL.rootPane = root;
         root.setPrefWidth(GLOBAL.WIDTH);
         root.setPrefHeight(GLOBAL.HEIGHT);
@@ -72,15 +74,14 @@ public class AppMain extends Application {
 
     private void mehediTestPage() throws IOException {
         PageController pageCtrl = null;
-        int testing = 1;
+        int testing = 0;
         if(testing == 1){
-            GLOBAL.ACCOUNT_TYPE = Person.AccountType.Admin;
-            GLOBAL.ADMIN = new Admin("shammya");
-            pageCtrl = new PageController(PageName.AdminPanel);
-//            Platform.runLater(()->{
-//            GLOBAL.PAGE_CTRL.loadPage(PageName.CreateCourse);
-//                
-//            });
+            GLOBAL.ACCOUNT_TYPE = Person.AccountType.Teacher;
+            GLOBAL.TEACHER = new Teacher("abrar");
+            pageCtrl = new PageController(PageName.Home);
+            Platform.runLater(()->{
+                GLOBAL.PAGE_CTRL.loadPage(PageName.Messenger);
+            });
         }
         else{
             pageCtrl = new PageController(PageName.Login);

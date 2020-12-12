@@ -8,6 +8,7 @@ import Course.Overflow.Global.Layout.PageByPageLayoutController;
 import Course.Overflow.Global.Layout.PageByPageLayoutController.BoxViewType;
 import Course.Overflow.Global.ToolKit;
 import Course.Overflow.Teacher.Teacher;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -24,7 +25,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
@@ -64,7 +64,7 @@ public class SearchResultPage extends Page {
     private VBox priceSubFilterContainer;
     private Map<String, ArrayList<String>> conditionLists;
     private BoxViewType boxType;
-    private ComboBox<String> orderByCB;
+    private JFXComboBox<String> orderByCB;
     
     private enum Sort{
          NEW_REALESED("New realesed", "ORDER BY PUBLISH_DATE DESC\n")
@@ -185,7 +185,7 @@ public class SearchResultPage extends Page {
     }
     
     private void readySortingChoiceBoxes(){
-        orderByCB = new ComboBox<>();
+        orderByCB = new JFXComboBox<>();
         ObservableList<String> orderByList = FXCollections.observableArrayList();
         for(Sort sort : Sort.values()){
             orderByList.add(sort.getText());

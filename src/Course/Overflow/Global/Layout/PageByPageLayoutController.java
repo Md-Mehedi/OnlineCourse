@@ -115,7 +115,7 @@ public class PageByPageLayoutController implements Initializable {
         currentPage = 0;
         vItemContainer = new VBox();
         column = 4;
-        offset = 20;
+        offset = 10;
         estimationDone = false;
 
         // if the item of the list is changed 
@@ -331,7 +331,7 @@ public class PageByPageLayoutController implements Initializable {
                     if (n < column) {
                         grid.setPrefWidth(n * width + (n - 1) * offset);
                     } else {
-                        grid.setPrefWidth(column * 250 + (column - 1) * offset);
+                        grid.setPrefWidth(column * 266 + (column - 1) * offset);
                     }
                 });
             }
@@ -356,7 +356,7 @@ public class PageByPageLayoutController implements Initializable {
         if(!estimationDone){
             estimationDone = true;
             Platform.runLater(()->{
-                Double width = 250.0;
+                Double width = 266.0;
                 if (type == BoxViewType.GridView) {
                     width = column*width + (column-1)*offset;
                 }

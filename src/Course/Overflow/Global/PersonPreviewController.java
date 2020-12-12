@@ -83,6 +83,8 @@ public class PersonPreviewController implements Initializable {
     private VBox courseContainer;
     @FXML
     private JFXButton sendMessageBtn;
+    @FXML
+    private Label myCourseLabel;
 
     /**
      * Initializes the controller class.
@@ -141,13 +143,21 @@ public class PersonPreviewController implements Initializable {
         description.setText(person.getAbout());
         
         if(person.getAccountType() == Person.AccountType.Teacher){
+            myCourseLabel.setText(person.getFullName() + "'s course");
             addTeacherProperties();
         }
         else if(person.getAccountType() == Person.AccountType.Student){
+            myCourseLabel.setText("Course bought by "+person.getFullName());
             addStudentProperties();
         }
         else if(person.getAccountType() == Person.AccountType.Admin){
+            myCourseLabel.setText("");
             addAdminProperties();
+        }
+        if(ToolKit.getCurrentPerson().getUsername().equals(person.getUsername())){
+            if(myCourseLabel != null){
+                myCourseLabel.setText("My course");
+            }
         }
         if(person.getUsername().equals(ToolKit.getCurrentPerson().getUsername())){
             ToolKit.removeNode(sendMessageBtn);
