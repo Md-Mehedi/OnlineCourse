@@ -25,13 +25,23 @@
                      <children>
                         <VBox styleClass="first">
                            <children>
-                              <JFXTextField fx:id="firstName" labelFloat="true" prefHeight="20.0" promptText="First Name" />
+                              <HBox>
+                                 <children>
+                                    <JFXTextField fx:id="firstName" labelFloat="true" prefHeight="27.0" prefWidth="359.0" promptText="First Name" />
+                                    <Label text="*" textFill="RED" />
+                                 </children>
+                              </HBox>
                               <JFXTextField fx:id="lastName" labelFloat="true" prefHeight="30.0" promptText="Last Name" />
                               <JFXTextField fx:id="language" labelFloat="true" prefHeight="30.0" promptText="Language" />
                               <JFXComboBox fx:id="countryCB" labelFloat="true" prefHeight="31.0" prefWidth="368.0" promptText="Country" />
                               <VBox>
                                  <children>
-                                    <Label text="Date of Birth" />
+                                    <HBox style="-fx-alignment: left;">
+                                       <children>
+                                          <Label text="Date of Birth" />
+                                          <Label text="*" textFill="RED" />
+                                       </children>
+                                    </HBox>
                                     <JFXDatePicker fx:id="dob" prefHeight="31.0" prefWidth="655.0" />
                                  </children>
                               </VBox>
@@ -60,7 +70,12 @@
                                     <JFXTextField fx:id="linkedin" prefHeight="30.0" />
                                  </children>
                               </HBox>
-                              <JFXTextArea fx:id="about" labelFloat="true" prefHeight="76.0" prefWidth="550.0" promptText="About" />
+                              <HBox>
+                                 <children>
+                                    <Label text="*" textFill="RED" />
+                                    <JFXTextArea fx:id="about" labelFloat="true" prefHeight="76.0" prefWidth="531.0" promptText="About" />
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>

@@ -10,7 +10,6 @@ import Course.Overflow.Global.GLOBAL;
 import Course.Overflow.Global.Page.PageController;
 import Course.Overflow.Global.Page.PageName;
 import Course.Overflow.Global.Person;
-import Course.Overflow.Global.Person.AccountType;
 import Course.Overflow.Global.ToolKit;
 import java.io.IOException;
 import javafx.application.Application;
@@ -54,13 +53,13 @@ public class AppMain extends Application {
             mehediTestPage();
             scene = new Scene(root, GLOBAL.WIDTH, GLOBAL.HEIGHT);
         } else {
-            mehediTestPage();
-//           shammyaTestPage();
+//            mehediTestPage();
+           shammyaTestPage();
             scene = new Scene(root);
         }
 
         GLOBAL.stage = primaryStage;
-
+ 
         primaryStage.setScene(scene);
         primaryStage.show();
         System.out.println("FXML is loaded...");
@@ -97,9 +96,9 @@ public class AppMain extends Application {
     }
 
     private void shammyaTestPage() throws IOException {
-        GLOBAL.ACCOUNT_TYPE = AccountType.Admin;
-        GLOBAL.ADMIN = new Admin("shammya");
-        PageController pageCtrl = new PageController(PageName.AdminPanel);
+//        GLOBAL.ACCOUNT_TYPE = AccountType.Admin;
+//        GLOBAL.ADMIN = new Admin("shammya");
+        PageController pageCtrl = new PageController(PageName.Login);
        // pageCtrl.loadFXML(GLOBAL.GLOBAL_LOCATION+"/MediaPlayer.fxml");
         GLOBAL.PAGE_CTRL = pageCtrl;
         pane = pageCtrl.getContainer();
